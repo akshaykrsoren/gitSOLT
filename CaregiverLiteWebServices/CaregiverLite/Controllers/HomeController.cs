@@ -17,6 +17,8 @@ namespace CaregiverLite.Controllers
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
+            string name = "ashaish";
+            string age = "323223";
             string sss = "askhay";
             return View();
         }
@@ -27,6 +29,10 @@ namespace CaregiverLite.Controllers
             string address = "USA";
 
             string city = "ghatshila";
+            string address = "delhi";
+
+
+            string age = "323223";
             return View();
         }
     }
