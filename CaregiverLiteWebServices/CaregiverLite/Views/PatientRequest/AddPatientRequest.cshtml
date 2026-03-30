@@ -1,0 +1,4160 @@
+﻿
+
+
+
+
+
+@model CaregiverLite.Models.SchedulePatientRequestModel
+
+@{
+    var OrganisationBasedHidden = ViewBag.OrganisationId;
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMUhh6TqZDoBhUNIg7ZLZhZOEzJgOTwKrUOnE" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+
+<style>
+    .customdropDown {
+        background-position-x: 96% !important;
+    }
+
+    .TypeofvisitIMG {
+        position: absolute;
+        right: 13px;
+        top: 34px;
+        z-index: 1010;
+    }
+
+    #main_div .form-group .form-control {
+        margin-top: 5px;
+    }
+
+    #main_div .form-control {
+        border-radius: 5px;
+    }
+
+
+    .clsDatePicker {
+        z-index: 100000;
+    }
+
+    #ui-datepicker-div {
+        z-index: 1003;
+    }
+
+    .field-validation-error {
+        color: red;
+        float: right;
+    }
+
+    .table td {
+        text-align: center;
+    }
+
+    #OfficeAddress {
+        width: 269px;
+        height: 80px;
+        background-color: #eee;
+        padding: 6px;
+        text-align: justify;
+    }
+
+    .custom-search-group {
+        display: flex;
+        align-items: center;
+        position: relative;
+        margin-top: 24px;
+        margin-bottom: 12px;
+    }
+
+    /* Custom button for dropdown toggle */
+    .custom-dropdown-toggle {
+        padding: 8px 12px;
+        border: 1px solid #ccc;
+        border-right: none;
+        background-color: #fff;
+        cursor: pointer;
+        border-radius: 5px 0 0 5px;
+    }
+
+    /* Custom dropdown menu styling */
+    .custom-dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        margin-top: 4px;
+        border: 1px solid #ddd;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        display: none; /* Hide by default */
+        background-color: #fff;
+        z-index: 10;
+        width: 100%; /* Make the dropdown width match the button */
+    }
+
+    /* Custom dropdown items styling */
+    .custom-dropdown-item {
+        padding: 8px 12px;
+        cursor: pointer;
+        display: block; /* Ensures each item is on a new line */
+    }
+
+        /* Hover effect for dropdown items */
+        .custom-dropdown-item:hover {
+            background-color: #f0f0f0;
+        }
+
+    /* Custom input styling */
+    .custom-form-control {
+        border: 1px solid #ccc;
+        padding: 8px;
+        flex-grow: 1;
+        border-radius: 5px;
+    }
+
+
+    /* Custom button styling for the search button */
+    .custom-btn-search {
+        padding: 8px 12px;
+        background-color: #007bff;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+    }
+
+        /* Custom icon styling */
+        .custom-btn-search i {
+            font-size: 16px;
+        }
+
+    .dropdown-arrow {
+        margin-left: 8px;
+        font-size: 12px;
+        transition: transform 0.3s ease;
+    }
+
+
+    .dropdown-item {
+        cursor: pointer;
+        padding: 8px 0px 0px 12px;
+    }
+
+    .dropdown-menu {
+        display: none; /* Hide by default */
+    }
+
+        .dropdown-menu.show {
+            display: block !important;
+            border: 1px solid #fffbfb;
+            width: 328px;
+            padding-bottom: 8px;
+        }
+
+    .SearchImage {
+        position: absolute;
+        right: 8px;
+        top: 52%;
+        transform: translateY(-52%);
+        cursor: pointer;
+    }
+
+
+    .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+        cursor: not-allowed;
+        background-color: white;
+        opacity: 1;
+    }
+
+    .chosen-container-single .chosen-single {
+        position: relative;
+        display: block;
+        overflow: hidden;
+        padding: 0 0 0 8px;
+        height: 23px;
+        border: 1px solid #aaa;
+        border-radius: 5px;
+        background-color: #fff;
+        background: -webkit-gradient(linear,50% 0,50% 100%,color-stop(20%,#fff),color-stop(50%,#fff),color-stop(52%,#fff),color-stop(100%,#fff));
+        background: -webkit-linear-gradient(top,#fff 20%,#fff 50%,#fff 52%,#fff 100%);
+        background: -moz-linear-gradient(top,#fff 20%,#fff 50%,#fff 52%,#fff 100%);
+        background: -o-linear-gradient(top,#fff 20%,#fff 50%,#fff 52%,#fff 100%);
+        background: linear-gradient(top,#fff 20%,#fff 50%,#fff 52%,#fff 100%);
+        background-clip: padding-box;
+        box-shadow: 0 0 3px #fff inset,0 1px 1px rgba(0,0,0,.1);
+        color: #444;
+        text-decoration: none;
+        white-space: nowrap;
+        line-height: 24px;
+    }
+
+    .chosen-single div {
+        display: none !important;
+    }
+
+    .chosen-single span {
+        font-size: 13px;
+    }
+
+    .dropdown-container {
+        position: relative;
+    }
+
+    .dropdown-list {
+        position: absolute;
+        width: 100%;
+        max-height: 200px;
+        overflow-y: auto;
+        background: white;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        display: none;
+        z-index: 1020;
+    }
+
+        .dropdown-list div {
+            padding: 8px;
+            cursor: pointer;
+        }
+
+            .dropdown-list div:hover {
+                background: #f1f1f1;
+            }
+
+    #editableFromTimeDropdown, #editableToTimeDropdown {
+        background: url(https://scheduler.paseva.com/Content/image/dropdownArrow.png);
+        background-repeat: no-repeat;
+        background-position: right 15px center;
+        cursor: pointer;
+    }
+
+    .customcotrolrnd {
+        margin-top: 4px;
+        border-radius: 5px;
+    }
+
+    /*Add style for showing the popup start*/
+    
+ 
+    .myModalPopup {
+
+      display: none;
+
+      position: fixed;
+
+      z-index: 999;
+
+      left: 0;
+
+      top: 0;
+
+      width: 100%;
+
+      height: 100%;
+
+      background-color: rgba(0, 0, 0, 0.4);
+
+    }
+ 
+    .modal-contentadd {
+
+      background-color: #fff;
+
+      margin: 15% auto;
+
+      padding: 10px;
+
+      width: 350px;
+
+      border-radius: 10px;
+
+      text-align: center;
+
+      position: relative;
+      margin-top:30%;
+
+    }
+ 
+    .close-btn {
+
+      top: 8px;
+
+      right: 10px;
+
+      font-weight: bold;
+
+      cursor: pointer;
+
+    } 
+
+    #addMessageBtn {
+
+      padding: 8px 16px;
+
+      background-color: #3961d0b5;
+
+      color: white;
+
+      border: none;
+
+      border-radius: 5px;
+
+      cursor: pointer;
+
+    }
+
+    .info-table {
+
+  width: 100%;
+
+  margin: 15px 0;
+
+  border-collapse: collapse;
+
+  font-size: 14px;
+
+}
+
+.info-table td {
+
+  padding: 8px 10px;
+
+  text-align: left;
+
+  border-bottom: 1px solid #ddd;
+
+}
+
+.info-table td:first-child {
+
+  font-weight: 600;
+
+  color: #333;
+
+  width: 50%;
+
+}
+    /*End Popup*/
+</style>
+@{
+    List<SelectListItem> times = new List<SelectListItem>()
+{
+        new SelectListItem() { Text="12:00 AM", Value="23:59:59"},
+        new SelectListItem() { Text="01:00 AM", Value="01:00:00"},
+        new SelectListItem() { Text="02:00 AM", Value="02:00:00"},
+        new SelectListItem() { Text="03:00 AM", Value="03:00:00"},
+        new SelectListItem() { Text="04:00 AM", Value="04:00:00"},
+        new SelectListItem() { Text="05:00 AM", Value="05:00:00"},
+        new SelectListItem() { Text="06:00 AM", Value="06:00:00"},
+        new SelectListItem() { Text="07:00 AM", Value="07:00:00"},
+        new SelectListItem() { Text="08:00 AM", Value="08:00:00"},
+        new SelectListItem() { Text="09:00 AM", Value="09:00:00"},
+        new SelectListItem() { Text="10:00 AM", Value="10:00:00"},
+        new SelectListItem() { Text="11:00 AM", Value="11:00:00"},
+        new SelectListItem() { Text="12:00 PM", Value="12:00:00"},
+        new SelectListItem() { Text="01:00 PM", Value="13:00:00"},
+        new SelectListItem() { Text="02:00 PM", Value="14:00:00"},
+        new SelectListItem() { Text="03:00 PM", Value="15:00:00"},
+        new SelectListItem() { Text="04:00 PM", Value="16:00:00"},
+        new SelectListItem() { Text="05:00 PM", Value="17:00:00"},
+        new SelectListItem() { Text="06:00 PM", Value="18:00:00"},
+        new SelectListItem() { Text="07:00 PM", Value="19:00:00"},
+        new SelectListItem() { Text="08:00 PM", Value="20:00:00"},
+        new SelectListItem() { Text="09:00 PM", Value="21:00:00"},
+        new SelectListItem() { Text="10:00 PM", Value="22:00:00"},
+        new SelectListItem() { Text="11:00 PM", Value="23:00:00"}
+    };
+}
+
+<script language="javascript" type="text/javascript">
+    $("#Date").datepicker("destroy").datepicker({
+        dateFormat: 'mm/dd/yy',
+        minDate: -30,  // 29 days before today (last 30 days including today)
+        maxDate: +365,     // today
+        onSelect: function () {
+            $(this).change();
+        }
+    });
+    var abbr = "";
+    var CaregiverListArray=[];
+    var defaultTotimeHour='';
+    var defaultTotimeMinutes='';
+
+    var defaultFromtimeHour='';
+    var defaultFromtimeMinutes='';
+
+    function GetToTimes() {
+        $('#drpToTime').showHideDropdownOptions(25, true);
+        var id = $('#drpFromTime').children(":selected").attr("id");
+        $('#drpToTime').prop('selectedIndex', 0);
+        $('#drpToTime').showHideDropdownOptions(id, false);
+    }
+
+    $.fn.showHideDropdownOptions = function (value, canShowOption) {
+        for (j = value; j >= 1; j--) {
+            if (canShowOption) {
+                $('#drpToTime').find('option[id="' + j + '"]').attr('disabled', false);
+                $('#drpToTime').find('option[id="' + j + '"]').show();
+            }
+            else {
+                $('#drpToTime').find('option[id="' + j + '"]').hide();
+                $('#drpToTime').find('option[id="' + j + '"]').attr('disabled', 'disabled');
+            }
+        }
+    }
+</script>
+
+@using (Html.BeginForm("AddPatientRequestInfo", "PatientRequest", FormMethod.Post, new { @id = "fmAddPatientRequest", @class = "horizontal-form", @enctype = "multipart/form-data" }))
+{
+    <div id="main_div">
+
+        @Html.HiddenFor(model => model.Latitude)
+        @Html.HiddenFor(model => model.Longitude)
+        @Html.HiddenFor(model => model.IsRequiredDriving)
+        @Html.HiddenFor(model => model.MedicalId)
+
+        @Html.HiddenFor(model => model.Address, new { @id = "hdnAddress" })
+        <div class="alert alert-danger alert-dismissable" style="display:none" id="dvError3">
+            <button onclick="divClose();" class="close" type="button">×</button>
+            <label id="lblError3"></label>
+        </div>
+        <div class="col-md-6">
+            @*Medical Id*@
+
+
+            <div class="custom-search-group">
+
+                <label></label>
+                <!-- Dropdown toggle button -->
+                <button class="custom-dropdown-toggle" type="button" onclick="toggleDropdown()" id="filterDropdownButton">
+                    Patient ID
+
+                    <svg style="margin-left: 6px;" xmlns="http://www.w3.org/2000/svg" width="11" height="6" viewBox="0 0 11 6" fill="none">
+                        <path d="M1 1L5.4 5L9.8 1" stroke="#515151" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </button>
+
+                <!-- Dropdown menu -->
+                <div class="custom-dropdown-menu" id="filterDropdown">
+                    <a class="custom-dropdown-item" href="#" onclick="selectFilter('PatientID','Patient ID')">Patient ID</a>
+                    <a class="custom-dropdown-item" href="#" onclick="selectFilter('PatientName','Patient Name')">Patient Name</a>
+                    <a class="custom-dropdown-item" href="#" onclick="selectFilter('PatientDOB','Patient DOB')">Patient DOB</a>
+                </div>
+
+                <!-- Input field for search -->
+                @*<input type="text" id="searchInput" class="custom-form-control" placeholder="Enter Patient ID">*@
+                <input type="text" id="searchBox" class="custom-form-control" placeholder="Enter Patient ID" style="border-radius: 0px 5px 5px 0px">
+
+                <ul class="dropdown-menu" id="suggestionsList">
+                    <!-- Suggestions will be appended here -->
+                </ul>
+
+
+                <img id="searchButton" src="https://scheduler.paseva.com/Content/image/SearchIcon.png" class="search-icon SearchImage" alt="Search Icon">
+
+            </div>
+            @*<div>
+                    <div class="container mt-4">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="searchBox" placeholder="Search Amazon.in">
+                            <button class="btn btn-outline-secondary" id="searchButton" type="button">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+                        <ul class="dropdown-menu" id="suggestionsList">
+
+                        </ul>
+                    </div>
+                </div>*@
+
+
+            @*<div class="form-group">
+                    @if (OrganisationBasedHidden != null && (int)OrganisationBasedHidden > 0)
+                    {
+                        <label>PatientId</label>
+                        <span style="color:red;">*</span>
+                        @Html.TextBoxFor(model => model.MedicalId, new
+                   {
+                       @type = "text",
+                       @maxlength = "25",
+                       @placeholder = "Enter Patient ID", // Placeholder when OrganisationId > 0
+                       @class = "form-control",
+                       @tabindex = "1",
+                       @onblur = "javascript:GetPatientRequestDetailByMedicalID(this.value)"
+                   }) }
+                    else
+                    {
+                        <label>@CaregiverLite.Views.Resources.PatientRequest.TableHeaderMedicalId</label>
+                        <span style="color:red;">*</span>
+                        @Html.TextBoxFor(model => model.MedicalId, new
+                   {
+                       @type = "text",
+                       @maxlength = "25",
+                       @placeholder = @CaregiverLite.Views.Resources.PatientRequest.PlaceHolderMedicalId, // Placeholder for the else case
+                       @class = "form-control",
+                       @tabindex = "1",
+                       @onblur = "javascript:GetPatientRequestDetailByMedicalID(this.value)"
+                   })}
+
+                    @Html.ValidationMessageFor(model => model.MedicalId)
+                </div>*@
+
+            @*Patient Name*@
+            <div class="form-group">
+                <label>@CaregiverLite.Views.Resources.PatientRequest.TableHeaderPatientName</label>
+                <span style="color:red;">*</span>
+                @*@Html.ValidationMessageFor(model => model.PatientName)*@
+                @Html.TextBoxFor(model => model.PatientName, new { @type = "text", @maxlength = "100", @placeholder = @CaregiverLite.Views.Resources.PatientRequest.PlaceHolderPatientName, @class = "form-control", @tabindex = "2", @readonly = "readonly" })
+            </div>
+            @*Address*@
+            <div class="form-group">
+                <label>@CaregiverLite.Views.Resources.PatientRequest.TableHeaderStreet</label>
+                <span style="color:red;">*</span>
+                @*@Html.ValidationMessageFor(model => model.Street)*@
+                @Html.TextBoxFor(model => model.Street, new { @type = "text", @placeholder = @CaregiverLite.Views.Resources.PatientRequest.PlaceHolderStreet, @class = "form-control", @onchange = "javascript:GetTime(this.value);", @tabindex = "3", @readonly = "readonly" })
+            </div>
+            <div class="form-group">
+                <label>@CaregiverLite.Views.Resources.PatientRequest.TableHeaderCity</label>
+                <span style="color:red;">*</span>
+                @*@Html.ValidationMessageFor(model => model.City)*@
+                @Html.TextBoxFor(model => model.City, new { @type = "text", @placeholder = @CaregiverLite.Views.Resources.PatientRequest.PlaceHolderCity, @class = "form-control", @onchange = "javascript:GetTime(this.value);", @tabindex = "4", @readonly = "readonly" })
+            </div>
+            <div class="form-group">
+                <label>@CaregiverLite.Views.Resources.PatientRequest.TableHeaderState</label>
+                <span style="color:red;">*</span>
+                @*@Html.ValidationMessageFor(model => model.State)*@
+                @Html.TextBoxFor(model => model.State, new { @type = "text", @placeholder = @CaregiverLite.Views.Resources.PatientRequest.PlaceHolderState, @class = "form-control", @onchange = "javascript:GetTime(this.value);", @tabindex = "5", @readonly = "readonly" })
+            </div>
+            @*Zipcode*@
+            <div class="form-group">
+                <label>@CaregiverLite.Views.Resources.PatientRequest.TableHeaderZipCode</label>
+                <span style="color:red;">*</span>
+                @*@Html.ValidationMessageFor(model => model.ZipCode)*@
+                @Html.TextBoxFor(model => model.ZipCode, new { @type = "text", @maxlength = "10", @placeholder = @CaregiverLite.Views.Resources.PatientRequest.PlaceHolderZipCode, @class = "form-control", @onchange = "javascript:GetTime(this.value);", @tabindex = "6", @readonly = "readonly" })
+            </div>
+
+            <div class="form-group">
+                <label>Payer ID</label>
+                @*<span style="color:red;">*</span>*@
+                @Html.ValidationMessageFor(model => model.PayerId)
+                @*@Html.TextBoxFor(model => model.Date, new { @type = "text", @placeholder = @CaregiverLite.Views.Resources.PatientRequest.PlaceHolderDate, @class = "form-control" })*@
+                @Html.TextBoxFor(model => model.PayerId, new { @type = "text", @maxlength = "100", @placeholder = "PayerId", @class = "form-control", @tabindex = "9", @readonly = "readonly", @disabled = "true" })
+            </div>
+            <div class="form-group">
+                <label>Payer Program</label>
+                @*<span style="color:red;">*</span>*@
+                @Html.ValidationMessageFor(model => model.PayerProgram)
+                @*@Html.TextBoxFor(model => model.Date, new { @type = "text", @placeholder = @CaregiverLite.Views.Resources.PatientRequest.PlaceHolderDate, @class = "form-control" })*@
+                @Html.TextBoxFor(model => model.PayerProgram, new { @type = "text", @maxlength = "100", @placeholder = "PayerProgram", @class = "form-control", @tabindex = "10", @readonly = "readonly", @disabled = "true" })
+            </div>
+
+            @*Description*@
+            <div class="form-group">
+                <label>@CaregiverLite.Views.Resources.PatientRequest.TableHeaderDescription</label>
+                @*@Html.ValidationMessageFor(model => model.Description)*@
+                @Html.TextAreaFor(model => model.Description, new { @type = "text", @placeholder = @CaregiverLite.Views.Resources.PatientRequest.PlaceHolderDescription, @class = "form-control", @tabindex = "7" })
+            </div>
+        </div>
+        <div class="col-md-6">
+            @*Date*@
+            <div class="form-group">
+                <label>@CaregiverLite.Views.Resources.PatientRequest.TableHeaderDate</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.Date)
+                @*@Html.TextBoxFor(model => model.Date, new { @type = "text", @placeholder = @CaregiverLite.Views.Resources.PatientRequest.PlaceHolderDate, @class = "form-control" })*@
+                @Html.TextBoxFor(model => model.Date, new { @id = "Date", @class = "form-control clsDatePicker", @data_toggle = "dropdown", @placeholder = "MM-DD-YYYY", onkeydown = "return false", autocomplete = "off", @tabindex = "8", @onchange = "javascript:GetTime(this.value);" })
+
+            </div>
+
+            @Html.HiddenFor(model => model.FromTime, new { @id = "FromTime" })
+            @Html.HiddenFor(model => model.ToTime, new { @id = "ToTime" })
+            <div class="form-group" style="position:relative">
+                <label for="editableFromTimeDropdownLabel" class="form-label">From Time</label>
+                <div class="dropdown-container">
+                    <input type="text" id="editableFromTimeDropdown" class="form-control" placeholder="HH:MM" autocomplete="off">
+                    <input type="hidden" id="hiddenFromTime">  <!-- Hidden field to store 24-hour format -->
+                    <div class="dropdown-list" id="dropdownFromTimeOptions"></div> <!-- Empty, will be filled dynamically -->
+                </div>
+            </div>
+
+            <div class="form-group" style="position:relative">
+                <label for="editableToTimeDropdownLable" class="form-label">To Time</label>
+                <div class="dropdown-container">
+                    <input type="text" id="editableToTimeDropdown" class="form-control" placeholder="HH:MM" autocomplete="off">
+                    <input type="hidden" id="hiddenToTime">  <!-- Hidden field to store 24-hour format -->
+                    <div class="dropdown-list" id="dropdownToTimeOptions"></div> <!-- Empty, will be filled dynamically -->
+                </div>
+            </div>
+
+            @*<div class="form-group">
+                    <label>@CaregiverLite.Views.Resources.PatientRequest.LabelFromTime</label>
+                    <span style="color:red;">*</span>
+                    @Html.HiddenFor(model => model.FromTime)
+                    @Html.HiddenFor(model => model.ToTime)
+                    <select class="form-control customdropDown" id="drpFromTime" name="drpFromTime" placeholder="From Time" onchange="GetToTimes()" tabindex="9">
+                        <option value="0">-Select-</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>@CaregiverLite.Views.Resources.PatientRequest.LabelToTime</label>
+                    <span style="color:red;">*</span>
+                    <select class="form-control customdropDown" id="drpToTime" name="drpToTime" placeholder="To Time" tabindex="10">
+                        <option value="0">-Select-</option>
+
+                    </select>
+                </div>*@
+            @*Speciality*@
+            <div class="form-group" style="position:relative">
+                <label style="margin-bottom: 5px;">@CaregiverLite.Views.Resources.PatientRequest.LabelSpeciality</label>
+                <img class="TypeofvisitIMG" src="https://scheduler.paseva.com/Content/image/dropdownArrow.png">
+                @Html.DropDownList("ddlService", new MultiSelectList(@ViewBag.ServiceList, "ServiceId", "ServiceName"), new { @multiple = "multiple", @class = "chosen-select", @tabindex = "11" })
+                @Html.HiddenFor(model => model.ServiceNames, new { @id = "hdnServices" })
+            </div>
+
+            <div class="form-group" style="position:relative">
+                <label style="margin-bottom: 5px;">Type of visit</label>
+                <span style="color:red;">*</span>
+                <img class="TypeofvisitIMG" src="https://scheduler.paseva.com/Content/image/dropdownArrow.png">
+                @Html.DropDownList("ddlVisitTypeList", new SelectList(@ViewBag.VisitTypeList, "VisitTypeId", "VisitTypeName"), "Select Some Options", new { @class = "chosen-select", @tabindex = "12" })
+                @Html.HiddenFor(model => model.VisitTypeNames, new { @id = "hdnVisitTypeList" })
+            </div>
+
+            @*<div class="form-group">
+                    <label>@CaregiverLite.Views.Resources.PatientRequest.TableHeaderStatus</label>
+                    @Html.ValidationMessageFor(model => model.Status)
+                    @Html.TextBoxFor(model => model.Status, new { @type = "text", @maxlength = "10", @placeholder = @CaregiverLite.Views.Resources.PatientRequest.PlaceHolderStatus, @class = "form-control" })
+                </div>*@
+            @*Office*@
+            @*<div class="form-group">
+                    <label>@CaregiverLite.Views.Resources.PatientRequest.LabelOffice</label>
+                    @Html.DropDownList("ddlOffice", new MultiSelectList(@ViewBag.OfficeList, "OfficeId", "OfficeName"), new { @multiple = "multiple", @class = "chosen-select ",@tabindex = "6" })
+                    @Html.HiddenFor(model => model.ServiceNames, new { @id = "hdnOffice" })
+                </div>*@
+
+
+            <div class="form-group">
+                <label>Office Name</label>
+                <span style="color:red;">*</span>
+                @*@Html.DropDownList("ddlOffice", (System.Web.Mvc.SelectList)ViewBag.lstOffice, new { @class = "form-control" })*@
+
+                @*@Html.ValidationMessageFor(model => model.Office)*@
+                @Html.TextBoxFor(model => model.OfficeName, new { @type = "text", @placeholder = "Office", @class = "form-control", @tabindex = "12", @readonly = "readonly" })
+                @Html.HiddenFor(model => model.Office)
+            </div>
+
+            <div class="form-group">
+                <label>Procedure Code</label>
+                @*<span style="color:red;">*</span>*@
+                <select class="form-control customdropDown" id="ProcedureCode" name="ProcedureCode" placeholder="ProcedureCode" tabindex="13">
+                    <option value="0">-Select-</option>
+                </select>
+                @Html.HiddenFor(model => model.ProcedureCodes, new { @id = "ProcedureCodes" })
+            </div>
+
+            <div class="form-group">
+                <label>Jurisdiction Code</label>
+                @*<span style="color:red;">*</span>*@
+                @Html.ValidationMessageFor(model => model.JurisdictionCode)
+                @*@Html.TextBoxFor(model => model.Date, new { @type = "text", @placeholder = @CaregiverLite.Views.Resources.PatientRequest.PlaceHolderDate, @class = "form-control" })*@
+                @Html.TextBoxFor(model => model.JurisdictionCode, new { @type = "text", @maxlength = "100", @placeholder = "JurisdictionCode", @class = "form-control", @tabindex = "10", @readonly = "readonly", @disabled = "true" })
+            </div>
+            <div class="form-group" style="background-color: #f3f3f3;padding: 10px;font-weight:bold">
+                @*<span>Appointment Required Driving?</span>*@
+                <span>Track Milage?</span>
+                <div class="toggle-container">
+                    <span id="toggleText">No</span>
+                    <label class="switch">
+                        <input type="checkbox" id="toggleSwitch">
+                        @*@Html.CheckBoxFor(model => model.IsRequiredDriving, new { @id = "toggleSwitch" } )*@
+
+                        <span class="slider"></span>
+                    </label>
+                    <span id="toggleText">Yes</span>
+                </div>
+            </div>
+
+            @*<div class="form-group">
+                    <label>Office Address</label>
+                   <div id="OfficeAddress"></div>
+                </div>*@
+
+
+
+
+
+            <div>
+                @Html.HiddenFor(model => model.TimezoneOffset, new { @id = "hdnTimezoneOffset" })
+                @Html.HiddenFor(model => model.TimezoneId, new { @id = "hdntimeZoneId" })
+                @Html.HiddenFor(model => model.TimezonePostfix, new { @id = "hdnTimezonePostfix" })
+                @Html.HiddenFor(model => model.Caregiver, new { @id = "Caregiver" })
+            </div>
+        </div>
+
+        <div class="col-md-12">
+
+            <label class="m-r-md">Repeat Appointment</label>
+
+            @Html.CheckBoxFor(model => model.IsRepeat, false)
+
+            <div class="clearfix"></div>
+        </div>
+
+
+        <div class="col-md-12" id="dvdatepicker">
+
+            <div class="col-md-6 m-t-md">
+                <label>Repeat at every</label>
+                @Html.TextBoxFor(model => model.RepeatEvery, new { @type = "text", @maxlength = "2", @style = "width: 30px;text-align: center;padding: 3px", @Value = "1" })
+
+                @Html.DropDownListFor(model => model.RepeatTypeID, new List<SelectListItem> { new SelectListItem() {Text="Day",Value="1" },
+                                                                                                new SelectListItem() {Text="Week",Value="2" },
+                                                                                                new SelectListItem() {Text="Month",Value="3" }}, new { @Style = "padding: 4px;width:170px;border-radius:5px", @class = "customdropDown" })
+            </div>
+
+            <div class="col-md-6 ">
+                <label class="m-r-md">Until<span style="color:red;">*</span></label>
+
+                @Html.TextBoxFor(model => model.RepeatDate, new { @class = "clsDatePicker form-control", @data_toggle = "dropdown", @Style = "width:170px;border-radius:5px", @placeholder = "DD-MMM-YYYY", onkeydown = "return false", autocomplete = "off", @tabindex = "5" })
+                @Html.HiddenFor(model => model.DayOfWeek)
+                @Html.HiddenFor(model => model.DaysOfMonth)
+
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="col-md-12 m-t-md">
+            <div class="col-md-2">
+
+            </div>
+            <div class="col-md-6 table-responsive" id="dvweek">
+
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <button type="button" onclick="Addnew()" class="btn btn-sm btn-primary pull-right">@CaregiverLite.Views.Resources.PatientRequest.ButtonNext</button>
+            <div class="clearfix"></div>
+        </div>
+
+        <input type="hidden" id="hdndstOffset" />
+        <input type="hidden" id="hdnrawOffset" />
+        <input type="hidden" id="hdntimeZoneFullName" />
+    </div>
+}
+<div id="main_div2" style="display:none">
+    <div class="col-md-12">
+        @*<div class="pull-right"><label>Skip This </label> <input type="checkbox" id="checkboxSkip" onchange="skip()" class="btn btn-sm btn-primary" tabindex="18"></div>
+             <div class="form-group">
+                 <label>@CaregiverLite.Views.Resources.PatientRequest.HeaderNumberOfCaregiver</label>
+                 <span style="color:red;">*</span>
+                 @Html.ValidationMessageFor(model => model.MaxCaregiver)
+                 @Html.TextBoxFor(model => model.MaxCaregiver, new
+            {
+                @type = "text",
+                @maxlength = "3",
+                @placeholder = @CaregiverLite.Views.Resources.PatientRequest.PlaceHolderNumberOfCaregiver,
+                @class = "form-control",
+                @tabindex = "15",
+                @onkeypress = "javascript:return isNumber(event)"
+            })
+
+             </div>
+             <div class="form-group">
+                 <label>@CaregiverLite.Views.Resources.PatientRequest.HeaderNumberOfMiles</label>
+                 <span style="color:red;">*</span>
+                 @Html.ValidationMessageFor(model => model.MaxDistance)
+                 @Html.TextBoxFor(model => model.MaxDistance, new
+            {
+                @type = "text",
+                @maxlength = "3",
+                @placeholder = @CaregiverLite.Views.Resources.PatientRequest.PlaceHolderNumberOfMiles,
+                @class = "form-control",
+                @tabindex = "16",
+                @onkeypress = "javascript:return isNumber(event)"
+            })
+
+
+             </div>*@
+    </div>
+    <div class="col-md-12">
+
+        <button type="button" onclick="gotoAddScreen3()" class="btn btn-sm btn-primary pull-right" tabindex="17">@CaregiverLite.Views.Resources.PatientRequest.ButtonNext</button>
+        <button type="button" onclick="gotoAddScreen1()" style="margin-right:5px" class="btn btn-sm btn-primary pull-right" tabindex="17">@CaregiverLite.Views.Resources.PatientRequest.ButtonPrevious</button>
+
+        <div class="clearfix"></div>
+    </div>
+
+</div>
+
+<div id="main_div3" style="display:none">
+    <div class="col-md-12">
+        <div class="modal-body row" id="">
+            <img id="test" />
+            <div class="col-md-12">
+                <div class="page-width">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Filter by Number</label>
+                                    @Html.ValidationMessageFor(model => model.MaxCaregiver)
+                                    @Html.TextBoxFor(model => model.MaxCaregiver, new
+                               {
+                                   @type = "text",
+                                   @maxlength = "3",
+                                   @placeholder = @CaregiverLite.Views.Resources.PatientRequest.PlaceHolderNumberOfCaregiver,
+                                   @class = "form-control customcotrolrnd",
+                                   @tabindex = "15",
+                                   @onkeypress = "javascript:return isNumber(event)"@*,@onblur = "javascript:GetPatientRequestDetailByMedicalID(this.value)"*@})
+
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Filter by Miles:</label>
+                                    @*<span style="color:red;">*</span>*@
+                                    @Html.ValidationMessageFor(model => model.MaxDistance)
+                                    @Html.TextBoxFor(model => model.MaxDistance, new
+                               {
+                                   @type = "text",
+
+                                   @maxlength = "3",
+                                   @placeholder = @CaregiverLite.Views.Resources.PatientRequest.PlaceHolderNumberOfMiles,
+                                   @class = "form-control customcotrolrnd",
+                                   @tabindex = "16",
+                                   @onkeypress = "javascript:return isNumber(event)"
+                               })
+
+
+                                </div>
+                            </div>
+                            <div class="col-md-4" style="float:right">
+                                <div class="form-group">
+                                    <label></label>
+                                    @*<span style="color:red;">*</span>*@
+                                    <input type="text" id="searchCaregiver" placeholder="search caregiver" class="form-control customcotrolrnd" />
+                                    <img src="https://scheduler.paseva.com/Content/image/SearchIcon.png" class="search-icon" id="MapSearchIcon" alt="Search Icon" style="position: absolute; right: 23px; top: 54%; transform: translateY(-50%); cursor: pointer;">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+
+
+                            <div>
+                                <h4>Total Caregiver Found<span id="cargivercount"></span></h4>
+                            </div>
+                            <div class="map" id="listCaregiver" style="overflow-y:auto;scroll:auto;max-height:350px;overflow-x:hidden;">
+                                <table id="myDataTable1" class="table table-striped table-bordered table-hover dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            @*<th></th>*@
+                                            <th><input type="checkbox" name="select_all" id="select-all-caregiver"></th>
+                                            <th><b>@CaregiverLite.Views.Resources.PatientRequest.TableHeaderCaregiver</b></th>
+                                            <th><b>Status</b></th>
+                                            <th><b>Email</b></th>
+                                            <th><b>Distance From Patient</b></th>
+                                            <th style="width: 100px;">Address</th>
+                                            '
+                                            <th style="width: 100px;">Driving Distance From Patient</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="caregiverList"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <input type="hidden" id="patientLatitude" />
+                            <input type="hidden" id="patientLongitude" />
+
+                            <div>
+                                <h4>Caregiver Location :</h4>
+                            </div>
+                            <div class="map" id="mapCaregiverLocationList" style="height:300px;width:100%;">
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <button type="button" onclick="performSubmit()" class="btn btn-sm btn-primary pull-right" tabindex="17" id="performSubmitid">Confirm</button>
+        <button type="button" onclick="gotoAddScreen1()" style="margin-right:5px" class="btn btn-sm btn-primary pull-right" tabindex="17">@CaregiverLite.Views.Resources.PatientRequest.ButtonPrevious</button>
+        <div class="clearfix"></div>
+    </div>
+
+</div>
+
+<!--Start Pupup for showing the Access Hours-->
+<div id="myModalPopup" class="myModalPopup">
+    <div class="modal-contentadd">
+        <div style="display: flex;align-items: center;justify-content: center;gap: 10px;margin: 10px;margin-left: -30px;">
+            <i class="fas fa-exclamation-triangle" style="font-size: 27px;color: #ffcc00;"></i>
+            <h3 style="margin: 5px;" >Exceeding Limit</h3>
+        </div>
+        <h3 style="margin: 12px;" id="CareGiverEmailD"></h3>
+        @*<h3 id="CareGiverEmailD"></h3>*@
+        <table class="info-table">
+            <tr>
+                <td>Allowed hours :</td>
+                <td><strong id="Allowedtime"></strong></td>
+            </tr>
+            <tr>
+                <td>Scheduling hours :</td>
+                <td><strong id="Accesstime"></strong></td>
+            </tr>
+        </table>
+        <br />
+        <button class="close-btn" id="addMessageBtn">OK</button>
+    </div>
+</div>
+<!--End Popup-->
+
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<script type="text/javascript">
+
+    var Currentgloblalhour='';
+    debugger;
+    var OrganisationId =@Html.Raw(Json.Encode(@ViewBag.OrganisationId));
+    var OrgSuperAdminQBId =@Html.Raw(Json.Encode(@ViewBag.OrgSuperAdminQBId));
+    var OrgSuperAdminEmail=@Html.Raw(Json.Encode(@ViewBag.OrgSuperAdminEmail));
+    debugger;
+    var defaultfromhour=0;
+    var defaultfromminutes=0;
+
+
+    $(document).ready(function () {
+
+        var jquey = jQuery.noConflict();
+       
+    });
+
+    //$("#Date").datepicker();
+    $("#FromTime").prepend("<option value='' selected='selected'>-- Select FromTime --</option>");
+    $("#ToTime").prepend("<option value='' selected='selected'>-- Select ToTime --</option>");
+    var latitude;
+    var longitude;
+    var MaxCaregiver = 0;
+    var MaxDistance = 0;
+
+
+    $("#loading").hide();
+
+    $.validator.setDefaults({
+        ignore: [],
+    });
+    $(document).ready(function () {
+
+       
+        // $("#dvweek-select").hide();
+        $('#dvdatepicker').hide();
+
+        $('#IsRepeat').change(function () {
+            if (this.checked)
+            {
+                $('#dvdatepicker').show();
+                $('#RepeatDate').prop('required',true);
+            }
+            else
+            {
+                $('#dvdatepicker').hide();
+                $('#RepeatDate').prop('required',false);
+            }
+            $("#dvweek").hide();
+        });
+
+        $('#RepeatTypeID').on('change', function () {
+            //
+            if (this.value == '2')
+                //.....................^.......
+            {
+                $('#dvweek').empty();
+                var strtable = "";
+                strtable += "<table class='table table-bordered'>";
+                strtable += "<tr class='success'>";
+                strtable += "<td>MON</td>";
+                strtable += "<td>TUE</td>";
+                strtable += "<td>WED</td>";
+                strtable += "<td>THU</td>";
+                strtable += "<td>FRI</td>";
+                strtable += "<td>SAT</td>";
+                strtable += "<td>SUN</td>";
+                strtable += "</tr>";
+                strtable += "<tr class='success'>";
+                for (var i = 0; i < 7; i++) {
+                    strtable += "<td> <input class='chkweek' type='checkbox' value=" + i + " id=week_" + i + "/>";
+                    strtable += "</td>";
+                }
+                strtable += "</tr>";
+                strtable += "</table>"
+                $("#dvweek").append(strtable);
+                $("#dvweek").show();
+
+
+
+
+            }
+            else if (this.value == '3') {
+
+
+                $('#dvweek').empty();
+
+                var now = new Date();
+                var DayInMounth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+
+                var strtable = "";
+                strtable += "<table class='table table-bordered'>";
+                strtable += "<tr class='success'>";
+                for (var i = 1; i <= 31; i++) {
+                    strtable += "<td>" + i + "<br><input class='chkmonth' type='checkbox' value=" + i + " id=month_" + i + "/>";
+                    strtable += "</td>";
+                    //if (i == 31) {
+                    //    strtable += "<td>" + i + "<br><input class='chkmonth' type='checkbox' value="+ 0 + " id=month_" + i + "/>";
+                    //    strtable += "</td>";
+                    //}
+                    if (i == 7)
+                        strtable += "</tr><tr class='success'>";
+                    if (i == 14)
+                        strtable += "</tr><tr class='success'>";
+                    if (i == 21)
+                        strtable += "</tr><tr class='success'>";
+                    if (i == 28)
+                        strtable += "</tr><tr class='success'>";
+                }
+                strtable += "<td>" + 'LAST' + "<br><input class='chkmonth' type='checkbox' value=" + 0 + " id=month_" + i + "/>";
+                strtable += "</td>";
+                strtable += "</tr><tr class='success'>";
+                strtable += "</tr>";
+                strtable += "</table>"
+                $("#dvweek").append(strtable);
+                $("#dvweek").show();
+                //$('#dvweek').fadeIn('slow');
+
+
+
+            }
+
+            else {
+                $('#dvweek').empty();
+                $("#dvweek").hide();
+            }
+        });
+
+        $("#loading").show();
+
+
+        var form = $("#fmAddPatientRequest").closest("form");
+        form.removeData('validator');
+        form.removeData('unobtrusiveValidation');
+        $.validator.unobtrusive.parse(form);
+
+        $('#myModal').on('shown.bs.modal', function () {
+
+
+           // alert('dsfds');
+            //$("#Date").datepicker(
+            //{
+            //    minDate: 0,
+            //    onSelect: function () {
+            //        $(this).change();
+            //    }
+
+            //    //,dateFormat: 'dd-mm-yy'
+            //});
+
+            var rdtTest = $("#Date").val();
+
+            $("#RepeatDate").datepicker(
+            {
+                minDate: 0,
+                onSelect: function () {
+                    $(this).change();
+                }
+
+                //,dateFormat: 'dd-mm-yy'
+            });
+
+        });
+
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': { allow_single_deselect: true },
+            '.chosen-select-no-single': { disable_search_threshold: 10 },
+            '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+            '.chosen-select-width': { width: "95%" }
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+
+        }
+        $("#loading").hide();
+
+        //Start Popup//
+        //$("#performSubmitid").click(function () {
+
+        //    $("#myModalPopup").fadeIn();
+
+        //});    
+
+        $(".close-btn").click(function () {
+
+
+            $("#myModalPopup").fadeOut();
+            sendMailToSchedulerAndOfficeManagers();
+        });
+        //End popup
+    });
+
+
+    $('#Date').on('change', function() {
+        var varDate = $("#Date").val();
+
+        $("#RepeatDate").datepicker("option", "minDate", varDate);
+
+    })
+
+    function getCheckBox() {
+
+        var SelectedDayOfWeek = "";
+        // var arr = [];
+        $('input.chkweek:checkbox:checked').each(function () {
+            // arr.push($(this).val());
+            SelectedDayOfWeek += $(this).val() + ",";
+        });
+
+        $("#DayOfWeek").val(SelectedDayOfWeek);
+
+        //console.log(SelectedDayOfWeek);
+    }
+
+    function getMonthCheckBox() {
+
+        var SelectedDayOfMonth = "";
+        // var arr = [];
+        $('input.chkmonth:checkbox:checked').each(function () {
+            // arr.push($(this).val());
+            SelectedDayOfMonth += $(this).val() + ",";
+        });
+
+        $("#DaysOfMonth").val(SelectedDayOfMonth);
+
+        //console.log(SelectedDayOfWeek);
+    }
+
+    function gotoAddScreen1() {
+        $('#gridSystemModalLabel1').text('Provide Patient Details');
+        $("#modalAddPopup").css('width', '600px');
+        $("#main_div").css('display', 'block');
+        $("#main_div2").css('display', 'none');
+        $("#main_div3").css('display', 'none');
+    }
+    function gotoAddScreen2() {
+        $("#modalAddPopup").css('width', '600px');
+        $("#main_div").css('display', 'none');
+        $("#main_div2").css('display', 'block');
+        $("#main_div3").css('display', 'none');
+    }
+
+
+
+    //Fetch Filtered Caregiver Start
+    function gotoAddScreen32() {
+
+        //var VclosestCaregiver = $("#MaxCaregiver").val();
+        //var VclosestMiles = $("#MaxDistance").val();
+        //if (!document.getElementById('checkboxSkip').checked) {
+
+        //    if (VclosestCaregiver == "") {
+        //        toastr.error("Please Enter Number of Caregiver.");
+        //        $("#MaxCaregiver").focus();
+        //        return;
+        //    }
+        //    if (VclosestMiles == "") {
+        //        toastr.error("Please Enter Number of Miles.");
+        //        $("#MaxDistance").focus();
+        //        return;
+        //    }
+        //}
+
+
+      //  getPatientLatLong();
+
+
+        @*if (!document.getElementById('checkboxSkip').checked)
+        {
+
+            if ($("#MaxCaregiver").val() == "0" || $("#MaxCaregiver").val() == "") {
+                MaxCaregiver = 500;
+            }
+            else {
+                MaxCaregiver = $("#MaxCaregiver").val();
+            }
+
+            if ($("#MaxDistance").val() == "0") {
+                MaxDistance = @System.Web.Configuration.WebConfigurationManager.AppSettings["MaxDistance"];
+            }
+            else if ($("#MaxDistance").val() == "") {
+                MaxDistance = @System.Web.Configuration.WebConfigurationManager.AppSettings["MaxDistance"];
+            } else {
+                MaxDistance = $("#MaxDistance").val();
+            }
+        } else {
+            MaxCaregiver = 500;
+            MaxDistance = $("#MaxDistance").val() ;
+            // MaxDistance = @System.Web.Configuration.WebConfigurationManager.AppSettings["MaxDistance"];
+        }*@
+
+
+    //    setTimeout(function(){
+    //        var url = INITURL + '/PatientRequest/getManuelCaregiver?MaxCaregiver=' + MaxCaregiver + '&MaxDistance=' + MaxDistance
+    //        var result;
+    //        $.ajax({
+    //            url: url,
+    //            data: $('#fmAddPatientRequest').serialize(),
+    //            cache: false,
+    //            async: false,
+    //            dataType: 'json',
+    //            traditional: true,
+    //            type: 'POST',
+    //            success: function (data) {
+    //                result = data;
+
+    //                debugger;
+    //                var ptlat=$("#patientLatitude").val();
+    //                var ptLong=$("#patientLongitude").val();
+
+    //                str = "";
+    //                if (result.Result.length > 0) {
+    //                    for (var k = 0; k < result.Result.length; k++) {
+    //                        str += "<tr>" +
+    //                            "<td><input type='checkbox' class='checckboxcls' id='chk" + result.Result[k].NurseId + "'/></td>" +
+    //                            "<td> " + result.Result[k].Name + "</td>" +
+    //                            "<td> " + result.Result[k].IsNurseBusy + "</td>" +
+    //                            "<td> " + result.Result[k].Email + "</td>" +
+    //                            "<td> " + result.Result[k].DistanceUnit + "</td>" +
+    //                            "<td> " + result.Result[k].Address + "</td>" +
+    //"<td><label id='dataGetDist-"+result.Result[k].NurseId+"'></label><button id='btnGetdistance-"+result.Result[k].NurseId+"' type='btnGetdistance' onclick='GetDistanceSubmit("+ptlat+","+ptLong+","+result.Result[k].Latitude+","+result.Result[k].Longitude+","+result.Result[k].NurseId+");' class='btn btn-sm btn-info pull-right' tabindex='17'>Get Distance</button></td>"+
+    //                            "</tr>";
+    //                    }
+    //                } else { str = "<tr><td colspan='6'>" + "No Caregiver Found" + "</td></tr>"; }
+    //                document.getElementById("caregiverList").innerHTML = str;
+
+    //            },
+    //            error: function (reponse) {
+    //                alert("error : " + reponse);
+    //            }
+    //        });
+
+
+    //        //
+    //        getCaregiverBasedOnInput($("#patientLatitude").val() + ',' + $("#patientLongitude").val(), result.Result);
+
+
+    //        $("#modalAddPopup").css('width', '800px');
+    //        $("#mapCaregiverLocationList").css('width', '350px');
+
+
+    //        //$("#main_div3").css('display', 'block');
+    //        //$("#main_div2").css('display', 'none');
+
+    //        $("#main_div").css('display', 'none');
+    //        $("#main_div3").css('display', 'block');
+
+    //        $("#loading").hide();
+    //    },1000);
+
+    }
+
+
+
+    debugger;
+    function  GetDistanceSubmit(ptlatt,ptloong,carelat,carelong,CaregiverId)
+    {
+        debugger;
+        var origin=ptlatt+','+ptloong;
+        var destination=carelat+','+carelong;
+        debugger;
+        var url = INITURL + '/PatientRequest/GetLatlongDistanceData';
+        $.ajax({
+            url: url,
+            cache: false,
+            type: 'POST',
+            data: {
+                origin: origin,
+                destination: destination
+                // QuickBloxId: QBId
+            },
+            traditional: true,
+            async: false,
+            success: function (data) {
+                //if (data == "Success") {
+                //}
+
+                if(data=="")
+                {
+                    $("#btnGetdistance-"+CaregiverId+"").show();
+
+                }
+                else{
+                    debugger;
+                    $("#dataGetDist-"+CaregiverId+"").html(data);
+
+                    $("#btnGetdistance-"+CaregiverId+"").hide();
+                }
+                debugger;
+                //  $("#dataGetDist").val(data);
+
+
+            },
+            error: function (reponse) {
+                $('#loading').hide();
+            }
+        })
+
+    }
+
+
+
+
+
+
+
+    function performSubmit()
+    {
+
+        // alert('Select Nurse Be');
+       var selectedNurse = $('input:checkbox[id^="chk"]:checked').map(function () {
+            return this.id;
+        }).get();
+
+
+
+        if (selectedNurse.length > 0) {
+
+            $("#loading").show();
+            $("#Caregiver").val(selectedNurse);
+
+            checkAndGenerateDialogId($("#PatientName").val(), $("#MedicalId").val());
+
+            // $("#fmAddPatientRequest").submit()
+            //setTimeout($("#fmAddPatientRequest").submit(),5000);
+            $('#myModal').modal('hide');
+            $("#modalAddPopup").css('width', '600px');
+           
+
+        }
+        else
+        {
+            toastr.error("Please select at least one caregiver to schedule appointment.");
+            $("#loading").hide();
+            return;
+        } 
+       
+    }
+
+    function skip()
+    {
+        //checkboxSkip
+        if (document.getElementById('checkboxSkip').checked) {
+            $("#MaxCaregiver").attr("readonly", 'true');
+            //$("#MaxDistance").attr("readonly", 'true');
+            $("#MaxDistance").attr("value", @System.Web.Configuration.WebConfigurationManager.AppSettings["MaxDistance"]);
+        } else {
+            $("#MaxCaregiver").removeAttr("readonly");
+            //$("#MaxDistance").removeAttr("readonly");
+            $("#MaxDistance").removeAttr("value");
+        }
+
+
+
+    }
+
+
+	 //Handle click on "Select all" CheckBox
+    //$('#select-all-caregiver').on('click', function () {
+    //    debugger
+    //    if ($(this).is(':checked')) {
+    //        // Select All
+    //        $('input[id^="chk"]').prop('checked', true);
+    //    }
+    //    else { // De-Select All
+    //        $('input[id^="chk"]').prop('checked', false);
+    //    }
+    //});
+
+    $('#select-all-caregiver').on('change', function () {
+        debugger;
+        var isChecked = $(this).prop('checked');
+
+        var Isbusy=false;
+        $('.checckboxcls').each(function ()
+        {
+            debugger;
+            var row = $(this).closest('tr');
+            var status = row.find('td:nth-child(3)').text().trim(); // Get status
+
+            if (status.toLowerCase() != "available") {
+
+                Isbusy=true;
+                $(this).prop('checked', false); // Uncheck busy caregivers
+            } else {
+
+                $(this).prop('checked', isChecked);
+            }
+        });
+        if(Isbusy)
+        {
+            alert("Some caregivers are busy. They cannot be selected.");
+            $(this).prop('checked', false);
+        }
+    });
+    function updateSelectAllCheckbox() {
+        var totalCheckboxes = $('.checckboxcls').length;
+        var checkedCheckboxes = $('.checckboxcls:checked').length;
+
+        $('#select-all-caregiver').prop('checked', totalCheckboxes === checkedCheckboxes);
+    }
+
+    $(document).on('change', '.checckboxcls', function () {
+        debugger;
+
+        var row = $(this).closest('tr'); // Get the parent row
+        var status = row.find('td:nth-child(3)').text().trim(); // Get status
+
+        if (status.toLowerCase() != "available") {
+            alert("This caregiver is busy. You can't select them.");
+            $(this).prop('checked', false); // Uncheck the checkbox
+        }
+        //   updateSelectAllCheckbox();
+
+
+        var selectedNurse = $('input:checkbox[id^="chk"]:checked').map(function () {
+            return this.id;
+        }).get();
+        if(selectedNurse.length == 1){
+            CheckCaregiverAllowedHours();
+        }
+        
+    });
+
+
+
+    function getMeters(i) {
+        return i*1609.344;
+    }
+
+
+    function getCaregiverBasedOnInput(patientLatlong, CaregiverLatLong) {
+
+        setTimeout(function () {
+
+            var gm = google.maps;
+            var infowindow;
+            var iw = new gm.InfoWindow();
+
+            var patientLatlongArray = patientLatlong.split(',', 2);
+
+            var img = new Image();
+            img.bluepin = "https://scheduler.paseva.com/image/blue-dot.png";
+            img.greenpin = "https://scheduler.paseva.com/image/green-dot.png"
+            img.redpin = "https://scheduler.paseva.com/image/red-dot.png"
+            var bounds = new google.maps.LatLngBounds();
+
+            //Patient Location
+            if (patientLatlongArray != null && patientLatlongArray.length > 0) {
+
+                var mapCenter = {
+                    lat: parseFloat(patientLatlongArray[0]),
+                    lng: parseFloat(patientLatlongArray[1])
+                }
+
+                var map = new google.maps.Map(document.getElementById('mapCaregiverLocationList'),
+                 {
+                     center: mapCenter,
+                     zoom: 14,
+                     mapTypeId: google.maps.MapTypeId.ROADMAP
+                 });
+
+
+                var centerinfowindow = new google.maps.InfoWindow();
+                var centermarker = new google.maps.Marker({
+                    position: mapCenter,
+                    map: map
+                });
+
+                centermarker.setIcon(img.bluepin);
+                var centercontent =
+                        '<div><strong>Latitude: </strong>' +
+                        patientLatlongArray[0] +
+                        '</div>' +
+                        '<div><strong>Longitude: </strong>' +
+                        patientLatlongArray[1] +
+                        '</div>' ;
+                google.maps.event.addListener(centermarker,
+                    'click',
+                    (function (centermarker, centercontent, centerinfowindow) {
+                        return function () {
+                            centerinfowindow.setContent(centercontent);
+                            centerinfowindow.open(map, centermarker);
+
+                        };
+                    })(centermarker, centercontent, centerinfowindow));
+            }
+
+            var circle = new google.maps.Circle({
+                map: map,
+                radius: getMeters(MaxDistance),    // metres
+                fillColor: '#f4b7b7',
+                strokeColor: '#ff6666',
+                strokeOpacity: 0.8,
+                strokeWeight: 1
+            });
+            circle.bindTo('center', centermarker, 'position');
+
+            //Caregiver Location
+            for (var i = 0; i < CaregiverLatLong.length; i++) {
+
+                if ( i < CaregiverLatLong.length) {
+
+                    var service = new google.maps.DirectionsService();
+                    var directionsDisplay = new google.maps.DirectionsRenderer();
+
+                    //   var bounds = new google.maps.LatLngBounds();
+
+                    var src = new google.maps.LatLng(
+                        parseFloat(CaregiverLatLong[i].Latitude),
+                        parseFloat(CaregiverLatLong[i].Longitude)
+                    );
+
+
+
+                    var content =
+                        '<div><strong>Caregiver Name: </strong>' +
+                           CaregiverLatLong[i].Name +
+                            '</div>';
+
+                    var infowindow = new google.maps.InfoWindow();
+
+                    var marker = new google.maps.Marker({
+                        position: src,
+                        map: map
+                    });
+                    bounds.extend(marker.position);
+
+                    google.maps.event.addListener(marker,
+                        'click',
+                        (function (marker, content, infowindow) {
+                            return function () {
+                                infowindow.setContent(content);
+                                infowindow.open(map, marker);
+
+                            };
+                        })(marker, content, infowindow));
+
+                    marker.setIcon(img.redpin)
+                    //map.fitBounds(bounds);
+                }
+            }
+            //set fit bound start
+            var pt1 = new google.maps.LatLng(
+                        parseFloat(patientLatlongArray[0]),
+                        parseFloat(patientLatlongArray[1])
+                    );
+            var marker1 = new google.maps.Marker({
+                position: pt1,
+                map: map
+            });
+            bounds.extend(marker1.position);
+            marker1.setIcon(img.bluepin);
+            map.fitBounds(bounds);
+            //set fit bound end
+
+            var legend = document.createElement('dvMapLegend');
+            legend.className = "dvMapLegendb";
+            if (legend != null) {
+                var startpoint = document.createElement('div');
+                startpoint.className = "map-notdriving";
+                startpoint.innerHTML = '<img src="' + img.bluepin + '" />' + '     Patient Location';
+                legend.appendChild(startpoint);
+
+                var endpoint = document.createElement('div');
+                endpoint.className = "map-notdriving";
+                endpoint.innerHTML = '<img src="' + img.redpin + '" />' + '     Caregiver Location';
+                legend.appendChild(endpoint);
+
+                map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend);
+
+                $("#divMapLegend").show();
+            }
+
+        }, 500);
+        google.maps.event.trigger(map, 'resize');
+    };
+
+
+    // function for Current Location
+    function getCaregiverCurrentLocation(patientLatlong, CaregiverLatLong) {
+
+        setTimeout(function () {
+
+            var gm = google.maps;
+            var infowindow;
+            var iw = new gm.InfoWindow();
+
+            var patientLatlongArray = patientLatlong.split(',', 2);
+            //debugger;
+            var img = new Image();
+            img.bluepin = "https://scheduler.paseva.com/image/blue-dot.png";
+            img.greenpin = "https://scheduler.paseva.com/image/green-dot.png"
+            img.redpin = "https://scheduler.paseva.com/image/red-dot.png"
+            img.carpin  = "/image/car2.png"
+            var bounds = new google.maps.LatLngBounds();
+
+            //Patient Location
+            if (patientLatlongArray != null && patientLatlongArray.length > 0) {
+
+                var mapCenter = {
+                    lat: parseFloat(patientLatlongArray[0]),
+                    lng: parseFloat(patientLatlongArray[1])
+                }
+
+                var map = new google.maps.Map(document.getElementById('mapCaregiverCurrentLocation'),
+                 {
+                     center: mapCenter,
+                     zoom: 14,
+                     mapTypeId: google.maps.MapTypeId.ROADMAP
+                 });
+
+
+                var centerinfowindow = new google.maps.InfoWindow();
+                var centermarker = new google.maps.Marker({
+                    position: mapCenter,
+                    map: map
+                });
+
+                centermarker.setIcon(img.bluepin);
+
+                var centercontent =
+                        '<div><strong>Latitude: </strong>' +
+                        patientLatlongArray[0] +
+                        '</div>' +
+                        '<div><strong>Longitude: </strong>' +
+                        patientLatlongArray[1] +
+                        '</div>' ;
+                google.maps.event.addListener(centermarker,
+                    'click',
+                    (function (centermarker, centercontent, centerinfowindow) {
+                        return function () {
+                            centerinfowindow.setContent(centercontent);
+                            centerinfowindow.open(map, centermarker);
+
+                        };
+                    })(centermarker, centercontent, centerinfowindow));
+            }
+
+            var circle = new google.maps.Circle({
+                map: map,
+                radius: getMeters(MaxDistance),    // metres
+                fillColor: '#f4b7b7',
+                strokeColor: '#ff6666',
+                strokeOpacity: 0.8,
+                strokeWeight: 1
+            });
+            circle.bindTo('center', centermarker, 'position');
+
+            //Caregiver Location
+            for (var i = 0; i < CaregiverLatLong.length; i++) {
+
+                if ( CaregiverLatLong[i].CurrentLatitude != 0) {
+
+                    var service = new google.maps.DirectionsService();
+                    var directionsDisplay = new google.maps.DirectionsRenderer();
+
+                    //   var bounds = new google.maps.LatLngBounds();
+
+                    var src = new google.maps.LatLng(
+                        parseFloat(CaregiverLatLong[i].CurrentLatitude),
+                        parseFloat(CaregiverLatLong[i].CurrentLongitude)
+                    );
+
+                    var content =
+                        '<div><strong>Caregiver Name: </strong>' +
+                           CaregiverLatLong[i].Name + '</div>' +
+                          '<div><strong>Caregiver UserName: </strong>' +
+                           CaregiverLatLong[i].UserName + '</div>' +
+                           '<div><strong>Caregiver Password: </strong>' +
+                             CaregiverLatLong[i].Password + '</div>' ;
+                    // '</div>';
+
+                    var infowindow = new google.maps.InfoWindow();
+
+                    var marker = new google.maps.Marker({
+                        position: src,
+                        map: map,
+                        //icon: {
+                        //    path: 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z',
+                        //    fillColor: '#00CCBB',
+                        //    fillOpacity: 1,
+                        //    strokeColor: '',
+                        //    strokeWeight: 0
+                        //},
+                        //map_icon_label: '<span class="map-icon map-icon-taxi-stand"></span>'
+                    });
+                    bounds.extend(marker.position);
+
+                    google.maps.event.addListener(marker,
+                        'click',
+                        (function (marker, content, infowindow) {
+                            return function () {
+                                infowindow.setContent(content);
+                                infowindow.open(map, marker);
+
+                            };
+                        })(marker, content, infowindow));
+
+                    marker.setIcon(img.carpin)
+                    //map.fitBounds(bounds);
+                }
+            }
+
+            //set fit bound start
+            var pt1 = new google.maps.LatLng(
+                        parseFloat(patientLatlongArray[0]),
+                        parseFloat(patientLatlongArray[1])
+                    );
+            var marker1 = new google.maps.Marker({
+                position: pt1,
+                map: map
+            });
+            bounds.extend(marker1.position);
+            marker1.setIcon(img.bluepin);
+            map.fitBounds(bounds);
+            //set fit bound end
+
+            var legend = document.createElement('dvMapLegend');
+            legend.className = "dvMapLegendb";
+            if (legend != null) {
+                var startpoint = document.createElement('div');
+                startpoint.className = "map-notdriving";
+                startpoint.innerHTML = '<img src="' + img.bluepin + '" />' + '     Patient Location';
+                legend.appendChild(startpoint);
+
+                var endpoint = document.createElement('div');
+                endpoint.className = "map-notdriving";
+                endpoint.innerHTML = '<img src="' + img.carpin + '" />' + '     Caregiver Current Location';
+                legend.appendChild(endpoint);
+
+                map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend);
+
+                $("#divMapLegend").show();
+            }
+
+        }, 500);
+        google.maps.event.trigger(map, 'resize');
+    }
+
+
+    //View Checkin-checkout caregiver Start
+
+    function clearMapCheckInOut()
+    { document.getElementById("mapLocation").innerHTML = ""; }
+    //View Checkin-checkout caregiver End
+
+
+    function getPatientLatLong() {
+
+        //var Address = $("#Address").val().replace('&','-');
+        var Address = $("#hdnAddress").val().replace('&','-');
+        var Pincode = $("#ZipCode").val();
+        var flag = true;
+
+        $.ajax({
+            type: "GET",
+            url: "https://maps.google.com/maps/api/geocode/json",
+            data: "address=" + Address + ",  zip code=" + Pincode + "&key=AIzaSyCqG0NdAH_5gP1_D8jGhmTGeqNR-9z_afw",
+            async: false,
+            contentType: "text/plain; charset=utf-8",
+            dataType: "json",
+            traditional: true,
+            success: function (result) {
+
+                if (result["status"] == "OK") {
+                    $("#patientLatitude").val(result["results"][0]["geometry"]["location"]["lat"]);
+                    $("#patientLongitude").val(result["results"][0]["geometry"]["location"]["lng"]);
+
+
+                }
+            }
+        });
+    }
+    //Fetch Filtered Caregiver End
+    function Addnew() {
+        debugger;
+
+        if($("#MedicalId").val()==""){
+            toastr.error('medicalid is required');
+            $('#loading').hide();
+            return false;
+        }
+        $("#IsRequiredDriving").val();
+        $('#loading').show();
+
+        var PatientName = $("#PatientName").val();
+        var Address = $("#Address").val();
+        var Street = $("#Street").val();
+        var City = $("#City").val();
+        var State = $("#State").val();
+        var ZipCode = $("#ZipCode").val();
+        var MedicalId = $("#MedicalId").val();
+        var Date = $("#Date").val();
+        var Office = $("#OfficeName").val();
+
+        var fromtime = $("#hiddenFromTime").val();
+        var totime = $("#hiddenToTime").val();
+
+        debugger;
+        var finalfromtime =Number(fromtime.replace(/:/g,''));
+        var finaltotime = Number(totime.replace(/:/g,''));
+
+        //if( Number(fromtime.split(':')[0])==0)
+        //{
+        //    finalfromtime="12:"+finalfromtime;
+        //    finalfromtime=Number(finalfromtime.replace(/:/g,''));
+        //}
+        //if( Number(totime.split(':')[0])==0)
+        //{
+        //    finaltotime="12:"+finaltotime;
+        //    finaltotime=Number(finaltotime.replace(/:/g,''));
+        //}
+
+
+
+
+        if(finalfromtime>finaltotime)
+        {
+            toastr.error('FromTime shoud not be greater than ToTime');
+            $('#loading').hide();
+            return false;
+        }
+        if(finalfromtime==finaltotime)
+        {
+            toastr.error('FromTime shoud not be equal to ToTime');
+            $('#loading').hide();
+            return false;
+        }
+
+
+
+        //var fromtime1 = $("#drpFromTime").val();
+        //var totime1 = $("#drpToTime").val();
+        var OfficeId = $("#Office").val();
+
+        if (!MedicalId) {
+            toastr.error('medicalid is required');
+            $('#loading').hide();
+            return false;
+        }
+        if (PatientName == "" && Street == "" && City == "" && State == "" &&  ZipCode == "" && MedicalId == "" && Date == "" && fromtime == "0" && totime == "0") {
+            toastr.error('Please fill all required fields');
+            $('#loading').hide();
+            return false;
+        }
+            //else if (PatientName == "") {
+            //    toastr.error('Please Enter Patient Name');
+            //    $('#loading').hide();
+            //    return false;
+            //}
+            //else if (Street == "") {
+            //    toastr.error('Please Enter Street');
+            //    $('#loading').hide();
+            //    return false;
+            //}
+            //else if (City == "") {
+            //    toastr.error('Please Enter City');
+            //    $('#loading').hide();
+            //    return false;
+            //}
+            //else if (State == "") {
+            //    toastr.error('Please Enter State');
+            //    $('#loading').hide();
+            //    return false;
+            //}
+            //else if (ZipCode == "") {
+            //    toastr.error('Please Enter ZipCode');
+            //    $('#loading').hide();
+            //    return false;
+            //}
+            //else if (MedicalId == "") {
+            //    toastr.error('Please Enter Medical Id');
+            //    $('#loading').hide();
+            //    return false;
+            //}
+        else if (Date == "") {
+            toastr.error('Please Enter Date');
+            $('#loading').hide();
+            return false;
+        }
+        else if (fromtime == "0") {
+            toastr.error('Please select From Time');
+            $('#loading').hide();
+            return false;
+        }
+        else if (totime == "0") {
+            toastr.error('Please select To Time');
+            $('#loading').hide();
+            return false;
+        }
+        //else if (fromtime == totime) {
+        //    toastr.error('FromTime and ToTime can not be same');
+        //    $('#loading').hide();
+        //    return false;
+        //}
+
+        if (fromtime > totime) {
+            toastr.error('ToTime should be greater than FromTime');
+            $('#loading').hide();
+            return false;
+        }
+        //else if (fromtime == totime) {
+        //    toastr.error('Fromtime and Totime can not be same');
+        //    $('#loading').hide();
+        //    return false;
+        //}
+
+        if(!$("#RepeatDate").val() && $('#IsRepeat').prop("checked") == true)
+        {
+            toastr.error('Please select Upto Date');
+            $('#loading').hide();
+            return false;
+        }
+
+
+
+
+        $("#dvError3").hide();
+        var selectedValues = "";
+        var selectedOffice  = "";
+
+        $("#ddlService :selected").each(function () {
+            selectedValues += $(this).val() + ",";
+        });
+
+        $("#hdnServices").val(selectedValues);
+        //debugger;
+        //$("#ddlOffice :selected").each(function () {
+        //    selectedOffice = $(this).val();
+        //});
+
+
+
+        var selectedVisitypeValue="";
+        debugger;
+
+        if(!$("#ddlVisitTypeList").val())
+        {
+            toastr.error('Please select Visit Types');
+            $('#loading').hide();
+            return false;
+        }
+
+        $("#ddlVisitTypeList :selected").each(function () {
+            selectedVisitypeValue += $(this).val() + ",";
+        });
+
+        $("#hdnVisitTypeList").val(selectedVisitypeValue);
+
+
+
+        debugger;
+        var value = $("#ProcedureCode option:selected");
+        var ProcedureCode = value.text();
+
+
+    //    $('#ProcedureCode').val(ProcedureCode);
+
+        $("#ProcedureCodes").val(ProcedureCode);
+
+        var PayerId=$("#PayerId").val();
+
+
+        debugger;
+        if(PayerId!=""){
+            if(ProcedureCode=="Select" || ProcedureCode==""){
+                toastr.error('Please select Procedure Code');
+                $('#loading').hide();
+                return false;
+            }
+        }
+
+
+
+        $('#PayerId').val(PayerId);
+
+        var JurisdictionCode=$("#JurisdictionCode").val();
+
+        $('#JurisdictionCode').val(JurisdictionCode);
+
+        var PayerProgram=$("#PayerProgram").val();
+
+        $('#PayerProgram').val(PayerProgram);
+
+
+        $("#FromTime").val(fromtime);
+        $("#ToTime").val(totime);
+
+        if (!GetLanLat()) {
+            $('#loading').hide();
+            return false;
+        }
+        var lat = $("#Latitude").val();
+        var long = $("#Longitude").val();
+
+        //var dstOffset = $("#hdndstOffset").val();
+        //var rawOffset = $("#hdnrawOffset").val();
+        //var timeZoneFullName = $("#hdntimeZoneFullName").val();
+        var TimezoneOffset = $("#hdnTimezoneOffset").val();
+        var timeZoneId = $("#hdntimeZoneId").val();
+        var TimezonePostfix = $("#hdnTimezonePostfix").val();
+
+        if (lat === null || lat === '' || lat === 'undefined' || lat === 'undefined' || long === null || long === '') {
+            toastr.error('Please enter valid address');
+            $('#loading').hide();
+            return false;
+        }
+
+        $("#hdnOffices").val(OfficeId);
+
+        if ($("#fmAddPatientRequest").valid()) {
+
+            debugger;
+
+
+            var Street = $("#Street").val();
+            Street = Street.replace(/,\s*$/, "");
+
+            var City = $("#City").val();
+            City = City.replace(/,\s*$/, "");
+
+            var State = $("#State").val();
+            State = State.replace(/,\s*$/, "");
+
+            var FullAddress = Street + ', ' + City + ', ' + State;
+
+            $("#Street").val(Street);
+            $("#City").val(City);
+            $("#State").val(State);
+
+            $("#hdnAddress").val(FullAddress);
+
+            getCheckBox();
+            getMonthCheckBox();
+            //$("#main_div").css('display', 'none');
+            //$("#main_div2").css('display', 'block');
+
+            //$("#main_div").css('display', 'none');
+            //$("#main_div3").css('display', 'block');
+
+            gotoAddScreen3();
+            //$("#fmAddPatientRequest").submit();
+            //$('#loading').hide();
+        }
+        else {
+            $('#loading').hide();
+        }
+    }
+
+    function isNumber(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
+    }
+
+    function GetLanLat() {
+        // debugger;
+        // var Street = $("#Street").val().replace('&','-');
+
+        //  var Address =$("#Address").val().replace('&','-');
+
+        var Street = $("#Street").val();
+        Street = Street.replace(/,\s*$/, "");
+
+        var City = $("#City").val();
+        City = City.replace(/,\s*$/, "");
+
+        var State = $("#State").val();
+        State = State.replace(/,\s*$/, "");
+
+        var FullAddress = Street + ',' + City + ',' + State;
+
+        $("#hdnAddress").val(FullAddress);
+
+        FullAddress = FullAddress.replace('&','-');
+
+        var Pincode = $("#ZipCode").val();
+        var flag = true;
+
+        $.ajax({
+            type: "GET",
+            url: "https://maps.google.com/maps/api/geocode/json",
+            data: "address=" + FullAddress + ",  zip code=" + Pincode + "&key=AIzaSyCqG0NdAH_5gP1_D8jGhmTGeqNR-9z_afw",
+            async: false,
+            contentType: "text/plain; charset=utf-8",
+            dataType: "json",
+            traditional: true,
+            success: function (result) {
+                if (result["status"] == "OK") {
+
+                    $("#Latitude").val(result["results"][0]["geometry"]["location"]["lat"]);
+                    $("#Longitude").val(result["results"][0]["geometry"]["location"]["lng"]);
+                    var Latitude = result["results"][0]["geometry"]["location"]["lat"];
+                    var Longitude = result["results"][0]["geometry"]["location"]["lng"];
+                    var today = new Date();
+                    //var UTCDate = today.toUTCString();
+                    //var UtcNow = Math.floor(today.getTime() / 1000);
+                    var timestamp = today.getTime() / 1000 + today.getTimezoneOffset() * 60;
+                    $.ajax({
+                        type: "GET",
+                        url: "https://maps.googleapis.com/maps/api/timezone/json?location=" + Latitude + "," + Longitude + "&timestamp=" + timestamp + "&sensor=false&key=AIzaSyCqG0NdAH_5gP1_D8jGhmTGeqNR-9z_afw",
+                        async: false,
+                        contentType: "text/plain; charset=utf-8",
+                        dataType: "json",
+                        traditional: true,
+                        success: function (data, result) {
+                            if (data["status"] == "OK" && result == "success") {
+                                $("#hdndstOffset").val(data.dstOffset);
+                                $("#hdnrawOffset").val(data.rawOffset);
+                                $("#hdntimeZoneFullName").val(data.timeZoneName);
+                                $("#hdntimeZoneId").val(data.timeZoneId);
+
+                                var str = data.timeZoneName;
+                                var splitString = str.split(" ");
+
+                                debugger;
+                                abbr="";
+                                for (i = 0; i < splitString.length; i++) {
+                                    abbr += splitString[i].charAt(0);
+                                }
+                                $("#hdnTimezonePostfix").val(abbr);
+
+                                var TimeZoneOffset = data.dstOffset + data.rawOffset
+
+
+                                TimeZoneOffset = TimeZoneOffset < 0 ? "-" + Math.abs(TimeZoneOffset) / 60 : "+" + Math.abs(TimeZoneOffset) / 60;
+                                $("#hdnTimezoneOffset").val(parseInt(TimeZoneOffset));
+                                return true;
+                            }
+                        }
+                    });
+                }
+                else if (result.status === "ZERO_RESULTS") {
+                    $("#loading").hide();
+                    toastr.error('Please enter valid street/city/state');
+                    flag = false;
+                }
+                else if (result.status === "OVER_QUERY_LIMIT") {
+                    $("#loading").hide();
+                    toastr.error('Please try again later...');
+                    flag = false;
+                }
+                else if (result.status === "REQUEST_DENIED") {
+                    $("#loading").hide();
+                    toastr.error('Please try again later...');
+                    flag = false;
+                }
+                else if (result.status === "INVALID_REQUEST") {
+                    $("#loading").hide();
+                    toastr.error('Please try again later...');
+                    flag = false;
+                }
+                else if (result.status === "UNKNOWN_ERROR") {
+                    $("#loading").hide();
+                    toastr.error('Please try again later...');
+                    flag = false;
+                }
+            }
+        });
+        //----------End Pincode+Address----------------
+        return flag;
+    }
+    //$('#ddlService').val(2);
+    //$('#ddlService').trigger("chosen:updated");
+
+    //function CheckUserName() {
+    //    var url = INITURL + '/PatientRequest/IsUserNameExists';
+    //    var result;
+    //    $.ajax({
+    //        url: url,
+    //        data: { Username: $("#Username").val(), UserId: $("#UserId").val() },
+    //        cache: false,
+    //        async: false,
+    //        type: 'POST',
+    //        success: function (data) {
+    //            result = data;
+    //        },
+    //        error: function (reponse) {
+    //            alert("error : " + reponse);
+    //        }
+    //    });
+    //    return result;
+    //}
+
+    //function CheckEmail() {
+    //    var url = INITURL + '/PatientRequest/IsEmailExists';
+    //    var result;
+    //    $.ajax({
+    //        url: url,
+    //        data: { Email: $("#Email").val(), UserId: $("#UserId").val() },
+    //        cache: false,
+    //        async: false,
+    //        type: 'POST',
+    //        success: function (data) {
+    //            result = data;
+    //        },
+    //        error: function (reponse) {
+    //            alert("error : " + reponse);
+    //        }
+    //    });
+    //    return result;
+    //}
+
+    function divClose() {
+        $("#dvError3").css("display", "none");
+    }
+
+    function isNumberAndDot(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode != 46) {
+            return false;
+        }
+        return true;
+    }
+
+
+
+
+
+    function GetTime(val) {
+        if (val !== '') {
+
+            //var Street =$("#Street").val().replace('&','-');
+
+            var Street =$("#Street").val();
+            Street = Street.replace(/,\s*$/, "");
+
+
+            var City = $("#City").val();
+            City = City.replace(/,\s*$/, "");
+
+            var State = $("#State").val();
+            State = State.replace(/,\s*$/, "");
+
+
+            var FullAddress = Street + ', ' + City + ', ' + State;
+
+            $("#hdnAddress").val(FullAddress);
+
+            FullAddress = FullAddress.replace('&','-');
+            //     var Address =$("#Address").val().replace('&','-');
+            var Pincode = $("#ZipCode").val();
+            //$('#drpFromTime option[value!="0"]').remove();
+            //$('#drpToTime option[value!="0"]').remove();
+
+            if (Street !== '') {
+                if (City !== '') {
+                    if (State !== '') {
+                        if (Pincode !== '') {
+
+                            $('#loading').show();
+                            var flag = true;
+                            $.ajax({
+                                type: "GET",
+                                url: "https://maps.google.com/maps/api/geocode/json",
+                                data: "address=" + FullAddress + ", zip code=" + Pincode + "&key=AIzaSyCqG0NdAH_5gP1_D8jGhmTGeqNR-9z_afw",
+                                async: false,
+                                contentType: "text/plain; charset=utf-8",
+                                dataType: "json",
+                                traditional: true,
+                                success: function (result) {
+                                    if (result["status"] == "OK") {
+
+                                        var Latitude = result["results"][0]["geometry"]["location"]["lat"];
+                                        var Longitude = result["results"][0]["geometry"]["location"]["lng"];
+                                        var today = new Date();
+                                        var timestamp = today.getTime() / 1000 + today.getTimezoneOffset() * 60;
+                                        $.ajax({
+                                            type: "GET",
+                                            url: "https://maps.googleapis.com/maps/api/timezone/json?location=" + Latitude + "," + Longitude + "&timestamp=" + timestamp + "&sensor=false&key=AIzaSyCqG0NdAH_5gP1_D8jGhmTGeqNR-9z_afw",
+                                            async: false,
+                                            contentType: "text/plain; charset=utf-8",
+                                            dataType: "json",
+                                            traditional: true,
+                                            success: function (data, result) {
+                                                if (data["status"] == "OK" && result == "success")
+                                                {
+                                                    var str = data.timeZoneName;
+                                                    var splitString = str.split(" ");
+                                                     abbr = "";
+                                                    for (i = 0; i < splitString.length; i++) {
+                                                        abbr += splitString[i].charAt(0);
+                                                    }
+                                                    $("#hdnTimezonePostfix").val(abbr);
+                                                    var TimeZoneOffset = data.dstOffset * 1000 + data.rawOffset * 1000;
+                                                    var localDate = new Date(timestamp * 1000 + TimeZoneOffset)
+
+
+                                                    debugger
+                                                    const dropdownFromTime = document.getElementById("dropdownFromTimeOptions");
+                                                    const dropdownToTime = document.getElementById("dropdownToTimeOptions");
+                                                    dropdownFromTime.innerHTML = "";
+                                                    dropdownToTime.innerHTML = "";
+                                                    var CurrentHours = new Date(localDate).getHours();
+                                                    if (OrganisationId > 0)
+                                                    {
+                                                        debugger;
+                                                        var selectedDate = $('#Date').val();
+                                                        var Sdate = new Date(selectedDate);
+                                                        var localDate = new Date(); // Current local date/time
+
+
+                                                        var temphr = localDate.getHours();
+                                                        var tempmin =localDate.getMinutes();
+                                                        var tmphours = temphr ? (temphr < 10 ? "0" + temphr : hours) : 12;
+                                                        Currentgloblalhour=tmphours + tempmin+":00";
+
+                                                        // Get the current time in minutes (since midnight)
+                                                        var currentMinutes = localDate.getHours() * 60 + localDate.getMinutes();
+                                                        console.log(currentMinutes);
+
+                                                        var startMinutes = 0; // Default start at midnight
+
+                                                        // If the selected date is today, adjust the start time to the next 15-minute block
+                                                        if (Sdate.setHours(0, 0, 0, 0) === localDate.setHours(0, 0, 0, 0)) {
+
+                                                            startMinutes = Math.ceil(currentMinutes / 15) * 15;
+                                                            console.log(startMinutes);
+                                                          //  CurrentHours = 0;
+                                                            // Round up to next 15-minute interval
+                                                        }
+
+
+
+
+
+
+                                                        // Clear previous options before appending new ones
+                                                        $("#drpFromTime").empty();
+                                                        $("#drpToTime").empty();
+
+                                                        // Function to format time in 12-hour format with AM/PM
+                                                        function formatTime(minutes) {
+                                                            debugger;
+                                                            var hours = Math.floor(minutes / 60);
+                                                            var mins = minutes % 60;
+                                                            var ampm = hours >= 12 ? 'PM' : 'AM';
+                                                            hours = hours % 12;
+                                                            hours = hours ? (hours < 10 ? "0" + hours : hours) : 12;
+                                                            mins = mins < 10 ? '0' + mins : mins;
+                                                            return hours + ':' + mins + ' ' + ampm;
+                                                        }
+
+                                                        // Populate FromTime dropdown with 15-minute intervals starting from 'now' if today is selected
+                                                        for (var i = startMinutes; i <= 24 * 60; i += 15) {
+                                                            var strTime = formatTime(i);
+                                                            var id = i;
+                                                            var hours24Format = Math.floor(i / 60);
+                                                            var minutes24Format = i % 60;
+                                                            var timeValue = (hours24Format < 10 ? "0" + hours24Format : hours24Format) + ":" + (minutes24Format < 10 ? "0" + minutes24Format : minutes24Format) + ":00";
+
+                                                            // Append FromTime options
+                                                            if (i < 24 * 60) {
+                                                                $("#drpFromTime").append($("<option>").attr("value", timeValue).text(strTime).attr("id", id));
+
+                                                                let option = document.createElement("div");
+                                                                option.textContent = strTime +" ( "+ abbr+ ")";
+                                                                option.dataset.value =timeValue; // Store 24-hour value
+                                                                dropdownFromTime.appendChild(option);
+
+                                                                var strTime2 = formatTime(15 + i);
+                                                                var id = i;
+                                                                var hours24Format = Math.floor(i / 60);
+                                                                var minutes24Format = i % 60;
+                                                                var timeValue2 = (hours24Format < 10 ? "0" + hours24Format : hours24Format) + ":" + (minutes24Format < 10 ? "0" + minutes24Format : minutes24Format) + ":00";
+
+                                                                $("#drpToTime").append($("<option>").attr("value", timeValue2).text(strTime2).attr("id", id));
+
+
+                                                                let option1 = document.createElement("div");
+                                                                option1.textContent = strTime2 +"  ( "+ abbr+ ")" ;
+                                                                option1.dataset.value =timeValue2; // Store 24-hour value
+                                                                dropdownToTime.appendChild(option1);
+                                                            }
+                                                            else {
+
+                                                                $("#drpToTime").append($("<option>").attr("value", timeValue).text(strTime).attr("id", id));
+
+                                                            }
+                                                        }
+
+                                                        debugger;
+                                                        if(startMinutes< 24 * 60)
+                                                        {
+                                                            setDefault15MinutesFromTimeInterval(startMinutes);
+                                                           // setDefault15MinutesToTimeInterval(startMinutes);
+                                                        }else
+                                                        {
+                                                            //  setDefaultToTime(23,59);
+                                                        }
+
+                                                        $("#loading").hide();
+                                                        return true;
+
+
+
+                                                    }
+                                                    else {
+
+
+                                                        debugger;
+                                                        var selectedDate = $('#Date').val();
+                                                        var Sdate = new Date(selectedDate);
+
+
+                                                        var CurrentHours = new Date(localDate).getHours();
+                                                        //  console.log(CurrentHours);
+
+
+                                                        if (Sdate.setHours(0, 0, 0, 0) != localDate.setHours(0, 0, 0, 0)) {
+                                                            CurrentHours = 0;
+                                                        }
+
+
+                                                        var Currentminutes = new Date().getMinutes();
+
+                                                        var temphr = new Date().getHours();
+                                                        var tmphours = temphr ? (temphr < 10 ? "0" + temphr : hours) : 12;
+                                                        Currentgloblalhour=tmphours + Currentminutes+":00";
+                                                        defaultfromhour=CurrentHours;
+
+                                                        debugger;
+
+
+                                                        for (var i = CurrentHours + 1; i <= 24; i++)
+                                                        {
+
+                                                            var hours = i;
+                                                            var minutes = 0;
+                                                            var seconds = 0;
+                                                            var ampm = hours >=12 ? 'PM' : 'AM';
+                                                            hours = hours % 12;
+                                                            hours = hours ? (hours < 10) ? ("0" + hours) : hours : 12;
+                                                            minutes = minutes < 10 ? '0' + minutes : minutes;
+                                                            var strTime = hours + ':' + minutes + ' ' + ampm;
+                                                            var id = i === 0 ? i + 1 : i + 1;
+                                                            if (i < 24) {
+                                                                var temphour = i < 10 ? '0' + i : i;
+                                                                // $("#drpFromTime").append($("<option>").attr("value", temphour + ":00:00").text(strTime + " (" + abbr + ") ").attr("id", id));
+                                                                //  $("#drpToTime").append($("<option>").attr("value", temphour + ":00:00").text(strTime + " (" + abbr + ") ").attr("id", id));
+
+                                                                let option = document.createElement("div");
+                                                                option.textContent = strTime +"  ( "+ abbr+ ")" ;
+                                                                option.dataset.value =temphour; // Store 24-hour value
+                                                                dropdownFromTime.appendChild(option);
+
+                                                                let option1 = document.createElement("div");
+                                                                option1.textContent = strTime +"  ( "+ abbr+ ")" ;
+                                                                option1.dataset.value =temphour; // Store 24-hour value
+                                                                dropdownToTime.appendChild(option1);
+
+                                                            } else {
+                                                                //  $("#drpToTime").append($("<option>").attr("value", "23:59:59").text("11:59 PM" + " (" + abbr + ") ").attr("id", id));
+
+                                                            }
+                                                        }
+
+
+                                                        defaultFromtimeHour=defaultTotimeHour=CurrentHours+1;
+                                                        defaultFromtimeMinutes=defaultTotimeMinutes=0;
+                                                        debugger;
+
+                                                        if(defaultFromtimeHour==1)
+                                                        {
+                                                            defaultFromtimeHour="01"
+                                                        }
+                                                        if(defaultTotimeHour==1)
+                                                        {
+                                                            defaultTotimeHour="01"
+                                                        }
+                                                        if(CurrentHours<24)
+                                                        {   setDefaultFromTime(defaultFromtimeHour,defaultFromtimeMinutes);
+                                                            setDefaultToTime(defaultTotimeHour,defaultTotimeMinutes);
+                                                        }else
+                                                        {
+                                                            setDefaultToTime(23,59);
+                                                        }
+
+                                                        $("#loading").hide();
+                                                        return true;
+
+
+                                                    }
+
+
+
+                                                }
+
+                                            }
+                                        });
+                                    }
+
+                                    else if (result.status === "ZERO_RESULTS") {
+                                        $("#loading").hide();
+                                        toastr.error('Please enter valid street/city/state with valid zip code');
+                                        // $('#drpFromTime option[value!="0"]').remove();
+                                        // $('#drpToTime option[value!="0"]').remove();
+                                        flag = false;
+                                    }
+                                    else if (result.status === "OVER_QUERY_LIMIT") {
+                                        $("#loading").hide();
+                                        toastr.error('Please try again later...');
+                                        // $('#drpFromTime option[value!="0"]').remove();
+                                        // $('#drpToTime option[value!="0"]').remove();
+                                        flag = false;
+                                    }
+                                    else if (result.status === "REQUEST_DENIED") {
+                                        $("#loading").hide();
+                                        toastr.error('Please try again later...');
+                                        // $('#drpFromTime option[value!="0"]').remove();
+                                        // $('#drpToTime option[value!="0"]').remove();
+                                        flag = false;
+                                    }
+                                    else if (result.status === "INVALID_REQUEST") {
+                                        $("#loading").hide();
+                                        toastr.error('Please try again later...');
+                                        //  $('#drpFromTime option[value!="0"]').remove();
+                                        //  $('#drpToTime option[value!="0"]').remove();
+                                        flag = false;
+                                    }
+                                    else if (result.status === "UNKNOWN_ERROR") {
+                                        $("#loading").hide();
+                                        toastr.error('Please try again later...');
+                                        //  $('#drpFromTime option[value!="0"]').remove();
+                                        //  $('#drpToTime option[value!="0"]').remove();
+                                        flag = false;
+                                    }
+                                    else
+                                    {
+                                        $("#loading").hide();
+                                        toastr.error('Please try again later...');
+                                        //   $('#drpFromTime option[value!="0"]').remove();
+                                        //   $('#drpToTime option[value!="0"]').remove();
+                                        flag = false;
+                                    }
+                                }
+
+                            });
+                        }
+                        else {
+                            toastr.error('Please Enter ZipCode');
+                            //   $('#drpFromTime option[value!="0"]').remove();
+                            //$('#drpToTime option[value!="0"]').remove();
+                        }
+                    } else {
+                        toastr.error('Please Enter State');
+                        //   $('#drpFromTime option[value!="0"]').remove();
+                        //$('#drpToTime option[value!="0"]').remove();
+                    }
+                }
+                else {
+                    toastr.error('Please Enter City');
+                    //   $('#drpFromTime option[value!="0"]').remove();
+                    //$('#drpToTime option[value!="0"]').remove();
+                }
+            } else {
+                toastr.error('Please Enter Street');
+                //   $('#drpFromTime option[value!="0"]').remove();
+                //$('#drpToTime option[value!="0"]').remove();
+            }
+        } else {
+            //   $('#drpFromTime option[value!="0"]').remove();
+            //$('#drpToTime option[value!="0"]').remove();
+        }
+    }
+
+
+
+
+
+
+
+
+
+    function GetPatientRequestDetailByMedicalID(val) {
+
+        if (val) {
+		let data1 = val.trim();
+            debugger;
+            var url = INITURL + '/PatientRequest/GetPatientRequestDetailByMedicalID';
+            $("#loading").show();
+            $.ajax({
+                url: url,
+                data: { MedicalID: data1 },
+                cache: false,
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                traditional: true,
+                type: 'GET',   // Vinod Verma Uncomment
+                success: function (data) {
+                    debugger;  $("#loading").hide();
+                    if (data != null && data.PatientRequestId != 0) {
+                        $("#MedicalId").val(data.MedicalId);
+                        $("#PatientName").val(data.PatientName);
+                        // $("#Address").val(data.Address);
+                        $("#Street").val(data.Street);
+                        $("#City").val(data.City);
+                        $("#State").val(data.State);
+                        $("#ZipCode").val(data.ZipCode);
+
+                        //Start Appending new line
+
+                        const today = new Date();
+                        const formattedDate = `${(today.getMonth() + 1).toString().padStart(2, '0')}/${today.getDate().toString().padStart(2, '0')}/${today.getFullYear()}`;
+                        $("#Date").val(formattedDate);
+                        //`${today.getFullYear()}-${(today.getMonth() + 1).toString().padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
+                        console.log(formattedDate); // Outputs MM-DD-YYYY
+
+
+
+                        //end
+
+                        GetTime(data.ZipCode);
+                        //$("#Date").val(data.Date);
+                        //$("#drpFromTime").find('option[value="' + data.FromTime + '"]').attr('selected', 'selected');
+                        //$("#drpToTime").find('option[value="' + data.ToTime + '"]').attr('selected', 'selected');
+                        //debugger;
+                        $("#Description").val(data.Description);
+                        $("#OfficeName").val(data.OfficeName);
+                        $("#Office").val(data.Office);
+                        // alert(data.OfficeAddress);
+                        // $("#OfficeAddress").html(data.OfficeAddress.trim());
+                        if (data.ServiceNames) {
+                            var selectedValues = new Array();
+                            selectedValues = data.ServiceNames.trim().split(',')
+                            $("#ddlService").val(selectedValues);
+                        }
+
+                        $('#ProcedureCode').empty().append('<option selected="selected" value="0">Select</option>');
+                        if(data.ProcedureCode && data.PayerId && (data.Office==5 || data.Office==12 || OrganisationId>0)){
+
+                            $("#ProcedureCode").prop("disabled", false);
+
+                            var numbers = new Array();
+                            numbers = data.ProcedureCode.trim().split(',')
+
+                            for (var i=0;i<numbers.length;i++){
+
+                                $('<option/>').val(i+1).html(numbers[i]).appendTo('#ProcedureCode');
+                            }
+
+                            $("#PayerId").prop("disabled", false);
+                            $("#PayerId").val(data.PayerId);
+
+                            $("#PayerProgram").prop("disabled", false);
+                            $("#PayerProgram").val(data.PayerProgram);
+
+
+                            //$("#ProcedureCode").val(data.ProcedureCode);
+
+                            $("#JurisdictionCode").prop("disabled", false);
+                            $("#JurisdictionCode").val(data.JurisdictionCode);
+                        }
+                        else
+                        {
+                            $("#PayerId").prop("disabled", true);
+                            $("#PayerId").val('');
+
+                            $("#PayerProgram").prop("disabled", true);
+                            $("#PayerProgram").val('');
+
+
+                            //$("#ProcedureCode").val(data.ProcedureCode);
+
+                            $("#JurisdictionCode").prop("disabled", true);
+                            $("#JurisdictionCode").val('');
+
+                        }
+                    }
+                    else {
+                        $("#PatientName").val('');
+                        $("#Street").val('');
+                        $("#City").val('');
+                        $("#State").val('');
+                        $("#ZipCode").val('');
+                        $("#Description").val('');
+                        $("#OfficeName").val('');
+                        $("#Office").val('');
+                        $("#Date").val('');
+
+                        toastr.error('This Medical I.D. does not exist. Please enter correct Medical I.D. of a current patient and try again.');
+                    }
+                    $("#loading").hide();
+                },
+                error: function (response) {
+                    alert("error : " + response);
+                    $("#loading").hide();
+                }
+            });
+        }
+    }
+
+    function checkAndGenerateDialogId(PatientName, MedicalId) {
+
+        debugger;
+        var url = INITURL + '/PatientRequest/checkDialogId';
+        var GroupName1 = PatientName.trim() + "(" + MedicalId.trim() + ")";
+        // alert('KLLK');
+        $.ajax({
+            url: url,
+            data: { GroupName: GroupName1 },
+            cache: false,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            async: false,
+            traditional: true,
+            type: 'GET',     // Vinod Verma Uncomment
+            success: function (data) {
+                //alert(data);
+                localStorage.clear();
+                debugger;
+                if (data == false) {
+                    debugger;
+                    CreateNewGroupDialod(GroupName1);
+                }
+                else
+                {
+                    //
+                    var url1 = INITURL + '/Chatting/GetGroupDetailFromGroupName';
+                    $.ajax({
+                        url: url1,
+                        data: { GroupName: GroupName1 },
+                        cache: false,
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        async: false,
+                        traditional: true,
+                        type: 'GET',  //Vinod Verma Uncomment
+                        success: function (data) {
+
+
+                            // AssignMemberToGroup(data.ChattingGroupId,"@Session["LoginUserUserId"]",sFromQBId); // Add Comment Vinod Verma
+
+
+                            // AssignAdminToGroup(data.ChattingGroupId); // Add Comment Vinod Verma
+                            @*//AssignMemberToGroup(data.ChattingGroupId,"@Session["LoginUserUserId"]",sFromQBId);*@
+
+                            $("#fmAddPatientRequest").submit();
+
+                        },
+                        error: function (response) {
+                            alert("error : " + response);
+
+                        }
+                    });
+                }
+
+                @*AddGroupMember(@Session["LoginUserUserId"],GroupName1);*@
+            },
+            error: function (response) {
+                alert("error : " + response);
+
+            }
+        });
+
+    }
+    function CreateNewGroupDialod(GroupName1) {
+        //debugger;
+
+
+        localStorage.clear();
+
+        @*
+            //UAT
+            var SuperAdminQBID = "32129044";
+            //local
+            var SuperAdminQBID = "32139280";
+            //Live
+            var SuperAdminQBID = "32132455";
+
+            var SuperAdminQBID = "32139280";*@
+
+        //Live
+        //  var SuperAdminQBID = "32132455";
+
+        var SuperAdminQBID = "";
+
+        debugger;
+        if(OrganisationId>0)
+        {
+            // SuperAdminQBID = "32825133";
+
+            console.log(OrgSuperAdminQBId);
+            console.log(OrgSuperAdminEmail);
+
+            var user = {
+                id: OrgSuperAdminQBId,
+                login: OrgSuperAdminEmail,
+                password: "Welcome007!"
+            };
+        }
+        else
+        {
+
+            SuperAdminQBID = "32132455";
+
+
+            var user = {
+                id: SuperAdminQBID,
+                login: "superadmin@paseva.com",
+                password: "Welcome007!"
+            };
+
+        }
+
+
+        //  var user = {
+        //     id: SuperAdminQBID,
+        //     login: "superadmin@paseva.com",
+        //     password: "Welcome007!"
+        // };
+
+        @*var user = {
+            id: sFromQBId,
+            login: "@Session["FromUserEmail"]",
+            password: "Welcome007!"
+        };*@
+
+        //debugger;
+        QB.createSession({ login: user.login, password: user.password }, function (err, result) {
+
+            if (err) {
+                alert(err.message);
+            } else {
+
+                sessionStorage.setItem("sToken", result.token);
+
+                var occupants = SuperAdminQBID;
+
+                var dialogOccupants = {
+                    type: 2,
+                    occupants_ids: occupants,
+                    name: GroupName1,
+                    data: {
+                        class_name: "ChatDialogType",
+                        ChatCategory: "2",
+                        OfficeID: $("#Office").val()
+                    }
+                };
+
+                //debugger;
+                //Create New Group Chat Dialog
+                QB.chat.dialog.create(dialogOccupants, function (err, createdDialog) {
+                    if (err) {
+                        //console.log(err);
+                        //console.log("DIALOG CREATED FAIL");
+                    } else {
+
+                        //console.log(createdDialog);
+
+                        //Add new QuickBlox Id For Specific User
+                        //debugger;
+                        var url = INITURL + '/Chatting/AddGroupDialogId';
+
+
+                        $.ajax({
+                            url: url,
+                            data: {
+                                DialogId: createdDialog._id,
+                                GroupName: GroupName1,
+                                UserId: "@Session["LoginUserUserId"]",
+                                OfficeId: $("#Office").val()
+                            },
+                            cache: false,
+                            type: 'POST',
+                            async: false,
+                            traditional: true,
+                            success: function (data) {
+                                $("#fmAddPatientRequest").submit();
+                            },
+                            error: function (reponse) {
+                                //alert("error : " + reponse);
+                            }
+                        });
+                    }
+                    //  $("#fmAddPatientRequest").submit()
+                });
+            }
+
+
+        });
+
+        //---
+    }
+
+    // Notify Custom Caregiver
+
+    //
+    //AssignMemberToGroup Start
+    function AssignMemberToGroup(ChattingGroupId,UserId,QBId)
+    {
+        var url = INITURL + '/Chatting/AddMemberIntoGroup';
+        $.ajax({
+            url: url,
+            cache: false,
+            type: 'POST',
+            data: {
+                ChattingGroupId: ChattingGroupId,
+                UserIds: UserId,
+                QuickBloxId: QBId
+            },
+            traditional: true,
+            async: false,
+            success: function (data) {
+                if (data == "Success") {
+                }
+            },
+            error: function (reponse) {
+                $('#loading').hide();
+            }
+        });
+    }
+    //AssignMemberToGroup End
+
+
+    // Add Admin in the group
+    function AssignAdminToGroup(ChattingGroupId)
+    {
+        var url = INITURL + '/Chatting/AddAdminIntoGroup';
+        $.ajax({
+            url: url,
+            cache: false,
+            type: 'POST',
+            data: {
+                ChattingGroupId: ChattingGroupId,
+                OfficeId: $("#Office").val()
+            },
+            traditional: true,
+            async: false,
+            success: function (data) {
+                if (data == "Success") {
+                }
+            },
+            error: function (reponse) {
+                $('#loading').hide();
+            }
+        });
+    }
+
+</script>
+<script>
+    var VarActive = 'True';
+    debugger;
+	  var tempOrgId=Number('@Session["OrganisationId"]');
+	  if(tempOrgId==3){
+        VarActive = 'False';
+    }else{
+        VarActive = 'True';
+    }
+    /*var ischedked = VarActive.toLowerCase();*/
+    if (VarActive == "True") {
+        $('#toggleSwitch').prop('checked', true);
+        $('#IsRequiredDriving').val(true);
+    }
+    else {
+        $('#toggleSwitch').prop('checked', false);
+        $('#IsRequiredDriving').val(false);
+    }
+
+    var CustomfilterText = "PatientID";
+    debugger;
+    function toggleDropdown() {
+        debugger;
+        var dropdown = document.getElementById("filterDropdown");
+        //// Toggle dropdown visibility
+        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    }
+
+
+    debugger;
+    function selectFilter(filterText, filtersearchLabel) {
+        debugger;
+        CustomfilterText = filterText;
+        // Set the dropdown button text
+        //document.getElementById('filterDropdownButton').textContent = filtersearchLabel;
+
+        const button = document.getElementById('filterDropdownButton');
+        const buttonText = button.firstChild; // Access the text node
+        buttonText.textContent = filtersearchLabel + " "; // Update the text
+
+        //// Set the input placeholder
+        document.getElementById('searchBox').placeholder = "Enter " + filtersearchLabel;
+
+        if (filterText == 'PatientDOB') {
+            document.getElementById('searchBox').placeholder = "YYYY-MM-DD";
+        }
+        document.getElementById('searchBox').value = "";
+        $('#MedicalId').val("");
+        //// Hide the dropdown menu
+        document.getElementById("filterDropdown").style.display = "none";
+    }
+
+
+    debugger;
+    // Close the dropdown if clicking outside of it
+    document.addEventListener("click", function (event) {
+        var dropdown = document.getElementById("filterDropdown");
+        var button = document.getElementById("filterDropdownButton");
+        if (!button.contains(event.target) && !dropdown.contains(event.target)) {
+            dropdown.style.display = "none";
+        }
+    });
+
+
+    function GetToTimes() {
+        $('#drpToTime').showHideDropdownOptions(25, true);
+        var id = $('#drpFromTime').children(":selected").attr("id");
+        $('#drpToTime').prop('selectedIndex', 0);
+        $('#drpToTime').showHideDropdownOptions(id, false);
+    }
+
+    $.fn.showHideDropdownOptions = function (value, canShowOption) {
+        for (j = value; j >= 1; j--) {
+            if (canShowOption) {
+                $('#drpToTime').find('option[id="' + j + '"]').attr('disabled', false);
+                $('#drpToTime').find('option[id="' + j + '"]').show();
+            }
+            else {
+                $('#drpToTime').find('option[id="' + j + '"]').hide();
+                $('#drpToTime').find('option[id="' + j + '"]').attr('disabled', 'disabled');
+            }
+        }
+    }
+
+    var recentSearches = [];
+    const searchBox = document.getElementById('searchBox');
+    const suggestionsList = document.getElementById('suggestionsList');
+    const searchButton = document.getElementById('searchButton');
+
+
+
+    searchBox.addEventListener('input', function () {
+        if (CustomfilterText == 'PatientName') {
+            const query = searchBox.value.toLowerCase();
+            suggestionsList.innerHTML = '';
+
+
+            console.log('User input:', query); // Debugging
+
+            if (query) {
+                let hasResults = false;
+
+                recentSearches.forEach(search => {
+                    if (search.text.toLowerCase().includes(query)) {
+                        hasResults = true;
+                        debugger;
+                        const suggestionItem = document.createElement('li');
+                        suggestionItem.classList.add('dropdown-item');
+                        suggestionItem.textContent = search.text;
+                        suggestionItem.dataset.id = search.id; // Store the ID in a data attribute
+                        suggestionsList.appendChild(suggestionItem);
+                    }
+                });
+
+                if (hasResults) {
+                    debugger;
+                    suggestionsList.classList.add('show');
+                    console.log('Suggestions shown'); // Debugging
+                } else {
+                    suggestionsList.classList.remove('show');
+                    console.log('No suggestions found'); // Debugging
+                }
+            } else {
+                suggestionsList.classList.remove('show');
+            }
+        }
+
+    });
+
+    suggestionsList.addEventListener('click', function (event) {
+        debugger;
+        if (event.target && event.target.matches('.dropdown-item')) {
+            searchBox.value = event.target.textContent;
+            $('#MedicalId').val(event.target.dataset.id);
+            GetPatientRequestDetailByMedicalID(event.target.dataset.id)
+
+
+            suggestionsList.classList.remove('show');
+
+        }
+    });
+
+    searchButton.addEventListener('click', function () {
+
+
+        if (searchBox.value) {
+            if (CustomfilterText == 'PatientName') {
+                GetPatientListByFilter(CustomfilterText, searchBox.value)
+            } else if (CustomfilterText == 'PatientID') {
+                GetPatientRequestDetailByMedicalID(searchBox.value)
+            } else if (CustomfilterText == 'PatientDOB') {
+                GetPatientListByFilter(CustomfilterText, searchBox.value)
+            }
+
+        } else {
+
+            toastr.error('Please enter a search term');
+
+        }
+    });
+
+    searchBox.addEventListener('keydown', function (event) {
+
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            if (searchBox.value) {
+                if (CustomfilterText == 'PatientName') {
+                    GetPatientListByFilter(CustomfilterText, searchBox.value)
+                } else if (CustomfilterText == 'PatientID') {
+                    GetPatientRequestDetailByMedicalID(searchBox.value)
+                } else if (CustomfilterText == 'PatientDOB') {
+                    GetPatientListByFilter(CustomfilterText, searchBox.value)
+                }
+
+            }
+
+
+        }
+
+    });
+
+
+    function GetPatientListByFilter(pFilterText, pFilterData) {
+
+        if (pFilterData == null || pFilterData == "") {
+            return;
+        }
+        $('#loading').show();
+        recentSearches = [];
+        suggestionsList.innerHTML = '';
+        var url = INITURL + '/PatientRequest/GetPatientRequestDetailByFilter';
+        $.ajax({
+            url: url,
+            data: { FilterBy: pFilterText, FilterData: pFilterData },
+            cache: false,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            traditional: true,
+            type: 'GET',
+            success: function (data) {
+                debugger;
+                if (data.Success) {
+                    for (var i = 0; i < data.Result.length; i++) {
+                        var row = { id: data.Result[i].MedicalId, text: data.Result[i].PatientName };
+                        recentSearches.push(row);
+                    }
+
+                    recentSearches.forEach(search => {
+
+                        hasResults = true;
+                        const suggestionItem = document.createElement('li');
+                        suggestionItem.classList.add('dropdown-item');
+                        suggestionItem.textContent = search.text;
+                        suggestionItem.dataset.id = search.id; // Store
+                        suggestionsList.appendChild(suggestionItem);
+
+                    });
+                    suggestionsList.classList.add('show');
+
+                } else {
+                    toastr.error('No data found.');
+                }
+                $('#loading').hide();
+
+            },
+            error: function (reponse) {
+                toastr.error('process failed.');
+                $('#loading').hide();
+            }
+        });
+    }
+    function debounce(func, delay) {
+        let debounceTimer;
+        debugger;
+        return function () {
+            const context = this;
+            const args = arguments;
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => func.apply(context, args), delay);
+        };
+    }
+
+    // Function to handle the API call (debounced version)
+    //const debouncedActiveDeactiveCustomer = debounce(ActiveDeactiveCustomer, 300); // 300ms delay
+    // Function to handle the API call for activation/deactivation
+    function handleToggleSwitchChange() {
+        debugger;
+        if (toggleSwitch.checked) {
+
+            $('#IsRequiredDriving').val(true);
+
+        } else {
+            openDrivingConfirmationModel();
+            //$('#IsRequiredDriving').val(false);
+        }
+
+        var ssss = $('#IsRequiredDriving').val();
+        debugger;
+    }
+
+    // Attach the event listener for toggle switch
+    function attachToggleListener() {
+        debugger;
+        // First, detach any previous listeners to avoid duplication
+        $(toggleSwitch).off('change');
+
+        // Now, re-attach the listener
+        $(toggleSwitch).on('change', handleToggleSwitchChange);
+    }
+
+    // Initial event listener attachment
+    attachToggleListener();
+
+    function openDrivingConfirmationModel() {
+        $('#ConfirmationModel1').modal('show');
+    }
+    $('#confirmbtnId').click(function () {
+        debugger;
+
+        //// If "No, Go Back" is clicked
+        toggleSwitch.checked = false; // Keep the toggle as active
+        $('#IsRequiredDriving').val(false);
+        $('#ConfirmationModel1').modal('hide');
+        $('#myModal').modal('show');
+        // Hide the confirmation modal
+    });
+
+    $('#cancelbtnId').click(function () {
+        debugger; toggleSwitch.checked = true;
+        $('#IsRequiredDriving').val(true);
+        $('#myModal').modal('show');
+        $('#ConfirmationModel1').modal('hide');  // Hide the confirmation modal
+    });
+</script>
+
+<script>
+
+    const inputFromTimeField = document.getElementById("editableFromTimeDropdown");
+    const dropdownFromTime = document.getElementById("dropdownFromTimeOptions");
+    const hiddenFromTime = document.getElementById("hiddenFromTime");
+
+    const inputToTimeField = document.getElementById("editableToTimeDropdown");
+    const dropdownToTime = document.getElementById("dropdownToTimeOptions");
+    const hiddenToTime = document.getElementById("hiddenToTime");
+
+
+    // Show dropdown when input is focused
+    inputFromTimeField.addEventListener("focus", function () {
+
+        dropdownFromTime.style.display = "block";
+    });
+    inputFromTimeField.addEventListener("click", function () {
+
+       // dropdownFromTime.style.display = dropdown.style.display === "block" ? "none" : "block";
+        dropdownFromTime.style.display = "block";
+    });
+
+
+    // Hide dropdown when clicking outside
+    document.addEventListener("click", function (event) {
+        //    $('#fmAddPatientRequest').click(function(){
+        if (!inputFromTimeField.contains(event.target) && !dropdownFromTime.contains(event.target)) {
+            dropdownFromTime.style.display = "none";
+        }
+
+    });
+
+    // Allow selection from dropdown
+    dropdownFromTime.addEventListener("click", function (event) {
+        debugger;
+        if (event.target.tagName === "DIV") {
+            inputFromTimeField.value = event.target.textContent;
+
+            var hhh='';
+            var minn='';
+             hhh=event.target.textContent.split(':')[0];
+            if(event.target.textContent.toUpperCase().includes("PM"))
+            {
+
+                if(Number(hhh)==12)
+                {
+                    hhh=12;
+                }else
+                {
+                    hhh=12+Number(hhh);
+                }
+                //hhh=event.target.textContent.split(':')[0];
+                //hhh=12+Number(hhh);
+                minn= (Number(event.target.textContent.split(':')[1].substring(0,2))==0?0:event.target.textContent.split(':')[1].substring(0,2));
+            }else
+            {
+			 if(event.target.textContent.toUpperCase().includes("AM") && Number(hhh)==12)
+                {
+                    hhh=0;
+                }else
+                {
+                    hhh=event.target.textContent.split(':')[0]
+                }
+
+
+                minn= (Number(event.target.textContent.split(':')[1].substring(0,2))==0?0:event.target.textContent.split(':')[1].substring(0,2));
+            }
+            setDefaultFromTime(Number(hhh),Number(minn));
+            //  hiddenFromTime.value = event.target.dataset.value; // Store 24-hour format
+            dropdownFromTime.style.display = "none";
+            // event.target.removeAttribute("data-value");
+
+        }
+    });
+
+    // Filter options based on input
+    inputFromTimeField.addEventListener("input", function () {
+        debugger;
+
+        let filter = inputFromTimeField.value.toLowerCase();
+        let options = dropdownFromTime.getElementsByTagName("div");
+        for (let option of options) {
+            hasMatches = false;
+            let text = option.textContent.toLowerCase();
+            let Formatedsearch = inputFromTimeField.value.toLowerCase().replace(/\s+/g, ""); // Removes all spaces
+            let optiontext =  option.textContent.toLowerCase().replace(/\s+/g, ""); // Removes all spaces
+            if(Formatedsearch==optiontext)
+            {
+                hasMatches = true;
+            }
+            if (hasMatches && filter !== "" ) {
+                hasMatches = true;
+                option.style.color = "#090a0a"; // Change font color to red for matching items
+                option.style.fontWeight = "bold"; // Optional: Make it bold
+            } else {
+
+                option.style.color = "inherit"; // Reset to default color
+               option.style.fontWeight = "normal"; // Reset font weight
+            }
+
+            //if (option.textcontent.tolowercase().includes(filter)) {
+            //   // option.style.display = "";
+
+            //} else {
+            //  //  option.style.display = "none";
+            //}
+        }
+    });
+    inputFromTimeField.addEventListener("blur", function () {
+        debugger;
+
+        if($('#Date').val()!="")
+        {
+
+            var text= $('#editableFromTimeDropdown').val();
+            let result = text.includes(":");
+            var hh='';
+            var mm='';
+            if(result)
+            {
+                var temselectedDate = $('#Date').val();
+                var localDate1 = new Date(temselectedDate);
+                var localDate2 = new Date();
+                let hour = localDate2.getHours();
+                const chars = text.split(":");
+                if(chars[0]!='')
+                {
+                    hh=(chars[0].substring(0, 2)>0)?(chars[0].substring(0, 2)==0?0:(chars[0].substring(0, 2) >24)?0: chars[0].substring(0, 2)):hour;
+                }
+                if(chars[1]!='')
+                {
+                    debugger;
+                    mm=(chars[1].substring(0, 2)>0)?(chars[1].substring(0, 2)==0?0: chars[1].substring(0, 2)):'0';
+                    if(chars[1].substring(0, 2) >60)
+                    {
+                        mm=0;
+                        hh=hh+1;
+                    }else
+                    {
+                        mm=Number(mm);
+                    }
+                }else
+                {
+                    mm='0'
+                }
+                if(text.toUpperCase().includes("PM"))
+                {
+                    debugger;
+                    if(Number(hh)==12 && Number(mm)==0 )
+                    {
+                        //hh=23;
+                        //mm=59;
+                        hh=12;
+                        mm=00;
+
+                    }
+                    if(Number(hh)<12  )
+                    {
+                        hh=12+Number(hh);
+                    }
+
+                }
+                if(text.toUpperCase().includes("AM") && Number(hh)==12)
+                {
+                    hh=0;
+                }
+
+                setDefaultFromTime(Number(hh),Number(mm));
+            }else
+            {
+                setDefaultFromTime(Number(defaultFromtimeHour),Number(defaultFromtimeMinutes));
+            }
+        }
+    });
+
+    function setDefaultFromTime(temphour,tempminute) {
+        debugger;
+        var hours = Number(temphour);
+        var minutes = tempminute;
+        var seconds = 0;
+        var ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? (hours < 10) ? ("0" + hours) : hours : 12;
+        minutes = (minutes=="")?"00":minutes < 10 ? '0' + minutes : minutes;
+        var localformat = hours + ':' + minutes + ' ' + ampm +" ( "+ abbr+ ")"
+        // var customhour=(temphour<10)?'0'+temphour:temphour;
+
+		 temphour=(Number(temphour)<10)?("0"+Number(temphour)):temphour;
+        var Standardformat=temphour +":"+ minutes +":00";
+        if(Number(temphour)==0 && Number(minutes)==0 )
+        {
+            Standardformat="00"+":01:00";
+            localformat=12+":01"+" AM" +" ( "+ abbr+ ")"
+        }
+        $('#editableFromTimeDropdown').val("");
+        $('#hiddenFromTime').val("");
+        $('#editableFromTimeDropdown').val(localformat);
+        defaultFromtimeHour=temphour;
+        defaultFromtimeMinutes=tempminute;
+        // alert(Standardformat)
+        $('#hiddenFromTime').val(Standardformat);
+
+        if (OrganisationId > 0)
+        {
+            channgetotimedropdown15Mininterval(Number(temphour),Number(minutes))
+        }else{
+            channgetotimedropdown(Number(temphour),Number(tempminute));
+        }
+    }
+
+    function setDefaultFromTime12AM(temphour,tempminute) {
+        debugger;
+        var hours = Number(temphour);
+        var minutes = tempminute;
+        var seconds = 0;
+        var ampm = 'AM';
+        hours = hours % 12;
+        hours = hours ? (hours < 10) ? ("0" + hours) : hours : 12;
+        minutes = (minutes=="")?"00":minutes < 10 ? '0' + minutes : minutes;
+        var localformat = hours + ':' + minutes + ' ' + ampm;
+        // var customhour=(temphour<10)?'0'+temphour:temphour;
+      var  Ctemphour=(temphour<10)?("0"+temphour):temphour;
+      var Standardformat=Ctemphour +":"+ minutes +":00";
+        $('#editableFromTimeDropdown').val("");
+        $('#hiddenFromTime').val("");
+        $('#editableFromTimeDropdown').val(localformat);
+        defaultFromtimeHour=temphour;
+        defaultFromtimeMinutes=tempminute;
+        // alert(Standardformat)
+        $('#hiddenFromTime').val(Standardformat);
+
+        if (OrganisationId > 0)
+        {
+            channgetotimedropdown15Mininterval(Number(temphour),Number(minutes))
+        }else{
+            channgetotimedropdown(Number(temphour),Number(tempminute));
+        }
+    }
+
+
+
+
+
+
+
+    // Show dropdown when input is focused
+    inputToTimeField.addEventListener("focus", function () {
+        dropdownToTime.style.display = "block";
+    });
+    inputToTimeField.addEventListener("click", function () {
+        dropdownToTime.style.display = "block";
+    });
+
+    // Hide dropdown when clicking outside
+    document.addEventListener("click", function (event) {
+        if (!inputToTimeField.contains(event.target) && !dropdownToTime.contains(event.target)) {
+            dropdownToTime.style.display = "none";
+        }
+    });
+
+    // Allow selection from dropdown
+    dropdownToTime.addEventListener("click", function (event) {
+        debugger;
+        if (event.target.tagName === "DIV") {
+            debugger;
+            inputToTimeField.value = event.target.textContent;
+            var hhh='';
+            var minn='';
+           var temph= event.target.textContent.split(':')[0];
+		   hhh=event.target.textContent.split(':')[0];
+            if(event.target.textContent.toUpperCase().includes("PM"))
+            {
+
+
+
+                  if(Number(hhh)==12)
+                  {
+                      hhh=12;
+
+                  }else
+                  {
+                      hhh=12+Number(hhh);
+                  }
+                  minn= (Number(event.target.textContent.split(':')[1].substring(0,2))==0?0:event.target.textContent.split(':')[1].substring(0,2));
+
+
+
+
+                   var tempFromtimeHR=$('#hiddenFromTime').val().split(':')[0];
+                  var currenttmepHour=Number(tempFromtimeHR)+1;
+                  if($('#editableFromTimeDropdown').val().includes("PM") && Number(tempFromtimeHR)>=13 &&  Number(temph)==12)
+                  {
+                      hhh=23;
+                      minn=59;
+                  }
+            }
+            //else if(event.target.textContent.toUpperCase().includes("AM") && Number(temph)==12 )
+            //{
+            //    hhh=0;
+            //    minn= (Number(event.target.textContent.split(':')[1].substring(0,2))==0?0:event.target.textContent.split(':')[1].substring(0,2));
+            //}
+            else{
+			  if(event.target.textContent.toUpperCase().includes("AM") && Number(hhh)==12)
+                {
+                    hhh=0;
+                }else
+                {
+                    hhh=event.target.textContent.split(':')[0]
+                }
+               // hhh=event.target.textContent.split(':')[0]
+                minn= (Number(event.target.textContent.split(':')[1].substring(0,2))==0?0:event.target.textContent.split(':')[1].substring(0,2));
+            }
+
+            setDefaultToTime(Number(hhh),(minn));
+
+            // hiddenToTime.value = event.target.dataset.value; // Store 24-hour format
+            dropdownToTime.style.display = "none";
+            // event.target.removeAttribute("data-value");
+
+        }
+    });
+
+    // Filter options based on input
+    inputToTimeField.addEventListener("input", function () {
+        let filter = inputToTimeField.value.toLowerCase();
+        let options = dropdownToTime.getElementsByTagName("div");
+        for (let option of options) {
+            hasMatches = false;
+            let text = option.textContent.toLowerCase();
+            let Formatedsearch = inputToTimeField.value.toLowerCase().replace(/\s+/g, ""); // Removes all spaces
+            let optiontext =  option.textContent.toLowerCase().replace(/\s+/g, ""); // Removes all spaces
+            if(Formatedsearch==optiontext)
+            {
+                hasMatches = true;
+            }
+            if (hasMatches && filter !== "" ) {
+                hasMatches = true;
+                option.style.color = "#090a0a"; // Change font color to red for matching items
+                option.style.fontWeight = "bold"; // Optional: Make it bold
+            } else {
+
+                option.style.color = "inherit"; // Reset to default color
+                option.style.fontWeight = "normal"; // Reset font weight
+            }
+            //if (option.textContent.toLowerCase().includes(filter)) {
+            //    option.style.display = "";
+            //} else {
+            //    option.style.display = "none";
+            //}
+        }
+    });
+
+    inputToTimeField.addEventListener("blur", function () {
+
+        debugger;
+        if($('#Date').val()!="")
+        {
+            var text= $('#editableToTimeDropdown').val();
+            let result = text.includes(":");
+            var hh='';
+            var mm='';
+            if(result)
+            {
+                var temselectedDate = $('#Date').val();
+                var localDate1 = new Date(temselectedDate);
+                var localDate2 = new Date();
+                let hour = localDate2.getHours();
+                const chars = text.split(":");
+                if(chars[0]!='')
+                {
+                    hh=(chars[0].substring(0, 2)>0)?(chars[0].substring(0, 2)==0?0:(chars[0].substring(0, 2) >24)?0: chars[0].substring(0, 2)):hour;
+                }
+                if(chars[1]!='')
+                {
+                    mm=(chars[1].substring(0, 2)>0)?(chars[1].substring(0, 2)==0?0: chars[1].substring(0, 2)):'0';
+                    if(chars[1].substring(0, 2) >60)
+                    {
+                        mm=0;
+                        hh=hh+1;
+                    }else{
+                           mm=Number(mm);
+                    }
+                }else
+                {
+                    mm='0'
+                }
+                if(text.toUpperCase().includes("PM"))
+                {
+
+
+                    if(Number(hh)==12 && Number(mm)==0 )
+                    {debugger;
+
+                    if($('#editableFromTimeDropdown').val().includes("AM"))
+                        {
+                            hh=12;
+                            mm=00;
+                        }else{
+                            hh=23;
+                            mm=59;
+                        }
+
+
+                    }
+                    if(Number(hh)<12  )
+                    {
+                        hh=12+Number(hh);
+                    }
+
+                  var temph=text.split(':')[0]
+                    var tempFromtimeHR=$('#hiddenFromTime').val().split(':')[0];
+                    var currenttmepHour=Number(tempFromtimeHR)+1;
+                    if($('#editableFromTimeDropdown').val().includes("PM") && Number(tempFromtimeHR)>=13 &&  Number(temph)==12)
+                    {
+                        hh=23;
+                        mm=59;
+                    }
+
+
+                }
+                if(text.toUpperCase().includes("AM") && Number(hh)==12)
+                {
+                    hh=0;
+                }
+
+                setDefaultToTime(Number(hh),Number(mm));
+            }else
+            {
+                setDefaultToTime(Number(defaultTotimeHour),Number(defaultTotimeMinutes));
+
+            }
+        }
+    });
+
+
+
+    function setDefaultToTime(temphour,tempminute) {
+        debugger;
+        var hours = Number(temphour);
+        var minutes = tempminute;
+        var seconds = 0;
+        var ampm = hours >= 12 ? 'PM' : 'AM';
+
+
+        hours = hours % 12;
+        hours = hours ? (hours < 10) ? ("0" + hours) : hours : 12;
+        minutes = (minutes=="")?"00":minutes < 10 ? '0' + minutes : minutes;
+        var localformat = hours + ':' + minutes + ' ' + ampm +" ( "+ abbr+ ")"
+        //var customhour=(temphour<10)?'0'+temphour:temphour;
+        var  Ctemphour=(temphour<10)?("0"+temphour):temphour;
+        var Standardformat=Ctemphour +":"+ minutes +":00";
+        if(Ctemphour==24)
+        {
+            Standardformat=23 +":"+ 59 +":00" ;
+            localformat = 11 + ':' + 59 + ' ' + ampm +" ( "+ abbr+ ")" ;
+        }
+
+      //  var Standardformat=temphour +":"+ minutes +":00";
+        $('#editableToTimeDropdown').val("");
+        $('#hiddenToTime').val("");
+        $('#editableToTimeDropdown').val(localformat);
+        defaultTotimeHour=temphour;
+        defaultTotimeMinutes=tempminute;
+        debugger;
+        $('#hiddenToTime').val(Standardformat);
+    }
+
+
+    function setDefault15MinutesFromTimeInterval(minutes) {
+        debugger
+        var hours = Math.floor(minutes / 60);
+        var mins = minutes % 60;
+        setDefaultFromTime(Number(hours),Number(mins))
+       // setDefaultToTime(hours,mins+15);
+    }
+
+
+    //function setDefault15MinutesToTimeInterval(minutes) {
+    //    debugger;
+    //    var hours = Math.floor(minutes / 60);
+    //    var mins = minutes % 60;
+    //    setDefaultToTime(hours,mins);
+    //}
+
+
+   // let table1 = $("#myDataTable1").DataTable();
+
+    //$("#MaxDistance").on("blur", function () {
+    //    fetchCaregiverdata();
+    //});
+    //$("#MaxCaregiver").on("blur", function () {
+    //    fetchCaregiverdata();
+    //});
+
+    $("#MapSearchIcon").click(function() {
+        debugger;
+        $('#loading').show();
+            Filterdata();
+
+    });
+
+
+
+
+    function fetchCaregiverdata()
+    {   $('#loading').show();
+
+        debugger;
+        if ($("#MaxCaregiver").val() == "0" || $("#MaxCaregiver").val() == "") {
+            MaxCaregiver = 500;
+        }
+        else {
+            MaxCaregiver = $("#MaxCaregiver").val();
+        }
+
+        if ($("#MaxDistance").val() == "0" || $("#MaxDistance").val() == "") {
+            MaxDistance = @System.Web.Configuration.WebConfigurationManager.AppSettings["MaxDistance"];
+        } else {
+            MaxDistance = $("#MaxDistance").val();
+        }
+
+
+
+        setTimeout(function(){
+            var url = INITURL + '/PatientRequest/getManuelCaregiver?MaxCaregiver=' + MaxCaregiver + '&MaxDistance=' + MaxDistance
+            var result;
+            $.ajax({
+                url: url,
+                data: $('#fmAddPatientRequest').serialize(),
+                cache: false,
+                async: false,
+                dataType: 'json',
+                traditional: true,
+                type: 'POST',
+                success: function (data) {
+                    result = data;
+                    CaregiverListArray=data.Result;
+                    fillTableData(result.Result);
+
+                    debugger;
+                    var ptlat=$("#patientLatitude").val();
+                    var ptLong=$("#patientLongitude").val();
+
+    //                str = "";
+    //                if (result.Result.length > 0) {
+    //                    for (var k = 0; k < result.Result.length; k++) {
+    //                        str += "<tr>" +
+    //                            "<td><input type='checkbox' class='checckboxcls' id='chk" + result.Result[k].NurseId + "'/></td>" +
+    //                            "<td> " + result.Result[k].Name + "</td>" +
+    //                            "<td> " + result.Result[k].IsNurseBusy + "</td>" +
+    //                            "<td> " + result.Result[k].Email + "</td>" +
+    //                            "<td> " + result.Result[k].DistanceUnit + "</td>" +
+    //                            "<td> " + result.Result[k].Address + "</td>" +
+    //"<td><label id='dataGetDist-"+result.Result[k].NurseId+"'></label><button id='btnGetdistance-"+result.Result[k].NurseId+"' type='btnGetdistance' onclick='GetDistanceSubmit("+ptlat+","+ptLong+","+result.Result[k].Latitude+","+result.Result[k].Longitude+","+result.Result[k].NurseId+");' class='btn btn-sm btn-info pull-right' tabindex='17'>Get Distance</button></td>"+
+    //                            "</tr>";
+    //                    }
+    //                } else { str = "<tr><td colspan='6'>" + "No Caregiver Found" + "</td></tr>"; }
+    //                document.getElementById("caregiverList").innerHTML = str;
+
+                },
+                error: function (reponse) {
+                    alert("error : " + reponse);
+                }
+            });
+
+
+
+
+            getCaregiverBasedOnInput($("#patientLatitude").val() + ',' + $("#patientLongitude").val(), result.Result);
+
+
+            $("#modalAddPopup").css('width', '55%');
+            $("#mapCaregiverLocationList").css('width', '100%');
+
+
+            $("#main_div").css('display', 'none');
+            $("#main_div3").css('display', 'block');
+
+            $("#loading").hide();
+        },1000);
+
+    }
+
+
+
+    function gotoAddScreen3()
+    {
+       // alert('d');
+        $('#myModal').scrollTop(0);
+        $('#gridSystemModalLabel1').text('Assign Caregiver');
+        $("#MaxCaregiver").val(500);
+        $("#MaxDistance").val(@System.Web.Configuration.WebConfigurationManager.AppSettings["MaxDistance"])
+        getPatientLatLong();
+        fetchCaregiverdata();
+    }
+
+
+    function Filterdata()
+    {
+        debugger;
+
+        var textSearch=$("#searchCaregiver").val();
+        if(textSearch!="")
+        {
+            let filteredCaregivers = CaregiverListArray.filter(m =>m.Name.toLowerCase().includes(textSearch.toLowerCase()));
+            fillTableData(filteredCaregivers);
+        }else{
+            fillTableData(CaregiverListArray);
+        }
+    }
+
+    function fillTableData(tempDatable)
+    {
+        var ptlat=$("#patientLatitude").val();
+        var ptLong=$("#patientLongitude").val();
+
+        debugger;
+
+
+        str = "";
+
+        $('#cargivercount').text(' ( '+ tempDatable.length +' )');
+        if (tempDatable.length > 0) {
+            for (var k = 0; k < tempDatable.length; k++) {
+                str += "<tr>" +
+                    "<td><input type='checkbox' class='checckboxcls' id='chk" +tempDatable[k].NurseId + "'/></td>" +
+                    "<td> " + tempDatable[k].Name + "</td>" +
+                    "<td> " + tempDatable[k].IsNurseBusy + "</td>" +
+                    "<td> " + tempDatable[k].Email + "</td>" +
+                    "<td> " + tempDatable[k].DistanceUnit + " mi</td>" +
+                    "<td> " + tempDatable[k].Address + "</td>" +
+                  "<td><label id='dataGetDist-"+tempDatable[k].NurseId+"'></label><button id='btnGetdistance-"+tempDatable[k].NurseId+"' type='btnGetdistance' onclick='GetDistanceSubmit("+ptlat+","+ptLong+","+tempDatable[k].Latitude+","+tempDatable[k].Longitude+","+tempDatable[k].NurseId+");' class='btn btn-sm btn-info pull-right' tabindex='17'>Get Distance</button></td>"+
+                    "</tr>";
+            }
+        } else { str = "<tr><td colspan='6'>" + "No Caregiver Found" + "</td></tr>"; }
+        document.getElementById("caregiverList").innerHTML = str;
+
+        $('#loading').hide();
+     //   alert(JSON.stringify(filteredCaregivers, null, 2));
+
+    }
+
+    function channgetotimedropdown(tephour,tempminutes)
+    {
+        debugger;
+        var temphour=tephour;
+        $('#editableToTimeDropdown').val('');
+        $('#hiddenToTime').val("");
+
+
+        const dropdownToTime = document.getElementById("dropdownToTimeOptions");
+
+        dropdownToTime.innerHTML = "";
+
+        for (var i = Number(temphour)+1 ; i <= 24; i++)
+        {
+
+            var hours = i;
+            var minutes = tempminutes;
+            var seconds = 0;
+            var ampm = hours >= 12 ? 'PM' : 'AM';
+
+            hours = hours % 12;
+            hours = hours ? (hours < 10) ? ("0" + hours) : hours : 12;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            var strTime = hours + ':' + minutes + ' ' + ampm;
+            var id = i === 0 ? i + 1 : i + 1;
+            if (i < 24) {
+                var temphour = i < 10 ? '0' + i : i;
+
+
+                let option1 = document.createElement("div");
+                option1.textContent = strTime  +" ( "+ abbr+ ")";
+                option1.dataset.value =temphour; // Store 24-hour value
+                dropdownToTime.appendChild(option1);
+
+            } else if(i == 24){
+                let option1 = document.createElement("div");
+               // option1.textContent = strTime  +" ( "+ abbr+ ")";
+				option1.textContent = "11:59 PM"  +" ( "+ abbr+ ")";
+                option1.dataset.value =temphour; // Store 24-hour value
+                dropdownToTime.appendChild(option1);
+               // tempminutes=0;
+
+                //  $("#drpToTime").append($("<option>").attr("value", "23:59:59").text("11:59 PM" + " (" + abbr + ") ").attr("id", id));
+
+            }
+        }
+        debugger;
+		 if(tephour==23)
+        {
+            setDefaultToTime(Number(tephour)+1,Number("00"));
+        }else{
+            setDefaultToTime(Number(tephour)+1,Number(tempminutes));
+        }
+
+        //setDefaultToTime(Number(tephour)+1,Number(tempminutes));
+
+    }
+
+    function channgetotimedropdown15Mininterval(temphours,tephourminutes)
+    {
+        debugger;
+
+        $('#editableToTimeDropdown').val('');
+        $('#hiddenToTime').val("");
+
+        var startMinutes=(temphours*60)+tephourminutes;
+        const dropdownToTime = document.getElementById("dropdownToTimeOptions");
+
+        dropdownToTime.innerHTML = "";
+
+
+
+        var totalminuts=(startMinutes+15);
+        if(totalminuts>1440)
+        {
+            var customhour =24;
+            var custommins =0;
+
+            let option1 = document.createElement("div");
+            option1.textContent = "12:00 PM" +" ( "+ abbr+ ")" ;
+            option1.dataset.value ="23:59:00"; // Store 24-hour value
+            dropdownToTime.appendChild(option1);
+
+        }else
+        {
+
+
+            var customhour1 = Math.floor(totalminuts / 60);
+
+            for (var i = startMinutes; i <= 24 * 60; i += 15) {
+
+                var strTime = ChangeformatTime(i);
+                var id = i;
+                var hours24Format = Math.floor(i / 60);
+                var minutes24Format = i % 60;
+                var timeValue = (hours24Format < 10 ? "0" + hours24Format : hours24Format) + ":" + (minutes24Format < 10 ? "0" + minutes24Format : minutes24Format) + ":00";
+
+                // Append FromTime options
+                if (i < 24 * 60) {
+
+                    var strTime2 = ChangeformatTime(15 + i);
+                    var id = i;
+                    var hours24Format = Math.floor(i / 60);
+                    var minutes24Format = i % 60;
+                    var timeValue2 = (hours24Format < 10 ? "0" + hours24Format : hours24Format) + ":" + (minutes24Format < 10 ? "0" + minutes24Format : minutes24Format) + ":00";
+
+                    let option1 = document.createElement("div");
+                    option1.textContent = strTime2 +" ( "+ abbr+ ")" ;
+                    option1.dataset.value =timeValue2; // Store 24-hour value
+                    dropdownToTime.appendChild(option1);
+                }
+                else {
+                    debugger;
+                    //let option1 = document.createElement("div");
+                    //option1.textContent = strTime2  ;
+                    //option1.dataset.value =timeValue2; // Store 24-hour value
+                    //dropdownToTime.appendChild(option1);
+                    //tempminutes=0;
+
+                    //  $("#drpToTime").append($("<option>").attr("value", "23:59:59").text("11:59 PM" + " (" + abbr + ") ").attr("id", id));
+
+                }
+            }
+
+            var incrementedmin=(startMinutes+15);
+            var customhour = Math.floor(incrementedmin / 60);
+            var custommins = incrementedmin % 60;
+            debugger;
+        }
+
+        setDefaultToTime(Number(customhour),custommins);
+
+    }
+    function ChangeformatTime(minutes) {
+
+        var hours = Math.floor(minutes / 60);
+        var mins = minutes % 60;
+        var ampm = hours >= 12 ? 'PM' : 'AM';
+        //var ampm ='';
+        //if(hours==12)
+        //{
+        //    ampm='AM';
+        //}else if( hours >= 12)
+        //{
+        //    var ampm ='PM';
+        //}else{
+        //    ampm='AM';
+        //}
+        hours = hours % 12;
+        hours = hours ? (hours < 10 ? "0" + hours : hours) : 12;
+        mins = mins < 10 ? '0' + mins : mins;
+        return hours + ':' + mins + ' ' + ampm;
+    }
+
+    const MaxDistanceID = document.getElementById('MaxDistance');
+    MaxDistanceID.addEventListener('keydown', function (event) {
+
+        if (event.key === 'Enter') {
+            event.preventDefault();
+
+            fetchCaregiverdata();
+
+        }
+
+    });
+    const MaxCaregiverID = document.getElementById('MaxCaregiver');
+    MaxCaregiverID.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            fetchCaregiverdata();
+
+        }
+
+    });
+    const searchCaregiverID = document.getElementById('searchCaregiver');
+    searchCaregiverID.addEventListener('keydown', function (event) {
+        debugger
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            Filterdata();
+
+        }
+
+    });
+
+    var NurseName="";
+    var AllowedHours="";
+    var TotalHours="";
+    var SchedulerEmail="";
+    var OfficeEmail ="";
+    var CCMailID ="";
+    function CheckCaregiverAllowedHours(){
+        
+        var selectedNurse = $('input:checkbox[id^="chk"]:checked').map(function () {
+            return this.id;
+        }).get();
+        var NurseID = selectedNurse[0].replace(/\D/g, "");
+        var url= INITURL + 'PatientRequest/CheckCaregiverAllowedHours';
+        $.ajax({
+            url: url,
+            async:false,
+            type: 'POST',
+            data: { nurseid: NurseID},
+            success: function(response) {
+                var data = JSON.parse(response);
+                if(data.Table[0].Name !="" &&data.Table[0].Email !="" && response!="failed" ){
+                    $("#CareGiverEmailD").html(data.Table[0].Email); 
+                    $("#Allowedtime").html(data.Table[0].AllowedHours + " hours");
+                    $("#Accesstime").html(data.Table[0].TotalHours  + " hours");
+                    // $("#myModalPopup").modal('show');
+                    NurseName=data.Table[0].Name;
+                    AllowedHours=data.Table[0].AllowedHours;
+                    TotalHours=data.Table[0].TotalHours;
+                    SchedulerEmail=data.Table2[0].SchedulerEmail;
+                    OfficeEmail=data.Table3[0].OfficeEmail;// data.Table[3].OfficeEmail;
+                    CCMailID=data.Table3[0].OfficeEmail;  //data.Table[0].Email;//
+                    $(".myModalPopup").show();
+
+                }
+             
+            },
+            error: function(xhr, status, error) {
+                console.log('Error:', error);
+                toastr.error("Failed to fetch aregiver working hours.");
+                
+            }
+        });
+    }
+ 
+    function sendMailToSchedulerAndOfficeManagers(){
+
+        $.ajax({
+            type: "POST",
+            url: '/PatientRequest/SendEmail',
+            data: {
+                SchedulerEmail: SchedulerEmail,
+                CCMailID:CCMailID,
+                NurseName:NurseName,
+                AllowedHours:AllowedHours,
+                TotalHours: TotalHours,
+                OfficeEmail:OfficeEmail
+            },
+            success: function (response) {
+                if (response.success) {
+                   alert(response.message); // Email sent successfully.
+                } else {
+                    alert("Failed: " + response.message);
+                }
+            },
+            error: function () {
+                alert("An error occurred while sending email.");
+            }
+        });
+
+    }
+</script>

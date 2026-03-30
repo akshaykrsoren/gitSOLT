@@ -1,0 +1,103 @@
+﻿<style>
+    .btnss {
+        background-color: DodgerBlue;
+        border: none;
+        color: white;
+        padding: 12px 30px;
+        cursor: pointer;
+        font-size: 10px;
+    }
+
+        /* Darker background on mouse-over */
+        .btnss:hover {
+            background-color: RoyalBlue;
+        }
+</style>
+
+
+<a href="" id="test" download style="display:none">Download Here</a>
+
+<div id="main_div">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label>Supply Form Details List</label>
+            <div class="col-md-06" style="overflow-y:auto;scroll:auto;max-height:300px">
+                <table class="table table-striped table-bordered table-hover dataTables-example">
+                    <thead>
+                        <tr>
+                            <td style="width:5%"><b>Employee Name</b></td>
+                            <td style="width:10%"><b>Create Date</b></td>
+                            <td style="width:11%"><b>Group Name</b></td>
+                            <td style="width:5%"><b>office Name</b></td>
+                            <td style="width:5%"><b>DownLoad Supply</b></td>
+                            <td style="width:55%"><b>SupplyForm Details</b></td>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (ViewBag.SupplyFormDetailslist != null)
+                        {
+                            foreach (var item in ViewBag.SupplyFormDetailslist)
+                            {
+
+                                <tr>
+                                    <td>@item.EmployeeName</td>
+                                    <td>@item.CreatedDate</td>
+                                    <td>@item.PatientGroupName</td>
+                                    <td>@item.OfficeName</td>
+
+                                    <td><button class="btnss" id="testss" style="width:100%" onclick="DownloadSalesForm('@item.SupplyFormUrl')"><i class="fa fa-download"></i> Download</button></td>
+
+                                    <td>
+
+                                        <div>
+                                            <table cellpadding="0" cellspacing="0" class="ChildGrid table table-striped table-bordered table-hover dataTables-example">
+                                                <tr>
+                                                    <th>Product Name</th>
+                                                    <th>Quantity</th>
+                                                    <th>Description</th>
+                                                </tr>
+
+                                                @foreach (var project in item.supplyformdatas.SupplyFormDetails)
+                                                {
+                                                    <tr>
+                                                        <td>@project.ProductName</td>
+                                                        <td>@project.Quantity</td>
+                                                        <td>@project.Description</td>
+
+                                                    </tr>
+                                                }
+                                            </table>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            }
+                        }
+                       
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    debugger;
+    function DownloadSalesForm(salesformurl)
+    {
+
+        $("#test").attr("href", salesformurl);
+
+        //$("#test").trigger("click");
+
+        document.getElementById("test").click();
+
+    }
+
+
+
+</script>
+
+

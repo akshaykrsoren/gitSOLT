@@ -1,0 +1,119 @@
+﻿<link href="~/Content/css/star-rating.css" rel="stylesheet" />
+<script src="~/Scripts/js/star-rating.js"></script><hr />
+<div class="row">
+    <div class="col-md-12">
+        <div id="divpatientrev">
+            <span><span class="head">Patient Reviews on <span id="spnursename">@Model.Name</span>'s service</span></span>
+        </div>
+        <div id="divnotpatientrev">
+            <span><span class="head">There are no patient reviews yet.</span></span>
+        </div>
+    </div>
+    @*<div class="col-md-12"><span id="spPatientReview"><span class="head">Patient Reviews on <span id="spnursename">@Model.Name</span> service</span></span><span id="spNotPatientReview"><span class="head">There are no patient reviews yet.</span></span></div>*@
+    <div class="col-md-2">
+        <div id="divstar"></div>
+    </div>
+    <div class="col-md-10" style='margin-top:10px;margin-left:-15px;font-weight:bold;'>
+        <span id="spTotstar" class="startext"></span>
+    </div>
+    <div class="col-md-12" style="padding-bottom:10px;"> <span id="sprevof"></span></div>
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            @for (int i = 5; i >= 1; i--)
+            {
+                <div class="row">
+                    <div class="col-md-12" style="margin-bottom:-10px;">
+                        <div class="col-md-1">
+                            <span class="startext">@i star</span>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="20"
+                                     aria-valuemin="0" aria-valuemax="100" id="star_@i">
+                                    <span class="sr-only" id="sp_@i"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <span class="startext" id="sptext_@i"></span>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="col-md-12">
+        <span class="revtext">Patient Reviews </span>
+    </div>
+    <div class="col-md-12" id="idDivrev" style="margin-top:5px;">
+    </div>
+</div>
+
+<script>
+    function loadratingdata() {
+        var NurseId;
+        if (hdnNuseId.value != "") {
+            NurseId = hdnNuseId.value;
+        }
+        var url = '@System.Configuration.ConfigurationManager.AppSettings["WebServiceUrl"].ToString()' + "CaregiverLiteService.svc/GetCareGiverReview/" + NurseId;;
+        $.ajax({
+            url: url,
+            data: { NurseId: NurseId },
+            cache: false,
+            type: 'POST',
+            dataType: "json",
+            success: function (data) {
+                console.log(JSON.stringify(data));
+                if (data["CareGiveReview"]["Result"] == "Success") {
+                    var Totstar = parseInt(data["CareGiveReview"]["StarFive"]) + parseInt(data["CareGiveReview"]["StarFour"]) + parseInt(data["CareGiveReview"]["StarThree"]) + parseInt(data["CareGiveReview"]["StarTwo"]) + parseInt(data["CareGiveReview"]["StarOne"]);
+
+                    $('#divnotpatientrev').css('visibility', 'hidden');
+                    $('#divpatientrev').css('visibility', 'visible');
+
+                    $("#spTotstar").text(Totstar);
+                    $("#sptext_5").text(data["CareGiveReview"]["StarFive"]);
+                    $("#sptext_4").text(data["CareGiveReview"]["StarFour"]);
+                    $("#sptext_3").text(data["CareGiveReview"]["StarThree"]);
+                    $("#sptext_2").text(data["CareGiveReview"]["StarTwo"]);
+                    $("#sptext_1").text(data["CareGiveReview"]["StarOne"]);
+
+                    $("#star_5").css("width", (parseInt(data["CareGiveReview"]["StarFive"]) * 100) / Totstar + "%");
+                    $("#star_4").css("width", (parseInt(data["CareGiveReview"]["StarFour"]) * 100) / Totstar + "%");
+                    $("#star_3").css("width", (parseInt(data["CareGiveReview"]["StarThree"]) * 100) / Totstar + "%");
+                    $("#star_2").css("width", (parseInt(data["CareGiveReview"]["StarTwo"]) * 100) / Totstar + "%");
+                    $("#star_1").css("width", (parseInt(data["CareGiveReview"]["StarOne"]) * 100) / Totstar + "%");
+                    $("#input-21e").val(data["CareGiveReview"]["AverageStarRating"]);
+                    $("#sprevof").text(data["CareGiveReview"]["AverageStarRating"] + " out of 5 stars");
+
+                    var avg = (parseFloat(data["CareGiveReview"]["AverageStarRating"]) * 100) / 5;
+                    var divs = "<div class='rating-container rating-xs rating-animate'><div class='rating'><span class='empty-stars'><span class='star'><i class='glyphicon glyphicon-star-empty'></i></span><span class='star'><i class='glyphicon glyphicon-star-empty'></i></span><span class='star'><i class='glyphicon glyphicon-star-empty'></i></span><span class='star'><i class='glyphicon glyphicon-star-empty'></i></span><span class='star'><i class='glyphicon glyphicon-star-empty'></i></span></span><span class='filled-stars' style='width: " + avg + "%;'><span class='star'><i class='glyphicon glyphicon-star'></i></span><span class='star'><i class='glyphicon glyphicon-star'></i></span><span class='star'><i class='glyphicon glyphicon-star'></i></span><span class='star'><i class='glyphicon glyphicon-star'></i></span><span class='star'><i class='glyphicon glyphicon-star'></i></span></span></div><input id='input-21e' value='" + data["CareGiveReview"]["AverageStarRating"] + "' type='number' class='rating hide' min='0' max='5' step='0.5' data-size='xs'></div>";
+                    $("#divstar").append(divs);
+
+                    for (var i = 0; i < data["CareGiveReview"]["ListCareGiverReview"].length; i++) {
+                        var swidth = data["CareGiveReview"]["ListCareGiverReview"][i].StarRating * 20;
+                        console.log(swidth, 'width')
+
+                        var st = "<div class='rating-container rating-xs rating-animate'><div class='rating'><span class='empty-stars'><span class='star'><i class='glyphicon glyphicon-star-empty'></i></span><span class='star'><i class='glyphicon glyphicon-star-empty'></i></span><span class='star'><i class='glyphicon glyphicon-star-empty'></i></span><span class='star'><i class='glyphicon glyphicon-star-empty'></i></span><span class='star'><i class='glyphicon glyphicon-star-empty'></i></span></span><span class='filled-stars' style='width: " + swidth + "%;'><span class='star'><i class='glyphicon glyphicon-star'></i></span><span class='star'><i class='glyphicon glyphicon-star'></i></span><span class='star'><i class='glyphicon glyphicon-star'></i></span><span class='star'><i class='glyphicon glyphicon-star'></i></span><span class='star'><i class='glyphicon glyphicon-star'></i></span></span></div><input id='input-21e' value='" + data["CareGiveReview"]["ListCareGiverReview"][i].StarRating + "' type='number' class='rating hide' min='0' max='5' step='0.5' data-size='xs'></div>";
+                        var dyDiv = "<div class='col-md-12' style='margin-top:10px;margin-left:-30px;'>";
+                        //dyDiv += "<div  class='col-md-2 revtext' style='margin-bottom: -25px;'>" + st + " &nbsp;</div><div class='col-md-10' style='margin-top:8px;font-weight:bold;'>" + data["CareGiveReview"]["ListCareGiverReview"][i].ReviewTitle + "</div>";
+                        dyDiv += "<div  class='col-md-2 revtext' style='margin-bottom: -25px;'>" + st + " &nbsp;</div>";
+
+                        dyDiv += "<div class='col-md-11'>"+ data["CareGiveReview"]["ListCareGiverReview"][i].ReviewDate + "</div><div class='col-md-1'></div>";
+                        //dyDiv += "<div class='col-md-11'>By &nbsp;<span class='startext'>" + data["CareGiveReview"]["ListCareGiverReview"][i].PatientName + "</span> on " + data["CareGiveReview"]["ListCareGiverReview"][i].ReviewDate + "</div><div class='col-md-1'></div>";
+                        dyDiv += "<div class='col-md-11' style='word-wrap: break-word;'>" + data["CareGiveReview"]["ListCareGiverReview"][i].ReviewContent + " </div><div class='col-md-1'></div>";
+                        dyDiv += "</div>";
+                        $('#idDivrev').append(dyDiv);
+                    }
+                }
+                else {
+                    $('#divnotpatientrev').css('visibility', 'visible');
+                    $('#divpatientrev').css('visibility', 'hidden');
+
+                }
+            },
+        });
+    }
+
+</script>

@@ -1,0 +1,287 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Authorization Form Viewer</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        .text-input {
+            width: 100px;
+            padding: 5px 0;
+            margin-left: 10px;
+            border: none;
+            border-bottom: 1px solid #000;
+            outline: none;
+            background-color: transparent;
+            font-size: 14px;
+        }
+
+        #formContainer {
+            display: none;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body style="background-color:#f8f9fa; padding: 30px;">
+
+
+    <!-- Button to show the form -->
+    <!-- <div class="text-center"> -->
+    <!-- <button id="openBtn" onclick="openForm()" class="btn btn-success btn-lg"> -->
+    <!-- Open Authorization Form -->
+    <!-- </button> -->
+    <!-- </div> 
+
+    <!-- Button to show the form -->
+    <div id="authFormId" style="background-color:#f8f9fa; padding: 30px;">
+        <!-- Form container -->
+        <div id="formContainer" class="container" style="background-color:#fff; padding: 20px; border: 1px solid #ccc; border-radius: 4px;">
+            <h2 class="text-center" style="margin-bottom: 30px;">HEALTH PLAN / HOME HEALTH AUTHORIZATION FORM</h2>
+            <form id="authForm">
+                <div class="row" style="margin-bottom: 20px;">
+                    <div class="col-sm-4">
+                        <label for="patientName">Patient's Name:</label>
+                        <input type="text" class="text-input" name="patientName" id="patientName" disabled>
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="medicalRecord">Medical Record #:</label>
+                        <input type="text" class="text-input" name="medicalRecord" id="medicalRecord" disabled>
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="DateRecord">Date:</label>
+                        <input type="text" class="text-input" name="DateRecord" id="DateRecord" disabled>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <p><strong>Check Box Below:</strong></p>
+                    <label class="checkbox-inline"><input type="checkbox" id="soc" name="soc"> S.O.C.</label>
+                    <label class="checkbox-inline"><input type="checkbox" id="roc" name="roc"> ROC</label>
+                    <label class="checkbox-inline"><input type="checkbox" id="recert" name="recert"> Recert</label>
+                </div>
+
+                <div class="form-group">
+                    <label for="insuranceType">Click Insurance Type from drop down Below:</label>
+                    <select class="form-control" name="insuranceType" id="insuranceType" required style="margin-top:15px">
+                        <option value="">Select Insurance</option>
+                        <option value="AETNA PPS">AETNA PPS</option>
+                        <option value="Blue Cross Blue Shield Commercial">Blue Cross Blue Shield Commercial</option>
+                        <option value="Blue Cross Blue Shield Medicare">Blue Cross Blue Shield Medicare</option>
+                        <option value="BOSTON MEDICAL CENTER HEALTH PLAN">BOSTON MEDICAL CENTER HEALTH PLAN</option>
+                        <option value="BOSTON MEDICAL CENTER HEALTH PLAN PPS">BOSTON MEDICAL CENTER HEALTH PLAN PPS</option>
+                        <option value="Bristol Hospice">Bristol Hospice</option>
+                        <option value="CCA (MassHealth)">CCA (MassHealth)</option>
+                        <option value="CDPHP">CDPHP</option>
+                        <option value="CIGNA">CIGNA</option>
+                        <option value="COMMONWEALTH CARE ALLIANCE">COMMONWEALTH CARE ALLIANCE</option>
+                        <option value="Commonwealth Care PPS">Commonwealth Care PPS</option>
+                        <option value="Eternal Health">Eternal Health</option>
+                        <option value="FALLON COMMUNITY HEALTH PLAN">FALLON COMMUNITY HEALTH PLAN</option>
+                        <option value="Fallon Medicare">Fallon Medicare</option>
+                        <option value="HBMI">HBMI</option>
+                        <option value="Healthscope">Healthscope</option>
+                        <option value="HOMELINK">HOMELINK</option>
+                        <option value="HUMANA">HUMANA</option>
+                        <option value="Magnolia CompCare, LLC">Magnolia CompCare, LLC</option>
+                        <option value="MASSACHUSETTS MEDICAID (MASSHEALTH MEDICARE))">MASSACHUSETTS MEDICAID (MASSHEALTH MEDICARE))</option>
+                        <option value="MASSACHUSETTS MEDICAID (MASSHEALTH)">MASSACHUSETTS MEDICAID (MASSHEALTH)</option>
+                        <option value="OneCall Care Management">OneCall Care Management</option>
+                        <option value="Optum insurance">Optum insurance</option>
+                        <option value="Optum Insurance New">Optum Insurance New</option>
+                        <option value="Optum Medicare Advantage">Optum Medicare Advantage</option>
+                        <option value="Senior whole Health">Senior whole Health</option>
+                        <option value="Senior whole Health (BID)">Senior whole Health (BID)</option>
+                        <option value="Triwest">Triwest</option>
+                        <option value="Tufts Health Plan">Tufts Health Plan</option>
+                        <option value="UHC (MassHealth)">UHC (MassHealth)</option>
+                        <option value="UMR">UMR</option>
+                        <option value="United health care MA">United health care MA</option>
+                        <option value="United Healthcare PPS">United Healthcare PPS</option>
+                        <option value="Wellcare PPS">Wellcare PPS</option>
+                        <option value="Zeils">Zeils</option>
+                    </select>
+                </div>
+
+                <table class="table table-bordered" style="margin-top:50px;margin-bottom: 40px;">
+                    <thead style="background-color: whitesmoke;">
+                        <tr>
+                            <th>Services Requesting</th>
+                            <th>From Date</th>
+                            <th>To Date</th>
+                            <th># of Visits</th>
+                            <th>Frequency</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>SN</td><td><input type="date" class="form-control" name="sn_from" /></td><td><input type="date" class="form-control" name="sn_to" /></td><td><input type="number" class="form-control" name="sn_visits" /></td><td><input type="number" class="form-control" name="sn_frequency" /></td></tr>
+                        <tr><td>PT</td><td><input type="date" class="form-control" name="pt_from" /></td><td><input type="date" class="form-control" name="pt_to" /></td><td><input type="number" class="form-control" name="pt_visits" /></td><td><input type="number" class="form-control" name="pt_frequency" /></td></tr>
+                        <tr><td>OT</td><td><input type="date" class="form-control" name="ot_from" /></td><td><input type="date" class="form-control" name="ot_to" /></td><td><input type="number" class="form-control" name="ot_visits" /></td><td><input type="number" class="form-control" name="ot_frequency" /></td></tr>
+                        <tr><td>ST</td><td><input type="date" class="form-control" name="st_from" /></td><td><input type="date" class="form-control" name="st_to" /></td><td><input type="number" class="form-control" name="st_visits" /></td><td><input type="number" class="form-control" name="st_frequency" /></td></tr>
+                        <tr><td>MSW</td><td><input type="date" class="form-control" name="msw_from" /></td><td><input type="date" class="form-control" name="msw_to" /></td><td><input type="number" class="form-control" name="msw_visits" /></td><td><input type="number" class="form-control" name="msw_frequency" /></td></tr>
+                        <tr><td>HHA</td><td><input type="date" class="form-control" name="hha_from" /></td><td><input type="date" class="form-control" name="hha_to" /></td><td><input type="number" class="form-control" name="hha_visits" /></td><td><input type="number" class="form-control" name="hha_frequency" /></td></tr>
+                    </tbody>
+                </table>
+
+                <div class="form-group">
+                    <label for="comments">Communication Comments:</label>
+                    <textarea class="form-control" id="comments" name="comments" rows="4"></textarea>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary" id="download-pdf">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- JS Dependencies -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <!-- Form Script -->
+    <script>
+
+  <!--    function openForm() {
+            -->
+          < !--document.getElementById('formContainer').style.display = 'block'; -->
+          < !--document.getElementById('openBtn').style.display = 'none'; -->
+        < !-- } -->
+
+
+            $(document).ready(function () {
+                // Set min="from date" on "to date"
+                $('tbody tr').each(function () {
+                    const row = $(this);
+                    const fromInput = row.find('input[name$="_from"]');
+                    const toInput = row.find('input[name$="_to"]');
+
+                    fromInput.on('change', function () {
+                        const fromDate = $(this).val();
+                        if (fromDate) {
+                            toInput.attr('min', fromDate);
+                        } else {
+                            toInput.removeAttr('min');
+                        }
+                    });
+                });
+
+                // Form submission logic
+                $('#authForm').on('submit', function (e) {
+                    e.preventDefault();
+                    let isValid = true;
+                    const formData = {};
+
+                    if ($('#insuranceType').val() === "") {
+                        isValid = false;
+                        alert("Please select an insurance type.");
+                    }
+
+                    $('tbody tr').each(function () {
+                        const from = $(this).find('input[name$="_from"]').val();
+                        const to = $(this).find('input[name$="_to"]').val();
+                        if (from && to && new Date(from) > new Date(to)) {
+                            isValid = false;
+                            alert("From Date cannot be later than To Date.");
+                        }
+                    });
+
+                    if (isValid) {
+                        $(this).serializeArray().forEach(function (field) {
+                            formData[field.name] = field.value;
+                        });
+                        console.log("Form Data:", formData);
+                        alert("Form submitted successfully! (Check console for data)");
+                    }
+                });
+            });
+
+
+        // When the button is clicked
+        //$('#download-pdf').click(function () {
+        //    const { jsPDF } = window.jspdf;
+        //    const doc = new jsPDF();
+
+        //    html2canvas(document.getElementById('formContainer'), {
+        //        scale: 1  // Lower this (e.g., 0.8 or 0.6) to reduce image size
+        //    }).then(function (canvas) {
+        //        const imgData = canvas.toDataURL('image/jpeg', 0.8); // use JPEG + compression
+        //        const { jsPDF } = window.jspdf;
+        //        const doc = new jsPDF({
+        //            orientation: 'p',
+        //            unit: 'mm',
+        //            format: 'a4'
+        //        });
+
+        //        const pageWidth = doc.internal.pageSize.getWidth();
+        //        const pageHeight = doc.internal.pageSize.getHeight();
+        //        const imgWidth = pageWidth;
+        //        const imgHeight = canvas.height * imgWidth / canvas.width;
+
+        //        doc.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight);
+
+        //        const pdfBlob = doc.output('blob');
+
+        //        const fileInput = document.querySelector('input[type=file]');
+
+        //        // Prepare FormData to send the file via AJAX
+        //        const formData = new FormData();
+        //        formData.append('file', pdfBlob, 'sample.pdf');
+
+        $('#download-pdf').click(function () {
+            var formContainer = document.getElementById('formContainer');
+
+            html2canvas(formContainer, {
+                scale: 1,
+                onrendered: function (canvas) { // older html2canvas API for synchronous use
+                    var imgData = canvas.toDataURL('image/jpeg', 0.8);
+
+                    var doc = new jsPDF('p', 'mm', 'a4');
+                    var pageWidth = doc.internal.pageSize.getWidth();
+                    var pageHeight = doc.internal.pageSize.getHeight();
+
+                    var imgWidth = pageWidth;
+                    var imgHeight = canvas.height * imgWidth / canvas.width;
+
+                    doc.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight);
+
+                    var pdfBlob = doc.output('blob');
+
+                    // Prepare FormData
+                    var formData = new FormData();
+                    formData.append('file', pdfBlob, 'sample.pdf');
+                    formData.append('AuthInsuranceTypeId', '2');
+
+            // Append an additional text parameter
+           
+        debugger;
+        // Send the file via AJAX
+        $.ajax({
+            url: 'http://localhost:52086/CaregiverLiteMobileServices.svc/SendAuthorizationInsuranceToEmail',  // Replace with your server URL
+            type: 'POST',
+            data: formData,
+            processData: false,  // Don't process the data
+            contentType: false,  // Let the browser set the content type for multipart/form-data
+            success: function (response) {
+                console.log('PDF uploaded successfully!', response);
+            },
+            error: function (xhr, status, error) {
+                console.error('Upload failed!', error);
+            }
+        });
+          }).catch (function (error) {
+            console.error('Error capturing HTML content:', error);
+        });
+        });
+
+
+
+    </script>
+</body>
+</html>

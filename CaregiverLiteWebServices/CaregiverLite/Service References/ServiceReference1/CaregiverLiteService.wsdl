@@ -1,0 +1,1965 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="CaregiverLiteService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:15268/CaregiverLiteService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:15268/CaregiverLiteService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:15268/CaregiverLiteService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CaregiverLiteWCF" />
+      <xsd:import schemaLocation="http://localhost:15268/CaregiverLiteService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/CaregiverLiteWCF.Class" />
+      <xsd:import schemaLocation="http://localhost:15268/CaregiverLiteService.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ICaregiverLiteService_AddOffice_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddOffice" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_AddOffice_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddOfficeResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetOfficeGroupDetailByOfficeId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOfficeGroupDetailByOfficeId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetOfficeGroupDetailByOfficeId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOfficeGroupDetailByOfficeIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_DeleteGroupChat_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteGroupChat" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_DeleteGroupChat_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteGroupChatResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_UpdateGroupDetail_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateGroupDetail" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_UpdateGroupDetail_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateGroupDetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetChatGroupListByTypeIdForUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetChatGroupListByTypeIdForUser" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetChatGroupListByTypeIdForUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetChatGroupListByTypeIdForUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_IsGroupNameAndSubjectExist_InputMessage">
+    <wsdl:part name="parameters" element="tns:IsGroupNameAndSubjectExist" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_IsGroupNameAndSubjectExist_OutputMessage">
+    <wsdl:part name="parameters" element="tns:IsGroupNameAndSubjectExistResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_ExitMemberFromGroupChat_InputMessage">
+    <wsdl:part name="parameters" element="tns:ExitMemberFromGroupChat" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_ExitMemberFromGroupChat_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ExitMemberFromGroupChatResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_AssignGroupAdminToUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:AssignGroupAdminToUser" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_AssignGroupAdminToUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AssignGroupAdminToUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetOneToOneChatListByUserId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOneToOneChatListByUserId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetOneToOneChatListByUserId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOneToOneChatListByUserIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_DeleteOneToOneChatByUserId_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteOneToOneChatByUserId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_DeleteOneToOneChatByUserId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteOneToOneChatByUserIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetChatGroupListByOfficeIdForUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetChatGroupListByOfficeIdForUser" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetChatGroupListByOfficeIdForUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetChatGroupListByOfficeIdForUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetGroupMemberListWithPermissionAndRole_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetGroupMemberListWithPermissionAndRole" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetGroupMemberListWithPermissionAndRole_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetGroupMemberListWithPermissionAndRoleResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_SetGroupChatMemberPermission_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetGroupChatMemberPermission" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_SetGroupChatMemberPermission_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetGroupChatMemberPermissionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetGroupChatMemberPermission_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetGroupChatMemberPermission" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetGroupChatMemberPermission_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetGroupChatMemberPermissionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetUnassignedSchedulerList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUnassignedSchedulerList" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetUnassignedSchedulerList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUnassignedSchedulerListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAssignedSchedulerListGroupWise_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAssignedSchedulerListGroupWise" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAssignedSchedulerListGroupWise_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAssignedSchedulerListGroupWiseResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_AddMemberIntoGroup_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddMemberIntoGroup" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_AddMemberIntoGroup_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddMemberIntoGroupResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetChatGroupListForDeleteManually_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetChatGroupListForDeleteManually" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetChatGroupListForDeleteManually_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetChatGroupListForDeleteManuallyResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetPatientRoomGroupList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPatientRoomGroupList" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetPatientRoomGroupList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPatientRoomGroupListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetOneToOneChatList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOneToOneChatList" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetOneToOneChatList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOneToOneChatListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetALLSuperadminList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetALLSuperadminList" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetALLSuperadminList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetALLSuperadminListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_CheckInOutBySuperAdmin_InputMessage">
+    <wsdl:part name="parameters" element="tns:CheckInOutBySuperAdmin" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_CheckInOutBySuperAdmin_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CheckInOutBySuperAdminResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAttendanceDetailsList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAttendanceDetailsList" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAttendanceDetailsList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAttendanceDetailsListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetCornaStatsDetailsList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCornaStatsDetailsList" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetCornaStatsDetailsList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCornaStatsDetailsListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_SetNurseCoordinatorAndOfficeManager_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetNurseCoordinatorAndOfficeManager" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_SetNurseCoordinatorAndOfficeManager_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetNurseCoordinatorAndOfficeManagerResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_CancelPatientRequest_InputMessage">
+    <wsdl:part name="parameters" element="tns:CancelPatientRequest" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_CancelPatientRequest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CancelPatientRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetCareGiverDetailsByUserId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCareGiverDetailsByUserId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetCareGiverDetailsByUserId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCareGiverDetailsByUserIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetPatientRequestDetailByMedicalID_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPatientRequestDetailByMedicalID" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetPatientRequestDetailByMedicalID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPatientRequestDetailByMedicalIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_AddScheduler_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddScheduler" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_AddScheduler_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddSchedulerResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_EditScheduler_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditScheduler" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_EditScheduler_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditSchedulerResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllScheduler_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllScheduler" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllScheduler_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllSchedulerResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllSchedulerList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllSchedulerList" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllSchedulerList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllSchedulerListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_DeleteScheduler_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteScheduler" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_DeleteScheduler_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteSchedulerResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetSchedulerDetailById_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSchedulerDetailById" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetSchedulerDetailById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSchedulerDetailByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllRewardPointDetail_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllRewardPointDetail" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllRewardPointDetail_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllRewardPointDetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllRewardPointAdvanceDetail_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllRewardPointAdvanceDetail" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllRewardPointAdvanceDetail_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllRewardPointAdvanceDetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_EditComment_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditComment" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_EditComment_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditCommentResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllRewardPointByNurseId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllRewardPointByNurseId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllRewardPointByNurseId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllRewardPointByNurseIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetRateByPatientRequestId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetRateByPatientRequestId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetRateByPatientRequestId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetRateByPatientRequestIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_SetRateByPatientRequestId_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetRateByPatientRequestId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_SetRateByPatientRequestId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetRateByPatientRequestIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllRatingByNurseId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllRatingByNurseId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllRatingByNurseId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllRatingByNurseIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllChattingList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllChattingList" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllChattingList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllChattingListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetChattingListPatientGroupWise_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetChattingListPatientGroupWise" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetChattingListPatientGroupWise_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetChattingListPatientGroupWiseResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetQuickBloxIdByNurseId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetQuickBloxIdByNurseId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetQuickBloxIdByNurseId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetQuickBloxIdByNurseIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetQuickBloxIdBySchedulerUserId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetQuickBloxIdBySchedulerUserId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetQuickBloxIdBySchedulerUserId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetQuickBloxIdBySchedulerUserIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_SaveQBId_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveQBId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_SaveQBId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SaveQBIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_SaveDialogId_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveDialogId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_SaveDialogId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SaveDialogIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetDialogId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDialogId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetDialogId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDialogIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetDialogDetail_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDialogDetail" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetDialogDetail_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDialogDetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetGroupMemberDetail_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetGroupMemberDetail" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetGroupMemberDetail_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetGroupMemberDetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetSchedulerDetailByUserId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSchedulerDetailByUserId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetSchedulerDetailByUserId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSchedulerDetailByUserIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllDialogId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllDialogId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllDialogId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllDialogIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllGroupDialogId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllGroupDialogId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllGroupDialogId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllGroupDialogIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_RemovePatientRequest_InputMessage">
+    <wsdl:part name="parameters" element="tns:RemovePatientRequest" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_RemovePatientRequest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RemovePatientRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_checkDialogId_InputMessage">
+    <wsdl:part name="parameters" element="tns:checkDialogId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_checkDialogId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:checkDialogIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_NotifyUserForChatMessage_InputMessage">
+    <wsdl:part name="parameters" element="tns:NotifyUserForChatMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_NotifyUserForChatMessage_OutputMessage">
+    <wsdl:part name="parameters" element="tns:NotifyUserForChatMessageResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllNurseCoordinators_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllNurseCoordinators" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllNurseCoordinators_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllNurseCoordinatorsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_AddNurseCoordinator_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddNurseCoordinator" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_AddNurseCoordinator_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddNurseCoordinatorResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_DeleteNurseCoordinator_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteNurseCoordinator" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_DeleteNurseCoordinator_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteNurseCoordinatorResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_EditNurseCoordinator_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditNurseCoordinator" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_EditNurseCoordinator_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditNurseCoordinatorResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetNurseCoordinatorDetailById_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNurseCoordinatorDetailById" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetNurseCoordinatorDetailById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNurseCoordinatorDetailByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetUnAssignedNurseCoordinatorList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUnAssignedNurseCoordinatorList" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetUnAssignedNurseCoordinatorList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUnAssignedNurseCoordinatorListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_SetNurseCoordinator_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetNurseCoordinator" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_SetNurseCoordinator_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetNurseCoordinatorResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_SaveQBIdOfNurseCoordinator_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveQBIdOfNurseCoordinator" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_SaveQBIdOfNurseCoordinator_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SaveQBIdOfNurseCoordinatorResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetNurseCoordinatorDetailByUserId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNurseCoordinatorDetailByUserId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetNurseCoordinatorDetailByUserId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNurseCoordinatorDetailByUserIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetNurseCoordinatorPermissionGroupWise_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNurseCoordinatorPermissionGroupWise" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetNurseCoordinatorPermissionGroupWise_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNurseCoordinatorPermissionGroupWiseResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetNurseCoordinatorPermissionGroupWiseList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNurseCoordinatorPermissionGroupWiseList" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetNurseCoordinatorPermissionGroupWiseList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNurseCoordinatorPermissionGroupWiseListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetCaregiverBasedOnInputedMilesAndNumberOfCaregivers_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCaregiverBasedOnInputedMilesAndNumberOfCaregivers" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetCaregiverBasedOnInputedMilesAndNumberOfCaregivers_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCaregiverBasedOnInputedMilesAndNumberOfCaregiversResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_AddPatient_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddPatient" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_AddPatient_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddPatientResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_EditPatientDetails_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditPatientDetails" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_EditPatientDetails_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditPatientDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetPatientDetailById_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPatientDetailById" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetPatientDetailById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPatientDetailByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_DeletePatientDetail_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeletePatientDetail" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_DeletePatientDetail_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeletePatientDetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetPatientDetailsList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPatientDetailsList" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetPatientDetailsList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPatientDetailsListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_IsMedicalIdExist_InputMessage">
+    <wsdl:part name="parameters" element="tns:IsMedicalIdExist" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_IsMedicalIdExist_OutputMessage">
+    <wsdl:part name="parameters" element="tns:IsMedicalIdExistResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllSchedulerbyCaregiverId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllSchedulerbyCaregiverId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllSchedulerbyCaregiverId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllSchedulerbyCaregiverIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetQuickBloxDetByUserId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetQuickBloxDetByUserId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetQuickBloxDetByUserId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetQuickBloxDetByUserIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetQuickBloxDetById_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetQuickBloxDetById" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetQuickBloxDetById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetQuickBloxDetByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetPatientChattingGroupList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPatientChattingGroupList" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetPatientChattingGroupList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPatientChattingGroupListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetUnassignedCaregiverList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUnassignedCaregiverList" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetUnassignedCaregiverList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUnassignedCaregiverListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAssignedCaregiverListGroupWise_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAssignedCaregiverListGroupWise" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAssignedCaregiverListGroupWise_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAssignedCaregiverListGroupWiseResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_AddCaregiverIntoGroup_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddCaregiverIntoGroup" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_AddCaregiverIntoGroup_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddCaregiverIntoGroupResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_RemoveMemberFromGroupChat_InputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveMemberFromGroupChat" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_RemoveMemberFromGroupChat_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveMemberFromGroupChatResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllGroupExceptAssignedGroupByUserId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllGroupExceptAssignedGroupByUserId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllGroupExceptAssignedGroupByUserId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllGroupExceptAssignedGroupByUserIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllAssignedGroupByUserId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllAssignedGroupByUserId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllAssignedGroupByUserId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllAssignedGroupByUserIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_AssignGroupToUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:AssignGroupToUser" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_AssignGroupToUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AssignGroupToUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllUnAssignedMemberList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllUnAssignedMemberList" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllUnAssignedMemberList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllUnAssignedMemberListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAssignedMemberListGroupWise_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAssignedMemberListGroupWise" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAssignedMemberListGroupWise_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAssignedMemberListGroupWiseResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetGroupDetailFromGroupName_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetGroupDetailFromGroupName" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetGroupDetailFromGroupName_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetGroupDetailFromGroupNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllOfficesList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllOfficesList" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllOfficesList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllOfficesListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllAvailableOfficesList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllAvailableOfficesList" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllAvailableOfficesList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllAvailableOfficesListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetOfficeDetailByOfficeId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOfficeDetailByOfficeId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetOfficeDetailByOfficeId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOfficeDetailByOfficeIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_EditOffice_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditOffice" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_EditOffice_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditOfficeResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_DeleteOfficeByOfficeId_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteOfficeByOfficeId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_DeleteOfficeByOfficeId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteOfficeByOfficeIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_AssignZipcodesToOfficeByOfficeId_InputMessage">
+    <wsdl:part name="parameters" element="tns:AssignZipcodesToOfficeByOfficeId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_AssignZipcodesToOfficeByOfficeId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AssignZipcodesToOfficeByOfficeIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAssignZipcodesToOfficeByOfficeId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAssignZipcodesToOfficeByOfficeId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAssignZipcodesToOfficeByOfficeId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAssignZipcodesToOfficeByOfficeIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_AddAdmin_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddAdmin" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_AddAdmin_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddAdminResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllOfficeAdmin_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllOfficeAdmin" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllOfficeAdmin_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllOfficeAdminResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAdminDetailById_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAdminDetailById" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAdminDetailById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAdminDetailByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_EditAdmin_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditAdmin" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_EditAdmin_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditAdminResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_DeleteAdmin_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteAdmin" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_DeleteAdmin_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteAdminResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAdminDetailByUserId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAdminDetailByUserId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAdminDetailByUserId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAdminDetailByUserIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllAdminName_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllAdminName" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllAdminName_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllAdminNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllOfficeExceptAssignedOfficeByUserId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllOfficeExceptAssignedOfficeByUserId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllOfficeExceptAssignedOfficeByUserId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllOfficeExceptAssignedOfficeByUserIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_AssignOfficeToUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:AssignOfficeToUser" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_AssignOfficeToUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AssignOfficeToUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllAssignedOfficeByUserId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllAssignedOfficeByUserId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllAssignedOfficeByUserId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllAssignedOfficeByUserIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_RemoveSchedulerFromOffice_InputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveSchedulerFromOffice" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_RemoveSchedulerFromOffice_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveSchedulerFromOfficeResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_SaveQBIdOfAdmin_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveQBIdOfAdmin" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_SaveQBIdOfAdmin_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SaveQBIdOfAdminResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetPatientChattingGroupByOfficeId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPatientChattingGroupByOfficeId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetPatientChattingGroupByOfficeId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPatientChattingGroupByOfficeIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_AddGroupDialogId_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddGroupDialogId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_AddGroupDialogId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddGroupDialogIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllMemberByOffice_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllMemberByOffice" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllMemberByOffice_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllMemberByOfficeResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertErrorLog_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertErrorLog" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertErrorLog_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertErrorLogResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertLog_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertLog" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertLog_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertLogResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllServices_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllServices" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllServices_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllServicesResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertUpdateService_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertUpdateService" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertUpdateService_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertUpdateServiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_DeleteService_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteService" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_DeleteService_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteServiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllCareGivers_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllCareGivers" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllCareGivers_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllCareGiversResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllCareGiversList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllCareGiversList" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllCareGiversList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllCareGiversListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllNotifiedCareGiversByRequestId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllNotifiedCareGiversByRequestId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllNotifiedCareGiversByRequestId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllNotifiedCareGiversByRequestIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetTrackLocationByPatientRequestId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTrackLocationByPatientRequestId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetTrackLocationByPatientRequestId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTrackLocationByPatientRequestIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetTrackLocationByNurseId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTrackLocationByNurseId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetTrackLocationByNurseId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTrackLocationByNurseIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertUpdateCareGiverByAdmin_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertUpdateCareGiverByAdmin" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertUpdateCareGiverByAdmin_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertUpdateCareGiverByAdminResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertNurseProfile_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertNurseProfile" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertNurseProfile_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertNurseProfileResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllCareGiverByNurseId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllCareGiverByNurseId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllCareGiverByNurseId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllCareGiverByNurseIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_DeleteNurse_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteNurse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_DeleteNurse_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteNurseResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllNursesByDateFilter_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllNursesByDateFilter" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllNursesByDateFilter_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllNursesByDateFilterResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_ApproveRejectNurse_InputMessage">
+    <wsdl:part name="parameters" element="tns:ApproveRejectNurse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_ApproveRejectNurse_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ApproveRejectNurseResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetCareGiverByServiceId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCareGiverByServiceId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetCareGiverByServiceId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCareGiverByServiceIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetCareGiverForPatiantRequest_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCareGiverForPatiantRequest" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetCareGiverForPatiantRequest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCareGiverForPatiantRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllUsersForAdmin_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllUsersForAdmin" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllUsersForAdmin_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllUsersForAdminResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllPatientsByDateFilter_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllPatientsByDateFilter" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllPatientsByDateFilter_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllPatientsByDateFilterResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetPatientInfoForDashboard_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPatientInfoForDashboard" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetPatientInfoForDashboard_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPatientInfoForDashboardResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetTimeSlotByNurseId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTimeSlotByNurseId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetTimeSlotByNurseId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTimeSlotByNurseIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertTimeSlotForNurse_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertTimeSlotForNurse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertTimeSlotForNurse_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertTimeSlotForNurseResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetScheduleByTimeSlotId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetScheduleByTimeSlotId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetScheduleByTimeSlotId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetScheduleByTimeSlotIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertScheduleForNurse_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertScheduleForNurse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertScheduleForNurse_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertScheduleForNurseResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_DeleteScheduleByTimeSlotId_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteScheduleByTimeSlotId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_DeleteScheduleByTimeSlotId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteScheduleByTimeSlotIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllPatientRequests_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllPatientRequests" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllPatientRequests_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllPatientRequestsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAppointmentDetailByAppointmentId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAppointmentDetailByAppointmentId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAppointmentDetailByAppointmentId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAppointmentDetailByAppointmentIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertPatientRequestForAdmin_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertPatientRequestForAdmin" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertPatientRequestForAdmin_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertPatientRequestForAdminResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_CancelPatientAppointment_InputMessage">
+    <wsdl:part name="parameters" element="tns:CancelPatientAppointment" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_CancelPatientAppointment_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CancelPatientAppointmentResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_ChangeCareGiver_InputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeCareGiver" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_ChangeCareGiver_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeCareGiverResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetRescheduleAppoinmentRequest_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetRescheduleAppoinmentRequest" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetRescheduleAppoinmentRequest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetRescheduleAppoinmentRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_RescheduleAppoinment_InputMessage">
+    <wsdl:part name="parameters" element="tns:RescheduleAppoinment" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_RescheduleAppoinment_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RescheduleAppoinmentResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAppointmentsByDateFilter_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAppointmentsByDateFilter" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAppointmentsByDateFilter_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAppointmentsByDateFilterResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetPaymentReceived_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPaymentReceived" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetPaymentReceived_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPaymentReceivedResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetProjectedPayment_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProjectedPayment" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetProjectedPayment_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProjectedPaymentResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetRescheduleApprovalAlerts_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetRescheduleApprovalAlerts" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetRescheduleApprovalAlerts_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetRescheduleApprovalAlertsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetRescheduleAlerts_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetRescheduleAlerts" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetRescheduleAlerts_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetRescheduleAlertsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllUnavailabilityRequest_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllUnavailabilityRequest" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllUnavailabilityRequest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllUnavailabilityRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_ApproveRejectUnavailabilityRequest_InputMessage">
+    <wsdl:part name="parameters" element="tns:ApproveRejectUnavailabilityRequest" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_ApproveRejectUnavailabilityRequest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ApproveRejectUnavailabilityRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAppointmentsByUnavailabilityRequestId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAppointmentsByUnavailabilityRequestId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAppointmentsByUnavailabilityRequestId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAppointmentsByUnavailabilityRequestIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllDisputes_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllDisputes" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllDisputes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllDisputesResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InserDisputeComment_InputMessage">
+    <wsdl:part name="parameters" element="tns:InserDisputeComment" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InserDisputeComment_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InserDisputeCommentResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetDisputesDetailByDisputeId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDisputesDetailByDisputeId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetDisputesDetailByDisputeId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDisputesDetailByDisputeIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertPaymentTransaction_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertPaymentTransaction" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertPaymentTransaction_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertPaymentTransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertMessageQueue_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertMessageQueue" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertMessageQueue_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertMessageQueueResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllPermissionForUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllPermissionForUser" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllPermissionForUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllPermissionForUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllRolesForUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllRolesForUser" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllRolesForUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllRolesForUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertUpdateSuperAdmin_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertUpdateSuperAdmin" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertUpdateSuperAdmin_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertUpdateSuperAdminResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertUserPermission_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertUserPermission" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertUserPermission_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertUserPermissionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_DeleteUserWithPermissions_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteUserWithPermissions" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_DeleteUserWithPermissions_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteUserWithPermissionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAdminDetailsById_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAdminDetailsById" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAdminDetailsById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAdminDetailsByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertPushNotification_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertPushNotification" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertPushNotification_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertPushNotificationResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertSentNotification_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertSentNotification" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertSentNotification_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertSentNotificationResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetCareGiverByUserId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCareGiverByUserId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetCareGiverByUserId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCareGiverByUserIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllPatientRequestsByNurseId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllPatientRequestsByNurseId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllPatientRequestsByNurseId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllPatientRequestsByNurseIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_ResetPassword_InputMessage">
+    <wsdl:part name="parameters" element="tns:ResetPassword" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_ResetPassword_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ResetPasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertNurseCertificate_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertNurseCertificate" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertNurseCertificate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertNurseCertificateResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetCareGiverCertiByNurseId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCareGiverCertiByNurseId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetCareGiverCertiByNurseId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCareGiverCertiByNurseIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetPaymentReceivedByNurseId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPaymentReceivedByNurseId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetPaymentReceivedByNurseId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPaymentReceivedByNurseIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAppointmentsByNurseId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAppointmentsByNurseId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAppointmentsByNurseId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAppointmentsByNurseIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetRescheduleAlertsByNurseId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetRescheduleAlertsByNurseId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetRescheduleAlertsByNurseId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetRescheduleAlertsByNurseIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetCancelledAppointmentByPatientForNurseId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCancelledAppointmentByPatientForNurseId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetCancelledAppointmentByPatientForNurseId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCancelledAppointmentByPatientForNurseIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetPaymentRequertForMapByNurseId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPaymentRequertForMapByNurseId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetPaymentRequertForMapByNurseId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPaymentRequertForMapByNurseIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_UpdateAvailableOrBusyStatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateAvailableOrBusyStatus" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_UpdateAvailableOrBusyStatus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateAvailableOrBusyStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertStripeAccessToken_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertStripeAccessToken" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertStripeAccessToken_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertStripeAccessTokenResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetStripeAccessTokenByNurseId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStripeAccessTokenByNurseId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetStripeAccessTokenByNurseId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStripeAccessTokenByNurseIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_UpdateNurseSchedule_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateNurseSchedule" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_UpdateNurseSchedule_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateNurseScheduleResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_DeleteTimeSlotByTimeSlotId_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteTimeSlotByTimeSlotId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_DeleteTimeSlotByTimeSlotId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteTimeSlotByTimeSlotIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_ForgotPassword_InputMessage">
+    <wsdl:part name="parameters" element="tns:ForgotPassword" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_ForgotPassword_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ForgotPasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_UpdateCareGiver_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateCareGiver" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_UpdateCareGiver_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateCareGiverResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_DeleteNurseCertificateById_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteNurseCertificateById" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_DeleteNurseCertificateById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteNurseCertificateByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAppointmentByTimeSlotId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAppointmentByTimeSlotId" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAppointmentByTimeSlotId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAppointmentByTimeSlotIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAppointmentsForUnavailability_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAppointmentsForUnavailability" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAppointmentsForUnavailability_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAppointmentsForUnavailabilityResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertUnavailabilityRequest_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertUnavailabilityRequest" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertUnavailabilityRequest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertUnavailabilityRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetUnavailabilityRequestByTimeSlot_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUnavailabilityRequestByTimeSlot" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetUnavailabilityRequestByTimeSlot_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUnavailabilityRequestByTimeSlotResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertUpdateCareGiverReview_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertUpdateCareGiverReview" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertUpdateCareGiverReview_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertUpdateCareGiverReviewResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllCareGiverReview_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllCareGiverReview" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllCareGiverReview_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllCareGiverReviewResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetCareGiverReview_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCareGiverReview" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetCareGiverReview_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCareGiverReviewResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetCareGiverUserNRate_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCareGiverUserNRate" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetCareGiverUserNRate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCareGiverUserNRateResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_CheckValidAppointmentDate_InputMessage">
+    <wsdl:part name="parameters" element="tns:CheckValidAppointmentDate" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_CheckValidAppointmentDate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CheckValidAppointmentDateResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertSchedulePatientRequest_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertSchedulePatientRequest" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertSchedulePatientRequest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertSchedulePatientRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetFilterDates_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFilterDates" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetFilterDates_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFilterDatesResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllSchedulePatientRequest_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllSchedulePatientRequest" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_GetAllSchedulePatientRequest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllSchedulePatientRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertSchedulePatientRequestTemp_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertSchedulePatientRequestTemp" />
+  </wsdl:message>
+  <wsdl:message name="ICaregiverLiteService_InsertSchedulePatientRequestTemp_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertSchedulePatientRequestTempResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ICaregiverLiteService">
+    <wsdl:operation name="AddOffice">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/AddOffice" message="tns:ICaregiverLiteService_AddOffice_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/AddOfficeResponse" message="tns:ICaregiverLiteService_AddOffice_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOfficeGroupDetailByOfficeId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetOfficeGroupDetailByOfficeId" message="tns:ICaregiverLiteService_GetOfficeGroupDetailByOfficeId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetOfficeGroupDetailByOfficeIdResponse" message="tns:ICaregiverLiteService_GetOfficeGroupDetailByOfficeId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteGroupChat">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/DeleteGroupChat" message="tns:ICaregiverLiteService_DeleteGroupChat_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/DeleteGroupChatResponse" message="tns:ICaregiverLiteService_DeleteGroupChat_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateGroupDetail">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/UpdateGroupDetail" message="tns:ICaregiverLiteService_UpdateGroupDetail_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/UpdateGroupDetailResponse" message="tns:ICaregiverLiteService_UpdateGroupDetail_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetChatGroupListByTypeIdForUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetChatGroupListByTypeIdForUser" message="tns:ICaregiverLiteService_GetChatGroupListByTypeIdForUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetChatGroupListByTypeIdForUserResponse" message="tns:ICaregiverLiteService_GetChatGroupListByTypeIdForUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="IsGroupNameAndSubjectExist">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/IsGroupNameAndSubjectExist" message="tns:ICaregiverLiteService_IsGroupNameAndSubjectExist_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/IsGroupNameAndSubjectExistResponse" message="tns:ICaregiverLiteService_IsGroupNameAndSubjectExist_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ExitMemberFromGroupChat">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/ExitMemberFromGroupChat" message="tns:ICaregiverLiteService_ExitMemberFromGroupChat_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/ExitMemberFromGroupChatResponse" message="tns:ICaregiverLiteService_ExitMemberFromGroupChat_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AssignGroupAdminToUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/AssignGroupAdminToUser" message="tns:ICaregiverLiteService_AssignGroupAdminToUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/AssignGroupAdminToUserResponse" message="tns:ICaregiverLiteService_AssignGroupAdminToUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOneToOneChatListByUserId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetOneToOneChatListByUserId" message="tns:ICaregiverLiteService_GetOneToOneChatListByUserId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetOneToOneChatListByUserIdResponse" message="tns:ICaregiverLiteService_GetOneToOneChatListByUserId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteOneToOneChatByUserId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/DeleteOneToOneChatByUserId" message="tns:ICaregiverLiteService_DeleteOneToOneChatByUserId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/DeleteOneToOneChatByUserIdResponse" message="tns:ICaregiverLiteService_DeleteOneToOneChatByUserId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetChatGroupListByOfficeIdForUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetChatGroupListByOfficeIdForUser" message="tns:ICaregiverLiteService_GetChatGroupListByOfficeIdForUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetChatGroupListByOfficeIdForUserResponse" message="tns:ICaregiverLiteService_GetChatGroupListByOfficeIdForUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupMemberListWithPermissionAndRole">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetGroupMemberListWithPermissionAndRole" message="tns:ICaregiverLiteService_GetGroupMemberListWithPermissionAndRole_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetGroupMemberListWithPermissionAndRoleResponse" message="tns:ICaregiverLiteService_GetGroupMemberListWithPermissionAndRole_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetGroupChatMemberPermission">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/SetGroupChatMemberPermission" message="tns:ICaregiverLiteService_SetGroupChatMemberPermission_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/SetGroupChatMemberPermissionResponse" message="tns:ICaregiverLiteService_SetGroupChatMemberPermission_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupChatMemberPermission">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetGroupChatMemberPermission" message="tns:ICaregiverLiteService_GetGroupChatMemberPermission_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetGroupChatMemberPermissionResponse" message="tns:ICaregiverLiteService_GetGroupChatMemberPermission_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUnassignedSchedulerList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetUnassignedSchedulerList" message="tns:ICaregiverLiteService_GetUnassignedSchedulerList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetUnassignedSchedulerListResponse" message="tns:ICaregiverLiteService_GetUnassignedSchedulerList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAssignedSchedulerListGroupWise">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAssignedSchedulerListGroupWise" message="tns:ICaregiverLiteService_GetAssignedSchedulerListGroupWise_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAssignedSchedulerListGroupWiseResponse" message="tns:ICaregiverLiteService_GetAssignedSchedulerListGroupWise_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddMemberIntoGroup">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/AddMemberIntoGroup" message="tns:ICaregiverLiteService_AddMemberIntoGroup_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/AddMemberIntoGroupResponse" message="tns:ICaregiverLiteService_AddMemberIntoGroup_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetChatGroupListForDeleteManually">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetChatGroupListForDeleteManually" message="tns:ICaregiverLiteService_GetChatGroupListForDeleteManually_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetChatGroupListForDeleteManuallyResponse" message="tns:ICaregiverLiteService_GetChatGroupListForDeleteManually_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPatientRoomGroupList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetPatientRoomGroupList" message="tns:ICaregiverLiteService_GetPatientRoomGroupList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetPatientRoomGroupListResponse" message="tns:ICaregiverLiteService_GetPatientRoomGroupList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOneToOneChatList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetOneToOneChatList" message="tns:ICaregiverLiteService_GetOneToOneChatList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetOneToOneChatListResponse" message="tns:ICaregiverLiteService_GetOneToOneChatList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetALLSuperadminList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetALLSuperadminList" message="tns:ICaregiverLiteService_GetALLSuperadminList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetALLSuperadminListResponse" message="tns:ICaregiverLiteService_GetALLSuperadminList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckInOutBySuperAdmin">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/CheckInOutBySuperAdmin" message="tns:ICaregiverLiteService_CheckInOutBySuperAdmin_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/CheckInOutBySuperAdminResponse" message="tns:ICaregiverLiteService_CheckInOutBySuperAdmin_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAttendanceDetailsList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAttendanceDetailsList" message="tns:ICaregiverLiteService_GetAttendanceDetailsList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAttendanceDetailsListResponse" message="tns:ICaregiverLiteService_GetAttendanceDetailsList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCornaStatsDetailsList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetCornaStatsDetailsList" message="tns:ICaregiverLiteService_GetCornaStatsDetailsList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetCornaStatsDetailsListResponse" message="tns:ICaregiverLiteService_GetCornaStatsDetailsList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetNurseCoordinatorAndOfficeManager">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/SetNurseCoordinatorAndOfficeManager" message="tns:ICaregiverLiteService_SetNurseCoordinatorAndOfficeManager_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/SetNurseCoordinatorAndOfficeManagerResponse" message="tns:ICaregiverLiteService_SetNurseCoordinatorAndOfficeManager_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelPatientRequest">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/CancelPatientRequest" message="tns:ICaregiverLiteService_CancelPatientRequest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/CancelPatientRequestResponse" message="tns:ICaregiverLiteService_CancelPatientRequest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCareGiverDetailsByUserId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetCareGiverDetailsByUserId" message="tns:ICaregiverLiteService_GetCareGiverDetailsByUserId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetCareGiverDetailsByUserIdResponse" message="tns:ICaregiverLiteService_GetCareGiverDetailsByUserId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPatientRequestDetailByMedicalID">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetPatientRequestDetailByMedicalID" message="tns:ICaregiverLiteService_GetPatientRequestDetailByMedicalID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetPatientRequestDetailByMedicalIDResponse" message="tns:ICaregiverLiteService_GetPatientRequestDetailByMedicalID_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddScheduler">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/AddScheduler" message="tns:ICaregiverLiteService_AddScheduler_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/AddSchedulerResponse" message="tns:ICaregiverLiteService_AddScheduler_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditScheduler">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/EditScheduler" message="tns:ICaregiverLiteService_EditScheduler_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/EditSchedulerResponse" message="tns:ICaregiverLiteService_EditScheduler_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllScheduler">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllScheduler" message="tns:ICaregiverLiteService_GetAllScheduler_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllSchedulerResponse" message="tns:ICaregiverLiteService_GetAllScheduler_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllSchedulerList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllSchedulerList" message="tns:ICaregiverLiteService_GetAllSchedulerList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllSchedulerListResponse" message="tns:ICaregiverLiteService_GetAllSchedulerList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteScheduler">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/DeleteScheduler" message="tns:ICaregiverLiteService_DeleteScheduler_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/DeleteSchedulerResponse" message="tns:ICaregiverLiteService_DeleteScheduler_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSchedulerDetailById">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetSchedulerDetailById" message="tns:ICaregiverLiteService_GetSchedulerDetailById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetSchedulerDetailByIdResponse" message="tns:ICaregiverLiteService_GetSchedulerDetailById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllRewardPointDetail">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllRewardPointDetail" message="tns:ICaregiverLiteService_GetAllRewardPointDetail_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllRewardPointDetailResponse" message="tns:ICaregiverLiteService_GetAllRewardPointDetail_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllRewardPointAdvanceDetail">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllRewardPointAdvanceDetail" message="tns:ICaregiverLiteService_GetAllRewardPointAdvanceDetail_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllRewardPointAdvanceDetailResponse" message="tns:ICaregiverLiteService_GetAllRewardPointAdvanceDetail_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditComment">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/EditComment" message="tns:ICaregiverLiteService_EditComment_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/EditCommentResponse" message="tns:ICaregiverLiteService_EditComment_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllRewardPointByNurseId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllRewardPointByNurseId" message="tns:ICaregiverLiteService_GetAllRewardPointByNurseId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllRewardPointByNurseIdResponse" message="tns:ICaregiverLiteService_GetAllRewardPointByNurseId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRateByPatientRequestId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetRateByPatientRequestId" message="tns:ICaregiverLiteService_GetRateByPatientRequestId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetRateByPatientRequestIdResponse" message="tns:ICaregiverLiteService_GetRateByPatientRequestId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetRateByPatientRequestId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/SetRateByPatientRequestId" message="tns:ICaregiverLiteService_SetRateByPatientRequestId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/SetRateByPatientRequestIdResponse" message="tns:ICaregiverLiteService_SetRateByPatientRequestId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllRatingByNurseId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllRatingByNurseId" message="tns:ICaregiverLiteService_GetAllRatingByNurseId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllRatingByNurseIdResponse" message="tns:ICaregiverLiteService_GetAllRatingByNurseId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllChattingList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllChattingList" message="tns:ICaregiverLiteService_GetAllChattingList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllChattingListResponse" message="tns:ICaregiverLiteService_GetAllChattingList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetChattingListPatientGroupWise">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetChattingListPatientGroupWise" message="tns:ICaregiverLiteService_GetChattingListPatientGroupWise_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetChattingListPatientGroupWiseResponse" message="tns:ICaregiverLiteService_GetChattingListPatientGroupWise_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetQuickBloxIdByNurseId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetQuickBloxIdByNurseId" message="tns:ICaregiverLiteService_GetQuickBloxIdByNurseId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetQuickBloxIdByNurseIdResponse" message="tns:ICaregiverLiteService_GetQuickBloxIdByNurseId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetQuickBloxIdBySchedulerUserId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetQuickBloxIdBySchedulerUserId" message="tns:ICaregiverLiteService_GetQuickBloxIdBySchedulerUserId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetQuickBloxIdBySchedulerUserIdResponse" message="tns:ICaregiverLiteService_GetQuickBloxIdBySchedulerUserId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveQBId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/SaveQBId" message="tns:ICaregiverLiteService_SaveQBId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/SaveQBIdResponse" message="tns:ICaregiverLiteService_SaveQBId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveDialogId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/SaveDialogId" message="tns:ICaregiverLiteService_SaveDialogId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/SaveDialogIdResponse" message="tns:ICaregiverLiteService_SaveDialogId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDialogId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetDialogId" message="tns:ICaregiverLiteService_GetDialogId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetDialogIdResponse" message="tns:ICaregiverLiteService_GetDialogId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDialogDetail">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetDialogDetail" message="tns:ICaregiverLiteService_GetDialogDetail_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetDialogDetailResponse" message="tns:ICaregiverLiteService_GetDialogDetail_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupMemberDetail">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetGroupMemberDetail" message="tns:ICaregiverLiteService_GetGroupMemberDetail_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetGroupMemberDetailResponse" message="tns:ICaregiverLiteService_GetGroupMemberDetail_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSchedulerDetailByUserId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetSchedulerDetailByUserId" message="tns:ICaregiverLiteService_GetSchedulerDetailByUserId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetSchedulerDetailByUserIdResponse" message="tns:ICaregiverLiteService_GetSchedulerDetailByUserId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllDialogId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllDialogId" message="tns:ICaregiverLiteService_GetAllDialogId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllDialogIdResponse" message="tns:ICaregiverLiteService_GetAllDialogId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllGroupDialogId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllGroupDialogId" message="tns:ICaregiverLiteService_GetAllGroupDialogId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllGroupDialogIdResponse" message="tns:ICaregiverLiteService_GetAllGroupDialogId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RemovePatientRequest">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/RemovePatientRequest" message="tns:ICaregiverLiteService_RemovePatientRequest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/RemovePatientRequestResponse" message="tns:ICaregiverLiteService_RemovePatientRequest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="checkDialogId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/checkDialogId" message="tns:ICaregiverLiteService_checkDialogId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/checkDialogIdResponse" message="tns:ICaregiverLiteService_checkDialogId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyUserForChatMessage">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/NotifyUserForChatMessage" message="tns:ICaregiverLiteService_NotifyUserForChatMessage_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/NotifyUserForChatMessageResponse" message="tns:ICaregiverLiteService_NotifyUserForChatMessage_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllNurseCoordinators">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllNurseCoordinators" message="tns:ICaregiverLiteService_GetAllNurseCoordinators_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllNurseCoordinatorsResponse" message="tns:ICaregiverLiteService_GetAllNurseCoordinators_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddNurseCoordinator">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/AddNurseCoordinator" message="tns:ICaregiverLiteService_AddNurseCoordinator_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/AddNurseCoordinatorResponse" message="tns:ICaregiverLiteService_AddNurseCoordinator_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteNurseCoordinator">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/DeleteNurseCoordinator" message="tns:ICaregiverLiteService_DeleteNurseCoordinator_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/DeleteNurseCoordinatorResponse" message="tns:ICaregiverLiteService_DeleteNurseCoordinator_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditNurseCoordinator">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/EditNurseCoordinator" message="tns:ICaregiverLiteService_EditNurseCoordinator_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/EditNurseCoordinatorResponse" message="tns:ICaregiverLiteService_EditNurseCoordinator_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNurseCoordinatorDetailById">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetNurseCoordinatorDetailById" message="tns:ICaregiverLiteService_GetNurseCoordinatorDetailById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetNurseCoordinatorDetailByIdResponse" message="tns:ICaregiverLiteService_GetNurseCoordinatorDetailById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUnAssignedNurseCoordinatorList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetUnAssignedNurseCoordinatorList" message="tns:ICaregiverLiteService_GetUnAssignedNurseCoordinatorList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetUnAssignedNurseCoordinatorListResponse" message="tns:ICaregiverLiteService_GetUnAssignedNurseCoordinatorList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetNurseCoordinator">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/SetNurseCoordinator" message="tns:ICaregiverLiteService_SetNurseCoordinator_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/SetNurseCoordinatorResponse" message="tns:ICaregiverLiteService_SetNurseCoordinator_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveQBIdOfNurseCoordinator">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/SaveQBIdOfNurseCoordinator" message="tns:ICaregiverLiteService_SaveQBIdOfNurseCoordinator_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/SaveQBIdOfNurseCoordinatorResponse" message="tns:ICaregiverLiteService_SaveQBIdOfNurseCoordinator_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNurseCoordinatorDetailByUserId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetNurseCoordinatorDetailByUserId" message="tns:ICaregiverLiteService_GetNurseCoordinatorDetailByUserId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetNurseCoordinatorDetailByUserIdResponse" message="tns:ICaregiverLiteService_GetNurseCoordinatorDetailByUserId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNurseCoordinatorPermissionGroupWise">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetNurseCoordinatorPermissionGroupWise" message="tns:ICaregiverLiteService_GetNurseCoordinatorPermissionGroupWise_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetNurseCoordinatorPermissionGroupWiseResponse" message="tns:ICaregiverLiteService_GetNurseCoordinatorPermissionGroupWise_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNurseCoordinatorPermissionGroupWiseList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetNurseCoordinatorPermissionGroupWiseList" message="tns:ICaregiverLiteService_GetNurseCoordinatorPermissionGroupWiseList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetNurseCoordinatorPermissionGroupWiseListResponse" message="tns:ICaregiverLiteService_GetNurseCoordinatorPermissionGroupWiseList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCaregiverBasedOnInputedMilesAndNumberOfCaregivers">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetCaregiverBasedOnInputedMilesAndNumberOfCaregivers" message="tns:ICaregiverLiteService_GetCaregiverBasedOnInputedMilesAndNumberOfCaregivers_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetCaregiverBasedOnInputedMilesAndNumberOfCaregiversResponse" message="tns:ICaregiverLiteService_GetCaregiverBasedOnInputedMilesAndNumberOfCaregivers_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddPatient">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/AddPatient" message="tns:ICaregiverLiteService_AddPatient_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/AddPatientResponse" message="tns:ICaregiverLiteService_AddPatient_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditPatientDetails">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/EditPatientDetails" message="tns:ICaregiverLiteService_EditPatientDetails_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/EditPatientDetailsResponse" message="tns:ICaregiverLiteService_EditPatientDetails_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPatientDetailById">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetPatientDetailById" message="tns:ICaregiverLiteService_GetPatientDetailById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetPatientDetailByIdResponse" message="tns:ICaregiverLiteService_GetPatientDetailById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeletePatientDetail">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/DeletePatientDetail" message="tns:ICaregiverLiteService_DeletePatientDetail_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/DeletePatientDetailResponse" message="tns:ICaregiverLiteService_DeletePatientDetail_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPatientDetailsList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetPatientDetailsList" message="tns:ICaregiverLiteService_GetPatientDetailsList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetPatientDetailsListResponse" message="tns:ICaregiverLiteService_GetPatientDetailsList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="IsMedicalIdExist">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/IsMedicalIdExist" message="tns:ICaregiverLiteService_IsMedicalIdExist_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/IsMedicalIdExistResponse" message="tns:ICaregiverLiteService_IsMedicalIdExist_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllSchedulerbyCaregiverId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllSchedulerbyCaregiverId" message="tns:ICaregiverLiteService_GetAllSchedulerbyCaregiverId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllSchedulerbyCaregiverIdResponse" message="tns:ICaregiverLiteService_GetAllSchedulerbyCaregiverId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetQuickBloxDetByUserId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetQuickBloxDetByUserId" message="tns:ICaregiverLiteService_GetQuickBloxDetByUserId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetQuickBloxDetByUserIdResponse" message="tns:ICaregiverLiteService_GetQuickBloxDetByUserId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetQuickBloxDetById">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetQuickBloxDetById" message="tns:ICaregiverLiteService_GetQuickBloxDetById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetQuickBloxDetByIdResponse" message="tns:ICaregiverLiteService_GetQuickBloxDetById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPatientChattingGroupList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetPatientChattingGroupList" message="tns:ICaregiverLiteService_GetPatientChattingGroupList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetPatientChattingGroupListResponse" message="tns:ICaregiverLiteService_GetPatientChattingGroupList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUnassignedCaregiverList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetUnassignedCaregiverList" message="tns:ICaregiverLiteService_GetUnassignedCaregiverList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetUnassignedCaregiverListResponse" message="tns:ICaregiverLiteService_GetUnassignedCaregiverList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAssignedCaregiverListGroupWise">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAssignedCaregiverListGroupWise" message="tns:ICaregiverLiteService_GetAssignedCaregiverListGroupWise_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAssignedCaregiverListGroupWiseResponse" message="tns:ICaregiverLiteService_GetAssignedCaregiverListGroupWise_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddCaregiverIntoGroup">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/AddCaregiverIntoGroup" message="tns:ICaregiverLiteService_AddCaregiverIntoGroup_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/AddCaregiverIntoGroupResponse" message="tns:ICaregiverLiteService_AddCaregiverIntoGroup_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveMemberFromGroupChat">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/RemoveMemberFromGroupChat" message="tns:ICaregiverLiteService_RemoveMemberFromGroupChat_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/RemoveMemberFromGroupChatResponse" message="tns:ICaregiverLiteService_RemoveMemberFromGroupChat_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllGroupExceptAssignedGroupByUserId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllGroupExceptAssignedGroupByUserId" message="tns:ICaregiverLiteService_GetAllGroupExceptAssignedGroupByUserId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllGroupExceptAssignedGroupByUserIdResponse" message="tns:ICaregiverLiteService_GetAllGroupExceptAssignedGroupByUserId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllAssignedGroupByUserId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllAssignedGroupByUserId" message="tns:ICaregiverLiteService_GetAllAssignedGroupByUserId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllAssignedGroupByUserIdResponse" message="tns:ICaregiverLiteService_GetAllAssignedGroupByUserId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AssignGroupToUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/AssignGroupToUser" message="tns:ICaregiverLiteService_AssignGroupToUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/AssignGroupToUserResponse" message="tns:ICaregiverLiteService_AssignGroupToUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUnAssignedMemberList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllUnAssignedMemberList" message="tns:ICaregiverLiteService_GetAllUnAssignedMemberList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllUnAssignedMemberListResponse" message="tns:ICaregiverLiteService_GetAllUnAssignedMemberList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAssignedMemberListGroupWise">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAssignedMemberListGroupWise" message="tns:ICaregiverLiteService_GetAssignedMemberListGroupWise_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAssignedMemberListGroupWiseResponse" message="tns:ICaregiverLiteService_GetAssignedMemberListGroupWise_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupDetailFromGroupName">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetGroupDetailFromGroupName" message="tns:ICaregiverLiteService_GetGroupDetailFromGroupName_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetGroupDetailFromGroupNameResponse" message="tns:ICaregiverLiteService_GetGroupDetailFromGroupName_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllOfficesList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllOfficesList" message="tns:ICaregiverLiteService_GetAllOfficesList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllOfficesListResponse" message="tns:ICaregiverLiteService_GetAllOfficesList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllAvailableOfficesList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllAvailableOfficesList" message="tns:ICaregiverLiteService_GetAllAvailableOfficesList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllAvailableOfficesListResponse" message="tns:ICaregiverLiteService_GetAllAvailableOfficesList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOfficeDetailByOfficeId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetOfficeDetailByOfficeId" message="tns:ICaregiverLiteService_GetOfficeDetailByOfficeId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetOfficeDetailByOfficeIdResponse" message="tns:ICaregiverLiteService_GetOfficeDetailByOfficeId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditOffice">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/EditOffice" message="tns:ICaregiverLiteService_EditOffice_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/EditOfficeResponse" message="tns:ICaregiverLiteService_EditOffice_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteOfficeByOfficeId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/DeleteOfficeByOfficeId" message="tns:ICaregiverLiteService_DeleteOfficeByOfficeId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/DeleteOfficeByOfficeIdResponse" message="tns:ICaregiverLiteService_DeleteOfficeByOfficeId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AssignZipcodesToOfficeByOfficeId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/AssignZipcodesToOfficeByOfficeId" message="tns:ICaregiverLiteService_AssignZipcodesToOfficeByOfficeId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/AssignZipcodesToOfficeByOfficeIdResponse" message="tns:ICaregiverLiteService_AssignZipcodesToOfficeByOfficeId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAssignZipcodesToOfficeByOfficeId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAssignZipcodesToOfficeByOfficeId" message="tns:ICaregiverLiteService_GetAssignZipcodesToOfficeByOfficeId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAssignZipcodesToOfficeByOfficeIdResponse" message="tns:ICaregiverLiteService_GetAssignZipcodesToOfficeByOfficeId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddAdmin">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/AddAdmin" message="tns:ICaregiverLiteService_AddAdmin_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/AddAdminResponse" message="tns:ICaregiverLiteService_AddAdmin_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllOfficeAdmin">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllOfficeAdmin" message="tns:ICaregiverLiteService_GetAllOfficeAdmin_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllOfficeAdminResponse" message="tns:ICaregiverLiteService_GetAllOfficeAdmin_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAdminDetailById">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAdminDetailById" message="tns:ICaregiverLiteService_GetAdminDetailById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAdminDetailByIdResponse" message="tns:ICaregiverLiteService_GetAdminDetailById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditAdmin">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/EditAdmin" message="tns:ICaregiverLiteService_EditAdmin_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/EditAdminResponse" message="tns:ICaregiverLiteService_EditAdmin_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAdmin">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/DeleteAdmin" message="tns:ICaregiverLiteService_DeleteAdmin_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/DeleteAdminResponse" message="tns:ICaregiverLiteService_DeleteAdmin_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAdminDetailByUserId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAdminDetailByUserId" message="tns:ICaregiverLiteService_GetAdminDetailByUserId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAdminDetailByUserIdResponse" message="tns:ICaregiverLiteService_GetAdminDetailByUserId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllAdminName">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllAdminName" message="tns:ICaregiverLiteService_GetAllAdminName_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllAdminNameResponse" message="tns:ICaregiverLiteService_GetAllAdminName_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllOfficeExceptAssignedOfficeByUserId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllOfficeExceptAssignedOfficeByUserId" message="tns:ICaregiverLiteService_GetAllOfficeExceptAssignedOfficeByUserId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllOfficeExceptAssignedOfficeByUserIdResponse" message="tns:ICaregiverLiteService_GetAllOfficeExceptAssignedOfficeByUserId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AssignOfficeToUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/AssignOfficeToUser" message="tns:ICaregiverLiteService_AssignOfficeToUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/AssignOfficeToUserResponse" message="tns:ICaregiverLiteService_AssignOfficeToUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllAssignedOfficeByUserId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllAssignedOfficeByUserId" message="tns:ICaregiverLiteService_GetAllAssignedOfficeByUserId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllAssignedOfficeByUserIdResponse" message="tns:ICaregiverLiteService_GetAllAssignedOfficeByUserId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveSchedulerFromOffice">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/RemoveSchedulerFromOffice" message="tns:ICaregiverLiteService_RemoveSchedulerFromOffice_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/RemoveSchedulerFromOfficeResponse" message="tns:ICaregiverLiteService_RemoveSchedulerFromOffice_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveQBIdOfAdmin">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/SaveQBIdOfAdmin" message="tns:ICaregiverLiteService_SaveQBIdOfAdmin_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/SaveQBIdOfAdminResponse" message="tns:ICaregiverLiteService_SaveQBIdOfAdmin_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPatientChattingGroupByOfficeId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetPatientChattingGroupByOfficeId" message="tns:ICaregiverLiteService_GetPatientChattingGroupByOfficeId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetPatientChattingGroupByOfficeIdResponse" message="tns:ICaregiverLiteService_GetPatientChattingGroupByOfficeId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddGroupDialogId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/AddGroupDialogId" message="tns:ICaregiverLiteService_AddGroupDialogId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/AddGroupDialogIdResponse" message="tns:ICaregiverLiteService_AddGroupDialogId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllMemberByOffice">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllMemberByOffice" message="tns:ICaregiverLiteService_GetAllMemberByOffice_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllMemberByOfficeResponse" message="tns:ICaregiverLiteService_GetAllMemberByOffice_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertErrorLog">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertErrorLog" message="tns:ICaregiverLiteService_InsertErrorLog_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertErrorLogResponse" message="tns:ICaregiverLiteService_InsertErrorLog_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertLog">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertLog" message="tns:ICaregiverLiteService_InsertLog_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertLogResponse" message="tns:ICaregiverLiteService_InsertLog_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllServices">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllServices" message="tns:ICaregiverLiteService_GetAllServices_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllServicesResponse" message="tns:ICaregiverLiteService_GetAllServices_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertUpdateService">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertUpdateService" message="tns:ICaregiverLiteService_InsertUpdateService_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertUpdateServiceResponse" message="tns:ICaregiverLiteService_InsertUpdateService_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteService">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/DeleteService" message="tns:ICaregiverLiteService_DeleteService_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/DeleteServiceResponse" message="tns:ICaregiverLiteService_DeleteService_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCareGivers">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllCareGivers" message="tns:ICaregiverLiteService_GetAllCareGivers_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllCareGiversResponse" message="tns:ICaregiverLiteService_GetAllCareGivers_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCareGiversList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllCareGiversList" message="tns:ICaregiverLiteService_GetAllCareGiversList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllCareGiversListResponse" message="tns:ICaregiverLiteService_GetAllCareGiversList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllNotifiedCareGiversByRequestId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllNotifiedCareGiversByRequestId" message="tns:ICaregiverLiteService_GetAllNotifiedCareGiversByRequestId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllNotifiedCareGiversByRequestIdResponse" message="tns:ICaregiverLiteService_GetAllNotifiedCareGiversByRequestId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTrackLocationByPatientRequestId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetTrackLocationByPatientRequestId" message="tns:ICaregiverLiteService_GetTrackLocationByPatientRequestId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetTrackLocationByPatientRequestIdResponse" message="tns:ICaregiverLiteService_GetTrackLocationByPatientRequestId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTrackLocationByNurseId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetTrackLocationByNurseId" message="tns:ICaregiverLiteService_GetTrackLocationByNurseId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetTrackLocationByNurseIdResponse" message="tns:ICaregiverLiteService_GetTrackLocationByNurseId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertUpdateCareGiverByAdmin">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertUpdateCareGiverByAdmin" message="tns:ICaregiverLiteService_InsertUpdateCareGiverByAdmin_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertUpdateCareGiverByAdminResponse" message="tns:ICaregiverLiteService_InsertUpdateCareGiverByAdmin_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertNurseProfile">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertNurseProfile" message="tns:ICaregiverLiteService_InsertNurseProfile_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertNurseProfileResponse" message="tns:ICaregiverLiteService_InsertNurseProfile_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCareGiverByNurseId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllCareGiverByNurseId" message="tns:ICaregiverLiteService_GetAllCareGiverByNurseId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllCareGiverByNurseIdResponse" message="tns:ICaregiverLiteService_GetAllCareGiverByNurseId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteNurse">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/DeleteNurse" message="tns:ICaregiverLiteService_DeleteNurse_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/DeleteNurseResponse" message="tns:ICaregiverLiteService_DeleteNurse_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllNursesByDateFilter">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllNursesByDateFilter" message="tns:ICaregiverLiteService_GetAllNursesByDateFilter_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllNursesByDateFilterResponse" message="tns:ICaregiverLiteService_GetAllNursesByDateFilter_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ApproveRejectNurse">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/ApproveRejectNurse" message="tns:ICaregiverLiteService_ApproveRejectNurse_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/ApproveRejectNurseResponse" message="tns:ICaregiverLiteService_ApproveRejectNurse_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCareGiverByServiceId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetCareGiverByServiceId" message="tns:ICaregiverLiteService_GetCareGiverByServiceId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetCareGiverByServiceIdResponse" message="tns:ICaregiverLiteService_GetCareGiverByServiceId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCareGiverForPatiantRequest">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetCareGiverForPatiantRequest" message="tns:ICaregiverLiteService_GetCareGiverForPatiantRequest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetCareGiverForPatiantRequestResponse" message="tns:ICaregiverLiteService_GetCareGiverForPatiantRequest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUsersForAdmin">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllUsersForAdmin" message="tns:ICaregiverLiteService_GetAllUsersForAdmin_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllUsersForAdminResponse" message="tns:ICaregiverLiteService_GetAllUsersForAdmin_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllPatientsByDateFilter">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllPatientsByDateFilter" message="tns:ICaregiverLiteService_GetAllPatientsByDateFilter_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllPatientsByDateFilterResponse" message="tns:ICaregiverLiteService_GetAllPatientsByDateFilter_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPatientInfoForDashboard">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetPatientInfoForDashboard" message="tns:ICaregiverLiteService_GetPatientInfoForDashboard_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetPatientInfoForDashboardResponse" message="tns:ICaregiverLiteService_GetPatientInfoForDashboard_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTimeSlotByNurseId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetTimeSlotByNurseId" message="tns:ICaregiverLiteService_GetTimeSlotByNurseId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetTimeSlotByNurseIdResponse" message="tns:ICaregiverLiteService_GetTimeSlotByNurseId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertTimeSlotForNurse">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertTimeSlotForNurse" message="tns:ICaregiverLiteService_InsertTimeSlotForNurse_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertTimeSlotForNurseResponse" message="tns:ICaregiverLiteService_InsertTimeSlotForNurse_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetScheduleByTimeSlotId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetScheduleByTimeSlotId" message="tns:ICaregiverLiteService_GetScheduleByTimeSlotId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetScheduleByTimeSlotIdResponse" message="tns:ICaregiverLiteService_GetScheduleByTimeSlotId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertScheduleForNurse">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertScheduleForNurse" message="tns:ICaregiverLiteService_InsertScheduleForNurse_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertScheduleForNurseResponse" message="tns:ICaregiverLiteService_InsertScheduleForNurse_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteScheduleByTimeSlotId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/DeleteScheduleByTimeSlotId" message="tns:ICaregiverLiteService_DeleteScheduleByTimeSlotId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/DeleteScheduleByTimeSlotIdResponse" message="tns:ICaregiverLiteService_DeleteScheduleByTimeSlotId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllPatientRequests">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllPatientRequests" message="tns:ICaregiverLiteService_GetAllPatientRequests_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllPatientRequestsResponse" message="tns:ICaregiverLiteService_GetAllPatientRequests_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAppointmentDetailByAppointmentId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAppointmentDetailByAppointmentId" message="tns:ICaregiverLiteService_GetAppointmentDetailByAppointmentId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAppointmentDetailByAppointmentIdResponse" message="tns:ICaregiverLiteService_GetAppointmentDetailByAppointmentId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertPatientRequestForAdmin">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertPatientRequestForAdmin" message="tns:ICaregiverLiteService_InsertPatientRequestForAdmin_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertPatientRequestForAdminResponse" message="tns:ICaregiverLiteService_InsertPatientRequestForAdmin_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelPatientAppointment">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/CancelPatientAppointment" message="tns:ICaregiverLiteService_CancelPatientAppointment_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/CancelPatientAppointmentResponse" message="tns:ICaregiverLiteService_CancelPatientAppointment_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangeCareGiver">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/ChangeCareGiver" message="tns:ICaregiverLiteService_ChangeCareGiver_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/ChangeCareGiverResponse" message="tns:ICaregiverLiteService_ChangeCareGiver_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRescheduleAppoinmentRequest">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetRescheduleAppoinmentRequest" message="tns:ICaregiverLiteService_GetRescheduleAppoinmentRequest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetRescheduleAppoinmentRequestResponse" message="tns:ICaregiverLiteService_GetRescheduleAppoinmentRequest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RescheduleAppoinment">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/RescheduleAppoinment" message="tns:ICaregiverLiteService_RescheduleAppoinment_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/RescheduleAppoinmentResponse" message="tns:ICaregiverLiteService_RescheduleAppoinment_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAppointmentsByDateFilter">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAppointmentsByDateFilter" message="tns:ICaregiverLiteService_GetAppointmentsByDateFilter_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAppointmentsByDateFilterResponse" message="tns:ICaregiverLiteService_GetAppointmentsByDateFilter_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentReceived">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetPaymentReceived" message="tns:ICaregiverLiteService_GetPaymentReceived_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetPaymentReceivedResponse" message="tns:ICaregiverLiteService_GetPaymentReceived_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProjectedPayment">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetProjectedPayment" message="tns:ICaregiverLiteService_GetProjectedPayment_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetProjectedPaymentResponse" message="tns:ICaregiverLiteService_GetProjectedPayment_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRescheduleApprovalAlerts">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetRescheduleApprovalAlerts" message="tns:ICaregiverLiteService_GetRescheduleApprovalAlerts_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetRescheduleApprovalAlertsResponse" message="tns:ICaregiverLiteService_GetRescheduleApprovalAlerts_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRescheduleAlerts">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetRescheduleAlerts" message="tns:ICaregiverLiteService_GetRescheduleAlerts_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetRescheduleAlertsResponse" message="tns:ICaregiverLiteService_GetRescheduleAlerts_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUnavailabilityRequest">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllUnavailabilityRequest" message="tns:ICaregiverLiteService_GetAllUnavailabilityRequest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllUnavailabilityRequestResponse" message="tns:ICaregiverLiteService_GetAllUnavailabilityRequest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ApproveRejectUnavailabilityRequest">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/ApproveRejectUnavailabilityRequest" message="tns:ICaregiverLiteService_ApproveRejectUnavailabilityRequest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/ApproveRejectUnavailabilityRequestResponse" message="tns:ICaregiverLiteService_ApproveRejectUnavailabilityRequest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAppointmentsByUnavailabilityRequestId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAppointmentsByUnavailabilityRequestId" message="tns:ICaregiverLiteService_GetAppointmentsByUnavailabilityRequestId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAppointmentsByUnavailabilityRequestIdResponse" message="tns:ICaregiverLiteService_GetAppointmentsByUnavailabilityRequestId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllDisputes">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllDisputes" message="tns:ICaregiverLiteService_GetAllDisputes_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllDisputesResponse" message="tns:ICaregiverLiteService_GetAllDisputes_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InserDisputeComment">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/InserDisputeComment" message="tns:ICaregiverLiteService_InserDisputeComment_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/InserDisputeCommentResponse" message="tns:ICaregiverLiteService_InserDisputeComment_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDisputesDetailByDisputeId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetDisputesDetailByDisputeId" message="tns:ICaregiverLiteService_GetDisputesDetailByDisputeId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetDisputesDetailByDisputeIdResponse" message="tns:ICaregiverLiteService_GetDisputesDetailByDisputeId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertPaymentTransaction">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertPaymentTransaction" message="tns:ICaregiverLiteService_InsertPaymentTransaction_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertPaymentTransactionResponse" message="tns:ICaregiverLiteService_InsertPaymentTransaction_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertMessageQueue">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertMessageQueue" message="tns:ICaregiverLiteService_InsertMessageQueue_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertMessageQueueResponse" message="tns:ICaregiverLiteService_InsertMessageQueue_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllPermissionForUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllPermissionForUser" message="tns:ICaregiverLiteService_GetAllPermissionForUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllPermissionForUserResponse" message="tns:ICaregiverLiteService_GetAllPermissionForUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllRolesForUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllRolesForUser" message="tns:ICaregiverLiteService_GetAllRolesForUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllRolesForUserResponse" message="tns:ICaregiverLiteService_GetAllRolesForUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertUpdateSuperAdmin">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertUpdateSuperAdmin" message="tns:ICaregiverLiteService_InsertUpdateSuperAdmin_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertUpdateSuperAdminResponse" message="tns:ICaregiverLiteService_InsertUpdateSuperAdmin_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertUserPermission">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertUserPermission" message="tns:ICaregiverLiteService_InsertUserPermission_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertUserPermissionResponse" message="tns:ICaregiverLiteService_InsertUserPermission_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteUserWithPermissions">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/DeleteUserWithPermissions" message="tns:ICaregiverLiteService_DeleteUserWithPermissions_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/DeleteUserWithPermissionsResponse" message="tns:ICaregiverLiteService_DeleteUserWithPermissions_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAdminDetailsById">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAdminDetailsById" message="tns:ICaregiverLiteService_GetAdminDetailsById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAdminDetailsByIdResponse" message="tns:ICaregiverLiteService_GetAdminDetailsById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertPushNotification">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertPushNotification" message="tns:ICaregiverLiteService_InsertPushNotification_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertPushNotificationResponse" message="tns:ICaregiverLiteService_InsertPushNotification_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertSentNotification">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertSentNotification" message="tns:ICaregiverLiteService_InsertSentNotification_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertSentNotificationResponse" message="tns:ICaregiverLiteService_InsertSentNotification_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCareGiverByUserId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetCareGiverByUserId" message="tns:ICaregiverLiteService_GetCareGiverByUserId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetCareGiverByUserIdResponse" message="tns:ICaregiverLiteService_GetCareGiverByUserId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllPatientRequestsByNurseId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllPatientRequestsByNurseId" message="tns:ICaregiverLiteService_GetAllPatientRequestsByNurseId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllPatientRequestsByNurseIdResponse" message="tns:ICaregiverLiteService_GetAllPatientRequestsByNurseId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ResetPassword">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/ResetPassword" message="tns:ICaregiverLiteService_ResetPassword_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/ResetPasswordResponse" message="tns:ICaregiverLiteService_ResetPassword_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertNurseCertificate">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertNurseCertificate" message="tns:ICaregiverLiteService_InsertNurseCertificate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertNurseCertificateResponse" message="tns:ICaregiverLiteService_InsertNurseCertificate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCareGiverCertiByNurseId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetCareGiverCertiByNurseId" message="tns:ICaregiverLiteService_GetCareGiverCertiByNurseId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetCareGiverCertiByNurseIdResponse" message="tns:ICaregiverLiteService_GetCareGiverCertiByNurseId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentReceivedByNurseId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetPaymentReceivedByNurseId" message="tns:ICaregiverLiteService_GetPaymentReceivedByNurseId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetPaymentReceivedByNurseIdResponse" message="tns:ICaregiverLiteService_GetPaymentReceivedByNurseId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAppointmentsByNurseId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAppointmentsByNurseId" message="tns:ICaregiverLiteService_GetAppointmentsByNurseId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAppointmentsByNurseIdResponse" message="tns:ICaregiverLiteService_GetAppointmentsByNurseId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRescheduleAlertsByNurseId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetRescheduleAlertsByNurseId" message="tns:ICaregiverLiteService_GetRescheduleAlertsByNurseId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetRescheduleAlertsByNurseIdResponse" message="tns:ICaregiverLiteService_GetRescheduleAlertsByNurseId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCancelledAppointmentByPatientForNurseId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetCancelledAppointmentByPatientForNurseId" message="tns:ICaregiverLiteService_GetCancelledAppointmentByPatientForNurseId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetCancelledAppointmentByPatientForNurseIdResponse" message="tns:ICaregiverLiteService_GetCancelledAppointmentByPatientForNurseId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentRequertForMapByNurseId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetPaymentRequertForMapByNurseId" message="tns:ICaregiverLiteService_GetPaymentRequertForMapByNurseId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetPaymentRequertForMapByNurseIdResponse" message="tns:ICaregiverLiteService_GetPaymentRequertForMapByNurseId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAvailableOrBusyStatus">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/UpdateAvailableOrBusyStatus" message="tns:ICaregiverLiteService_UpdateAvailableOrBusyStatus_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/UpdateAvailableOrBusyStatusResponse" message="tns:ICaregiverLiteService_UpdateAvailableOrBusyStatus_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertStripeAccessToken">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertStripeAccessToken" message="tns:ICaregiverLiteService_InsertStripeAccessToken_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertStripeAccessTokenResponse" message="tns:ICaregiverLiteService_InsertStripeAccessToken_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStripeAccessTokenByNurseId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetStripeAccessTokenByNurseId" message="tns:ICaregiverLiteService_GetStripeAccessTokenByNurseId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetStripeAccessTokenByNurseIdResponse" message="tns:ICaregiverLiteService_GetStripeAccessTokenByNurseId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateNurseSchedule">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/UpdateNurseSchedule" message="tns:ICaregiverLiteService_UpdateNurseSchedule_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/UpdateNurseScheduleResponse" message="tns:ICaregiverLiteService_UpdateNurseSchedule_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteTimeSlotByTimeSlotId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/DeleteTimeSlotByTimeSlotId" message="tns:ICaregiverLiteService_DeleteTimeSlotByTimeSlotId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/DeleteTimeSlotByTimeSlotIdResponse" message="tns:ICaregiverLiteService_DeleteTimeSlotByTimeSlotId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ForgotPassword">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/ForgotPassword" message="tns:ICaregiverLiteService_ForgotPassword_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/ForgotPasswordResponse" message="tns:ICaregiverLiteService_ForgotPassword_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCareGiver">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/UpdateCareGiver" message="tns:ICaregiverLiteService_UpdateCareGiver_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/UpdateCareGiverResponse" message="tns:ICaregiverLiteService_UpdateCareGiver_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteNurseCertificateById">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/DeleteNurseCertificateById" message="tns:ICaregiverLiteService_DeleteNurseCertificateById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/DeleteNurseCertificateByIdResponse" message="tns:ICaregiverLiteService_DeleteNurseCertificateById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAppointmentByTimeSlotId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAppointmentByTimeSlotId" message="tns:ICaregiverLiteService_GetAppointmentByTimeSlotId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAppointmentByTimeSlotIdResponse" message="tns:ICaregiverLiteService_GetAppointmentByTimeSlotId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAppointmentsForUnavailability">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAppointmentsForUnavailability" message="tns:ICaregiverLiteService_GetAppointmentsForUnavailability_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAppointmentsForUnavailabilityResponse" message="tns:ICaregiverLiteService_GetAppointmentsForUnavailability_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertUnavailabilityRequest">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertUnavailabilityRequest" message="tns:ICaregiverLiteService_InsertUnavailabilityRequest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertUnavailabilityRequestResponse" message="tns:ICaregiverLiteService_InsertUnavailabilityRequest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUnavailabilityRequestByTimeSlot">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetUnavailabilityRequestByTimeSlot" message="tns:ICaregiverLiteService_GetUnavailabilityRequestByTimeSlot_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetUnavailabilityRequestByTimeSlotResponse" message="tns:ICaregiverLiteService_GetUnavailabilityRequestByTimeSlot_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertUpdateCareGiverReview">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertUpdateCareGiverReview" message="tns:ICaregiverLiteService_InsertUpdateCareGiverReview_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertUpdateCareGiverReviewResponse" message="tns:ICaregiverLiteService_InsertUpdateCareGiverReview_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCareGiverReview">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllCareGiverReview" message="tns:ICaregiverLiteService_GetAllCareGiverReview_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllCareGiverReviewResponse" message="tns:ICaregiverLiteService_GetAllCareGiverReview_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCareGiverReview">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetCareGiverReview" message="tns:ICaregiverLiteService_GetCareGiverReview_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetCareGiverReviewResponse" message="tns:ICaregiverLiteService_GetCareGiverReview_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCareGiverUserNRate">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetCareGiverUserNRate" message="tns:ICaregiverLiteService_GetCareGiverUserNRate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetCareGiverUserNRateResponse" message="tns:ICaregiverLiteService_GetCareGiverUserNRate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckValidAppointmentDate">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/CheckValidAppointmentDate" message="tns:ICaregiverLiteService_CheckValidAppointmentDate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/CheckValidAppointmentDateResponse" message="tns:ICaregiverLiteService_CheckValidAppointmentDate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertSchedulePatientRequest">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertSchedulePatientRequest" message="tns:ICaregiverLiteService_InsertSchedulePatientRequest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertSchedulePatientRequestResponse" message="tns:ICaregiverLiteService_InsertSchedulePatientRequest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFilterDates">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetFilterDates" message="tns:ICaregiverLiteService_GetFilterDates_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetFilterDatesResponse" message="tns:ICaregiverLiteService_GetFilterDates_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllSchedulePatientRequest">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllSchedulePatientRequest" message="tns:ICaregiverLiteService_GetAllSchedulePatientRequest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/GetAllSchedulePatientRequestResponse" message="tns:ICaregiverLiteService_GetAllSchedulePatientRequest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertSchedulePatientRequestTemp">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertSchedulePatientRequestTemp" message="tns:ICaregiverLiteService_InsertSchedulePatientRequestTemp_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICaregiverLiteService/InsertSchedulePatientRequestTempResponse" message="tns:ICaregiverLiteService_InsertSchedulePatientRequestTemp_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:service name="CaregiverLiteService" />
+</wsdl:definitions>

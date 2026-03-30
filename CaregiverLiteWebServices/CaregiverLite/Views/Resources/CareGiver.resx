@@ -1,0 +1,489 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ButtonAddCareGiver" xml:space="preserve">
+    <value>ADD CAREGIVER</value>
+  </data>
+  <data name="ButtonAddNew" xml:space="preserve">
+    <value>Add New</value>
+  </data>
+  <data name="ButtonAddTimeSlot" xml:space="preserve">
+    <value>Add Time Slot</value>
+  </data>
+  <data name="ButtonApprove" xml:space="preserve">
+    <value>APPROVE</value>
+  </data>
+  <data name="ButtonCancelAllAppointment" xml:space="preserve">
+    <value>Cancel All Appointment</value>
+  </data>
+  <data name="ButtonClose" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>DELETE</value>
+  </data>
+  <data name="ButtonDocument" xml:space="preserve">
+    <value>Document</value>
+  </data>
+  <data name="ButtonEditProfile" xml:space="preserve">
+    <value>Edit Profile</value>
+  </data>
+  <data name="ButtonEditSchedule" xml:space="preserve">
+    <value>Edit Schedule</value>
+  </data>
+  <data name="ButtonNext" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="ButtonPrevious" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="ButtonProfile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="ButtonReject" xml:space="preserve">
+    <value>REJECT</value>
+  </data>
+  <data name="ButtonSaveChanges" xml:space="preserve">
+    <value>Save Changes</value>
+  </data>
+  <data name="ButtonSchedule" xml:space="preserve">
+    <value>Schedule</value>
+  </data>
+  <data name="ButtonSendNVerify" xml:space="preserve">
+    <value>Send &amp; Verify</value>
+  </data>
+  <data name="ButtonUpdate" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="HeaderAddCareGiver" xml:space="preserve">
+    <value>Add Caregiver</value>
+  </data>
+  <data name="HeaderAddTimeSlots" xml:space="preserve">
+    <value>Add Time Slot</value>
+  </data>
+  <data name="HeaderCareGiverDetail" xml:space="preserve">
+    <value>Caregiver Details</value>
+  </data>
+  <data name="HeaderCareGiverList" xml:space="preserve">
+    <value>Caregiver List</value>
+  </data>
+  <data name="HeaderEditCareGiver" xml:space="preserve">
+    <value>Edit CareGiver</value>
+  </data>
+  <data name="HeaderEditSchedule" xml:space="preserve">
+    <value>Edit Schedule</value>
+  </data>
+  <data name="HeaderSendApproval" xml:space="preserve">
+    <value>Send Approval</value>
+  </data>
+  <data name="HeaderUnavailabilityRequestList" xml:space="preserve">
+    <value>Unavailability Request List</value>
+  </data>
+  <data name="HeaderViewAppointments" xml:space="preserve">
+    <value>View Appointments</value>
+  </data>
+  <data name="HeaderViewCertificate" xml:space="preserve">
+    <value>View Certificate</value>
+  </data>
+  <data name="HeaderViewSchedule" xml:space="preserve">
+    <value>View Schedule</value>
+  </data>
+  <data name="LabelFromTime" xml:space="preserve">
+    <value>From Time</value>
+  </data>
+  <data name="LabelHeaderRegister" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="LabelHeaderServiceRadius" xml:space="preserve">
+    <value>ServiceRadius</value>
+  </data>
+  <data name="LabelHeaderServices" xml:space="preserve">
+    <value>Service Types</value>
+  </data>
+  <data name="LabelPhotoUpload" xml:space="preserve">
+    <value>Photo Upload</value>
+  </data>
+  <data name="LabelVideoUpload" xml:space="preserve">
+    <value>Video Upload</value>
+  </data>
+  <data name="LabelTimeSlots" xml:space="preserve">
+    <value>Time Slots</value>
+  </data>
+  <data name="LabelToTime" xml:space="preserve">
+    <value>To Time</value>
+  </data>
+  <data name="MsgAddCommentError" xml:space="preserve">
+    <value>Please enter reject comment</value>
+  </data>
+  <data name="MsgAddTimeSlotError" xml:space="preserve">
+    <value>Pleaser select From time and To time to add time slot</value>
+  </data>
+  <data name="MsgCancelAppointmentError" xml:space="preserve">
+    <value>Please cancel all appointments first</value>
+  </data>
+  <data name="MsgDeleteConfirmation" xml:space="preserve">
+    <value>Are you sure you want to delete.?</value>
+  </data>
+  <data name="MsgError" xml:space="preserve">
+    <value>There is some error. Please try again later</value>
+  </data>
+  <data name="NewPasswordMatch" xml:space="preserve">
+    <value>New password must be different from old password.</value>
+  </data>
+  <data name="PlaceHolderAddress" xml:space="preserve">
+    <value>Enter Address</value>
+  </data>
+  <data name="PlaceHolderEmail" xml:space="preserve">
+    <value>Enter Email</value>
+  </data>
+  <data name="PlaceHolderHourRate" xml:space="preserve">
+    <value>Enter Reimbursement Charge</value>
+  </data>
+  <data name="PlaceHolderName" xml:space="preserve">
+    <value>Enter Name</value>
+  </data>
+  <data name="PlaceHolderPassword" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="PlaceHolderPhone" xml:space="preserve">
+    <value>Enter Phone no.</value>
+  </data>
+  <data name="PlaceHolderRejectComment" xml:space="preserve">
+    <value>Enter Comment</value>
+  </data>
+  <data name="PlaceHolderUserName" xml:space="preserve">
+    <value>Enter Username</value>
+  </data>
+  <data name="PlaceHolderZipCode" xml:space="preserve">
+    <value>Enter Zip Code</value>
+  </data>
+  <data name="RequiredMsgAddress" xml:space="preserve">
+    <value>Please enter address</value>
+  </data>
+  <data name="RequiredMsgEmail" xml:space="preserve">
+    <value>Please enter email</value>
+  </data>
+  <data name="RequiredMsgEmailExists" xml:space="preserve">
+    <value>Email is already exists</value>
+  </data>
+  <data name="RequiredMsgHoursRate" xml:space="preserve">
+    <value>Please enter reimbursement charge</value>
+  </data>
+  <data name="RequiredMsgName" xml:space="preserve">
+    <value>Please enter name </value>
+  </data>
+  <data name="RequiredMsgPassword" xml:space="preserve">
+    <value>Please enter password</value>
+  </data>
+  <data name="RequiredMsgPhone" xml:space="preserve">
+    <value>Please enter phone no</value>
+  </data>
+  <data name="RequiredMsgProfileImage" xml:space="preserve">
+    <value>Please upload profile image</value>
+  </data>
+  <data name="RequiredMsgReTypePassword" xml:space="preserve">
+    <value>Please enter Re-Type password</value>
+  </data>
+  <data name="RequiredMsgServiceRadius" xml:space="preserve">
+    <value>Please select service radius</value>
+  </data>
+  <data name="RequiredMsgServices" xml:space="preserve">
+    <value>Please select services</value>
+  </data>
+  <data name="RequiredMsgUsername" xml:space="preserve">
+    <value>Please enter user name</value>
+  </data>
+  <data name="RequiredMsgUsernameExists" xml:space="preserve">
+    <value>User name is already exists</value>
+  </data>
+  <data name="RequiredMsgZipCode" xml:space="preserve">
+    <value>Please enter zip code</value>
+  </data>
+  <data name="RequiredOldPassWord" xml:space="preserve">
+    <value>Please enter your old password</value>
+  </data>
+  <data name="RequiredOldPassWordNotMatch" xml:space="preserve">
+    <value>Please enter valid password</value>
+  </data>
+  <data name="TableHeaderAction" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="TableHeaderAddress" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="TableHeaderDate" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="TableHeaderEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="TableHeaderFromDateTime" xml:space="preserve">
+    <value>From Date &amp; Time</value>
+  </data>
+  <data name="TableHeaderHourRate" xml:space="preserve">
+    <value>Reimbursement Charge (To be charged to patient):</value>
+  </data>
+  <data name="TableHeaderName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="TableHeaderNo" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="TableHeaderNoOfAppointments" xml:space="preserve">
+    <value>No of Appointments</value>
+  </data>
+  <data name="TableHeaderPassword" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="TableHeaderPatientName" xml:space="preserve">
+    <value>Patient Name</value>
+  </data>
+  <data name="TableHeaderPhone" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="TableHeaderPhoto" xml:space="preserve">
+    <value>Photo</value>
+  </data>
+  <data name="TableHeaderServiceRadius" xml:space="preserve">
+    <value>Service Radius</value>
+  </data>
+  <data name="TableHeaderServices" xml:space="preserve">
+    <value>Service Types</value>
+  </data>
+  <data name="TableHeaderTimeSlots" xml:space="preserve">
+    <value>Time Slot</value>
+  </data>
+  <data name="TableHeaderToDateTime" xml:space="preserve">
+    <value>To Date &amp; Time</value>
+  </data>
+  <data name="TableHeaderTotalHours" xml:space="preserve">
+    <value>Total Hours</value>
+  </data>
+  <data name="TableHeaderTotalPayment" xml:space="preserve">
+    <value>Total Payment</value>
+  </data>
+  <data name="TableHeaderUserID" xml:space="preserve">
+    <value>Users ID</value>
+  </data>
+  <data name="TableHeaderUserName" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="TableHeaderZipCode" xml:space="preserve">
+    <value>Zip Code</value>
+  </data>
+  <data name="TitleCareGiver" xml:space="preserve">
+    <value>Caregiver</value>
+  </data>
+  <data name="txtIWantTo" xml:space="preserve">
+    <value>I want to repeat this schedule for next</value>
+  </data>
+  <data name="ValidationMsgPassword" xml:space="preserve">
+    <value>Password minimum length should be 6</value>
+  </data>
+  <data name="ValidationMsgPhone" xml:space="preserve">
+    <value>Phone must be between 4 to 15 digits</value>
+  </data>
+  <data name="ValidationMsgZipCode" xml:space="preserve">
+    <value>Zipcode minimum length should be 4</value>
+  </data>
+  <data name="ValidMsgHoursRate" xml:space="preserve">
+    <value>The field Hours Rate must be between 1 and 9999.9</value>
+  </data>
+  <data name="PlaceHolderEducation" xml:space="preserve">
+    <value>Enter Education and Qualifications</value>
+  </data>
+  <data name="RequiredMsgEducation" xml:space="preserve">
+    <value>Please enter education and qualifications</value>
+  </data>
+  <data name="TableHeaderEducation" xml:space="preserve">
+    <value>Education and Qualifications</value>
+  </data>
+  <data name="LabelTimeSlot1" xml:space="preserve">
+    <value>12:00 AM  TO 5:00 AM</value>
+  </data>
+  <data name="LabelTimeSlot2" xml:space="preserve">
+    <value>05:00 AM TO 12:00 PM</value>
+  </data>
+  <data name="LabelTimeSlot3" xml:space="preserve">
+    <value>12:00 PM TO 08:00 PM</value>
+  </data>
+  <data name="LabelTimeSlot4" xml:space="preserve">
+    <value>08:00 PM TO 11:59 PM</value>
+  </data>
+  <data name="LabelWholeDay" xml:space="preserve">
+    <value>Whole Day</value>
+  </data>
+  <data name="ButtonViewProfile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="CareGiverProfileDetails" xml:space="preserve">
+    <value>Caregiver Profile Details</value>
+  </data>
+  <data name="TableHeaderFieldsName" xml:space="preserve">
+    <value>Fields</value>
+  </data>
+  <data name="TableHeaderNewFieldsName" xml:space="preserve">
+    <value>New Profile</value>
+  </data>
+  <data name="TableHeaderOldFieldsName" xml:space="preserve">
+    <value>Old Profile</value>
+  </data>
+  <data name="TableHeaderTimezone" xml:space="preserve">
+    <value>Timezone</value>
+  </data>
+  <data name="TableHeaderTrackLocation" xml:space="preserve">
+    <value>Track Location</value>
+  </data>
+  <data name="TableHeaderInsertedOn" xml:space="preserve">
+    <value>Inserted On</value>
+  </data>
+  <data name="PlaceHolderCity" xml:space="preserve">
+    <value>Enter City</value>
+  </data>
+  <data name="PlaceHolderState" xml:space="preserve">
+    <value>Enter State</value>
+  </data>
+  <data name="PlaceHolderStreet" xml:space="preserve">
+    <value>Enter Street</value>
+  </data>
+  <data name="RequiredMsgCity" xml:space="preserve">
+    <value>Please enter city</value>
+  </data>
+  <data name="RequiredMsgState" xml:space="preserve">
+    <value>Please enter state</value>
+  </data>
+  <data name="RequiredMsgStreet" xml:space="preserve">
+    <value>Please enter street</value>
+  </data>
+  <data name="TableHeaderCity" xml:space="preserve">
+    <value>City</value>
+  </data>
+  <data name="TableHeaderState" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="TableHeaderStreet" xml:space="preserve">
+    <value>Street</value>
+  </data>
+  <data name="FilterOffice" xml:space="preserve">
+    <value>Office:</value>
+  </data>
+  <data name="TableHeaderOffice" xml:space="preserve">
+    <value>Office</value>
+  </data>
+</root>

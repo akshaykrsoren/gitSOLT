@@ -1,0 +1,43 @@
+﻿<div class="ibox-title">
+    <h5>@CaregiverLite.Views.Resources.Dashboard.HeaderRescheduleAlert</h5>
+    <div class="ibox-tools">
+        <a class="collapse-link">
+            <i class="fa fa-chevron-up"></i>
+        </a>
+        <a class="close-link">
+            <i class="fa fa-times"></i>
+        </a>
+    </div>
+</div>
+<div class="ibox-content">
+    <table id="myDataTable5" class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th style="width: 110px;">@CaregiverLite.Views.Resources.Dashboard.TableHeaderPatientName</th>
+                <th>@CaregiverLite.Views.Resources.Dashboard.TableHeaderAlertType</th>
+                <th>@CaregiverLite.Views.Resources.Dashboard.TableHeaderFromDateTime</th>
+                <th>@CaregiverLite.Views.Resources.Dashboard.TableHeaderToDateTime</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (@CaregiverLite.CaregiverLiteService.PatientRequests item in ViewBag.RescheduleAlerts)
+            {
+                <tr>
+                    <td>@item.PatientName</td>
+                    <td>@item.RescheduleType</td>
+                    <td>@item.Date @item.FromTime</td>
+                    <td>@item.Date @item.ToTime</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#myDataTable5').dataTable({
+            responsive: true,
+            "dom": 'lfrtip'
+        });
+    });
+    sessionStorage.setItem("PartialView", "1");
+</script>

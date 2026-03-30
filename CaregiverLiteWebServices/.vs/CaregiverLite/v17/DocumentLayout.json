@@ -1,0 +1,551 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|d:\\organisation base code go on live server 08-07-2024\\caregiverlitewebservices\\caregiverlite\\views\\chatting\\opengroupchatwindow.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|solutionrelative:caregiverlite\\views\\chatting\\opengroupchatwindow.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CDED4BAB-91A8-4D19-AF4C-A6A59B84C0E9}|CaregiverLiteWCF\\CaregiverLiteWCF.csproj|d:\\organisation base code go on live server 08-07-2024\\caregiverlitewebservices\\caregiverlitewcf\\caregiverliteservice.svc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CDED4BAB-91A8-4D19-AF4C-A6A59B84C0E9}|CaregiverLiteWCF\\CaregiverLiteWCF.csproj|solutionrelative:caregiverlitewcf\\caregiverliteservice.svc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\caregiverlite\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|solutionrelative:caregiverlite\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\caregiverlite\\models\\patientdetailsmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|solutionrelative:caregiverlite\\models\\patientdetailsmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\caregiverlite\\controllers\\patientscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|solutionrelative:caregiverlite\\controllers\\patientscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\caregiverlite\\controllers\\patientrequestcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|solutionrelative:caregiverlite\\controllers\\patientrequestcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\caregiverlite\\views\\resources\\admin.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|solutionrelative:caregiverlite\\views\\resources\\admin.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CDED4BAB-91A8-4D19-AF4C-A6A59B84C0E9}|CaregiverLiteWCF\\CaregiverLiteWCF.csproj|D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\caregiverlitewcf\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{CDED4BAB-91A8-4D19-AF4C-A6A59B84C0E9}|CaregiverLiteWCF\\CaregiverLiteWCF.csproj|solutionrelative:caregiverlitewcf\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\caregiverlite\\views\\shared\\_leftmenu.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|solutionrelative:caregiverlite\\views\\shared\\_leftmenu.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\caregiverlite\\views\\resources\\admin.resx||{FF4D6ACA-9352-4A5F-821E-F4D6EBDCAB11}",
+      "RelativeMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|solutionrelative:caregiverlite\\views\\resources\\admin.resx||{FF4D6ACA-9352-4A5F-821E-F4D6EBDCAB11}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\caregiverlite\\models\\caregivermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|solutionrelative:caregiverlite\\models\\caregivermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\caregiverlite\\controllers\\caregivercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|solutionrelative:caregiverlite\\controllers\\caregivercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\caregiverlite\\views\\caregiver\\addcaregiver.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|solutionrelative:caregiverlite\\views\\caregiver\\addcaregiver.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\caregiverlite\\views\\patientrequest\\patientrequest.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|solutionrelative:caregiverlite\\views\\patientrequest\\patientrequest.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\caregiverlite\\controllers\\chartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|solutionrelative:caregiverlite\\controllers\\chartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\caregiverlite\\controllers\\attendancemanagementcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|solutionrelative:caregiverlite\\controllers\\attendancemanagementcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\caregiverlite\\views\\patients\\sendclientrequestdatapage.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|solutionrelative:caregiverlite\\views\\patients\\sendclientrequestdatapage.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\caregiverlite\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|solutionrelative:caregiverlite\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\caregiverlite\\views\\organisation\\organisation.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|solutionrelative:caregiverlite\\views\\organisation\\organisation.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\caregiverlite\\controllers\\generatereportscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|solutionrelative:caregiverlite\\controllers\\generatereportscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\caregiverlite\\controllers\\marketingclientattendancecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|solutionrelative:caregiverlite\\controllers\\marketingclientattendancecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\caregiverlite\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|solutionrelative:caregiverlite\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\caregiverlite\\views\\patients\\patients.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|solutionrelative:caregiverlite\\views\\patients\\patients.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\caregiverlite\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|solutionrelative:caregiverlite\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\caregiverlite\\views\\patients\\addpatient.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|solutionrelative:caregiverlite\\views\\patients\\addpatient.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\caregiverlite\\controllers\\addsuperadminlogincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|solutionrelative:caregiverlite\\controllers\\addsuperadminlogincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\caregiverlite\\views\\admin\\addadmin.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|solutionrelative:caregiverlite\\views\\admin\\addadmin.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\caregiverlite\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|solutionrelative:caregiverlite\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\caregiverlite\\controllers\\schedulerscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|solutionrelative:caregiverlite\\controllers\\schedulerscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\caregiverlite\\views\\account\\logindetails.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|solutionrelative:caregiverlite\\views\\account\\logindetails.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\caregiverlite\\controllers\\chattingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{43CAB6FD-7AAD-468E-8B53-2565D716D25D}|CaregiverLite\\CaregiverLite.csproj|solutionrelative:caregiverlite\\controllers\\chattingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CDED4BAB-91A8-4D19-AF4C-A6A59B84C0E9}|CaregiverLiteWCF\\CaregiverLiteWCF.csproj|D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\caregiverlitewcf\\icaregiverliteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CDED4BAB-91A8-4D19-AF4C-A6A59B84C0E9}|CaregiverLiteWCF\\CaregiverLiteWCF.csproj|solutionrelative:caregiverlitewcf\\icaregiverliteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "OpenGroupChatWindow.cshtml",
+              "DocumentMoniker": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Views\\Chatting\\OpenGroupChatWindow.cshtml",
+              "RelativeDocumentMoniker": "CaregiverLite\\Views\\Chatting\\OpenGroupChatWindow.cshtml",
+              "ToolTip": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Views\\Chatting\\OpenGroupChatWindow.cshtml",
+              "RelativeToolTip": "CaregiverLite\\Views\\Chatting\\OpenGroupChatWindow.cshtml",
+              "ViewState": "AQIAACUFAAAAAAAAAAAAAEAFAAAuAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-08-05T11:46:29.224Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "PatientRequestController.cs",
+              "DocumentMoniker": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Controllers\\PatientRequestController.cs",
+              "RelativeDocumentMoniker": "CaregiverLite\\Controllers\\PatientRequestController.cs",
+              "ToolTip": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Controllers\\PatientRequestController.cs",
+              "RelativeToolTip": "CaregiverLite\\Controllers\\PatientRequestController.cs",
+              "ViewState": "AQIAAMsMAAAAAAAAAAAewO4MAABWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-17T05:50:53.637Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Web.config",
+              "DocumentMoniker": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLiteWCF\\Web.config",
+              "RelativeDocumentMoniker": "CaregiverLiteWCF\\Web.config",
+              "ToolTip": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLiteWCF\\Web.config",
+              "RelativeToolTip": "CaregiverLiteWCF\\Web.config",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2024-07-17T05:50:39.865Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Web.config",
+              "DocumentMoniker": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Web.config",
+              "RelativeDocumentMoniker": "CaregiverLite\\Web.config",
+              "ToolTip": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Web.config",
+              "RelativeToolTip": "CaregiverLite\\Web.config",
+              "ViewState": "AQIAAFkBAAAAAAAAAAAAACkAAAAPAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2024-07-17T05:50:42.169Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "_LeftMenu.cshtml",
+              "DocumentMoniker": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Views\\Shared\\_LeftMenu.cshtml",
+              "RelativeDocumentMoniker": "CaregiverLite\\Views\\Shared\\_LeftMenu.cshtml",
+              "ToolTip": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Views\\Shared\\_LeftMenu.cshtml",
+              "RelativeToolTip": "CaregiverLite\\Views\\Shared\\_LeftMenu.cshtml",
+              "ViewState": "AQIAAKgAAAAAAAAAAAAAALYAAABRAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-17T11:58:39.473Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CaregiverLiteService.svc.cs",
+              "DocumentMoniker": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLiteWCF\\CaregiverLiteService.svc.cs",
+              "RelativeDocumentMoniker": "CaregiverLiteWCF\\CaregiverLiteService.svc.cs",
+              "ToolTip": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLiteWCF\\CaregiverLiteService.svc.cs",
+              "RelativeToolTip": "CaregiverLiteWCF\\CaregiverLiteService.svc.cs",
+              "ViewState": "AQIAANoZAAAAAAAAAAAiwNQZAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-16T06:44:32.845Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "PatientsController.cs",
+              "DocumentMoniker": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Controllers\\PatientsController.cs",
+              "RelativeDocumentMoniker": "CaregiverLite\\Controllers\\PatientsController.cs",
+              "ToolTip": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Controllers\\PatientsController.cs",
+              "RelativeToolTip": "CaregiverLite\\Controllers\\PatientsController.cs",
+              "ViewState": "AQIAAF8AAAAAAAAAAAAewHkAAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-16T07:22:00.034Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PatientDetailsModel.cs",
+              "DocumentMoniker": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Models\\PatientDetailsModel.cs",
+              "RelativeDocumentMoniker": "CaregiverLite\\Models\\PatientDetailsModel.cs",
+              "ToolTip": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Models\\PatientDetailsModel.cs",
+              "RelativeToolTip": "CaregiverLite\\Models\\PatientDetailsModel.cs",
+              "ViewState": "AQIAAPgAAAAAAAAAAAAewAYBAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-17T05:50:53.706Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Admin.Designer.cs",
+              "DocumentMoniker": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Views\\Resources\\Admin.Designer.cs",
+              "RelativeDocumentMoniker": "CaregiverLite\\Views\\Resources\\Admin.Designer.cs",
+              "ToolTip": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Views\\Resources\\Admin.Designer.cs",
+              "RelativeToolTip": "CaregiverLite\\Views\\Resources\\Admin.Designer.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-17T11:58:11.659Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Admin.resx",
+              "DocumentMoniker": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Views\\Resources\\Admin.resx",
+              "RelativeDocumentMoniker": "CaregiverLite\\Views\\Resources\\Admin.resx",
+              "ToolTip": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Views\\Resources\\Admin.resx",
+              "RelativeToolTip": "CaregiverLite\\Views\\Resources\\Admin.resx",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001005|",
+              "WhenOpened": "2024-07-17T11:58:13.525Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "AddCareGiver.cshtml",
+              "DocumentMoniker": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Views\\CareGiver\\AddCareGiver.cshtml",
+              "RelativeDocumentMoniker": "CaregiverLite\\Views\\CareGiver\\AddCareGiver.cshtml",
+              "ToolTip": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Views\\CareGiver\\AddCareGiver.cshtml",
+              "RelativeToolTip": "CaregiverLite\\Views\\CareGiver\\AddCareGiver.cshtml",
+              "ViewState": "AQIAACcBAAAAAAAAAAAYwK8AAABbAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-17T11:13:38.856Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "PatientRequest.cshtml",
+              "DocumentMoniker": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Views\\PatientRequest\\PatientRequest.cshtml",
+              "RelativeDocumentMoniker": "CaregiverLite\\Views\\PatientRequest\\PatientRequest.cshtml",
+              "ToolTip": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Views\\PatientRequest\\PatientRequest.cshtml",
+              "RelativeToolTip": "CaregiverLite\\Views\\PatientRequest\\PatientRequest.cshtml",
+              "ViewState": "AQIAAHgBAAAAAAAAAAAYwGEBAAAaAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-17T10:58:22.451Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "CareGiverController.cs",
+              "DocumentMoniker": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Controllers\\CareGiverController.cs",
+              "RelativeDocumentMoniker": "CaregiverLite\\Controllers\\CareGiverController.cs",
+              "ToolTip": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Controllers\\CareGiverController.cs",
+              "RelativeToolTip": "CaregiverLite\\Controllers\\CareGiverController.cs",
+              "ViewState": "AQIAADQCAAAAAAAAAAAQwEUCAABRAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-16T07:21:59.84Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "CareGiverModel.cs",
+              "DocumentMoniker": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Models\\CareGiverModel.cs",
+              "RelativeDocumentMoniker": "CaregiverLite\\Models\\CareGiverModel.cs",
+              "ToolTip": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Models\\CareGiverModel.cs",
+              "RelativeToolTip": "CaregiverLite\\Models\\CareGiverModel.cs",
+              "ViewState": "AQIAAPEAAAAAAAAAAAAtwAABAAB1AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-16T09:07:05.183Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "ChartController.cs",
+              "DocumentMoniker": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Controllers\\ChartController.cs",
+              "RelativeDocumentMoniker": "CaregiverLite\\Controllers\\ChartController.cs",
+              "ToolTip": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Controllers\\ChartController.cs",
+              "RelativeToolTip": "CaregiverLite\\Controllers\\ChartController.cs",
+              "ViewState": "AQIAANgAAAAAAAAAAAAgwOQAAABAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-16T06:46:26.168Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "AttendanceManagementController.cs",
+              "DocumentMoniker": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Controllers\\AttendanceManagementController.cs",
+              "RelativeDocumentMoniker": "CaregiverLite\\Controllers\\AttendanceManagementController.cs",
+              "ToolTip": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Controllers\\AttendanceManagementController.cs",
+              "RelativeToolTip": "CaregiverLite\\Controllers\\AttendanceManagementController.cs",
+              "ViewState": "AQIAAFIEAAAAAAAAAAAawGcGAAA+AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-17T05:50:53.662Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "SendClientRequestDataPage.cshtml",
+              "DocumentMoniker": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Views\\Patients\\SendClientRequestDataPage.cshtml",
+              "RelativeDocumentMoniker": "CaregiverLite\\Views\\Patients\\SendClientRequestDataPage.cshtml",
+              "ToolTip": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Views\\Patients\\SendClientRequestDataPage.cshtml",
+              "RelativeToolTip": "CaregiverLite\\Views\\Patients\\SendClientRequestDataPage.cshtml",
+              "ViewState": "AQIAADwAAAAAAAAAAAAAAEkAAAAVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-17T09:11:11.876Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "MarketingClientAttendanceController.cs",
+              "DocumentMoniker": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Controllers\\MarketingClientAttendanceController.cs",
+              "RelativeDocumentMoniker": "CaregiverLite\\Controllers\\MarketingClientAttendanceController.cs",
+              "ToolTip": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Controllers\\MarketingClientAttendanceController.cs",
+              "RelativeToolTip": "CaregiverLite\\Controllers\\MarketingClientAttendanceController.cs",
+              "ViewState": "AQIAAJYDAAAAAAAAAAAuwJsDAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-17T08:29:45.928Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Organisation.cshtml",
+              "DocumentMoniker": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Views\\Organisation\\Organisation.cshtml",
+              "RelativeDocumentMoniker": "CaregiverLite\\Views\\Organisation\\Organisation.cshtml",
+              "ToolTip": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Views\\Organisation\\Organisation.cshtml",
+              "RelativeToolTip": "CaregiverLite\\Views\\Organisation\\Organisation.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAZAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-17T08:31:08.628Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "DashboardController.cs",
+              "DocumentMoniker": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Controllers\\DashboardController.cs",
+              "RelativeDocumentMoniker": "CaregiverLite\\Controllers\\DashboardController.cs",
+              "ToolTip": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Controllers\\DashboardController.cs",
+              "RelativeToolTip": "CaregiverLite\\Controllers\\DashboardController.cs",
+              "ViewState": "AQIAABkBAAAAAAAAAAAiwBEAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-17T08:45:54.886Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "GenerateReportsController.cs",
+              "DocumentMoniker": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Controllers\\GenerateReportsController.cs",
+              "RelativeDocumentMoniker": "CaregiverLite\\Controllers\\GenerateReportsController.cs",
+              "ToolTip": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Controllers\\GenerateReportsController.cs",
+              "RelativeToolTip": "CaregiverLite\\Controllers\\GenerateReportsController.cs",
+              "ViewState": "AQIAAJ4AAAAAAAAAAAAiwAEBAAAnAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-17T05:50:53.492Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "CaregiverLite\\Controllers\\AccountController.cs",
+              "ToolTip": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "CaregiverLite\\Controllers\\AccountController.cs",
+              "ViewState": "AQIAAHUCAAAAAAAAAAArwIUCAAB0AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-16T06:14:24.435Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "Patients.cshtml",
+              "DocumentMoniker": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Views\\Patients\\Patients.cshtml",
+              "RelativeDocumentMoniker": "CaregiverLite\\Views\\Patients\\Patients.cshtml",
+              "ToolTip": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Views\\Patients\\Patients.cshtml",
+              "RelativeToolTip": "CaregiverLite\\Views\\Patients\\Patients.cshtml",
+              "ViewState": "AQIAAN8AAAAAAAAAAMBtwPcAAAAzAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-16T09:25:21.236Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "AddPatient.cshtml",
+              "DocumentMoniker": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Views\\Patients\\AddPatient.cshtml",
+              "RelativeDocumentMoniker": "CaregiverLite\\Views\\Patients\\AddPatient.cshtml",
+              "ToolTip": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Views\\Patients\\AddPatient.cshtml",
+              "RelativeToolTip": "CaregiverLite\\Views\\Patients\\AddPatient.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-16T09:25:16.994Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "CaregiverLite\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "CaregiverLite\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AQIAAK0BAAAAAAAAAAAAwOcBAAAlAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-16T09:26:11.094Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "AddAdmin.cshtml",
+              "DocumentMoniker": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Views\\Admin\\AddAdmin.cshtml",
+              "RelativeDocumentMoniker": "CaregiverLite\\Views\\Admin\\AddAdmin.cshtml",
+              "ToolTip": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Views\\Admin\\AddAdmin.cshtml",
+              "RelativeToolTip": "CaregiverLite\\Views\\Admin\\AddAdmin.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-16T08:58:30.696Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "AdminController.cs",
+              "DocumentMoniker": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Controllers\\AdminController.cs",
+              "RelativeDocumentMoniker": "CaregiverLite\\Controllers\\AdminController.cs",
+              "ToolTip": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Controllers\\AdminController.cs",
+              "RelativeToolTip": "CaregiverLite\\Controllers\\AdminController.cs",
+              "ViewState": "AQIAADoAAAAAAAAAAAAxwDoAAAAkAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-16T08:56:24.557Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "AddSuperAdminLoginController.cs",
+              "DocumentMoniker": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Controllers\\AddSuperAdminLoginController.cs",
+              "RelativeDocumentMoniker": "CaregiverLite\\Controllers\\AddSuperAdminLoginController.cs",
+              "ToolTip": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Controllers\\AddSuperAdminLoginController.cs",
+              "RelativeToolTip": "CaregiverLite\\Controllers\\AddSuperAdminLoginController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-16T09:03:05.395Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "SchedulersController.cs",
+              "DocumentMoniker": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Controllers\\SchedulersController.cs",
+              "RelativeDocumentMoniker": "CaregiverLite\\Controllers\\SchedulersController.cs",
+              "ToolTip": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Controllers\\SchedulersController.cs",
+              "RelativeToolTip": "CaregiverLite\\Controllers\\SchedulersController.cs",
+              "ViewState": "AQIAAD0BAAAAAAAAAABRwEABAAAoAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-16T06:52:26.149Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "LoginDetails.cshtml",
+              "DocumentMoniker": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Views\\Account\\LoginDetails.cshtml",
+              "RelativeDocumentMoniker": "CaregiverLite\\Views\\Account\\LoginDetails.cshtml",
+              "ToolTip": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Views\\Account\\LoginDetails.cshtml",
+              "RelativeToolTip": "CaregiverLite\\Views\\Account\\LoginDetails.cshtml",
+              "ViewState": "AQIAACsAAAAAAAAAAEBVwA4AAAATAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-16T07:29:24.097Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "ICaregiverLiteService.cs",
+              "DocumentMoniker": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLiteWCF\\ICaregiverLiteService.cs",
+              "RelativeDocumentMoniker": "CaregiverLiteWCF\\ICaregiverLiteService.cs",
+              "ToolTip": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLiteWCF\\ICaregiverLiteService.cs",
+              "RelativeToolTip": "CaregiverLiteWCF\\ICaregiverLiteService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAxwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-16T06:44:30.868Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "ChattingController.cs",
+              "DocumentMoniker": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Controllers\\ChattingController.cs",
+              "RelativeDocumentMoniker": "CaregiverLite\\Controllers\\ChattingController.cs",
+              "ToolTip": "D:\\Organisation Base Code Go On Live server 08-07-2024\\CaregiverLiteWebServices\\CaregiverLite\\Controllers\\ChattingController.cs",
+              "RelativeToolTip": "CaregiverLite\\Controllers\\ChattingController.cs",
+              "ViewState": "AQIAADoRAAAAAAAAAABRwD0RAAAPAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-16T06:52:39.833Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

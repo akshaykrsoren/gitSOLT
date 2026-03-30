@@ -1,0 +1,273 @@
+﻿@model CaregiverLite.Models.OrganisationModel
+
+
+
+<div id="main_div" class="Edit_div">
+    @using (Html.BeginForm("EditOrganisation", "Organisation", FormMethod.Post, new { @id = "fmEditOrganisation", @class = "horizontal-form", @enctype = "multipart/form-data" }))
+    {
+
+        <div class="alert alert-danger alert-dismissable" style="display:none" id="dvError3">
+            @*<button onclick="divClose();" class="close" type="button">×</button>*@
+            <label id="lblError3"></label>
+        </div>
+        <div class="col-md-12">
+
+            <div class="form-group">
+                <label>Organisation Name</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => Model.OrganisationId) 
+                @Html.TextBoxFor(model => model.OrganisationName, new { @type = "text", @maxlength = "100", @placeholder = "Enter Office name", @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Assign Organisation Admin</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => Model.OrganisationAdminUserId)
+                @Html.DropDownList("OrganisationAdminUserId", (SelectList)ViewBag.AdminNameList, "Assign Organisation Admin", new { @class = "form-control customdropDown", @style = "background - position - x: 97 %;" }) 
+                  </div>
+
+            <div class="form-group">
+                <label>Street</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.Street)
+                @Html.TextBoxFor(model => model.Street, new { @type = "text", @maxlength = "100", @placeholder = "Enter Street", @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                <label>City</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.City)
+                @Html.TextBoxFor(model => model.City, new { @type = "text", @maxlength = "100", @placeholder = "Enter City", @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>State</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.State)
+                @Html.TextBoxFor(model => model.State, new { @type = "text", @maxlength = "100", @placeholder = "Enter State", @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>ZipCode</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.ZipCode)
+                @Html.TextBoxFor(model => model.ZipCode, new { @type = "text", @maxlength = "100", @placeholder = "Enter Zipcode", @class = "form-control" })
+            </div>
+            @Html.HiddenFor(model => model.OrganisationId)
+            @Html.HiddenFor(model => model.OldAdminUserId)
+
+            @Html.HiddenFor(model => model.Latitude)
+            @Html.HiddenFor(model => model.Longitude)
+            @Html.HiddenFor(model => model.TimezoneOffset, new { @id = "hdnTimezoneOffset" })
+            @Html.HiddenFor(model => model.TimezoneId, new { @id = "hdntimeZoneId" })
+            @Html.HiddenFor(model => model.TimezonePostfix, new { @id = "hdnTimezonePostfix" })
+            @Html.HiddenFor(model => model.Address, new { @id = "hdnAddress" })
+            <input type="hidden" id="hdndstOffset" />
+            <input type="hidden" id="hdnrawOffset" />
+            <input type="hidden" id="hdntimeZoneFullName" />
+            @*<div class="form-group">
+                    <label>UserName</label>
+                    <span style="color:red;">*</span>
+                    @Html.ValidationMessageFor(model => model.Username)
+                    @Html.TextBoxFor(model => model.Username, new { @type = "text", @maxlength = "256", @placeholder = "", @class = "form-control" })
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <span style="color:red;">*</span>
+                    @Html.ValidationMessageFor(model => model.Password)
+                    @Html.PasswordFor(model => model.Password, new { @autocomplete = "new-password", @type = "password", @maxlength = "256", @placeholder = "", @class = "form-control" })
+                    <span style="position: absolute; right: 16px;height: 40px;">
+                        <i class="fa fa-eye btn btn-link" id="HidePassword" style="position: relative; top: -30px;display:none" aria-hidden="true"></i>
+                        <i class="fa fa-eye-slash btn btn-link" id="showPassword" style="position: relative; top: -30px;" aria-hidden="true"></i>
+                    </span>
+                </div>*@
+        </div>
+
+        <div class="col-md-12">
+            <button type="button" onclick="Update()" class="btn btn-sm btn-primary pull-right">Update</button>
+            <div class="clearfix"></div>
+        </div>
+    }
+</div>
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+    });
+    function Update() {
+        debugger;
+
+        // var Name = $("#Name").val();
+
+        var OrganisationName = $(".Edit_div #OrganisationName").val();
+        var Street = $(".Edit_div #Street").val();
+        var City = $(".Edit_div #City").val();
+        var State = $(".Edit_div #State").val();
+        var ZipCode = $(".Edit_div #ZipCode").val();
+        var AdminUserId = $(".Edit_div #OrganisationAdminUserId").val();
+
+        if (OrganisationName == "" && Street == "" && City == "" && State == "" && ZipCode == "") {
+            toastr.error('Please fill all required fields');
+            $('#officeName').focus();
+            $('#loading').hide();
+            return false;
+        }
+        else if (OrganisationName == "") {
+            toastr.error('Please Enter Organisation Name');
+            $('#officeName').focus();
+            $('#loading').hide();
+            return false;
+        }
+        else if (AdminUserId == "") {
+            toastr.error('Please Assign Organisation Admin');
+            $('#AdminUserId').focus();
+            $('#loading').hide();
+            return false;
+        }
+        else if (Street == "") {
+            toastr.error('Please Enter Street');
+            $('#Street').focus();
+            $('#loading').hide();
+            return false;
+        }
+        else if (City == "") {
+            toastr.error('Please Enter City');
+            $('#City').focus();
+            $('#loading').hide();
+            return false;
+        }
+        else if (State == "") {
+            toastr.error('Please Enter State');
+            $('#State').focus();
+            $('#loading').hide();
+            return false;
+        }
+        else if (ZipCode == "") {
+            toastr.error('Please Enter ZipCode');
+            $('#ZipCode').focus();
+            $('#loading').hide();
+            return false;
+        }
+
+
+
+        //debugger;
+
+
+        $("#dvError3").hide();
+
+        if (!GetLanLat()) {
+            $('#loading').hide();
+            return false;
+        }
+
+        console.log($("#hdndstOffset").val());
+        console.log($("#hdnrawOffset").val());
+        console.log($("#hdntimeZoneFullName").val());
+        console.log($("#hdntimeZoneId").val());
+        if ($("#fmEditOrganisation").valid()) {
+            $('#loading').show();
+
+            $("#fmEditOrganisation").submit();
+
+
+
+        }
+        else {
+            $('#loading').hide();
+        }
+    }
+
+    function GetLanLat() {
+
+        //debugger;
+        //    var Address = $("#Address").val();
+        var Street = $(".Edit_div #Street").val().replace('&', '-');
+        Street = Street.replace(/,\s*$/, "");
+        //  var Address =$("#Address").val().replace('&','-');
+
+        var City = $(".Edit_div #City").val();
+        City = City.replace(/,\s*$/, "");
+
+        var State = $(".Edit_div #State").val();
+        State = State.replace(/,\s*$/, "");
+
+        var FullAddress = Street + ', ' + City + ', ' + State;
+
+        $("#hdnAddress").val(FullAddress);
+
+        FullAddress = FullAddress.replace('&', '-');
+
+        var Pincode = $(".Edit_div #ZipCode").val();
+        if (Street !== '') {
+            if (City !== '') {
+                if (State !== '') {
+                    var flag = true;
+                    $.ajax({
+                        type: "GET",
+                        url: "https://maps.google.com/maps/api/geocode/json",
+                        data: "address=" + FullAddress + ",  zip code=" + Pincode + "&key=AIzaSyDCQgMe2fLgmaF9GDvxF61wsIXnktEBKhg",
+                        async: false,
+                        contentType: "text/plain; charset=utf-8",
+                        dataType: "json",
+                        success: function (result) {
+                            if (result["status"] == "OK") {
+                                $("#Latitude").val(result["results"][0]["geometry"]["location"]["lat"]);
+                                $("#Longitude").val(result["results"][0]["geometry"]["location"]["lng"]);
+                                var Latitude = result["results"][0]["geometry"]["location"]["lat"];
+                                var Longitude = result["results"][0]["geometry"]["location"]["lng"];
+                                var today = new Date();
+                                //var UTCDate = today.toUTCString();
+                                //var UtcNow = Math.floor(today.getTime() / 1000);
+                                var timestamp = today.getTime() / 1000 + today.getTimezoneOffset() * 60;
+                                $.ajax({
+                                    type: "GET",
+                                    url: "https://maps.googleapis.com/maps/api/timezone/json?location=" + Latitude + "," + Longitude + "&timestamp=" + timestamp + "&sensor=false&key=AIzaSyAM1CFb8JrgZusW2EZKoDczcGjFFjDXxVg",
+                                    async: false,
+                                    contentType: "text/plain; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (data, result) {
+                                        if (data["status"] == "OK" && result == "success") {
+                                            $("#hdndstOffset").val(data.dstOffset);
+                                            $("#hdnrawOffset").val(data.rawOffset);
+                                            $("#hdntimeZoneFullName").val(data.timeZoneName);
+                                            $("#hdntimeZoneId").val(data.timeZoneId);
+
+                                            var str = data.timeZoneName;
+                                            var splitString = str.split(" ");
+                                            var abbr = "";
+                                            for (i = 0; i < splitString.length; i++) {
+                                                abbr += splitString[i].charAt(0);
+                                            }
+                                            $("#hdnTimezonePostfix").val(abbr);
+                                            var TimeZoneOffset = data.dstOffset + data.rawOffset;
+                                            TimeZoneOffset = TimeZoneOffset < 0 ? "-" + Math.abs(TimeZoneOffset) / 60 : "+" + Math.abs(TimeZoneOffset) / 60;
+                                            $("#hdnTimezoneOffset").val(parseInt(TimeZoneOffset));
+                                            return true;
+                                        }
+                                    }
+                                });
+                            }
+                            else if (result.status === "ZERO_RESULTS") {
+                                toastr.error('Please enter valid street/city/state with valid zip code');
+                                flag = false;
+                            }
+                        }
+                    });
+                } else {
+                    toastr.error('Please Enter State');
+                }
+            }
+            else {
+                toastr.error('Please Enter City');
+            }
+        } else {
+            toastr.error('Please Enter Street');
+        }
+        //----------End Pincode+Address----------------
+        return flag;
+    }
+
+</script>
+

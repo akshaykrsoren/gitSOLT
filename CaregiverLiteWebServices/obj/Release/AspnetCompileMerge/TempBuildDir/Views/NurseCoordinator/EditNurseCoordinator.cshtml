@@ -1,0 +1,168 @@
+﻿@model CaregiverLite.Models.NurseCoordinatorModel
+
+
+<div id="main_div">
+    @using (Html.BeginForm("EditNurseCoordinator", "NurseCoordinator", FormMethod.Post, new { @id = "fmEditNurseCoordinator", @class = "horizontal-form", @enctype = "multipart/form-data" }))
+    {
+
+        <div class="alert alert-danger alert-dismissable" style="display:none" id="dvError3">
+            <button onclick="divClose();" class="close" type="button">×</button>
+            <label id="lblError3"></label>
+        </div>
+        <div class="col-md-12">
+            @Html.HiddenFor(model => model.NurseCoordinatorId)
+            @Html.HiddenFor(model => model.Username)
+            @Html.HiddenFor(model => model.UserId)
+            @Html.HiddenFor(model => model.OldOfficeId)
+            @Html.HiddenFor(model => model.QuickBloxId)
+            <div class="form-group">
+                <label>First Name</label>
+                @Html.ValidationMessageFor(model => model.FirstName)
+                @Html.TextBoxFor(model => model.FirstName, new { @id = "fn" ,@type = "text", @maxlength = "100", @placeholder = "", @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                <label>Last Name</label>
+                @Html.ValidationMessageFor(model => model.LastName)
+                @Html.TextBoxFor(model => model.LastName, new { @id = "ln",@type = "text", @maxlength = "100", @placeholder = "", @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                @Html.ValidationMessageFor(model => model.Email)
+                @Html.TextBoxFor(model => model.Email, new { @id = "emailid",@type = "email", @maxlength = "100", @placeholder = "", @class = "form-control",@readonly="readonly" })
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                @Html.ValidationMessageFor(model => model.Password)
+                @Html.TextBoxFor(model => model.Password, new { @id = "pas", @type = "password", @maxlength = "256", @placeholder = "", @class = "form-control", @attr = "txtpassword" })
+            </div>
+            <span style="position: absolute; right: 16px;height: 40px;">
+                <i class="fa fa-eye btn btn-link" id="HidePasswordEdit" style="position: relative; top: -42px;display:none" aria-hidden="true"></i>
+                <i class="fa fa-eye-slash btn btn-link" id="showPasswordEdit" style="position: relative; top: -42px;" aria-hidden="true"></i>
+            </span>
+            
+            @*Office*@
+            <div class="form-group">
+                <label>Office</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.OfficeId)
+                @Html.DropDownListFor(model => model.OfficeId, Model.OfficeSelectList, "Select...", new { @class = "form-control" })
+            </div>
+            @*IsAllowForPatientChatRoom*@
+            <div class="form-group">
+                <label>Allow For Patient Chat Room</label>
+                <br>
+
+                @Html.CheckBoxFor(model => model.IsAllowForPatientChatRoom, new
+           {  @*@maxlength = "100", @placeholder = "Example@Paseva.com", @class = "form-control"*@ @style = "transform: scale(1.5); margin-left: 10px;"
+           })
+            </div>
+
+
+            <div class="form-group">
+                <label>Job Title</label>
+                @Html.ValidationMessageFor(model => model.JobTitle)
+                @Html.TextBoxFor(model => model.JobTitle, new { @type = "text", @maxlength = "100", @placeholder = "", @class = "form-control" })
+            </div>
+            @*<div class="form-group">
+                    <label>Password</label>
+                    @Html.ValidationMessageFor(model => model.Password)
+                    @Html.PasswordFor(model => model.Password, new { @type = "password", @maxlength = "256", @placeholder = "", @class = "form-control" })
+                </div>*@
+        </div>
+        <div class="col-md-12">
+            <button type="button" onclick="Update()" class="btn btn-sm btn-primary pull-right">Update</button>
+            <div class="clearfix"></div>
+        </div>
+    }
+</div>
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script type="text/javascript">
+    @*var tempMsg = '@TempData["Message"]';*@
+    //$(document).ready(function () {
+        
+    //});
+    function Update() {
+        $('#loading').show();
+        debugger;
+       // var Name = $("#Name").val();
+        var FirstName = $("#FirstName").val();
+        var LastName = $("#LastName").val();
+        var Email = $("#Email").val();
+        var OfficeId = $("#OfficeId").val();
+
+
+        if (FirstName == "" && LastName == "" && Email == "" ) {
+            toastr.error('Please fill all required fields');
+            $('#loading').hide();
+            return false;
+        }
+        else if (FirstName == "") {
+            toastr.error('Please Enter Director First Name');
+            $('#loading').hide();
+            return false;
+        }
+        else if (LastName == "") {
+            toastr.error('Please Enter Director Last Name');
+            $('#loading').hide();
+            return false;
+        }
+        else if (Email == "") {
+            toastr.error('Please Enter Email');
+            $('#loading').hide();
+            return false;
+        }
+        else if (OfficeId == "") {
+            toastr.error('Please Select Office');
+            $('#OfficeId').focus();
+            $('#loading').hide();
+            return false;
+        }
+
+     
+
+
+        $("#dvError3").hide();
+
+        if ($("#fmEditNurseCoordinator").valid()) {
+
+            $("#fmEditNurseCoordinator").submit();
+        }
+        else {
+            $('#loading').hide();
+        }
+    }
+
+
+
+
+    function CheckEmail() {
+        var url = INITURL + '/NurseCoordinator/IsEmailExists';
+        var result;
+        $.ajax({
+            url: url,
+            data: { Email: $("#Email").val(), UserId: $("#UserId").val() },
+            cache: false,
+            async: false,
+            type: 'POST',
+            success: function (data) {
+                result = data;
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+        return result;
+    }
+    $("#showPasswordEdit").click(function () {
+        $("#showPasswordEdit").css("display", "none"); $("#HidePasswordEdit").css("display", "block");
+        $("[attr='txtpassword']").get(0).type = 'text';
+    });
+    $("#HidePasswordEdit").click(function () {
+        $("#showPasswordEdit").css("display", "block"); $("#HidePasswordEdit").css("display", "none");
+        $("[attr='txtpassword']").get(0).type = 'password';
+    });
+</script>

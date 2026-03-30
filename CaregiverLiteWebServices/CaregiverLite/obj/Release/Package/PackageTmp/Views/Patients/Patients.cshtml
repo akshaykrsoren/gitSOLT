@@ -1,0 +1,975 @@
+﻿@*//@model CaregiverLite.Models.SchedulePatientRequestModel*@
+@{
+    ViewBag.Title = "Patients";
+    //Layout = "~/Views/_ViewStart.cshtml";
+}
+<style>
+     select.form-group-sm .form-control, select.input-sm {
+        height: 30px;
+        line-height: 20px;
+        text-align: center;
+    }
+    .btn-round {
+        border-radius: 50%; /* Make the button round */
+        padding: 10px;
+        background-color: #f1f1f1; /* Button background */
+        border: none;
+        width: 37px;
+        height: 37px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .items-badge {
+        /*align-self: flex-start;
+        border-radius: 6px;
+        background-color: #fff;
+        color: #1b4066;
+        padding: 5px 7px;
+        font: 600 12px Open Sans, sans-serif;
+        border: 1px solid #1b4066;*/
+
+        align-self: flex-start;
+        border-radius: 18px;
+        color: #239450;
+        padding: 6px 10px;
+        font: 600 12px Open Sans, sans-serif;
+        background-color: #D4FFE8;
+    }
+
+
+
+    .items-badgeInActive {
+        align-self: flex-start;
+        border-radius: 18px;
+        color: #E24B4B;
+        padding: 6px 10px;
+        font: 600 12px Open Sans, sans-serif;
+        background-color: #FFDEDE;
+    }
+
+    .toggle-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: -27px;
+    }
+
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 48px; /* reduced width */
+        height: 24px; /* reduced height */
+        margin-left: 70%;
+    }
+
+        .switch input {
+            display: none;
+        }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.4s;
+        border-radius: 28px; /* adjusted to match new height */
+    }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px; /* adjusted height */
+            width: 18px; /* adjusted width */
+            left: 4px; /* adjusted position */
+            bottom: 3px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+    input:checked + .slider {
+        background-color: #4CAF50;
+    }
+
+        input:checked + .slider:before {
+            transform: translateX(22px); /* adjusted translation */
+        }
+
+    #toggleText {
+        font-weight: bold;
+        margin-top: -7px;
+    }
+
+    .cancelbtn {
+        background-color: #e6f4ea;
+        color: #1d9b6c;
+        border: 1px solid;
+        border-radius: 4px;
+        height: 40px;
+        font-weight: bold;
+    }
+
+        .cancelbtn:hover {
+            background-color: #d1ecd9;
+        }
+
+    .confirmbtn {
+        background-color: #f4e6e6;
+        color: #d93025;
+        border: 1px solid;
+        border-radius: 4px;
+        height: 40px;
+        font-weight: bold;
+    }
+
+        .confirmbtn:hover {
+            background-color: #ebd2d2;
+        }
+
+
+    .cancelbtnActive {
+        background-color: #e6f4ea;
+        color: #1d9b6c;
+        border: 1px solid;
+        border-radius: 4px;
+        height: 40px;
+        font-weight: bold;
+    }
+
+        .cancelbtnActive:hover {
+            background-color: #d1ecd9;
+        }
+
+    .confirmbtnActive {
+        background-color: #f4e6e6;
+        color: #d93025;
+        border: 1px solid;
+        border-radius: 4px;
+        height: 40px;
+        font-weight: bold;
+    }
+
+        .confirmbtnActive:hover {
+            background-color: #ebd2d2;
+        }
+
+
+</style>
+
+
+  
+
+<!-- ADD PATIENT DETAILS POPUP START -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" id="modalAddPopup">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" id="btnClose" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Add Patient Details</h4>
+            </div>
+            <div class="modal-body row" id="AddNewPatient">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="SendDatapopupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-Vd" id="modalEditPopup">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">EVV Client Export</h4>
+            </div>
+            <div class="modal-body row" id="ExternalAPIPannel">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ReportsData" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-Vd reportClass" id="SmodalEditPopup">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Insurance Policy Report</h4>
+            </div>
+            <div class="modal-body row" id="ReportData">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- EDIT PATIENT DETAILS POPUP START -->
+<div class="modal fade" id="myModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" id="modalEditPopup">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" id="btnClose" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Edit Patient Details</h4>
+                <div class="toggle-container">
+                    <label class="switch">
+                        <input type="checkbox" id="toggleSwitch">
+                        <span class="slider"></span>
+                    </label>
+                    <span id="toggleText">Active</span>
+                </div>
+            </div>
+            <div class="modal fade" id="ConfirmationModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm" id="modalAddPopup">
+                    <div class="modal-content" id="deleteModal" style="width: 366px;    height: 141px;    border-radius: 8px;    bottom: -151px;">
+                        <p style="padding:23px 59px 0px 40px; margin-left:-22px; font-style: normal; font-size: 15px;"><strong style="font-weight: 800; color: #1B4066;">Are you sure you want to inactive this patient ?</strong></p>
+                        <button class="cancelbtn" style="margin-left: 43%;">No, Go Back</button>
+                        <button class="confirmbtn">Yes, Inactive</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="ConfirmationModelActive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm" id="modalAddPopup">
+                    <div class="modal-content" id="deleteModal" style="width: 366px;    height: 141px;    border-radius: 8px;    bottom: -151px;">
+                        <p style="padding:23px 59px 0px 40px; margin-left:-22px; font-style: normal; font-size: 15px;"><strong style="font-weight: 800; color: #1B4066;">Are you sure you want to active this Caregiver ?</strong></p>
+                        <button class="cancelbtnActive" style="margin-left: 43%;">No, Go Back</button>
+                        <button class="confirmbtnActive">Yes, active</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body row" id="EditPatient">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- LIST OF PATIENT START-->
+<div class="wrapper wrapper-content animated fadeInRight containerstyle">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title" style="height: 88px ">
+                    @*<h5 >@CaregiverLite.Views.Resources.Patients.HeaderPatientList</h5>
+                        <div class="ibox-tools" style="float:left">
+                            <a class="btn btn-xs CutomButton" style="margin-top:-9px;" href="javascript:;" onclick="OpenAddNew()">@CaregiverLite.Views.Resources.Patients.ButtonAddPatients</a>
+
+                            <div class="clearfix"></div>
+                        </div>*@
+                    <div style="margin-top: 17px;">
+                        <span id="patientHeader" style="font-size:15px;color:#1B1B1C;font-weight:800">Patients</span>
+                        <a class="btn btn-xs CutomButton" style="margin-top: -10px;float: right;background-color: #092C44;color: white;padding: 10px;width: 142px;height: 42px;font-size: 14px;" href="javascript:;" onclick="OpenAddNew()">
+                            <img src="http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Content/image/AddIcon.png" alt="Add Patient">
+                            <span style="margin-left: 3px;font-size: 14px;">Add Patient</span>
+
+                        </a>
+                        <div class="clearfix"></div>
+                    </div>
+                    @using (Html.BeginForm("ImportExcelData", "Patients", FormMethod.Post, new { @id = "fmUploadDataFromExcel", enctype = "multipart/form-data" }))
+                    {
+
+                        @*<div class="ibox-tools" style="float:left">
+                                <a class="btn btn-xs CutomButton pull-right" style="margin-top:-8px;" href="javascript:void(0)" onclick="ExportTable();" id="btnEXPORT" Value="Export">
+                                    EXPORT
+                                </a>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="ibox-tools" style="float:left">
+                                <a class="btn btn-xs CutomButton pull-right" style="margin-top:-8px;margin-right:8px" href="javascript:void(0)" onclick="InsuranceExportTable();" id="InsurancebtnEXPORT" Value="Export">
+                                    PATIENT INSURANCE REPORT
+                                </a>
+                                <div class="clearfix"></div>
+                            </div>
+
+
+                            <div class="ibox-tools image-upload input-group" style="float:left;padding-left: 1px;margin-bottom: 14px;margin-top: -2px;" id="selectFileIcon">
+
+                                <label class="btn btn-xs CutomButton" for="file" id="btnIMPORT">
+                                    IMPORT
+                                </label>
+                                <label id="fileViewer"></label>
+                                <input class="btn btn-xs CutomButton" type="file" name="file" accept=".xlsx,application/vnd.ms-excel" id="file" />
+
+                            </div>*@
+                        <style>
+                            .image-upload > input {
+                                display: none;
+                            }
+
+                            .image-upload i {
+                                width: 40px;
+                                font-size: large;
+                                cursor: pointer;
+                            }
+
+                            input[id="fileCall"] {
+                                margin-left: -50px;
+                                height: 25px;
+                                width: 50px;
+                            }
+
+                            .btn-round {
+                                border-radius: 50%; /* Make the button round */
+                                padding: 10px;
+                                background-color: #f1f1f1; /* Button background */
+                                border: none;
+                                width: 37px;
+                                height: 37px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                            }
+
+                                .btn-round img {
+                                    width: 16px; /* Icon size */
+                                    height: 16px;
+                                }
+                        </style>
+                        <div class="input-group pull-right" style="margin-top:-8px;margin-right: 5px;">
+                            <input class="btn btn-xs CutomButton" style="display:none;background-color: #5ca53c;" id="btnUpload" type="submit" value="UPLOAD DATA" />
+                        </div>
+                        <div class="input-group pull-right" style="margin-top:-8px;margin-right: 5px;">
+                            <a class="btn btn-xs CutomButton" style="display:none" id="btnReset" href="javascript:void(0)" onclick="ResetUpload();">RESET</a>
+                        </div>
+                        @*<div class="input-group pull-right" style="margin-top:-4px;margin-right: 15px;">
+                                <a href="~/sample/Patient_Detail_Sample_File_Demo.xlsx">Download sample file</a>
+                            </div>
+
+                            <div class="input-group">
+                                <a class="btn btn-xs CutomButton popup-act" style="margin-top:-12px;" href="javascript:;" onclick="OpenSendDatPannel()">EVV Client Export</a>
+                                <div></div>
+                            </div>*@
+
+                    }
+                </div>
+
+
+                @*<div class="ibox-title">
+                        <h5>@CaregiverLite.Views.Resources.Patients.HeaderPatientList</h5>
+                        <div class="ibox-tools">
+                            <a class="btn btn-xs btn-primary" style="margin-top:-9px;" href="javascript:;" onclick="OpenAddNew()">@CaregiverLite.Views.Resources.Patients.ButtonAddPatients</a>
+
+                            <div class="clearfix"></div>
+                        </div>
+                        @using (Html.BeginForm("ImportExcelData", "Patients", FormMethod.Post, new { @id = "fmUploadDataFromExcel", enctype = "multipart/form-data" }))
+                        {
+
+
+                            <a class="btn btn-xs btn-primary pull-right" style="margin-top:-8px;" href="javascript:void(0)" onclick="ExportTable();" id="btnEXPORT" Value="Export">
+                                EXPORT
+                            </a>
+
+                              <a class="btn btn-xs btn-primary pull-right" style="margin-top:-8px;margin-right:8px" href="javascript:void(0)" onclick="InsuranceExportTable();" id="InsurancebtnEXPORT" Value="Export">
+                               PATIENT INSURANCE REPORT
+                            </a>
+
+
+                            <div class="image-upload input-group pull-right" style="margin-top:-8px;margin-right: 5px;" id="selectFileIcon">
+                                <label class="btn btn-xs btn-primary" for="file" id="btnIMPORT">
+                                    IMPORT
+                                </label>
+                                <label id="fileViewer"></label>
+                                <input class="btn btn-xs btn-primary" type="file" name="file" accept=".xlsx,application/vnd.ms-excel" id="file" />
+
+                            </div>
+                            <style>
+                                .image-upload > input {
+                                    display: none;
+                                }
+
+                                .image-upload i {
+                                    width: 40px;
+                                    font-size: large;
+                                    cursor: pointer;
+                                }
+
+                                input[id="fileCall"] {
+                                    margin-left: -50px;
+                                    height: 25px;
+                                    width: 50px;
+                                }
+                            </style>
+                            <div class="input-group pull-right" style="margin-top:-8px;margin-right: 5px;">
+                                <input class="btn btn-xs btn-primary" style="display:none;background-color: #5ca53c;" id="btnUpload" type="submit" value="UPLOAD DATA" />
+                            </div>
+                                <div class="input-group pull-right" style="margin-top:-8px;margin-right: 5px;">
+                                    <a class="btn btn-xs btn-primary" style="display:none" id="btnReset" href="javascript:void(0)" onclick="ResetUpload();">RESET</a>
+                                </div>
+                                <div class="input-group pull-right" style="margin-top:-4px;margin-right: 15px;">
+                                    <a href="~/sample/Patient_Detail_Sample_File_Demo.xlsx">Download sample file</a>
+                                </div>
+
+                                <div class="input-group pull-right">
+                                    <a class="btn btn-xs btn-primary popup-act" style="margin-top:-9px;" href="javascript:;" onclick="OpenSendDatPannel()">EVV Client Export</a>
+                                    <div></div>
+                                </div>
+
+                        }
+                    </div>*@
+
+
+                <div class="ibox-content">
+                    <div class="row">
+                        @if (ViewContext.Controller.HasRoles("SuperAdmin") || ViewContext.Controller.IsSysAdmin())
+                        {
+                            <div class="form-group col-md-2 ">
+
+                                <label>Organisation:</label>
+                                <br />
+
+                                @Html.DropDownList("ddFilterOrganisation", (System.Web.Mvc.SelectList)ViewBag.lstOrganisations, "All", new { @class = "form-control", onchange = "Filtration();",@style = "border: 1px solid #b6b2b2 !important;    border-radius: 4px !important;    background: #ffffffa3 !important;margin-top:8px" })
+
+                            </div>
+                        }
+                        <div class="form-group col-md-2 ">
+                            <label>Office:</label>
+                            </br>
+
+                            @Html.DropDownList("ddFilterOffice", (System.Web.Mvc.SelectList)ViewBag.lstOffice, "All", new { @class = "form-control", onchange = "Filtration();", @style = "border: 1px solid #b6b2b2 !important;    border-radius: 4px !important;    background: #ffffffa3 !important;margin-top:8px" })
+                        </div>
+                        <div style="margin-top: 30px;">                          
+                            <button title="Clear Filters" class="btn btn-round" id="Clearbtn" onclick="RemoveFiltration()">
+                                <img id="ClearIcon" src="http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Content/image/ClearFilter.png" alt="Refresh Icon">
+                            </button>
+                        </div>
+
+                    </div>
+                    <input type="hidden" id="hdnPatientRequestId" />
+                    <table id="myDataTable" class="table table-striped table-bordered table-hover dataTables-example">
+                        <thead>
+                            <tr>
+
+                                @*<th><strong>Patient</strong></th>*@
+                                <th><strong>FirstName</strong></th>
+                                <th><strong>LastName</strong></th>
+                                <th><strong>MRN</strong></th>
+                                @*<th><strong>@CaregiverLite.Views.Resources.Patients.TableHeaderAddress</strong></th>*@
+                                <th><strong>Street</strong></th>
+                                <th><strong>City</strong></th>
+                                <th><strong>State</strong></th>
+                                <th><strong>Zipcode</strong></th>
+                                <th><strong>Telephone</strong></th>
+                                @*<th><strong>PrimaryMD</strong></th>*@
+                                <th><strong>Office</strong></th>
+                                
+                                <th style="width: 100px;text-align:center" class="noExl">@CaregiverLite.Views.Resources.CareGiver.TableHeaderAction</th>
+                                <th><strong>UserStatus</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+<!-- LIST OF PATIENT END-->
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+
+@*<script src="~/Scripts/js/jquery-2.1.1.js"></script>
+    <script src="~/Scripts/js/jquery.dataTables.js"></script>*@
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="~/Scripts/js/oms.min.js"></script>
+
+<script type="text/javascript">
+
+
+
+
+
+
+    var tempMsg = '@TempData["Message"]';
+    var tempFlag = '@TempData["error"]';
+
+    if (tempFlag != "True") {
+        if (tempMsg != "")
+            toastr.success(tempMsg);
+    }
+    else {
+        if (tempMsg != "")
+            toastr.error(tempMsg);
+    }
+
+    var oTable;
+
+    $(document).ready(function () {
+
+
+        $("#loading").show();
+        var jquey = jQuery.noConflict();
+        oTable = $('#myDataTable').DataTable({
+
+            responsive: true,
+            //"scrollY": 200,
+            //"scrollX": 200,
+
+            "dom": 'lfrtip',
+
+            "bPaginate": true,
+            "bServerSide": true,
+
+            "bSortable": true,
+            "sPaginationType": "full_numbers",
+            "oLanguage": {
+                "sProcessing": "<div class=\"loading\" id=\"loading\" style=\"display: block;\"></div>"
+            },
+            "processing": true,
+
+            "sAjaxSource": "GetPatientDetailsList",
+            "fnServerData": function (sSource, aoData, fnCallback) {
+                $.getJSON(sSource, aoData, function (json) {
+                    fnCallback(json);
+                }).fail(function (jqxhr, textStatus, error) {
+                    window.location.reload();
+                });
+            },
+            "fnServerParams": function (aoData) {
+                aoData.push({ "name": "FilterOfficeId", "value": $('#ddFilterOffice option:selected').val() });
+				                aoData.push({ "name": "FilterOrganisationId", "value": $('#ddFilterOrganisation option:selected').val() });
+
+            },
+            "fnDrawCallback": function (oSettings) {
+                //Navigation validation
+                var rowsPerPage = this.fnSettings()._iDisplayLength;
+                var rowsToShow = this.fnSettings().fnRecordsDisplay();
+                var table = $('#myDataTable').DataTable();
+                var info = table.page.info();
+                var currentPageNo = info.page + 1;
+                $("#patientHeader").text("");
+                $("#patientHeader").text("Patients (" + rowsToShow + ")");
+
+                $('#myDataTable tbody td').css('height', '40px');
+
+
+
+                $('#myDataTable_filter input ').css({ 'border-radius': '5px', 'height': '36px' });
+
+
+                $('#myDataTable_wrapper select ').css({ 'margin-top': '10px', 'border-radius': '5px', 'margin-bottom': '10px' });
+                $('#myDataTable_filter label').contents().filter(function () {
+                    return this.nodeType === 3; // This checks for text nodes
+                }).remove();
+                
+                var searchInput = $('#myDataTable_filter input');
+                searchInput.wrap('<div class="search-container" style="position: relative; display: inline-block; width: 100%;"></div>'); // Wrap the search input
+                searchInput.css({
+                    'padding-right': '30px' // Add padding to the right to make space for the icon
+                });
+                searchInput.after('<img src="http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Content/image/SearchIcon.png" class="search-icon" id="SearchIcon" alt="Search Icon" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;">');
+
+
+                $("#loading").hide();
+
+            },
+            "responsive": {
+                "details": {
+                    "type": 'column'
+                }
+            },
+            "aoColumns": [
+
+           //                 {
+           //                     "sName": "Patient",
+           //                     "mRender": function (oObj) {
+           //                       //  return '<span>' + oObj["PatientName"] + '</span>';
+
+								   //var actionhtml = '';
+           //                              if (oObj["PatientName"] != "") {
+           //                                  actionhtml += '<center><a href="javascript:;" style="text-decoration: underline;" onclick="EditPatientDetail(\'' + oObj["PatientId"] + '\');">' + oObj["PatientName"] + '</a></center>'
+           //                              }
+           //                              return actionhtml;
+           //                     }
+           //     },
+
+                {
+                    "sName": "FirstName",
+                    "mRender": function (oObj) {
+                        //  return '<span>' + oObj["PatientName"] + '</span>';
+
+                        var actionhtml = '';
+                        if (oObj["FirstName"] != "") {
+                            actionhtml += '<center><a href="javascript:;" style="text-decoration: underline;" onclick="EditPatientDetail(\'' + oObj["PatientId"] + '\');">' + oObj["FirstName"] + '</a></center>'
+                        }
+                        return actionhtml;
+                    }
+                },
+
+                {
+                    "sName": "LastName",
+                    "mRender": function (oObj) {
+                        //  return '<span>' + oObj["PatientName"] + '</span>';
+
+                        var actionhtml = '';
+                        if (oObj["LastName"] != "") {
+                            actionhtml += '<center><a href="javascript:;" style="text-decoration: underline;" onclick="EditPatientDetail(\'' + oObj["PatientId"] + '\');">' + oObj["LastName"] + '</a></center>'
+                        }
+                        return actionhtml;
+                    }
+                },
+                            {
+                                "sName": "MedicalId",
+                                "mRender": function (oObj) {
+                                    return oObj["MedicalId"];
+                                }
+                            },
+                            {
+                                "sName": "Street",
+                                "mRender": function (oObj) {
+                                    return oObj["Street"];
+                                }
+                            },
+                            {
+                                "sName": "City",
+                                "mRender": function (oObj) {
+                                    return oObj["City"];
+                                }
+                            },
+                            {
+                                "sName": "State",
+                                "mRender": function (oObj) {
+                                    return oObj["State"];
+                                }
+                            },
+                             {
+                                 "sName": "ZipCode",
+                                // "bSortable": false,
+                                 "mRender": function (oObj) {
+                                     return oObj["ZipCode"];
+                                 }
+                             }, {
+                                 "sName": "PhoneNo",
+                               //  "bSortable": false,
+                              
+                                "mRender": function (oObj) {
+                                    return oObj["PhoneNo"];
+                                }
+                            },
+                              //{
+                              //    "sName": "PrimaryMD",
+                              //    "bSortable": false,
+                              //  "mRender": function (oObj) {
+                              //      return oObj["PrimaryMD"];
+                              //  }
+                              //},
+                              {
+                                  "sName": "OfficeName",
+                                  "mRender": function (oObj) {
+                                      return oObj["OfficeName"];
+                                  }
+                },
+
+                           {
+                                "sname": "PatientId",
+                                "bsortable": false,
+                               "mRender": function (oObj) {
+                                    var actionhtml = '';
+                                    @*actionhtml += '<a href="javascript:;" class="btn btn-xs btn-danger noexl" style="margin-top:5px; width:100%;" onclick="deletepatientdetail(\'' + oobj["patientid"] + '\');">@caregiverlite.views.resources.caregiver.buttondelete</a>'
+                                    actionhtml += '<a href="javascript:;" class="btn btn-xs btn-primary noexl" style="margin-top:5px; width:100%;" onclick="editpatientdetail(\'' + oobj["patientid"] + '\');">edit</a>'*@
+
+                                   actionhtml += '<a href="javascript:;" title="edit patient"   style="margin-top:5px;margin-left:17px; width:100%;height: 15px;width: 15px;" onclick="EditPatientDetail(\'' + oObj["PatientId"] + '\');"><img src="http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/content/image/editicon.png" alt="delete icon"></a>';
+                                    actionhtml += '<a href="javascript:;"  title="delete patient" style="margin-top:5px;margin-left:28px; width:100%;height: 15px;width: 15px;" onclick="deletepatientdetail(\'' + oObj["PatientId"] + '\');"><img src="http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/content/image/deleteicon.png" alt="delete icon"> </a>';
+
+                                    return actionhtml;
+                                }
+                },
+                {
+                    "sname": "IsActive",
+                    "bsortable": false,
+                    "mRender": function (oObj) {
+                        if (oObj["IsActive"] != "False") {
+
+                            return  '<span class="items-badge">Active</span>'      
+                        }
+                        else {
+                            return '<span class="items-badgeInActive">Inactive</span>'
+                        }
+                      //  return oObj["IsActive"];              
+                    }
+                },
+
+
+            ]
+        });
+
+        $('#myDataTable_filter input').unbind(); //Unbind direct search on each keypress
+        $('#myDataTable_filter input').bind('keyup', function (e) { //Bind Keyup event that filter data only on "Enter" key.
+            if (e.keyCode == 13) {
+                oTable.search(this.value).draw();
+            }
+        });
+        /* Init DataTables */
+        $('.carousel').carousel({
+            interval: false
+        });
+
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': { allow_single_deselect: true },
+            '.chosen-select-no-single': { disable_search_threshold: 10 },
+            '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+            '.chosen-select-width': { width: "95%" }
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+
+        $("#loading").hide();
+
+        ///Handle File Uploading start
+        jQuery("input#file").change(function () {
+          //  alert('JJj');
+            var input = this.files[0];
+            var ext = jQuery(this).val().split('.').pop();
+            var Filesize = (input.size / (1024 * 1024)).toFixed(2);
+            //alert(Filesize);//ppt ,pptx ,xls ,doc,docx,png,jpg,jpeg,mp4,pdf
+            if (input) {
+                if (Filesize < 95) {
+                    if (ext.toLowerCase() == "xls" || ext.toLowerCase() == "xlsx") {
+                        toastr.success("File Selected");
+
+                        $("#btnUpload").css({ 'display': "block" });
+                        $("#FileAlertContent").html("<b>1 File Selected.</b>");
+                        $("#btnResetFile").css({ 'display': "block" });
+                        $("#fileDiv").css({ 'display': "none" });
+                        $("#btnIMPORT").css({ 'display': "none" });
+                        $("#btnReset").css({ 'display': "block" });
+                        //Remove
+                        //$("#fileRemove").css({ 'display': "block" });
+                        //$("#selectFileIcon").css({ 'display': "none" });
+                        //
+
+                    }
+                    else {
+                        toastr.info("You Choose Wrong format file... Please Select File having following extension .xls, .xlsx");
+                        $("#file").val('');
+                        $("#fileCall").css({ 'color': "" });
+                        $("#FileAlert").css({ 'display': "none" });
+                    }
+
+                } else {
+                    if (Filesize > 95) {
+                        toastr.info("Please Select a file having size less then 95MB.");
+                        $("#file").val('');
+                        $("#fileCall").css({ 'color': "" });
+                        $("#FileAlert").css({ 'display': "none" });
+                    }
+
+                }
+            }
+            else {
+                toastr.info("No File Selected... Please Open again for select a file.");
+            }
+
+        });
+        $("#btnUpload").click(function () {
+            $("#loading").show();
+        });
+
+    });
+
+    $(document).on('click', '#SearchIcon', function (event) {
+        event.stopPropagation();  // Prevents the outer div's click event
+        var query = $('#myDataTable_filter input').val(); // Get the value from the search input
+        $('#myDataTable').DataTable().search(query).draw(); // Trigger the DataTable search
+
+    });
+
+   
+
+    function ResetUpload()
+    {
+        $("#btnUpload").css({ 'display': "none" });
+
+        $("#file").val('');
+        //$("#fileDiv").css({ 'display': "none" });
+        $("#btnIMPORT").css({ 'display': "block" });
+        $("#btnReset").css({ 'display': "none" });
+    }
+    function UploadData() {
+        if ($("#fmUploadDataFromExcel").valid()) {
+            $("#fmUploadDataFromExcel").submit();
+        }
+        else {
+            toastr.error("Please Select File From Import");
+            return;
+        }
+    }
+    $('#Clearbtn').mouseover(function () {
+        $('#ClearIcon').attr('src', 'http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Content/image/ClearBluebtn.png'); // Change to your hover image
+    });
+
+    // Revert image on mouseout
+    $('#Clearbtn').mouseout(function () {
+        $('#ClearIcon').attr('src', 'http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Content/image/ClearFilter.png'); // Revert to original image
+    });
+
+
+    function ExportTable() {
+            $(".loading").show();
+            var url = '@Url.Action("ExportDataSetToExcel", "Patients")';
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: { strOfficeId: $("#ddFilterOffice").val() },
+                success: function (res) {
+                    $(".loading").hide();
+                    if (res) {
+                        var filename = res;
+                        var iframe = document.createElement("iframe");
+                        iframe.src = filename;
+                        iframe.style.display = 'none';
+                        document.body.appendChild(iframe);
+                        toastr.success("successfully export.");
+
+                    }
+                    else {
+                        toastr.warning("Not Exported Try again");
+                    }
+                },
+                error: function (reponse) {
+                    //alert("error : " + JSON.stringify(reponse));
+                    $(".loading").hide();
+                }
+            });
+
+
+
+    }
+
+
+	 function InsuranceExportTable() {
+        $("#loading").show();
+        //alert(INITURL);
+        $('#ReportData').load(INITURL + 'Patients/InsurancePolicyExport', function () {
+            sessionStorage.setItem("PartialView", "1");
+            $('#ReportsData').modal('show');
+            $("#loading").hide();
+        });
+    }
+
+
+    function OpenAddNew() {
+
+
+        $("#loading").show();
+        $('#AddNewPatient').load(INITURL + 'Patients/AddPatient', function () {
+            sessionStorage.setItem("PartialView", "1");
+            $('#myModal').modal({ backdrop: 'static', keyboard: false })
+            $('#myModal').modal('show');
+        });
+    }
+
+    function EditPatientDetail(PatientDetailsId) {
+        debugger;
+        $("#loading").show();
+        $('#EditPatient').load(INITURL + '/Patients/EditPatientDetail/' + PatientDetailsId, function () {
+            sessionStorage.setItem("PartialView", "1");
+            $('#myModalEdit').modal({ backdrop: 'static', keyboard: false })
+            $('#myModalEdit').modal('show');
+            $("#loading").hide();
+        });
+    }
+
+
+    //function DeletePatientDetail(PatientDetailId1) {
+    //    //if (confirm('Are you sure you want to delete Patient Details permanently ?')) {
+    //    //    $("#loading").show();
+    //    var url = 'http://pasevauat.com/BraintreeApplication/Einstein/EinsteinLogin';
+    //    var username='manojkumar';
+    //    var paasword='Manoj123@@#';
+
+    //    var LoginDetail = {
+    //        UserName: username,
+    //        Password: paasword
+    //    }
+
+    //    //var things = {
+    //    //    UserName: username,
+    //    //    Password: paasword
+
+    //    //}
+
+    //        $.ajax({
+    //            url: url,
+    //            data: { LoginDetail: LoginDetail },
+    //            cache: false,
+    //            type: 'POST',
+    //            async: false,
+    //            success: function (data) {
+    //                if (data == "Success") {
+    //                    console.log(data);
+    //                   // toastr.success("Patient deleted successfully");
+    //                   // window.location = INITURL + '/Patients/Patients';
+    //                }
+    //                $("#loading").hide();
+    //            },
+    //            error: function (reponse) {
+    //                //alert("error : " + reponse);
+    //                $("#loading").hide();
+    //            }
+    //        });
+    //    }
+
+
+
+
+    //Delete One
+    function DeletePatientDetail(PatientDetailId1) {
+        if (confirm('Are you sure you want to delete Patient Details permanently ?')) {
+            $("#loading").show();
+            var url = INITURL + '/Patients/DeletePatientDetails';
+
+            $.ajax({
+                url: url,
+                data: { PatientDetailId: PatientDetailId1 },
+                cache: false,
+                type: 'POST',
+                async: false,
+                success: function (data) {
+                    if (data == "Success") {
+                        toastr.success("Patient deleted successfully");
+                        window.location = INITURL + '/Patients/Patients';
+                    }
+                    $("#loading").hide();
+                },
+                error: function (reponse) {
+                    //alert("error : " + reponse);
+                    $("#loading").hide();
+                }
+            });
+        }
+    }
+
+    function Filtration() {
+
+        oTable.search($('#myDataTable').val()).draw();
+    }
+
+    function OpenSendDatPannel() {
+        //  $("#loading").show();
+        // $('#SendDatapopupModal').modal('show');
+
+        $('#ExternalAPIPannel').load(INITURL + 'Patients/SendClientRequestDataPage', function () {
+
+            sessionStorage.setItem("PartialView", "1");
+            $('#SendDatapopupModal').modal('show');
+            $("#loading").hide();
+        });
+    }
+    function RemoveFiltration() {
+
+        $('#ddFilterOrganisation').val(0);
+        $('#ddFilterOffice').val(0);
+        oTable.search($('#myDataTable').val()).draw();
+    }
+</script>

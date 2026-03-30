@@ -1,0 +1,518 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@CaregiverLite.Views.Resources.Layout.TitleCareGiver</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS START -->
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="~/Content/css/bootstrap-datetimepicker.css" rel="stylesheet">
+    <link href="~/Content/css/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="~/Content/css/dataTables.responsive.css" rel="stylesheet">
+    <link href="~/Content/css/dataTables.tableTools.min.css" rel="stylesheet">
+    <link href="~/Content/css/animate.css" rel="stylesheet">
+    <link href="~/Content/css/style.css" rel="stylesheet">
+    <link href="~/Content/css/chosen.css" rel="stylesheet">
+    <link href="~/Content/css/switchery.css" rel="stylesheet">
+    <link href="~/Content/css/fullcalendar.css" rel="stylesheet">
+    <link href="~/Content/css/toastr.css" rel="stylesheet" />
+    <link href="~/Content/css/fullcalendar.print.css" rel='stylesheet' media='print'>
+    @*@System.Web.Optimization.Styles.Render("~/Content/CommanCss")*@
+
+    @System.Web.Optimization.Scripts.Render("~/bundles/CommanJs")
+    <script src="~/Scripts/js/toastr.js"></script>
+    <script src="~/Scripts/js/jquery.validate.min.js"></script>
+    <script src="~/Scripts/js/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="~/Scripts/lib/SendBird/SendBird.min.js"></script>
+
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>*@
+    @*<script src="~/Scripts/QuickBlox/quickblox.min.js"></script>*@
+
+    <style>
+        #toast-container > div.toast-info {
+            background-image: none !important;
+        }
+
+        #toast-container > div.toast-error {
+            background-image: none !important;
+        }
+
+        #toast-container > div.toast-warning {
+            background-image: none !important;
+        }
+    </style>
+
+
+</head>
+<script type="text/javascript">
+
+
+
+
+	var chatCountSession = false;
+
+    var sFromQBId = "@Session["FromQBId"]";
+    var idleTime = 0;
+
+    $(document).ready(function () {
+
+
+        // SendBird Implementation Start
+            //var userIds = ['Vikram', '1234'];
+            //sb.GroupChannel.createChannelWithUserIds(userIds, false, "VinodTestChannelWithParam1", "", "", function(groupChannel, error) {
+            //    if (error) {
+            //        return;
+            //    }
+            //    var immutableObject = Immutable.fromJS(groupChannel);
+            //    console.log(immutableObject);
+            //});
+        // SendBird Implementation End
+
+
+        if('@Session["Role"]' == 'NurseCoordinator' || '@Session["Role"]' == 'Nurse')
+        {
+            ChatPermission();
+        }
+
+      //  ChatPermission();
+
+        //Time Out Functionality Start
+        //Increment the idle time counter every minute.
+        idleInterval= setInterval(timerIncrement, 60000); // 1 minute
+        //Zero the idle timer on mouse movement.
+        $(this).bind( "mousemove click keypress",function (e) {
+            idleTime = 0;
+        });
+        //Time Out Functionality End
+
+        $('#loading').show();
+        var url = window.location;
+        $('.nav').find('.active').removeClass('active');
+        $('.nav li a').each(function () {
+            if (this.href == url) {
+                $(this).parent().addClass('active');
+            }
+        });
+        $('#loading').hide();
+
+        window.setInterval(function () {
+            /// call your function here
+            var today = new Date();
+            var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+            var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+            var dateTime = date + ' ' + time;
+            getHeaderCountGroup();
+        }, 1000 * 10);
+
+
+        // SendBird start
+        var sb = new SendBird({ appId: "@System.Web.Configuration.WebConfigurationManager.AppSettings["SENDBIRD_APP_ID"]" });
+        var USER_ID="@Session["FromUserEmail"]";
+
+
+        //QuickBlox start
+        @*QB.init(@System.Web.Configuration.WebConfigurationManager.AppSettings["QuickbloxApp_Id"],
+              "@System.Web.Configuration.WebConfigurationManager.AppSettings["QuickbloxAuth_Key"]",
+              "@System.Web.Configuration.WebConfigurationManager.AppSettings["QuickbloxAuth_Secret"]",
+              true);*@
+        CreateSession();
+
+        function CreateSession() {
+            // SendBird SESSION Creation Start
+           // debugger;
+            sb.connect(USER_ID, function(user, error) {
+                if (error) {
+                    return;
+                }
+                //else
+                //{
+                //   alert(sessionStorage.setItem("sToken", user.token));
+                //}
+
+            });
+
+            // SendBird SESSION Creation End
+
+            // SendBird Implementation Start
+            //var userIds = ['Vikram', '1234'];
+            //sb.GroupChannel.createChannelWithUserIds(userIds, false, "VinodTestChannelWithParam11", "", "", function(groupChannel, error) {
+            //    if (error) {
+            //        return;
+            //    }
+            //});
+            // SendBird Implementation End
+
+            //START CREATE SESSION
+            @*QB.createSession(function (err, result) {
+                debugger;
+                if (err) {
+                    //debugger;
+                    alert(err.message);
+                    console.log(err.message);
+                } else {
+                    //alert("Session Token- " + result.token);
+                    sessionStorage.setItem("sToken", result.token);
+
+                    if (sFromQBId == '0') {
+                        RegisterNewUser("@Session["FromUserEmail"]", "@Session["LoginUserUserId"]");
+                    }
+                    else {
+                        var user = {
+                            id: sFromQBId,
+                            login: "@Session["FromUserEmail"]",
+                            password: "Welcome007!"
+                        };
+                        QB.createSession({ login: user.login, password: user.password }, function (err, result) {
+                            if (err) {
+                                //debugger;
+                                alert(err.message);
+                                console.log(err.message);
+                            } else {
+                                //alert("Session Token- " + result.token);
+                                sessionStorage.setItem("sToken", result.token);
+                                getHeaderCountGroup();
+                            }
+                        });
+                    }
+                }
+            });*@
+            //END CREATE SESSION
+        }
+
+        DisplayUnreadCount = function(ChatDialogType)
+        {
+         //  debugger;
+
+
+            //  var officeIds =  [1,2,4,5,6,8,10,11,12,14]
+
+           var officeId = '@Session["OfficeId"]'
+
+           //var officeId = "1,2,4,5,6,8,10,11,12,14";
+
+
+
+           var  officeIds = officeId.split(',');
+
+          @*// var officeIds = '@(ViewBag.OfficeList)';*@
+
+
+            //var officeIdsv1 = [];
+
+            //for (i = 0; i < officeIds.length; i++) {
+            //    officeIdsv1.push(officeIds[i]);
+            //}
+
+             if(ChatDialogType == 1)
+            {
+                //filters.data.OfficeID= officeIds;
+
+                var filters = { limit: 100,
+                    skip: 0,
+                    sort_desc: "last_message_date_sent",
+                    data: {
+                        class_name: "ChatDialogType",
+                        ChatCategory: ChatDialogType,
+                    }
+                };
+            }
+            else{
+
+                var filters = { limit: 100,
+                    skip: 0,
+                    sort_desc: "last_message_date_sent",
+                    data: {
+                        class_name: "ChatDialogType",
+                        ChatCategory: ChatDialogType,
+                        OfficeID: {
+                            in: officeIds
+                        },
+                    }
+                };
+
+            }
+
+            @*if(ChatDialogType != 1 && ('@Session["Role"]' == 'NurseCoordinator' || '@Session["Role"]' == 'Nurse'))
+            {
+                var OfficeId =  '@Session["OfficeId"]' ;
+                filters.data.OfficeID= OfficeId;
+            }
+            else{
+            }*@
+
+            // Get dialogs from quickblox
+            //QB.chat.dialog.list(filters, function(err, resDialogs) {
+            //    //   debugger;
+            //    if (err) {
+            //        //     debugger;
+            //        console.log(err);
+            //    } else {
+            //        //    debugger;
+            //        var headcount = 0;
+            //        for (var i = 0; i < resDialogs.items.length; i++) {
+
+            //            headcount += resDialogs.items[i].unread_messages_count; //dialogs[i].unread_messages_count;
+            //        }
+
+            //        var existingCount = $('#lblMessageCount'+ChatDialogType).text().replace("+","");
+            //        var newCount = headcount;
+
+
+            //        if(resDialogs.items.length > 99 && headcount != 0)
+            //        {
+            //            headcount = headcount + '+';
+            //        }
+
+
+            //        $('#lblMessageCount'+ChatDialogType).text(headcount);
+
+            //        if(existingCount < newCount && !existingCount)
+            //        {
+            //            playSound();
+
+            //            $('#cntNotification'+ChatDialogType).animate({
+            //                'height': '50px',
+            //                'width': '50px',
+            //                'padding-top': '20px',
+            //                'font-size': '25px'
+            //            });
+            //            toastr.success("New Message Arrived");
+            //            $('#cntNotification'+ChatDialogType).animate({
+            //                'height': '17px',
+            //                'width': '30px',
+            //                'padding-top': '2px',
+            //                'font-size': '10px'
+            //            });
+            //        }
+            //    }
+            //});
+        }
+        function playSound()
+        {
+
+            try {
+                var audio = new Audio();
+                audio.src = '/Audio/sound.wav';
+                var playPromise = audio.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(function () {
+                        // Automatic playback started!
+                    }).catch(function (error) {
+                        // Automatic playback failed.
+                        // Show a UI element to let the user manually start playback.
+                    });
+                }
+            }
+            catch (e) {
+                alert(e);
+            }
+        }
+        function getHeaderCountGroup()
+        {
+		return;
+             if(chatCountSession==false){
+
+            // Display one to one dialog counts
+            DisplayUnreadCount(1);
+
+            // Display patient chat room dialog counts
+            DisplayUnreadCount(2);
+
+            // Display group chat dialog counts
+            DisplayUnreadCount(3);
+
+			 chatCountSession=true;
+
+			}
+
+        }
+
+
+        // **********************************************************************
+
+        //Register New User Start
+        function RegisterNewUser(Login, UserId1) {
+            var RegisterUser = { 'login': Login, 'password': "Welcome007!", 'tag': "differenzsystem", 'email': Login };
+
+            //QB.users.create(RegisterUser, function (err, user1) {
+            //    if (user1) {
+            //        //Add new QuickBlox Id For Specific User
+            //        var url = INITURL + '/Chatting/SaveQBId';
+            //        var QBId = user1.id;
+            //        $.ajax({
+            //            url: url,
+            //            data: { UserId: UserId1, QuickBloxId: QBId },
+            //            cache: false,
+            //            type: 'POST',
+            //            async: false,
+            //            success: function (data) {
+            //                if (data == "Success") {
+
+            //                    sFromQBId = "" + QBId + "";
+            //                    sessionStorage.setItem("FromQBId", QBId);
+            //                    CreateSession();
+            //                }
+            //            },
+            //            error: function (reponse) {
+            //                //alert("error : " + reponse);
+            //                $("#loading").hide();
+            //            }
+            //        });
+
+
+            //        // success
+            //    } else {
+            //        return;
+            //        // error
+            //    }
+            //});
+        }
+        //Register New User End
+
+        //QuickBlox End
+        $('#lblMsgNotification').removeClass('active');
+        $('#lblGroupMsgNotification').removeClass('active');
+        $('#lblCommonGroupMsg').removeClass('active');
+
+    });
+    //Time Out Functionality Function Start
+    function timerIncrement() {
+        idleTime = idleTime + 1;
+        if (idleTime > 30) { // 30 minutes
+            toastr.info("Session Timeout...");
+            window.location.href = "@Url.Action("SessionTimeout", "account")";
+        }
+    }
+    //Time Out Functionality Function End
+
+    function ChatPermission() {
+        try {
+            var url = window.location;
+            // $('#loading').show();
+            $.ajax({
+                url: "@Url.Action("IsAllowForChat", "Account")",
+                type: 'POST',
+                async: false,
+                success: function (data) {
+                    result = data;
+
+                    var paramstt = window.location.href.toString().split(window.location.host)[1];
+                    paramstt = paramstt.substring(10);
+
+                    if("@Session["IsAllowOneToOneChat"].ToString()" != "True" && paramstt == "OneToOneChat")
+                    {
+                        window.location.href = "@Url.Action("NoAuthorize", "Chatting")";
+                    }
+                    else if("@Session["IsAllowForPatientChatRoom"].ToString()" != "True" && paramstt == "PatientChatRoom")
+                    {
+                        window.location.href = "@Url.Action("NoAuthorize", "Chatting")";
+                    }
+                    else if("@Session["IsAllowGroupChat"].ToString()" != "True" && paramstt == "GroupChat")
+                    {
+                        window.location.href = "@Url.Action("NoAuthorize", "Chatting")";
+                    }
+
+                },
+                error: function (error) {
+                    throw error;
+                }
+            });
+
+        } catch (e) {
+            //  $('#loading').hide();
+            console.log(e);
+        }
+    }
+</script>
+
+<body>
+    <div class="loading" id="loading">
+    </div>
+    <div id="wrapper">
+        <!--NAVIGATION START -->
+        @Html.Partial("_LeftMenu")
+        <!-- NAVIGATION END -->
+        <!-- CONTENT START -->
+        <div id="page-wrapper" class="gray-bg">
+            <div class="row wrapper border-bottom bg-success page-heading">
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    <h2 style="font-weight:400;">
+                        @if (@ViewBag.GroupTypeId == 3)
+                        {
+                            <span>Group Chat Room</span>
+                        }
+                        else
+                        {
+                            @ViewBag.Title
+                        }
+                    </h2>
+                </div>
+
+                <ul class="nav navbar-top-links navbar-right ">
+                    @*@if (!ViewContext.Controller.HasRoles("NurseCoordinator"))
+                        { }*@
+
+                    @if (Session["IsOfficePermission"].ToString() == "True" && Session["IsAllowOneToOneChat"].ToString() == "True")
+                    {
+                        <li id="lblMsgNotification" class="dropdown" style="padding: 0 0 0 0" !important title="Chatting">
+                            <a class="count-info" href="~/Chatting/OneToOneChat">
+                                <i class="fa fa-comments"></i>
+                                <span id="lblMessageCount1" class="label label-success">
+                                    <strong id="cntNotification1">0</strong>
+                                </span>
+                            </a>
+                        </li>
+                    }
+
+                    @if (Session["IsOfficePermission"].ToString() == "True" && Session["IsAllowForPatientChatRoom"].ToString() == "True")
+                    {
+                        <li id="lblGroupMsgNotification" class="dropdown" title="Patient chat room">
+                            <a class="count-info" href="~/Chatting/PatientChatRoom">
+                                <i class="fa fa-group"></i>
+                                <span id="lblMessageCount2" class="label label-success">
+                                    <strong id="cntNotification2">0</strong>
+                                </span>
+                            </a>
+                        </li>
+                    }
+                    @if (Session["IsOfficePermission"].ToString() == "True" && Session["IsAllowGroupChat"].ToString() == "True")
+                    {
+                        <li id="lblCommonGroupMsg" class="dropdown" style="padding: 0 60px 0 0" !important title="Group chat">
+                            <a class="count-info" href="~/Chatting/GroupChat">
+                                <strong><i class="fa fa-weixin"></i></strong>
+                                <span id="lblMessageCount3" class="label label-success">
+                                    <strong id="cntNotification3">0</strong>
+                                </span>
+                            </a>
+                        </li>
+                    }
+                    <li>
+                        <h4 style="font-weight:400; padding-top:20px;">
+                            <span class="m-r-sm text-muted welcome-message">
+                                <b>
+                                    Welcome @if (Session["Name"] != null)
+                                    { @Session["Name"].ToString();
+                                    }
+                                </b>
+                            </span>
+                        </h4>
+                    </li>
+                </ul>
+
+                <div class="clearfix"></div>
+            </div>
+            @RenderBody()
+            <div class="footer">
+                <div class="pull-right">@CaregiverLite.Views.Resources.Layout.FooterCopyright</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

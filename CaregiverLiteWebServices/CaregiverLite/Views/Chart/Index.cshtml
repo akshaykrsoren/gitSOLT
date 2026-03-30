@@ -1,0 +1,1070 @@
+﻿l
+@{
+    ViewBag.Title = "DashBoard";
+
+}
+
+<head>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>*@
+
+    <style>
+        .highcharts-no-data {
+            display: none !important;
+        }
+
+        .Topmargin {
+            margin-top: 30px;
+        }
+
+        #myDIV1, #myDIV2, #myDIV3, #myDIV4, #myDIV5 {
+            position: absolute;
+            right: 10px;
+            width: 100%;
+            text-align: end;
+        }
+
+        .containerDemo {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #efefef;
+        }
+
+            .containerDemo button {
+                border-radius: 5px;
+            }
+
+
+        .classMainChart {
+            margin-top: 57px;
+        }
+
+        /*.containerDemo button:last-child {
+            margin-right: 0;
+        }*/
+
+        /* Style the visit */
+        .Visit_btn1, .TypeOfVisit_btn1, .WeeklySchedule_btn1, .PatientOfficeWise_btn1, .Manual_Auto_Schedule_btn1, .SchedulingType_btn1, .CheckInHour_btn1 {
+            border: none;
+            outline: none;
+            padding: 5px 5px 5px 5px;
+            background-color: #ede7e7ad;
+            /*background-color: #1B4066;*/
+            cursor: pointer;
+            font-size: 15px;
+            margin: -1px;
+        }
+
+            /* Style the active class, and buttons on mouse-over */
+            .active, .Visit_btn1:hover {
+                background-color: #1B4066;
+                color: white;
+            }
+            /* Style the active class, and buttons on mouse-over */
+            .active, .TypeOfVisit_btn1:hover {
+                background-color: #1B4066;
+                color: white;
+            }
+
+
+            .active, .WeeklySchedule_btn1:hover {
+                background-color: #1B4066;
+                color: white;
+            }
+
+            .active, .SchedulingType_btn1:hover {
+                background-color: #1B4066;
+                color: white;
+            }
+
+            .active, .Manual_Auto_Schedule_btn1:hover {
+                background-color: #1B4066;
+                color: white;
+            }
+
+            .active, .PatientOfficeWise_btn1:hover {
+                background-color: #1B4066;
+                color: white;
+            }
+
+            .active, .CheckInHour_btn1:hover {
+                background-color: #1B4066;
+                color: white;
+            }
+
+        .HDR {
+            border-radius: 10px;
+            background-color: white;
+            padding: 10px;
+            margin-top: 28px;
+            border: 1px solid #efefef;
+        }
+
+            .HDR:hover {
+                border: 1px solid #68AAEA;
+            }
+
+        .containerstyle {
+            width: 1266px;
+            background-color: #E3F3FE;
+        }
+
+        #patientWise_CustomDate, #VisitPatinetWise_CustomDate, #AutoScheduleWise_CustomDate, #CheckInHour_CustomDate {
+            display: none;
+        }
+
+        .TabHeaders {
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+
+        .lstdays {
+            margin: 0px 0 4px;
+            font-size: 12px;
+            color: #A3A3A3;
+            font-weight: 300;
+        }
+
+        .HDR1 {
+            border-radius: 10px;
+            background-color: white;
+            padding: 10px;
+            margin-top: 28px;
+            border: 1px solid #efefef;
+        }
+
+            .HDR1:hover {
+                border: 1px solid #68AAEA;
+            }
+
+        .customtabwidth {
+            float: left;
+            margin-right: 12px;
+            height: 169px !important;
+        }
+    </style>
+</head>
+
+
+
+
+<script>
+
+    var NurseCount =  "";
+    var PatientCount =   "";
+    var AppointmentCount =  "";
+    var TimeSlice = [];
+    var DateDifference = 0;
+    var startDate = "";
+    var endDate = "";
+    var tabselected = true;
+    var TempDivId = "";
+    var defaultFromDate = new Date();
+    var defaultToDate = "";
+    var days_difference = 30;
+    //new Date().setDate(new Date().getDate() - interval);
+    $(document).ready(function () {
+
+        const date1 = new Date();  // 2009-11-10
+        const month = date1.toLocaleString('default', { month: 'long' });
+        document.getElementById("weeklyLabel").innerHTML = 'Weekly Schedules Activity for ' + month;
+        currentLocalFormatedDate = formatDate(new Date());
+       // formatDate(FromDate)
+        localFromDate = "";
+        localToDate = "";
+
+
+        //startDate = $("#StartDate11").val(d);
+        //endDate = $("#EndDate11").val(d);
+        //moment(testDate).format('MM/DD/YYYY');
+
+        //debugger;
+
+
+
+        $('#datetimepicker11,#datetimepicker21,#datetimepicker31,#datetimepicker41').datetimepicker({
+
+          //  maxDate: new Date("2023-04-05"),
+            format: "YYYY-MM-DD"
+        });
+
+        $('#datetimepicker11,#datetimepicker12,#datetimepicker21,#datetimepicker22,#datetimepicker31,#datetimepicker32,#datetimepicker41,#datetimepicker42').datetimepicker({
+
+            defaultDate: new Date(),
+            format: "YYYY-MM-DD"
+        });
+        $('#datetimepicker11,#datetimepicker12,#datetimepicker21,#datetimepicker22,#datetimepicker31,#datetimepicker32,#datetimepicker41,#datetimepicker42').keydown(function () {
+            return false;
+        });
+
+
+        $('#datetimepicker11,#datetimepicker12').datetimepicker().on('dp.change', function (e) {
+            debugger;
+            startDate = $("#StartDate11").val();
+            endDate = $("#EndDate11").val();
+
+            PatientListOfficeWise_timechange(startDate, endDate);
+        })
+
+        $("#datetimepicker21,#datetimepicker22").on('dp.change', function (e) {
+            debugger;
+            startDate = $("#StartDate22").val();
+            endDate = $("#EndDate22").val();
+
+            TypeOfVisitPatinetWise_timechange(startDate, endDate);
+        });
+
+        $("#datetimepicker31,#datetimepicker32").on("dp.change", function (e) {
+            startDate = $("#StartDate33").val();
+            endDate = $("#EndDate33").val();
+
+
+            ManualAutoSchedule_timechange(startDate, endDate);
+        });
+        $("#datetimepicker41,#datetimepicker42").on("dp.change", function (e) {
+            debugger;
+
+            startDate = $("#StartDate44").val();
+            endDate = $("#EndDate44").val();
+            CheckInHour_timechange(startDate, endDate);
+        });
+
+           Get_DashboardRecord_ChartData();
+           Get_PatientListOfficeWise_ChartData(null, "30");
+           Get_TypeOfVisitPatinetWise_ChartData(null, "30");
+           Get_ManualAutoSchedule_ChartData(null, "30");
+           Get_WeeklySchedule_ChartData(null, "30");
+           Get_CheckInHour_ChartData(null, "30");
+
+
+
+
+    });
+    function formatDate(date) {
+
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2)
+            month = '0' + month;
+        if (day.length < 2)
+            day = '0' + day;
+
+        return [year, month, day].join('-');
+    }
+    function enableDisable(element, divId) {
+        var header = document.getElementById(divId);
+        var btns = header.getElementsByTagName("button");
+        for (var i = 0; i < btns.length; i++) {
+            if (btns[i].className.includes("active")) {
+                btns[i].classList.remove("active");
+            }
+        }
+
+        element.className += " active";
+
+    }
+    function setCalnderDates(divId, Interval) {
+
+        let tempfromDate = new Date().setDate(new Date().getDate() - parseInt(Interval));
+      //  localFromDate = formatDate(tempfromDate);
+        if (divId == "myDIV5")
+        {
+
+
+         //  $("#StartDate11").val(localFromDate);
+             $("#EndDate11").val(currentLocalFormatedDate);
+            $('#datetimepicker11').data("DateTimePicker").date(new Date(tempfromDate));
+           // $('#datetimepicker12').data("DateTimePicker").date(new Date());
+
+        } else if (divId == "myDIV2") //visit
+        {
+          //  $("#StartDate22").val(localFromDate);
+             $("#EndDate22").val(currentLocalFormatedDate);
+            $('#datetimepicker21').data("DateTimePicker").date(new Date(tempfromDate));
+           // $('#datetimepicker22').data("DateTimePicker").date(new Date());
+        } else if (divId == "myDIV6") {
+           // $("#StartDate33").val(localFromDate);
+           $("#EndDate33").val(currentLocalFormatedDate);
+            $('#datetimepicker31').data("DateTimePicker").date(new Date(tempfromDate));
+          //  $('#datetimepicker32').data("DateTimePicker").date(new Date());
+        } else if (divId == "myDIV7") {
+            // $("#StartDate33").val(localFromDate);
+
+            $("#EndDate44").val(currentLocalFormatedDate);
+            $('#datetimepicker41').data("DateTimePicker").date(new Date(tempfromDate));
+            //  $('#datetimepicker32').data("DateTimePicker").date(new Date());
+        }
+
+    }
+    function removeActiveClass(divid)
+    {
+        debugger;
+        var header = document.getElementById(divid);
+        var btns = header.getElementsByTagName("button");
+        for (var i = 0; i < btns.length; i++) {
+            if (btns[i].className.includes("active")) {
+                btns[i].classList.remove("active");
+            }
+        }
+    }
+
+
+    function Get_DashboardRecord_ChartData() {
+
+
+        var url = INITURL + '/Chart/DashBoardRecords_ForChart';
+        var result;
+        $.ajax({
+            url: url,
+            type: 'GET',
+            success: function (data) {
+
+                result = data;
+                nfObject = new Intl.NumberFormat('en-US');
+debugger;
+                NurseCount = nfObject.format(result[0].Count);// result[0].Count;
+                PatientCount = nfObject.format(result[1].Count); //result[1].Count;
+                AppointmentCount = nfObject.format(result[2].Count);// result[2].Count;
+                TotalDrivingCount = nfObject.format(result[3].Count);// result[2].Count;
+               //TotalDrivingCount = TotalDrivingCount.substring(0, TotalDrivingCount.length - 1);
+
+                let number = parseFloat(TotalDrivingCount.replace(/,/g, ''));
+
+                // 2. Format the number with two decimal places and add commas
+                TotalDrivingCount = number.toLocaleString('en-US', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                });
+
+                PatientAdded = result[4].Count;
+                NurseAdded = result[5].Count;
+                AppointmentAdded = result[6].Count;
+                totaldrivingAddedd = result[7].Count;
+
+
+
+
+
+                document.getElementById("PatientRecordId").innerHTML =(PatientCount!=0)?PatientCount:0;
+                if (parseInt(PatientAdded) == 0) {
+                    document.getElementById("TotalPatientRecordStatusId").innerHTML = "No Patients added today";
+                } else {
+                    document.getElementById("TotalPatientRecordStatusId").innerHTML = `+${PatientAdded} Patient added today`;
+                }
+
+
+
+
+                document.getElementById("NurseRecordId").innerHTML =(NurseCount!=0)?NurseCount:0;
+                if (parseInt(NurseAdded) == 0) {
+                    document.getElementById("TotalCaregiverRecordStatusId").innerHTML = "No Caregivers added today";
+                } else {
+                    document.getElementById("TotalCaregiverRecordStatusId").innerHTML = `+${NurseAdded} Caregiver added today`;
+                }
+
+
+
+                document.getElementById("TotalAppointmentId").innerHTML =(AppointmentCount!=0)?AppointmentCount:0;
+
+                if (parseInt(AppointmentAdded) == 0) {
+                    document.getElementById("TotalAppointmenStatustId").innerHTML = "No Appointments  added today";
+                } else {
+                    document.getElementById("TotalAppointmenStatustId").innerHTML = `+${AppointmentAdded} Appointments added today`;
+                }
+
+                document.getElementById("TotalDistanceId").innerHTML =(TotalDrivingCount!=0)?TotalDrivingCount:0;
+
+
+
+                if (parseInt(totaldrivingAddedd) == 0 || totaldrivingAddedd == "") {
+                    document.getElementById("TotalDistanceStatusId").innerHTML = "No Driving data added today";
+                } else {
+                    document.getElementById("TotalDistanceStatusId").innerHTML = `+${totaldrivingAddedd}  Miles driven added `;
+                }
+
+
+                debugger;
+                var url = INITURL + '/Chart/TotalLicenseRelated_ForChart';
+                var result;
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function (data) {
+                        debugger;
+                        if (data.length>0) {
+                            var jsonresult = data;
+
+                            document.getElementById("TotalLicenseId").innerHTML = jsonresult[0].UsedActiveLicense;
+
+                            if (jsonresult != null || jsonresult != "") {
+                                document.getElementById("TotalLicenseStatusId").innerHTML = "Total License Limit :" + jsonresult[0].TotalActiveLicense;
+                            } else {
+                                document.getElementById("TotalLicenseStatusId").innerHTML = `Total License Limit:150 `;
+                            }
+
+                        }
+
+                    },
+                    error: function (response1) {
+                        alert("errr:" + response1);
+                    }
+                });
+
+
+
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+
+
+
+    }
+    function Get_PatientListOfficeWise_ChartData(element, Interval) {
+        setInitialValue();
+        if (element != null) {
+            enableDisable(element, "myDIV5");
+        }
+        setCalnderDates("myDIV5", (Interval < 0) ? 0 : Interval);
+        if (Interval < 0) {
+           // $("#patientWise_CustomDate").css({ "display": "block" });
+            toggleDiv(patientWise_CustomDate);
+        } else {
+            $("#patientWise_CustomDate").css({ "display": "none" });
+
+        }
+        //let currentDate = new Date();
+
+        //let FromDate = currentDate.setDate(currentDate.getDate() - parseInt(Interval));
+        //localFromDate = formatDate(FromDate);
+        //localToDate = currentLocalFormatedDate;
+       // PatientListOfficeWise_timechange(localFromDate, localToDate);
+       // $('#PatientOfficeWiseChart').load('/Chart/PatientOfficewise_ChartData?FromDate=' + localFromDate + '&ToDate=' + localToDate);
+
+    }
+    function Get_TypeOfVisitPatinetWise_ChartData(element, Interval) {
+        setInitialValue();
+        if (element != null) {
+            enableDisable(element, "myDIV2");
+        }
+
+
+        setCalnderDates("myDIV2", (Interval < 0) ? 0 : Interval);
+        if (Interval < 0) {
+          //  $("#VisitPatinetWise_CustomDate").css({ "display": "block" });
+            toggleDiv(VisitPatinetWise_CustomDate);
+        } else {
+            $("#VisitPatinetWise_CustomDate").css({ "display": "none" });
+
+        }
+
+        //let currentDate = new Date();
+        //let FromDate = currentDate.setDate(currentDate.getDate() - parseInt(Interval));
+        //localFromDate = formatDate(FromDate);
+        //localToDate = currentLocalFormatedDate;
+       // TypeOfVisitPatinetWise_timechange(localFromDate, localToDate);
+       // $('#TypeOfVisitPatientChart').load('/Chart/TypeOfVisitByPatient_ChartData?FromDate=' + localFromDate + '&ToDate=' + localToDate);
+
+    }
+    function Get_ManualAutoSchedule_ChartData(element, Interval) {
+        setInitialValue();
+        if (element != null) {
+            enableDisable(element, "myDIV6");
+        }
+        debugger;
+        setCalnderDates("myDIV6", (Interval < 0) ? 0 : Interval);
+        if (Interval < 0) {
+           // $("#AutoScheduleWise_CustomDate").css({ "display": "block" });
+            toggleDiv(AutoScheduleWise_CustomDate);
+        } else {
+            $("#AutoScheduleWise_CustomDate").css({ "display": "none" });
+
+        }
+        //let currentDate = new Date();
+        //let FromDate = currentDate.setDate(currentDate.getDate() - parseInt(Interval));
+        //localFromDate = formatDate(FromDate);
+        //localToDate = currentLocalFormatedDate;
+      //  ManualAutoSchedule_timechange(localFromDate, localToDate);
+      //  $('#AutoSchedulingChart').load('/Chart/ManualAutoScheduling_ChartData?FromDate=' + localFromDate + '&ToDate=' + localToDate);
+
+    }
+
+    function Get_WeeklySchedule_ChartData(element, Interval) {
+        setInitialValue();
+        if (element != null) {
+            enableDisable(element, "myDIV3");
+        }
+        let currentDate = new Date();
+        localFromDate = "";
+        localToDate = "";
+        let FromDate = currentDate.setDate(currentDate.getDate() - parseInt(Interval));
+        localFromDate = formatDate(FromDate);
+        localToDate = currentLocalFormatedDate;
+
+        $('#WeeklySchedule_Chart').load('/Chart/WeeklyScheduleActivity_ChartData?FromDate=' + localFromDate + '&ToDate=' + localToDate);
+
+    }
+
+    //function Get_PatientAppointment_ChartData(element, Interval) {
+    //    setInitialValue();
+    //    if (element != null) {
+    //        enableDisable(element, "myDIV2");
+    //    }
+
+    //    let currentDate = new Date();
+    //    localFromDate = "";
+    //    localToDate = "";
+    //    let FromDate = currentDate.setDate(currentDate.getDate() - parseInt(Interval));
+    //    localFromDate = formatDate(FromDate);
+    //    localToDate = currentLocalFormatedDate;
+
+    //    $('#PatientAppointmentChart').load('/Chart/PatientAppointment_ChartData?FromDate=' + localFromDate + '&ToDate=' + localToDate);
+
+    //}
+
+
+
+    function Get_CheckInHour_ChartData(element, Interval) {
+
+
+        setInitialValue();
+        if (element != null) {
+            enableDisable(element, "myDIV7");
+        }
+
+        setCalnderDates("myDIV7", (Interval < 0) ? 0 : Interval);
+        if (Interval < 0) {
+            toggleDiv(CheckInHour_CustomDate);
+        } else {
+            $("#CheckInHour_CustomDate").css({ "display": "none" });
+
+        }
+    }
+
+
+    function PatientListOfficeWise_timechange(startDate, endDate) {
+
+         if ((new Date(startDate)) > (new Date(endDate))) {
+            alert("start date should not be greater ");
+            return;
+        } else {
+
+             if (getDayDifference(startDate, endDate) > 30) {
+                 removeActiveClass("myDIV5");
+             }
+
+            $('#PatientOfficeWiseChart').load('/Chart/PatientOfficewise_ChartData?FromDate=' + startDate + '&ToDate=' + endDate);
+
+        }
+
+    }
+    function TypeOfVisitPatinetWise_timechange(startDate, endDate) {
+         if ((new Date(startDate)) > (new Date(endDate))) {
+            alert("start date should not be greater  ");
+        } else {
+             if (getDayDifference(startDate, endDate) > 30) {
+                 removeActiveClass("myDIV2");
+             }
+            $('#TypeOfVisitPatientChart').load('/Chart/TypeOfVisitByPatient_ChartData?FromDate=' + startDate + '&ToDate=' + endDate);
+        }
+
+    }
+    function ManualAutoSchedule_timechange(startDate, endDate) {
+       if ((new Date(startDate)) > (new Date(endDate))) {
+            alert("start date should not be greater ");
+            return;
+       } else {
+
+           DateDifference = getDayDifference(startDate, endDate);
+           if (DateDifference > 30) {
+               removeActiveClass("myDIV6");
+           }
+            $('#AutoSchedulingChart').load('/Chart/ManualAutoScheduling_ChartData?FromDate=' + startDate + '&ToDate=' + endDate);
+        }
+
+    }
+
+    function CheckInHour_timechange(startDate, endDate) {
+
+
+        if ((new Date(startDate)) > (new Date(endDate))) {
+            alert("start date should not be greater ");
+            return;
+        } else {
+
+            DateDifference = getDayDifference(startDate, endDate);
+
+            if (DateDifference > 30) {
+                removeActiveClass("myDIV7");
+            }
+            $('#CheckInHOurChart').load('/Chart/CheckInHours_ChartData?FromDate=' + startDate + '&ToDate=' + endDate);
+        }
+
+    }
+
+
+    function setInitialValue() {
+
+        localFromDate = "";
+        localToDate = "";
+    }
+
+    function getDayDifference(fromdate,todate) {
+        debugger;
+        date1 = new Date(fromdate);
+        date2 = new Date(todate);
+
+         let time_difference = date2.getTime() - date1.getTime();
+
+         var days_difference = time_difference / (1000 * 60 * 60 * 24);
+         return parseInt(days_difference);
+    }
+
+
+
+
+    function toggleDiv(div) {
+
+        if (div.style.display === "none") {
+            div.style.display = "block";
+        } else {
+            div.style.display = "none";
+        }
+    }
+
+
+
+
+
+
+
+</script>
+
+@*header count row*@
+<div class="container containerstyle classMainChart" style="margin-top: 38px;">
+
+    @if (ViewBag.OrganisationId > 0)
+    {
+
+        <div class="row">
+
+            <div class="customtabwidth" style="width: 17%;margin-left: 15px;">
+                <div class="HDR1" id="TotalPatientTab" style="cursor:pointer;">
+                    <p class="TabHeaders">Total Active Patients</p>
+                    <p class="lstdays">(Last 30 days)</p>
+                    <b style="font-size:25px" id="PatientRecordId"></b>
+                    @*<p style="margin-bottom:2px"><span style="color:springgreen" id="PatientRecordTotal">+2</span>PatientAdded</p>*@
+
+                    <div style="margin-top: 10px;font-size: 12px;">
+                        <img src="~/Content/ic-trending-up-24px.svg" />
+                        <span style="color:#0D886B" id="TotalPatientRecordStatusId">  </span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="customtabwidth" style="width:20%">
+                <div class="HDR1" id="TotalCaregiverTab" style="cursor:pointer;">
+                    <p class="TabHeaders">Total Active Caregivers</p>
+                    <p class="lstdays">(Last 30 days)</p>
+                    <b style="font-size:25px" id="NurseRecordId"></b>
+                    <div style="margin-top: 10px;font-size: 12px;">
+                        <img src="~/Content/ic-trending-up-24px.svg" />
+                        <span style="color:#0D886B" id="TotalCaregiverRecordStatusId">  </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="customtabwidth" style="width:21%">
+                <div class="HDR1" id="TotalAppointmentTab" style="cursor:pointer;">
+                    <p class="TabHeaders">Total Appointment Requested </p>
+                    <p class="lstdays">(Last 30 days)</p>
+                    <div style="display:flex">
+                        <div style="width:58%"><b style="font-size:25px" id="TotalAppointmentId"></b></div>
+
+                    </div>
+                    <div style="margin-top: 10px;font-size: 12px;">
+                        <img src="~/Content/ic-trending-up-24px.svg" />
+                        <span style="color:#0D886B" id="TotalAppointmenStatustId">  </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="customtabwidth" style="width:20%">
+                <div class="HDR1" id="TotalAttandanceTab" style="cursor:pointer">
+                    <p class="TabHeaders">Total Distance Driven (Miles)</p>
+                    <p class="lstdays">(Last 30 days)</p>
+                    <div style="display:flex">
+                        <div style="width:58%"><b style="font-size:25px" id="TotalDistanceId"></b></div>
+
+                    </div>
+                    <div style="margin-top: 10px;font-size: 12px;">
+                        <img src="~/Content/ic-trending-up-24px.svg" />
+                        <span style="color:#0D886B" id="TotalDistanceStatusId">  </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="customtabwidth" style="width:15%">
+                <div class="HDR1" id="TotalLicense" style="cursor:pointer;height:133px">
+                    <p style="margin-bottom:2px">Active License</p>
+                    <b style="font-size:30px" id="TotalLicenseId"></b>
+                    <div style="margin-top: 10px;font-size: 12px;">
+                        @*<img src="~/Content/ic-trending-up-24px.svg" />*@
+                        <span id="TotalLicenseStatusId">  </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    }
+    else
+    {
+        <div class="row">
+
+            <div class="col-md-3">
+                <div class="HDR" id="TotalPatientTab" style="cursor:pointer;">
+                    <p class="TabHeaders">Total Active Patients</p>
+                    <p class="lstdays">(Last 30 days)</p>
+                    <b style="font-size:25px" id="PatientRecordId"></b>
+                    @*<p style="margin-bottom:2px"><span style="color:springgreen" id="PatientRecordTotal">+2</span>PatientAdded</p>*@
+
+                    <div style="margin-top: 10px;font-size: 12px;">
+                        <img src="~/Content/ic-trending-up-24px.svg" />
+                        <span style="color:#0D886B" id="TotalPatientRecordStatusId">  </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="HDR" id="TotalCaregiverTab" style="cursor:pointer;">
+                    <p class="TabHeaders">Total Active Caregivers</p>
+                    <p class="lstdays">(Last 30 days)</p>
+                    <b style="font-size:25px" id="NurseRecordId"></b>
+                    <div style="margin-top: 10px;font-size: 12px;">
+                        <img src="~/Content/ic-trending-up-24px.svg" />
+                        <span style="color:#0D886B" id="TotalCaregiverRecordStatusId">  </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="HDR" id="TotalAppointmentTab" style="cursor:pointer;">
+                    <p class="TabHeaders">Total Appointment Requested</p>
+                    <p class="lstdays">(Last 30 days)</p>
+                    <div style="display:flex">
+                        <div style="width:58%"><b style="font-size:25px" id="TotalAppointmentId"></b></div>
+
+                    </div>
+                    <div style="margin-top: 10px;font-size: 12px;">
+                        <img src="~/Content/ic-trending-up-24px.svg" />
+                        <span style="color:#0D886B" id="TotalAppointmenStatustId">  </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="HDR" id="TotalAttandanceTab" style="cursor:pointer">
+                    <p class="TabHeaders">Total Distance Driven (Miles)</p>
+                    <p class="lstdays">(Last 30 days)</p>
+                    <div style="display:flex">
+                        <div style="width:58%"><b style="font-size:25px" id="TotalDistanceId"></b></div>
+
+                    </div>
+                    <div style="margin-top: 10px;font-size: 12px;">
+                        <img src="~/Content/ic-trending-up-24px.svg" />
+                        <span style="color:#0D886B" id="TotalDistanceStatusId">  </span>
+                    </div>
+                </div>
+            </div>
+
+            @*<div class="col-md-3">
+                    <div class="HDR" id="TotalAppointmentTab" style="cursor:pointer">
+                        <p style="margin-bottom:2px">Total Appointment Requested</p>
+                        <span style="font-size:10px;padding:9px 10px;margin-left: 180px;color:#A3A3A3">Last 30 days</span>
+                        <b style="font-size:25px" id="TotalAppointmentId"></b>
+                        <div style="margin-top: 10px;">
+                            <img src="~/Content/ic-trending-up-24px.svg" />
+                            <span style="color:#0D886B" id="TotalAppointmenStatustId">  </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="HDR" id="TotalAttandanceTab"  style="cursor:pointer">
+                        <p style="margin-bottom:2px">Total Distance Driven (Miles)</p>
+                        <span style="font-size:10px;padding:9px 10px;margin-left: 180px;color:#A3A3A3">Last 30 days</span>
+                        <b style="font-size:25px" id="TotalDistanceId"></b>
+                        <div style="margin-top: 10px;">
+                            <img src="~/Content/ic-trending-up-24px.svg" />
+                            <span style="color:#0D886B" id="TotalDistanceStatusId">  </span>
+                        </div>
+                    </div>
+                </div>*@
+
+
+        </div>
+    }
+</div>
+
+
+
+
+@*DashBoard row*@
+<div class="container containerstyle" style="padding-top: 30px">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="containerDemo">
+                <div class="row">
+                    <div class="col-md-6">
+                        <b style="font-size:17px">Patients per Office</b></br>
+                        <b style="color:#08a0ff">Total Patients Added: <span id="TotalPatientId"></span></b>
+                    </div>
+                    <div class="col-md-6">
+                        <div id="myDIV5">
+                            <button class="PatientOfficeWise_btn1" onclick="Get_PatientListOfficeWise_ChartData(this,'0')">Today</button>
+                            <button class="PatientOfficeWise_btn1" onclick="Get_PatientListOfficeWise_ChartData(this, '7')">7 Days</button>
+                            <button class="PatientOfficeWise_btn1 active" onclick="Get_PatientListOfficeWise_ChartData(this,'30')">30 Days</button>
+                            <button class="PatientOfficeWise_btn1" onclick="Get_PatientListOfficeWise_ChartData(this,'-1')">Custom</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="patientWise_CustomDate">
+                    <div class="col-md-6">
+                        <label>@CaregiverLite.Views.Resources.PatientRequest.FilterLabelFromDate</label>
+
+
+                        <div class="input-group date" id="datetimepicker11">
+                            <input type="text" id="StartDate11" class="form-control">
+                            <span class="input-group-addon" id="span1">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label>@CaregiverLite.Views.Resources.PatientRequest.FilterLabelToDate</label>
+                        <div class="input-group date" id="datetimepicker12">
+                            <input type="text" id="EndDate11" class="form-control">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div id="PatientOfficeWiseChart" class="Topmargin">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="containerDemo">
+                <div class="row">
+                    <div class="col-md-6">
+                        <b style="font-size:17px">Visit Type </b></br>
+                        <b style="color:#28A858">Total Visit Requested : <span id="TypeofVisitIdID"></span></b>
+                    </div>
+                    <div class="col-md-6">
+
+                        <div id="myDIV2">
+                            <button class="TypeOfVisit_btn1" onclick="Get_TypeOfVisitPatinetWise_ChartData(this, '0')">Today</button>
+                            <button class="TypeOfVisit_btn1" onclick="Get_TypeOfVisitPatinetWise_ChartData(this, '7')">7 Days</button>
+                            <button class="TypeOfVisit_btn1 active" onclick="Get_TypeOfVisitPatinetWise_ChartData(this, '30')">30 Days</button>
+                            <button class="TypeOfVisit_btn1" onclick="Get_TypeOfVisitPatinetWise_ChartData(this, '-1')">Custom</button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="row" id="VisitPatinetWise_CustomDate">
+                    <div class="col-md-6">
+                        <label>@CaregiverLite.Views.Resources.PatientRequest.FilterLabelFromDate</label>
+                        <div class="input-group date" id="datetimepicker21">
+                            <input type="text" id="StartDate22" class="form-control">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label>@CaregiverLite.Views.Resources.PatientRequest.FilterLabelToDate</label>
+                        <div class="input-group date" id="datetimepicker22">
+                            <input type="text" id="EndDate22" class="form-control">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div id="TypeOfVisitPatientChart" class="Topmargin">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row" style="margin-top:30px">
+        <div class="col-md-12">
+            <div class="containerDemo">
+                <div class="row">
+                    <div class="col-md-6">
+                        <b style="font-size:20px">Total Appointment</b></br>
+                        <b style="color:#08a0ff">Total Manual: <span id="ManualTotalID"></span></b></br>
+                        <b style="color:#7A14DC">Total Appointment: <span id="AutometicTotalID"></span></b>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div id="myDIV6" style="text-align: end;">
+                            <button class="Manual_Auto_Schedule_btn1" onclick="Get_ManualAutoSchedule_ChartData(this, '0')">Today</button>
+                            <button class="Manual_Auto_Schedule_btn1" onclick="Get_ManualAutoSchedule_ChartData(this, '7')">7 Days</button>
+                            <button class="Manual_Auto_Schedule_btn1 active" onclick="Get_ManualAutoSchedule_ChartData(this,'30')">30 Days</button>
+                            <button class="Manual_Auto_Schedule_btn1" onclick="Get_ManualAutoSchedule_ChartData(this,'-1')">Custom</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="AutoScheduleWise_CustomDate">
+                    <div class="col-md-6">
+                        <label>@CaregiverLite.Views.Resources.PatientRequest.FilterLabelFromDate</label>
+                        <div class="input-group date" id="datetimepicker31">
+                            <input type="text" id="StartDate33" class="form-control" onchange="ManualAutoSchedule_timechange()">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label>@CaregiverLite.Views.Resources.PatientRequest.FilterLabelToDate</label>
+                        <div class="input-group date" id="datetimepicker32">
+                            <input type="text" id="EndDate33" class="form-control" onchange="ManualAutoSchedule_timechange()">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div id="AutoSchedulingChart" class="Topmargin">
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row" style="margin-top:30px">
+        <div class="col-md-12">
+            <div class="containerDemo">
+                <div class="row">
+                    <div class="col-md-6">
+                        <b style="font-size:20px">Total Billing Hours</b></br>
+                        <b style="color:#08a0ff">Total Hour: <span id="TotalCheckInCountID"></span></b>    
+
+                    </div>
+                    <div class="col-md-6">
+                        <div id="myDIV7" style="text-align: end;">
+                            <button class="CheckInHour_btn1" onclick="Get_CheckInHour_ChartData(this, '0')">Today</button>
+                            <button class="CheckInHour_btn1" onclick="Get_CheckInHour_ChartData(this, '7')">7 Days</button>
+                            <button class="CheckInHour_btn1 active" onclick="Get_CheckInHour_ChartData(this, '30')">30 Days</button>
+                            <button class="CheckInHour_btn1" onclick="Get_CheckInHour_ChartData(this, '-1')">Custom</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="CheckInHour_CustomDate">
+                    <div class="col-md-6">
+                        <label>@CaregiverLite.Views.Resources.PatientRequest.FilterLabelFromDate</label>
+                        <div class="input-group date" id="datetimepicker41">
+                            <input type="text" id="StartDate44" class="form-control" onchange="CheckInHour_timechange()">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label>@CaregiverLite.Views.Resources.PatientRequest.FilterLabelToDate</label>
+                        <div class="input-group date" id="datetimepicker42">
+                            <input type="text" id="EndDate44" class="form-control" onchange="CheckInHour_timechange()">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div id="CheckInHOurChart" class="Topmargin">
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row" style="margin-top:30px">
+
+        <div class="col-md-6">
+            <div class="containerDemo" style="margin-bottom: 57px">
+                <div class="row">
+                    <div class="col-md-8">
+                        @*<b style="font-size:17px">Weekly Schedules Activity </b><br>*@
+                        <b style="font-size:17px" id="weeklyLabel"> </b><br>
+                    </div>
+                    @*<div class="col-md-6">
+                            <div id="myDIV3">
+                                <button class="WeeklySchedule_btn1 active" onclick="Get_WeeklySchedule_ChartData(this, '0')">Today</button>
+                                <button class="WeeklySchedule_btn1" onclick="Get_WeeklySchedule_ChartData(this, '7')">7 Days</button>
+                                <button class="WeeklySchedule_btn1" onclick="Get_WeeklySchedule_ChartData(this, '30')">Other</button>
+
+                            </div>
+                        </div>*@
+
+                </div>
+                <div id="WeeklySchedule_Chart" class="Topmargin">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+
+
+<script>
+    $('#TotalPatientTab').click(function () {
+        debugger;
+        window.location.href = '@Url.Action("Patients", "Patients")';
+
+    });
+
+    $('#TotalCaregiverTab').click(function () {
+        window.location.href = '@Url.Action("CareGiver", "CareGiver")';
+    });
+    $('#TotalAppointmentTab').click(function () {
+        window.location.href = '@Url.Action("PatientRequest", "PatientRequest")';
+    });
+
+    $('#TotalAttandanceTab').click(function () {
+        window.location.href = '@Url.Action("AttendanceList", "AttendanceManagement")';
+    });
+
+
+
+</script>
+
+
+
+

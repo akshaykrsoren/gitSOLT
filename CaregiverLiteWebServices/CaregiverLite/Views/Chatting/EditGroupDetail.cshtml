@@ -1,0 +1,129 @@
+﻿@model CaregiverLite.Models.GroupChatModel
+
+<div id="main_div">
+    <div class="alert alert-danger alert-dismissable" style="display:none" id="dvError3">
+        <button onclick="divClose();" class="close" type="button">×</button>
+        <label id="lblError3"></label>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <div class="form-group">
+
+                <label>Group Name</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.GroupName)
+                @Html.TextBoxFor(model => model.GroupName, new { @type = "text", @maxlength = "25", @placeholder = "Enter Group Name", @class = "form-control", @onblur = "javascript:IsGroupNameAndSubjectExist();", value= @ViewBag.GroupName })
+            </div>
+            <div class="form-group">
+                <label>Subject</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.GroupSubject)
+                @Html.TextBoxFor(model => model.GroupSubject, new { @type = "text", @maxlength = "500", @placeholder = "Enter Subject", @class = "form-control", @onblur = "javascript:IsGroupNameAndSubjectExist();", value = @ViewBag.GroupSubject })
+                @Html.HiddenFor(model => model.GroupDialogId)
+                
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-12">
+        <button type="button" onclick="UpdateGroupDetail(@ViewBag.ChattingGroupId)" class="btn btn-sm btn-primary pull-right">Save</button>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script type="text/javascript">
+    var IsGroupNameSubjectExist = false;
+    var unassignedCaregivers = '';
+    $(document).ready(function () {
+    });
+
+    function UpdateGroupDetail(ChattingGroupId) {
+       
+
+        var GroupName = $("#GroupName").val().trim();
+        var GroupSubject = $("#GroupSubject").val().trim();
+        var DialogId = '@ViewBag.DialogId';
+
+        if (IsGroupNameSubjectExist == true) {
+            //debugger;
+     
+            toastr.error("Group already exists with same name and subject line, please use different name or subject line.");
+            $('#loading').hide();
+            return false;
+        }
+
+        if (GroupName == "") {
+            toastr.error('Please Enter Group Name');
+            $('#GroupName').focus();
+            $('#loading').hide();
+            return false;
+        }
+        else if (GroupSubject == "") {
+            toastr.error('Please Enter Subject');
+            $('#GroupSubject').focus();
+            $('#loading').hide();
+            return false;
+        }
+
+        $('#loading').show();
+        var url = INITURL + '/Chatting/UpdateGroupDetail';
+        $.ajax({
+            url: url,
+            cache: false,
+            type: 'POST',
+            data: {
+                ChattingGroupId: ChattingGroupId,
+                GroupName: GroupName,
+                GroupSubject: GroupSubject,
+                DialogId: DialogId
+            },
+            async: false,
+            success: function (data) {
+                if (data) {
+                    $('#modalGroupDetailEdit').modal('hide');
+                    toastr.success('Group Detail is Updated successfully.');
+                    $('#loading').hide();
+                    location.reload();
+                }
+                else {
+                    $('#modalGroupDetailEdit').modal('hide');
+                    toastr.success('Please try again...');
+                }
+            },
+            error: function (reponse) {
+                $('#loading').hide();
+            }
+        });
+    }
+
+    function IsGroupNameAndSubjectExist() {
+
+        var GroupName = $("#GroupName").val();
+
+        var GroupSubject = $("#GroupSubject").val();
+
+        $(".loading").show();
+        var url = INITURL + '/Chatting/IsGroupNameAndSubjectExist';
+        $.ajax({
+            url: url,
+            data: { GroupName: GroupName, GroupSubject: GroupSubject },
+            type: "POST",
+            success: function (data) {
+
+                //debugger;
+                $(".loading").hide();
+                IsGroupNameSubjectExist = data;
+
+            },
+            error: function (reponse) {
+                //alert("error : " + JSON.stringify(reponse));
+                $(".loading").hide();
+            }
+        });
+    }
+
+
+
+</script>
+

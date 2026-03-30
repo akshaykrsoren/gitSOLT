@@ -1,0 +1,336 @@
+﻿<div id="main_div">
+    <div class="alert alert-danger alert-dismissable" style="display:none" id="dvError3">
+        <button onclick="divClose();" class="close" type="button">×</button>
+        <label id="lblError3"></label>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label>Group : @ViewBag.GroupName </label>
+        </div>
+        <div class="form-group">
+            <div class="col-md-6">
+                <label>Member</label>
+                <div class="form-group">
+                    <Select id="ddlMember" class="form-control" name="ddlMember">
+                        <option value="0">Select Member</option>
+                        @if (ViewBag.MemberList != null)
+                        {
+                            foreach (var item in ViewBag.MemberList)
+                            {
+                                <option value="@item.UserId" nurseid="@item.NurseId" qbid="@item.QuickBloxId" email="@item.Email"> @item.Name </option>
+                            }
+                        }
+                    </Select>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <label>Office</label>
+            <div class="form-group">
+                @Html.DropDownList("OfficeId", (System.Web.Mvc.SelectList)ViewBag.lstOffice, "Select Office", new { @class = "form-control" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>@Html.CheckBox("chkGroup", false) Group</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>@Html.CheckBox("chkPatient", false) Patient</label>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+
+</div>
+<div class="col-md-12">
+    <button type="button" onclick="AssignNewMember(@ViewBag.ChattingGroupId)" class="btn btn-sm btn-primary pull-right">ASSIGN</button>
+    <div class="clearfix"></div>
+</div>
+@*<div class="col-md-12">
+        <div class="form-group">
+            <label>Member List</label>
+            <div class="col-md-06" style="overflow-y:auto;scroll:auto;max-height:300px">
+                <table class="table table-striped table-bordered table-hover dataTables-example">
+                    <thead>
+                        <tr>
+
+                            <td>
+                                <b>Member</b>
+                            </td>
+                            <td><b>Role</b></td>
+                            @if (ViewBag.GroupTypeId == 2)
+                            {
+                                <td style="width:10%;">
+                                    <b>Group Admin</b>
+                                </td>
+                            }
+                            @if (ViewBag.GroupTypeId == 1 || ViewBag.GroupTypeId == 2)
+                            {
+                                <td style="width:10%;">
+                                    <b>Action</b>
+                                </td>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (ViewBag.AssignedMemberList != null)
+                        {
+                            foreach (var item in ViewBag.AssignedMemberList)
+                            {
+                                <tr id="@item.UserId">
+
+                                    <td>@item.MemberName</td>
+                                    <td>@item.Type</td>
+                                    @if (ViewBag.GroupTypeId == 2)
+                                    {
+                                        if (@item.IsGroupAdmin)
+                                        {
+                                            <td><span>Group Admin</span> </td>
+                                        }
+                                        else
+                                        {
+                                            <td><input type='checkbox' style="margin:15px;transform: scale(1.5);" class='chkbx' checked="@item.IsGroupAdmin" disabled="@item.IsGroupAdmin" value="@item.UserId" /> </td>
+                                        }
+                                    }
+                                    @if (ViewBag.GroupTypeId == 1 || ViewBag.GroupTypeId == 2)
+                                    {
+                                        <td>
+                                            <center>
+                                                @if (item.Type == "Super Admin" || ViewBag.GroupTypeId == 1 && item.Type == "Office Manager" || item.UserId == Session["UserId"].ToString())
+                                                {
+                                                    <span>NA</span>
+                                                }
+                                                else
+                                                {
+                                                    <button class="btn btn-xs btn-danger" style="margin:5px; width:auto;" onclick="RemoveMember('@ViewBag.ChattingGroupId','@item.UserId','@item.QuickBloxId')"><span class="fa fa-remove"></span></button>
+                                                }
+
+                                            </center>
+                                        </td>
+                                    }
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>*@
+@*<div class="col-md-12">
+        @if (ViewBag.GroupTypeId == 2)
+        {
+            <button type="button" onclick="AssignGroupAdmin(@ViewBag.ChattingGroupId)" class="btn btn-sm btn-primary pull-right">ASSIGN GROUP ADMIN</button>
+        }
+        <div class="clearfix"></div>
+    </div>*@
+</div>
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script type="text/javascript">
+    var unassignedCaregivers = '';
+    $(document).ready(function () {
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': { allow_single_deselect: true },
+            '.chosen-select-no-single': { disable_search_threshold: 10 },
+            '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+            '.chosen-select-width': { width: "95%" }
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+
+        }
+    });
+
+    $('#ddlMember').change(function () {
+        $('#ddlMember option:selected').each(function () {
+            var $value = $(this).attr('qbid');
+            if (!$value)
+                RegisterNewCaregiverOnQuickBlox($(this).attr('email'), $(this).val());
+        });
+    });
+
+    function RegisterNewCaregiverOnQuickBlox(Login, UserId1) {
+        $("#loading").show();
+        var RegisterUser = { 'login': Login, 'password': "Welcome007!", 'tag': "differenzsystem", 'email': Login };
+        QB.users.create(RegisterUser, function (err, user1) {
+            if (user1) {
+                var url = INITURL + '/Chatting/SaveQBId';
+                var QBId = user1.id;
+                $.ajax({
+                    url: url,
+                    data: { UserId: UserId1, QuickBloxId: QBId },
+                    type: 'POST',
+                    async: false,
+                    success: function (data) {
+                        $("#ddlCaregiver option[value='" + UserId1 + "']").attr('qbid', QBId);
+                        //objIndex = unassignedCaregivers.findIndex((obj => obj.UserId == UserId1));
+                        //unassignedCaregivers[objIndex].QuickBloxId = QBId;
+                        $("#loading").hide();
+                    },
+                    error: function (reponse) {
+                        alert("error : " + reponse);
+                        $("#loading").hide();
+                        return;
+                    }
+                });
+            } else {
+                alert("error : " + err);
+                $("#loading").hide();
+                return '';
+            }
+        });
+    }
+
+    function AssignNewMember(ChattingGroupId) {
+        //debugger;
+        var selectedUserIds = '';
+        var selectedQBIds = '';
+        $('#ddlMember :selected').each(function () {
+            selectedUserIds += $(this).attr("value") + ',';
+            if ($(this).attr("qbid"))
+                selectedQBIds += parseInt($(this).attr("qbid")) + ',';
+        });
+
+        selectedUserIds = selectedUserIds.replace(/,\s*$/, "");
+        selectedQBIds = selectedQBIds.replace(/,\s*$/, "");
+
+        if (!selectedUserIds) {
+            toastr.info("Please select atleast one member");
+            $('#ddlMember').focus();
+            return;
+        }
+        $('#loading').show();
+        var url = INITURL + '/Chatting/AddMemberIntoGroup_V1';
+        $.ajax({
+            url: url,
+            cache: false,
+            type: 'POST',
+            data: {
+                ChattingGroupId: ChattingGroupId,
+                UserIds: selectedUserIds,
+                QuickBloxId: selectedQBIds
+            },
+            async: true,
+            success: function (data) {
+                $('#loading').hide();
+                if (data == "Success") {
+                    $('#modalMemberAssignment').modal('hide');
+                    toastr.success('Member(s) has been assigned successfully.');
+                }
+            },
+            error: function (reponse) {
+                $('#loading').hide();
+            }
+        });
+    }
+
+    function RemoveMember(ChattingGroupId, UserId, QuickBloxId) {
+        if (!confirm('Are you sure you want remove this member ?'))
+            return false;
+        if (ChattingGroupId && UserId) {
+            $('#loading').show();
+            var url = INITURL + '/Chatting/RemoveParticipantsFromGroupChat';
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                data: {
+                    ChattingGroupId: ChattingGroupId,
+                    UserId: UserId,
+                    QuickBloxId: QuickBloxId
+                },
+                async: true,
+                success: function (data) {
+                    if (data.result == "Success") {
+                        $('#' + UserId).remove();
+                        loadAssignedMemberSelectList(data.lstMember);
+                        $('#loading').hide();
+                        toastr.success('Member has been removed successfully.');
+                    }
+                    else {
+                        toastr.error('Something went wrong!');
+                        $('#loading').hide();
+                    }
+                },
+                error: function (reponse) {
+                    $('#loading').hide();
+                }
+            });
+        }
+    }
+
+    function loadAssignedMemberSelectList(lstMember) {
+        $('#ddlMember').empty();
+        if (lstMember.length > 0) {
+            $.each(lstMember, function (key, value) {
+                $('#ddlMember').append("<option value=" + value.UserId + " nurseid=" + value.NurseId + " qbid=" + value.QuickBloxId + "email=" + value.Email + ">" + value.Name + "</option>");
+            });
+        }
+        $('#ddlMember').trigger("chosen:updated");
+        $('#loading').hide();
+    }
+
+
+    function AssignGroupAdmin(ChattingGroupId) {
+
+        //debugger;
+        var selectedUserIds = "";
+        // var arr = [];
+        $('input.chkbx:checkbox:checked').each(function () {
+            // arr.push($(this).val());
+            selectedUserIds += $(this).val() + ",";
+        });
+
+        selectedUserIds = selectedUserIds.replace(/,\s*$/, "");
+
+        if (!selectedUserIds) {
+            toastr.info("Please select atleast one member");
+            $('#ddlMember').focus();
+            return;
+        }
+
+        $('#loading').show();
+        var url = INITURL + '/Chatting/AssignGroupAdmin';
+        $.ajax({
+            url: url,
+            cache: false,
+            type: 'POST',
+            data: {
+                ChattingGroupId: ChattingGroupId,
+                UserIds: selectedUserIds
+            },
+            async: true,
+            success: function (data) {
+                //debugger;
+                $('#loading').hide();
+                if (data == "Success") {
+                    $('#modalMemberAssignment').modal('hide');
+                    toastr.success('Member(s) has been assigned as group admin successfully.');
+                }
+            },
+            error: function (reponse) {
+                $('#loading').hide();
+            }
+        });
+
+
+        //  $("#DayOfWeek").val(SelectedDayOfWeek);
+
+        //console.log(SelectedDayOfWeek);
+    }
+</script>

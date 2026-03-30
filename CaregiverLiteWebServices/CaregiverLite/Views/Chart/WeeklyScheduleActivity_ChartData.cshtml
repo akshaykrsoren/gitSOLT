@@ -1,0 +1,268 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Paseva</title>
+   @* <script src="https://code.highcharts.com/highcharts.js"></script>*@
+    <script src="https://code.highcharts.com/modules/no-data-to-display.js"></script>
+</head>
+<body>
+    <div id="Chart7" style="height: 300px"></div>
+    <script>
+
+        var first = "";
+        var last = "";
+        var arr = [];
+        var weeeklyscheduleLis = [];
+        var WeeklyAppointmentStatus = [];
+
+        var totalRecord = 0;
+        var totalCompletedRecord = 0;
+        var totalCancelledRecord = 0;
+
+        var TotalWeek = [];
+        var TotalRecord = [];
+        var TotalComplete = [];
+        var TotalCancel = [];
+        var tempweeklyScheduleList=[];
+
+        $(document).ready(function () {
+            var tempCurrDatecurr = new Date();
+            WeekList(tempCurrDatecurr);
+            debugger;
+            @using Newtonsoft.Json
+            var partData = @Html.Raw(JsonConvert.SerializeObject(ViewBag.WeeklyScheduleAppoinmentList));
+            @*debugger;
+            weeeklyscheduleLis = @Html.Raw(Json.Encode(ViewBag.WeeklyScheduleAppoinmentList));
+            WeeklyAppointmentStatus = @Html.Raw(Json.Encode(ViewBag.WeeklyScheduleCountStatus));*@
+
+
+            weeeklyscheduleLis = @Html.Raw(JsonConvert.SerializeObject(ViewBag.WeeklyScheduleAppoinmentList));
+            WeeklyAppointmentStatus =@Html.Raw(JsonConvert.SerializeObject(ViewBag.WeeklyScheduleCountStatus));
+
+            
+            var weekcount = 0;
+            for (var i = arr.length - 1; i >= 0; i--) {
+                TotalWeek.push("Week" + (++weekcount));
+                if(weeeklyscheduleLis!="[]")
+                {
+                calculateWeekData(arr[i].fromdate, arr[i].Todate);
+                TotalRecord.push(totalRecord);
+                TotalComplete.push(totalCompletedRecord);
+                TotalCancel.push(totalCancelledRecord);
+               }
+            }
+
+            makechart();
+        });
+
+        function calculateWeekData(from, To) {
+            totalRecord = 0;
+            totalCompletedRecord = 0;
+            totalCancelledRecord = 0;
+            
+
+                  tempweeklyScheduleList=JSON.parse(weeeklyscheduleLis);
+
+
+                tempweeklyScheduleList.forEach(function(element) {
+              
+                if (new Date().setDate(from) <= new Date(element.InsertedDatetime) &&
+                    new Date(element.InsertedDatetime) <= new Date().setDate(To)) {
+                    totalRecord += 1;
+                    if (element.Status.toUpperCase() === "COMPLETED") {
+                        totalCompletedRecord += 1;
+                    }
+                    if (element.Status.toUpperCase() === "CANCELLED") {
+                        totalCancelledRecord += 1;
+                    }
+                }
+            });
+
+        }
+
+        function WeekList(curr) {
+            var pos = curr.getDay();
+            var currentDate = curr.getDate();
+
+            if (currentDate >= 25) {
+                var tempdate = new Date(curr);
+                var numDays = daysInMonth(tempdate.getMonth() + 1, tempdate.getFullYear());
+                MOnthLastDate = new Date(tempdate.setDate(numDays));
+                var lastdatePos = MOnthLastDate.getDay();
+                if (lastdatePos >= pos) {
+                    first = curr.getDate() - pos;
+                    last = first + lastdatePos;
+                    first = new Date(curr.setDate(first)).toUTCString();
+                    last = new Date(curr.setDate(last)).toUTCString();
+                } else {
+                    first = curr.getDate() - pos;
+                    last = first + 6;
+                    first = new Date(curr.setDate(first)).toUTCString();
+                    last = new Date(curr.setDate(last)).toUTCString();
+                }
+            } else if (currentDate <= 7) {
+                let tempdate = new Date(curr);
+                var OnePos = new Date(tempdate.setDate(1)).getDay();
+                if (pos >= OnePos) {
+                    first = new Date(tempdate.setDate(1)).toUTCString();
+                    last = 1 + (6 - OnePos);
+                    last = new Date(tempdate.setDate(last)).toUTCString();
+                } else {
+                    first = curr.getDate() - pos;
+                    last = first + 6;
+                    first = new Date(curr.setDate(first)).toUTCString();
+                    last = new Date(curr.setDate(last)).toUTCString();
+                }
+            } else if (currentDate > 7 && currentDate < 25) {
+                first = curr.getDate() - pos;
+                last = first + 6;
+                first = new Date(curr.setDate(first)).toUTCString();
+                last = new Date(curr.setDate(last)).toUTCString();
+            }
+
+            var L = new Date(first).getDate();
+            var U = new Date(last).getDate();
+
+            arr.push({ "fromdate": L, "Todate": U });
+            if (L != 1) {
+                StartANDEndDateList(L, U);
+            }
+        }
+
+        function StartANDEndDateList(l, u) {
+            d = l;
+            while (d > 1) {
+                if ((l - 1) > 0) {
+                    u = l - 1;
+                    d = u - 6;
+                    if (d > 0) {
+                        l = d;
+                    } else {
+                        l = 1;
+                    }
+                    arr.push({ "fromdate": l, "Todate": u });
+                }
+            }
+        }
+
+        function makechart() {
+            var chart = Highcharts.chart('Chart7', {
+                chart: {
+                    type: 'column',
+                    events: {
+                        load: function () {
+                            const chart = this;
+                            if (TotalRecord.length === 0 && TotalComplete.length === 0 && TotalCancel.length === 0 ) {
+                                chart.showLoading('No data available');
+                            } else {
+                                chart.hideLoading();
+                            }
+
+                        }
+                    }
+                },
+                credits: {
+                    enabled: false
+                },
+                title: {
+                    text: ''
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 3
+                    },
+                    series: {
+                        animation: {
+                            duration: 1000
+                        },
+                        borderRadius: {
+                            radius: 50
+                        }
+                    }
+                },
+                xAxis: {
+                    labels: {
+                        style: {
+                            fontWeight: 'bold',
+                            fontSize: "12px"
+                        }
+                    },
+                    categories: TotalWeek
+                },
+                yAxis: {
+                    labels: {
+                        style: {
+                            fontWeight: 'bold',
+                            fontSize: "10px"
+                        }
+                    },
+                    title: {
+                        text: ''
+                    }
+                },
+                tooltip: {
+                    style: {
+                        fontSize: '14px', // Increase this value for larger tooltip font size
+                        fontWeight: 'bold'
+                    }
+                },
+                series: [
+                    {
+                        color: {
+                            linearGradient: { x1: 1, y1: 1, x2: 1, y2: 0 },
+                            stops: [
+                                [0, '#c3dff8'],
+                                [1, 'rgba(56, 161, 252, 0.83)']
+                            ]
+                        },
+                        showInLegend: false,
+                        name: 'Total',
+                        maxPointWidth: 20,
+                        data: TotalRecord
+                    },
+                    {
+                        color: {
+                            linearGradient: { x1: 1, y1: 1, x2: 1, y2: 0 },
+                            stops: [
+                                [0, 'rgba(40, 168, 88, 0.70)'],
+                                [1, '#28A858']
+                            ]
+                        },
+                        showInLegend: false,
+                        name: 'Completed',
+                        maxPointWidth: 20,
+                        data: TotalComplete
+                    },
+                    {
+                        color: {
+                            linearGradient: { x1: 1, y1: 1, x2: 1, y2: 0 },
+                            stops: [
+                                [0, 'rgba(255, 255, 159)'],
+                                [1, '#FAAD02']
+                            ]
+                        },
+                        showInLegend: false,
+                        name: 'Cancel',
+                        maxPointWidth: 20,
+                        data: TotalCancel
+                    }
+                ],
+                lang: {
+                    noData: 'No data available'
+                },
+                noData: {
+                    style: {
+                        fontWeight: 'bold',
+                        fontSize: '15px',
+                        color: '#303030'
+                    }
+                }
+            });
+        }
+        function daysInMonth (month, year) {
+            return new Date(year, month, 0).getDate();
+        }
+    </script>
+</body>
+</html>

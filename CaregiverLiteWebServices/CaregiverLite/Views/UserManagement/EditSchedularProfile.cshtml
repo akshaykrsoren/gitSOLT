@@ -1,0 +1,286 @@
+﻿@model CaregiverLite.Controllers.Userprofile
+
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: "Lato", sans-serif;
+        }
+
+        .Cancelbtn {
+            background-color: white;
+            color: #092C44;
+            border: 1px solid #1F305B;
+            border-radius: 6px;
+            font-size: 14px;
+            width: 20%;
+            height: 28px;
+            line-height: 22px;
+        }
+
+        #CancelbtnId:hover {
+            background-color: #092C44;
+            color: white;
+            font-size: 1vw;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .profile-card {
+            max-width: 832px;
+            margin: 65px 10px 13px 15px;
+            border: none;
+            border-radius: 4px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            background-color: white;
+        }
+
+        .profile-img {
+            width: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .info-title {
+            font-size: 0.85rem;
+            color: #6c757d;
+        }
+
+        .info-text {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .service-badge {
+            font-size: 0.8rem;
+            padding: 5px 10px;
+            margin: 0 3px;
+        }
+
+        .support-section {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+            .support-section a {
+                text-decoration: none;
+                color: #007bff;
+                font-size: 0.9rem;
+            }
+
+                .support-section a:hover {
+                    color: #0056b3;
+                }
+
+
+
+        .cutmoprofiledata p {
+            font-weight: 600;
+            color: #1F305B;
+        }
+
+        .cutmoprofiledata span {
+            color: #1F305B;
+            display: block;
+        }
+
+        #cartData1 {
+            margin-left: 2px;
+        }
+
+
+        .profile-card:hover {
+            /*border: 1px solid #68AAEA;*/
+        }
+
+        label {
+            display: flex;
+        }
+
+        .cutmoprofiledata1 span {
+            color: red;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card profile-card cutmoprofiledata">
+        <div class="flex" style="display:flex">
+            <div>
+             @if (Session["role"].ToString() == "Nurse")
+             {
+                 var roleImagePath = Session["ProfileImage"].ToString();
+                <img src="@roleImagePath" alt="User Avatar" class="user-avatar" style="width:69px" />
+             }
+             else
+             {
+                <img src="/Content/image/DefaultProfile.png" alt="User Avatar" class="user-avatar userprofileimage" />
+             }
+            
+            </div>
+
+            <div style="margin: 15px 0px 0px 15px;width: 75%;">
+                <span style="margin-bottom: 2px;">Full Name</span>
+                <h5 style="color:#1F305B" class="mb-1">@ViewBag.ProfileName </h5>
+
+            </div>
+        </div>
+
+
+        <hr style="margin-top:15px">
+
+
+        @Html.HiddenFor(model => model.ObjSchedulerModel.SchedulerId, new { @id = "SchedulerId" })
+        @Html.HiddenFor(model => model.ObjSchedulerModel.Username, new { @id = "Username" })
+        @Html.HiddenFor(model => model.ObjSchedulerModel.QuickBloxId, new { @id = "QuickBloxId" })
+        @Html.HiddenFor(model => model.ObjSchedulerModel.OldEmail, new { @id = "OldEmail" })
+        
+            @using (Html.BeginForm("UpdateSchedulerProfile", "UserManagement", FormMethod.Post, new { @id = "fmEditScheduler", @class = "horizontal-form", @enctype = "multipart/form-data" }))
+            {
+         <div class="row cutmoprofiledata1" id="cartData1">
+       
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>First Name <span> *</span></label>
+
+                @Html.ValidationMessageFor(model => model.ObjSchedulerModel.FirstName)
+                @Html.TextBoxFor(model => model.ObjSchedulerModel.FirstName, new { @id = "FirstName", @type = "text", @maxlength = "100", @placeholder = "Enter First name", @class = "form-control formtopmargin" })
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Last Name <span> *</span></label>
+                @Html.ValidationMessageFor(model => model.ObjSchedulerModel.LastName)
+                @Html.TextBoxFor(model => model.ObjSchedulerModel.LastName, new { @id = "LastName", @type = "text", @maxlength = "100", @placeholder = "Enter Last name", @class = "form-control formtopmargin" })
+            </div>
+        </div>
+
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>@CaregiverLite.Views.Resources.CareGiver.TableHeaderEmail <span> *</span></label>
+                @Html.ValidationMessageFor(model => model.ObjSchedulerModel.Email)
+                @Html.TextBoxFor(model => model.ObjSchedulerModel.Email, new { @id = "Email", @type = "email", @maxlength = "100", @placeholder = "Enter Email", @class = "form-control formtopmargin", @readonly = "readonly" })
+            </div>
+        </div>
+        <div class="col-md-12" style="margin-bottom: 5px;text-align:end">
+            <a href="javascript:;" class="btn btn-xs Cancelbtn" data-dismiss="modal" id="CancelbtnId" style="margin-left:10px;border-radius: 4px;">Cancel</a>
+            <a href="javascript:;" class="btn btn-xs btn-primary " style="border-radius: 4px;text-transform:none;width: 20%" onclick="UpdateSchedular();">Save Changes</a>
+
+        </div>
+
+
+    </div>
+
+            }
+        
+
+
+
+    </div>
+    <div class="card profile-card" style="margin-top: 4px;">
+
+        <h5 class="mb-3" style="color:#1F305B;margin-bottom: 12px;font-size: 15px;">Contact Support</h5>
+        <div class="d-flex align-items-center mb-2">
+            <i class="fas fa-envelope me-2"></i>
+            <a href="mailto:support@paseva.com" style="color:#1F305B;text-decoration: underline;font-weight: bold;margin-left: 5px">support@paseva.com</a>
+        </div>
+        <div class="d-flex align-items-center">
+            <i class="fas fa-phone me-2"></i>
+            <span style="color:#1F305B;font-weight: bold;margin-left: 5px">844-682-1072</span>
+        </div>
+    </div>
+    <div class="card profile-card" style="margin-top: 4px;">
+        <div>
+            <a href="https://paseva.com/privacy-policy/" style="color:#1F305B;text-decoration: underline;font-weight: bold;">Privacy Policy</a>
+            <br>
+            @*<a href="#" style="color:#1F305B;text-decoration: underline;font-weight: bold;">Terms of Use</a>*@
+        </div>
+    </div>
+
+
+
+
+    <script>
+        $(document).ready(function () { 
+            $("#loading").hide();
+        });
+        function UpdateSchedular() {
+            var data = new FormData();
+            debugger;
+           
+           
+            var FirstName = $("#FirstName").val();
+            var LastName = $("#LastName").val();
+            var Email = $("#Email").val();
+
+
+
+            if (FirstName == "" && LastName == "" && Email == "") {
+                toastr.error('Please fill all required fields');
+                $('#loading').hide();
+                return false;
+            }
+            else if (FirstName == "") {
+                toastr.error('Please Enter Scheduler First Name');
+                $('#loading').hide();
+                return false;
+            }
+            else if (LastName == "") {
+                toastr.error('Please Enter Scheduler First Name');
+                $('#loading').hide();
+                return false;
+            }
+            
+
+                var objSchedularModel = { 
+                    SchedulerId: $("#SchedulerId").val(), 
+                    FirstName: $("#FirstName").val(),
+                    LastName: $("#LastName").val(),
+                    Email: $("#Email").val(), 
+                }
+
+                 
+                debugger;
+                data.append("ObjSchedular", JSON.stringify({ 'SchedulerDetail': objSchedularModel }));
+                var url = INITURL + 'UserManagement/UpdateSchedulerProfile';
+
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    processData: false,
+                    contentType: false,
+                    data: data,
+                    success: function (data) {
+                        if (data.Result == "Success") {
+                            $('#EditProfilemOdeal').modal('hide');
+                            toastr.success('Changes you have made have been applied successfully');
+                            window.location.reload();
+                        }
+                        else {
+                            $("#dvError2").css("display", "");
+                            $("#lblError2").html(data.Result);
+                        }
+                        $('#loading').hide();
+                    },
+                    error: function (reponse) {
+                        $('#loading').hide();
+                        alert("error : " + JSON.stringify(reponse));
+                    }
+                });
+            }
+            
+       
+    </script>
+
+</body>
+</html>

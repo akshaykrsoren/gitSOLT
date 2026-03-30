@@ -1,0 +1,798 @@
+﻿@model CaregiverLite.Models.ScheduleClientRequestModel
+@{
+    ViewBag.Title = "ClientRequest";
+
+}
+<style>
+    .approve {
+        float: right;
+    }
+
+    .modal-content {
+        background-clip: padding-box;
+        background-color: #fff;
+        border: 1px solid transparent;
+        border-radius: 0;
+        box-shadow: 0 1px 3px rgb(0 0 0 / 30%);
+        outline: 0 none;
+        position: relative;
+        /* size: 20px; */
+        /* font-size: small; */
+        width: 438px;
+        text-align: center;
+        margin-left: 264px;
+    }
+
+    input[type=search] {
+        margin-bottom: 7px;
+    }
+
+    #myModal1 {
+        overflow-y: scroll;
+    }
+    .CancelbtnCss {
+        width: 69px;
+        height: 26px;
+        padding: 3px;
+        border-radius: 4px;
+        color: #515252;
+        border: 1px solid #A9A9A9;
+        padding-top: 4px;
+    }
+
+      .CancelbtnCss:hover {
+        background-color: #092C44;
+        color: white; 
+    }
+</style>
+<link rel="stylesheet" type="text/css" media="all" href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" />
+<style>
+    /*Rating CSS Start*/
+    fieldset, label {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+    }
+
+    h1 {
+        font-size: 1.5em;
+        margin: 10px;
+    }
+
+    /****** Style Star Rating Widget *****/
+
+    .rating {
+        border: none;
+        float: left;
+    }
+
+        .rating > input {
+            display: none;
+        }
+
+        .rating > label:before {
+            margin: 5px;
+            font-size: 1.25em;
+            font-family: FontAwesome;
+            display: inline-block;
+            content: "\f005";
+        }
+
+        .rating > .half:before {
+            content: "\f089";
+            position: absolute;
+        }
+
+        .rating > label {
+            color: #ddd;
+            float: right;
+        }
+
+        /***** CSS Magic to Highlight Stars on Hover *****/
+
+        .rating > input:checked ~ label, /* show gold star when clicked */
+        .rating:not(:checked) > label:hover, /* hover current star */
+        .rating:not(:checked) > label:hover ~ label {
+            color: #43AADB;
+        }
+            /* hover previous stars in list */
+
+            .rating > input:checked + label:hover, /* hover current star when changing rating */
+            .rating > input:checked ~ label:hover,
+            .rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+            .rating > input:checked ~ label:hover ~ label {
+                color: #43AADB;
+            }
+    /*Rating CSS End*/
+    #dvMapLegend {
+        background: #fff;
+        padding: 10px;
+        margin: 10px;
+        border: 1px solid #000;
+    }
+
+    .dvMapLegendb {
+        background: #fff;
+        padding: 10px;
+        margin: 10px;
+        border: 1px solid #000;
+    }
+
+    .map-driving {
+        color: #4986E7;
+        /*color: #0000ff;*/
+        font-size: 16px;
+    }
+
+    .map-notdriving {
+        color: #000000;
+        font-size: 16px;
+    }
+
+    .map-pic {
+        position: absolute;
+        top: 6.4px;
+        left: 15px;
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+    }
+
+    .bluemarkerimage {
+        position: relative;
+        width: 70px;
+    }
+
+    .gm-style-iw > div > div {
+        overflow: hidden !important;
+    }
+
+    .primaryGray {
+        background-color: #c3c3c3;
+        color: white;
+        padding: 7px;
+    }
+
+    .myDataTableSmallFont {
+        font-size: 12px !important;
+    }
+
+    #myDataTable_wrapper {
+        overflow-x: scroll;
+    }
+     .AppointmnetCusotmBtn {
+        background-color: #092C44;
+        color: white;
+        padding: 7px;
+        width: 100%;
+        height: 42px;
+        font-size: 1vw;
+        /* margin-right: 5px; */
+        border-radius: 6px;
+        display: block;
+    }
+        .AppointmnetCusotmBtn:hover {
+        color: #fff !important;
+    }
+</style>
+
+
+<div class="modal fade" id="ClientRequestModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" id="modalAddPopup">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" id="btnClose" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">@CaregiverLite.Views.Resources.PatientRequest.HeaderAddPatientRequest</h4>
+            </div>
+            <div class="modal-body row" id="AddClientRequest">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="wrapper wrapper-content animated fadeInRight containerstyle">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title" style="height: 88px ">
+                    <div class="row text-center" style="margin-top: 7px;">
+                        <div class="col-md-6" style="text-align:start;line-height: 47px;">
+                            <span id="ClientAppontmentHeader" style="font-size:15px;color:#1B1B1C;font-weight:800">
+                                Client Schedule Appointments
+                            </span>
+                        </div>
+
+                        <div class="col-md-6" style="text-align:end;padding-right: 30px;">
+                            <div class="row">                                 
+                                <div class="col-md-4 pull-right" style="text-align: end; position: relative;">
+                                    <a class="btn btn-xs AppointmnetCusotmBtn" style="margin-left: 8%;font-size: 14px;line-height: 2;" href="javascript:;"  onclick="OpenAddNew()">Book Appointment</a>
+                                </div>
+                               
+                            </div>
+
+                        </div>
+                    </div>
+                    @*<h5>Client Schedule Appointment List</h5>
+
+                    <div class="ibox-tools" style="float:left">
+                        <a class="btn btn-xs CutomButton" style="margin-top:-9px;" href="javascript:;" onclick="OpenAddNew()">Book Appointment</a>
+                        <div class="clearfix"></div>
+                    </div>*@
+
+                </div>
+                <div class="ibox-content">
+
+
+                    <input type="hidden" id="hdnPatientRequestId" />
+
+
+
+                    <table id="myDataTable" class="table table-striped table-bordered table-hover dataTables-example myDataTableSmallFont">
+                        <thead>
+                            <tr>
+                                @*<th></th>*@
+                                <th><input type="checkbox" name="select_all" id="myDataTable-select-all"></th>
+                                <th>@CaregiverLite.Views.Resources.PatientRequest.TableHeaderSchedulerName</th>
+                                <th>ClientName</th>
+                                <th>@CaregiverLite.Views.Resources.PatientRequest.TableHeaderAddress</th>
+                                <th>@CaregiverLite.Views.Resources.PatientRequest.TableHeaderZipCode</th>
+                                <th>CRNumber</th>
+                                <th>@CaregiverLite.Views.Resources.PatientRequest.TableHeaderDescription</th>
+                                <th>@CaregiverLite.Views.Resources.PatientRequest.TableHeaderRequestedDate</th>
+                                <th>@CaregiverLite.Views.Resources.PatientRequest.TableHeaderAppointmentDate</th>
+                                <th>@CaregiverLite.Views.Resources.PatientRequest.LabelFromTime</th>
+                                <th>@CaregiverLite.Views.Resources.PatientRequest.LabelToTime</th>
+                                <th>Marketer Name</th>
+                                <th>@CaregiverLite.Views.Resources.PatientRequest.TableHeaderStatus</th>
+                                <th>Office</th>
+                                <th>TotalMarketersNotified</th>
+                                <th style="width: 100px;">@CaregiverLite.Views.Resources.CareGiver.TableHeaderAction</th>
+
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+
+
+
+                </div>
+                <div class="ibox-title">
+                    <div class="ibox-tools">
+                        <a class="btn btn-xs btn-primary" style="margin-top:-9px;background-color: #e00e0e;text-transform:none" href="javascript:;" id="btnRemoveAppointment">@CaregiverLite.Views.Resources.PatientRequest.ButtonRemovePatientAppointmnet</a>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-Vd" id="modalEditPopup">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Select Appointment Sheet</h4>
+            </div>
+            <div class="modal-body row" id="EditPanel1">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="~/Scripts/js/jquery-2.1.1.js"></script>
+<script src="~/Scripts/js/jquery.dataTables.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+
+
+
+<script src="~/Scripts/js/oms.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
+<script>
+
+    $("#btnClose").click(function () {
+        $("#modalAddPopup").css('width', '600px');
+    });
+
+
+
+
+
+    var oTable;
+
+
+
+    $(document).ready(function () {
+        debugger;
+        localStorage.setItem("IsEdit", '0');
+
+        var jquey = jQuery.noConflict();
+
+$("#loading").show();
+
+            oTable = $('#myDataTable').DataTable({
+
+                responsive: true,
+                //aaSorting: [],
+                "dom": 'lfrtip',
+                "bPaginate": true,
+                "bServerSide": true,
+                "bSortable": true,
+                "sPaginationType": "full_numbers",
+                "oLanguage": {
+                    "sProcessing": "<div class=\"loading\" id=\"loading\" style=\"display: block;\"></div>"
+                },
+                "processing": true,
+                "sAjaxSource": "GetAllScheduleClientRequest",
+                "fnServerData": function (sSource, aoData, fnCallback) {
+                    debugger;
+                    $.getJSON(sSource, aoData, function (json) {
+                        debugger;
+                        fnCallback(json)
+                    }).fail(function (jqxhr, textStatus, error) {
+                        window.location.reload();
+                    });
+                },
+                //"fnServerParams": function (aoData) {
+
+                //    aoData.push({ "name": "FilterOffice", "value": $('#ddFilterOffice option:selected').val() });
+                //    aoData.push({ "name": "FilterStatus", "value": $('#ddFilterStatus option:selected').text() });
+                //    aoData.push({ "name": "FromDate", "value": $('#FromDate').val() });
+                //    aoData.push({ "name": "ToDate", "value": $('#ToDate').val() });
+                //},
+                "fnDrawCallback": function (oSettings) {
+                    //Navigation validation
+                    var rowsPerPage = this.fnSettings()._iDisplayLength;
+                    var rowsToShow = this.fnSettings().fnRecordsDisplay();
+                    var table = $('#myDataTable').DataTable();
+                    $('#myDataTable thead th').css({
+                        "background-color": "white" // Your desired color
+                        // Text color
+                    });
+                    var info = table.page.info();
+                    var currentPageNo = info.page + 1;
+                    //Paginationvalidation(rowsPerPage, rowsToShow, currentPageNo, '#myDataTable');
+                    $('#myDataTable-select-all').prop('checked', false);
+
+                    $("#ClientAppontmentHeader").text("");
+                    $("#ClientAppontmentHeader").text("Client Schedule Appointments (" + rowsToShow + ")");
+
+                    $('#myDataTable tbody td').css('height', '40px');
+
+
+
+                    $('#myDataTable_filter input ').css({ 'border-radius': '5px', 'height': '36px' });
+
+
+                    $('#myDataTable_wrapper select ').css({ 'margin-top': '10px', 'border-radius': '5px', 'margin-bottom': '10px' });
+                    $('#myDataTable_filter label').contents().filter(function () {
+                        return this.nodeType === 3; // This checks for text nodes
+                    }).remove();
+
+                    var searchInput = $('#myDataTable_filter input');
+                    searchInput.wrap('<div class="search-container" style="position: relative; display: inline-block; width: 100%;"></div>'); // Wrap the search input
+                    searchInput.css({
+                        'padding-right': '30px' // Add padding to the right to make space for the icon
+                    });
+                    searchInput.after('<img src="http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Content/image/SearchIcon.png" class="search-icon" id="SearchIcon" alt="Search Icon" style="position: absolute; right: 10px; top: 42%; transform: translateY(-50%); cursor: pointer;">');
+
+                    $("#loading").hide();
+                },
+                "responsive": {
+                    "details": {
+                        "type": 'column'
+                    }
+                },
+                "autoWidth": false,
+                //"aoColumnDefs": [ { "bVisible": false, "aTargets": [ 0 ] } ],
+                "aoColumns": [
+
+                                {
+                                    'targets': 0,
+                                    'searchable': false,
+                                    'orderable': false,
+                                    'className': 'dt-body-center',
+                                    'render': function (oObj, data, type, full, meta) {
+                                        var ClientRequestId = oObj["ClientRequestId"];
+                                        return '<input class="cs" type="checkbox" id="' + ClientRequestId + '" name="' + ClientRequestId + '" value="' + ClientRequestId + '">';
+                                    }
+                                },
+                                {
+                                    "sName": "Scheduler Name",
+                                    //"bSortable": true,
+                                    //"width": "50px",
+                                    // "visible": false,
+                                    "mRender": function (oObj) {
+                                        return oObj["SchedulerName"];
+                                    }
+                                },
+
+                                {
+                                    "sName": "Patient Name",
+                                    //"bSortable": true,
+                                    "mRender": function (oObj) {
+                                        return oObj["ClientName"];
+                                    }
+                                },
+                                {
+                                    "sName": "Address",
+                                    //"bSortable": true,
+                                    "mRender": function (oObj) {
+                                        return '<span>' + oObj["Address"] + '</span>';
+                                    }
+                                },
+                                {
+                                    "sName": "ZipCode",
+                                    //"bSortable": true,
+                                    "mRender": function (oObj) {
+                                        return oObj["ZipCode"];
+                                    }
+                                },
+                                {
+                                    "sName": "MedicalId",
+                                    "mRender": function (oObj) {
+                                        return '<span>' + oObj["CRNumber"] + '</span>';
+                                    }
+                                },
+
+                                {
+                                  "sName": "Description",
+                                  "bSortable": false,
+                                  "mRender": function (oObj) {
+                                      //return '<span>' + oObj["Description"] + '</span>';
+                                      return '<span title="' + oObj["Description"] + '">' + (oObj["Description"].length >= 99 ? (oObj["Description"].substring(0, 10) + "...") : oObj["Description"]) + '</span>';
+                                  }
+                              },
+                                {
+                                    "sName": "InsertDateTime",
+                                    //"bSortable": true,
+                                    "mRender": function (oObj) {
+                                        return oObj["InsertDateTime"];
+                                    }
+                                },
+                                {
+                                    "sName": "Date",
+                                    //"bSortable": true,
+                                    "mRender": function (oObj) {
+                                        return oObj["Date"];
+                                    }
+                                },
+                                {
+                                    "sName": "FromTime",
+                                    //"bSortable": true,
+                                    "mRender": function (oObj) {
+                                        if (oObj["TimezonePostfix"] !== null) {
+                                            return '<span>' + oObj["FromTime"] + " (" + oObj["TimezonePostfix"] + ") " + '</span>';
+                                        } else {
+                                            return '<span>' + oObj["FromTime"] + '</span>';
+                                        }
+                                    }
+                                },
+                                {
+                                    "sName": "ToTime",
+                                    //"bSortable": true,
+                                    "mRender": function (oObj) {
+                                        if (oObj["TimezonePostfix"] !== null) {
+                                            return '<span>' + oObj["ToTime"] + " (" + oObj["TimezonePostfix"] + ") " + '</span>';
+                                        } else {
+                                            return '<span>' + oObj["ToTime"] + '</span>';
+                                        }
+                                    }
+                                },
+                                {
+                                     "sName": "Marketers Name",
+                                     "bSortable": false,
+                                     "mRender": function (oObj) {
+                                         //var actionhtml = '';
+                                         //if (oObj["MarketersName"] != "") {
+                                         //    actionhtml += '<center><a href="javascript:;" style="text-transform: capitalize;text-decoration: underline;" onclick="ViewCareGiverProfile(\'' + oObj["MarketersId"] + '\');">' + oObj["MarketersName"] + '</a></center>'
+                                         //}
+                                         //return actionhtml;
+                                         return '<span>' + oObj["MarketersName"] + '</span>';
+                                     }
+                                 },
+                                {
+                                     "sName": "Status",
+                                     "mRender": function (oObj) {
+                                         if (oObj["Status"] === 'Completed') {
+                                             var actionhtml = '';
+                                             //With Signature
+                                             //actionhtml += '<a href="javascript:;" style="width:100%; margin-top:5px;" class="btn btn-xs btn-primary" onclick="CompletedRequest(\'' + oObj["PatientName"] + "\',\'" + oObj["Description"] + "\',\'" + oObj["InsertDateTime"] + "\',\'" + oObj["PatientSignature"] + "\',\'" + oObj["CheckInTime"] + "\',\'" + oObj["CheckOutTime"] + "\',\'" + oObj["Miles"] + "\',\'" + oObj["FromTime"] + "\',\'" + oObj["ToTime"] + "\' " + ')"><span>' + oObj["Status"] + '</span></a>'
+                                             //WithOut Signature
+                                             actionhtml += '<a href="javascript:;" style="width:100%; margin-top:5px;" class="btn btn-xs btn-primary" onclick="CompletedRequest(\'' + oObj["ClientName"] + "\',\'" + escape(oObj["Description"]) + "\',\'" + oObj["InsertDateTime"] + "\',\'\',\'" + oObj["CheckInTime"] + "\',\'" + oObj["CheckOutTime"] + "\',\'" + oObj["Miles"] + "\',\'" + oObj["FromTime"] + "\',\'" + oObj["ToTime"] + "\',\'" + oObj["CheckInLatLong"] + "\',\'" + oObj["CheckOutLatLong"] + "\',\'" + oObj["CheckInAddress"] + "\',\'" + oObj["CheckOutAddress"] + "\' " + ')"><span>' + oObj["Status"] + '</span></a>'
+                                             return actionhtml;
+                                         }
+                                         else {
+
+                                             return '<span>' + oObj["Status"] + '</span>';
+                                         }
+                                     }
+                                 },
+
+                                {
+                                     "sName": "Office",
+                                     "mRender": function (oObj) {
+                                         return '<span>' + oObj["OfficeName"] + '</span>';
+                                     }
+                                 },
+
+
+                                {
+                                    "sName": "Total Marketers Notified",
+                                    "bSortable": false,
+                                    "mRender": function (oObj) {
+                                        //alert(oObj.DrivingStartTime)
+                                        //console.log(JSON.stringify(oObj));
+                                        var actionhtml = '';
+                                        if (oObj["DrivingStartTime"] != "") {
+                                            actionhtml += '<a href="javascript:;" style="width:100%; margin-top:5px;" class="btn btn-xs btn-primary" onclick="LoadTrackLocationMap(\'' + oObj["ClientRequestId"] + '\')" >TRACK LOCATION</a>'
+                                        }
+                                        else if (oObj["TotalCaregiversNotified"] > 0) {
+                                            actionhtml += '<a href="javascript:;" style="width:100%; margin-top:5px;" class="btn btn-xs btn-primary" onclick="LoadNotifiedNurseList(\'' + oObj["ClientRequestId"] + '\',' + oObj["TotalMarketersNotified"] + ')">' + oObj["TotalMarketersNotified"] + '</a>'
+                                        }
+                                        else {
+                                            actionhtml += '<center>' + oObj["TotalMarketersNotified"] + '</center>'
+                                        }
+                                        return actionhtml;
+
+                                    }
+                                },
+                                {
+                                    "sName": "IsCancelled",
+                                    //"bSortable": true,
+                                    "mRender": function (oObj) {
+                                        if (oObj["IsCancelled"] == false) {
+                                            var actionhtml = '';
+                                            if (oObj["Status"] === 'Completed') {
+                                                actionhtml += '<a href="javascript:;" style="width:100%; margin-top:5px;" class="btn btn-xs btn-primary" onclick="OpenAddRating(\'' + oObj["ClientRequestId"] + '\')">Rating</a>';
+                                            } else {
+                                                //actionhtml += '<a href="javascript:;" style="width:100%; margin-top:5px;" class="btn btn-xs btn-primary" onclick="CancelRequest(\'' + oObj["ClientRequestId"] + '\')">@CaregiverLite.Views.Resources.PatientRequest.ButtonCancel</a>'
+                                                actionhtml += '<a href="javascript:;"   class="btn btn-xs CancelbtnCss" onclick="CancelRequest(\'' + oObj["ClientRequestId"] + '\')">@CaregiverLite.Views.Resources.PatientRequest.ButtonCancel</a>'
+                                            }
+                                            return actionhtml;
+                                        }
+                                        else {
+
+                                            return 'Cancelled';
+                                        }
+                                    }
+                                }
+
+                ],
+                'order': [[2, 'desc']],
+
+            });
+
+
+
+
+
+        $('#datetimepicker1').datetimepicker({
+            format: "YYYY-MM-DD"
+        });
+        $('#datetimepicker2').datetimepicker({
+            format: "YYYY-MM-DD"
+        });
+
+        $('#myDataTable_filter input').unbind(); //Unbind direct search on each keypress
+        $('#myDataTable_filter input').bind('keyup', function (e) { //Bind Keyup event that filter data only on "Enter" key.
+            if (e.keyCode == 13) {
+                // oTable.fnFilter(this.value);
+                oTable.search(this.value).draw();
+            }
+        });
+        /* Init DataTables */
+        $('.carousel').carousel({
+            interval: false
+        });
+
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': { allow_single_deselect: true },
+            '.chosen-select-no-single': { disable_search_threshold: 10 },
+            '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+            '.chosen-select-width': { width: "95%" }
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+
+
+
+        var tempMsg = '@TempData["message"]';
+        if (tempMsg != "")
+            toastr.success(tempMsg);
+
+        //Handle click on "Select all" control
+        $('#myDataTable-select-all').on('click', function () {
+            // Get all rows with search applied
+            // var rows = oTable.rows({'search : "applied"'}).nodes();
+            var rows = oTable.rows({ 'search': 'applied' }).nodes();
+
+            $('input[type="checkbox"]', rows).prop('checked', this.checked);
+
+        });
+        // Handle click on checkbox to set state of "Select all" control
+        $('#myDataTable tbody').on('change', 'input[type="checkbox"]', function () {
+            // If checkbox is not checked
+            if (this.checked) {
+                var el = $('#myDataTable-select-all').get(0);
+                // If "Select all" control is checked and has 'indeterminate' property
+                if (el && el.checked && ('indeterminate' in el)) {
+                    // Set visual state of "Select all" control
+                    // as 'indeterminate'
+                    el.indeterminate = true;
+                }
+            }
+        });
+
+        $("#btnRemoveAppointment").click(function () {
+
+            var selectedIDs = new Array();
+            $('input:checkbox.cs').each(function () {
+                if ($(this).prop('checked')) {
+                    selectedIDs.push($(this).val());
+                }
+            });
+debugger;
+            if (selectedIDs != "") {
+                var r = confirm("Are you sure you want to remove Client appointment?");
+                if (r == true) {
+
+                    $("#loading").show();
+                    var url = INITURL + '/ClientRequest/RemoveClientRequest';
+                    $.ajax({
+                        url: url,
+                        data: JSON.stringify({ ClientRequestId: selectedIDs }),
+                        cache: false,
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        type: 'POST',
+                        success: function (data) {
+
+                            if (data == "Success") {
+                                toastr.success('Client Request is removed successfully');
+                                $("#loading").hide();
+                                oTable.search('').draw();
+                            }
+                            else {
+
+                                $("#loading").hide();
+                            }
+                        },
+                        error: function (xhr) {
+                            console.log(xhr, "error");
+                        }
+                    });
+                }
+            }
+            else {
+
+                toastr.info("Please select at least one Appointment.");
+            }
+        });
+
+
+
+
+
+        jQuery("input#file").change(function () {
+            var input = this.files[0];
+            var ext = jQuery(this).val().split('.').pop();
+            var Filesize = (input.size / (1024 * 1024)).toFixed(2);
+            //alert(Filesize);//ppt ,pptx ,xls ,doc,docx,png,jpg,jpeg,mp4,pdf
+            if (input) {
+                if (Filesize < 95) {
+                    if (ext.toLowerCase() == "xls" || ext.toLowerCase() == "xlsx") {
+                        toastr.success("File Selected");
+
+                        $("#btnUpload").css({ 'display': "block" });
+                        $("#FileAlertContent").html("<b>1 File Selected.</b>");
+                        $("#btnResetFile").css({ 'display': "block" });
+                        $("#fileDiv").css({ 'display': "none" });
+                        $("#btnIMPORT").css({ 'display': "none" });
+                        $("#btnReset").css({ 'display': "block" });
+                        //Remove
+                        //$("#fileRemove").css({ 'display': "block" });
+                        //$("#selectFileIcon").css({ 'display': "none" });
+                        //
+
+                    }
+                    else {
+                        toastr.info("You Choose Wrong format file... Please Select File having following extension .xls, .xlsx");
+                        $("#file").val('');
+                        $("#fileCall").css({ 'color': "" });
+                        $("#FileAlert").css({ 'display': "none" });
+                    }
+
+                } else {
+                    if (Filesize > 95) {
+                        toastr.info("Please Select a file having size less then 95MB.");
+                        $("#file").val('');
+                        $("#fileCall").css({ 'color': "" });
+                        $("#FileAlert").css({ 'display': "none" });
+                    }
+
+                }
+            }
+            else {
+                toastr.info("No File Selected... Please Open again for select a file.");
+            }
+
+        });
+
+        ///  Added By Vinod Verma for Import Data from excel
+
+    });
+
+    function CancelRequest(PatientId) {
+
+        //var r = confirm("Are you sure you want to cancel patient request?");
+        //if (r == true) {
+
+        //    $("#loading").show();
+        //    var url = INITURL + '/PatientRequest/CancelPatientRequest';
+
+        //    $.ajax({
+        //        url: url,
+        //        data: JSON.stringify({ patientrequestid: PatientId }),
+        //        cache: false,
+        //        contentType: 'application/json; charset=utf-8',
+        //        dataType: 'json',
+        //        type: 'POST',
+        //        success: function (data) {
+
+        //            if (data == "Success") {
+        //                toastr.success('Patient Request is cancelled successfully');
+        //                $("#loading").hide();
+        //                oTable.search('').draw()
+        //                //oTable.fnFilter('');
+        //            }
+        //            else {
+
+        //                $("#loading").hide();
+        //            }
+        //        },
+        //        error: function (xhr) {
+        //            console.log(xhr, "error");
+        //        }
+        //    });
+
+        //}
+    }
+
+
+	 function OpenAddNew() {
+	 debugger;
+        $("#loading").show();
+        $('#AddClientRequest').load(INITURL + 'ClientRequest/AddClientMarektingRequest', function () {
+            sessionStorage.setItem("PartialView", "1");
+            $('#ClientRequestModel').modal({ backdrop: 'static', keyboard: false })
+            $('#ClientRequestModel').modal('show');
+
+        });
+	 }
+	 $(document).on('click', '#SearchIcon', function (event) {
+	     $("#loading").show();
+	     event.stopPropagation();  // Prevents the outer div's click event
+	     var query = $('#myDataTable_filter input').val(); // Get the value from the search input
+	     $('#myDataTable').DataTable().search(query).draw(); // Trigger the DataTable search
+	     $("#loading").hide();
+	 });
+
+</script>
+

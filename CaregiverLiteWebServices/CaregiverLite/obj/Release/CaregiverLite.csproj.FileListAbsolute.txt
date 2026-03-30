@@ -1,0 +1,396 @@
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\roslyn\csc.exe
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\roslyn\System.Collections.Immutable.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\roslyn\System.Reflection.Metadata.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\roslyn\vbc.exe
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\roslyn\VBCSCompiler.exe
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\roslyn\VBCSCompiler.exe.config
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\CaregiverLite.dll.config
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\CaregiverLite.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\CaregiverLite.pdb
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\Antlr3.Runtime.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\CaregiverLiteWCF.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\ClosedXML.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\DocumentFormat.OpenXml.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\EntityFramework.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\EntityFramework.SqlServer.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\EPPlus.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\Excel.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\ExcelNumberFormat.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\Hangfire.Core.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\Hangfire.SqlServer.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\ICSharpCode.SharpZipLib.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\itextsharp.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.AspNet.Identity.Core.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.AspNet.Identity.Owin.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.IO.RecyclableMemoryStream.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Host.SystemWeb.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.Cookies.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.Facebook.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.Google.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.OAuth.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.Twitter.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Web.Infrastructure.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\Newtonsoft.Json.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\NReco.VideoConverter.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\Owin.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.Helpers.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.Mvc.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.Optimization.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.Razor.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.WebPages.Deployment.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.WebPages.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.WebPages.Razor.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\WebGrease.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\CaregiverLiteWCF.pdb
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\CaregiverLiteWCF.dll.config
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\ClosedXML.pdb
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\ClosedXML.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\DocumentFormat.OpenXml.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\EPPlus.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\ExcelNumberFormat.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\Hangfire.Core.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\Hangfire.SqlServer.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\itextsharp.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.IO.RecyclableMemoryStream.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\Newtonsoft.Json.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\NReco.VideoConverter.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.Helpers.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.Mvc.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.Optimization.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.Razor.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.WebPages.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.WebPages.Deployment.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.WebPages.Razor.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\Antlr3.Runtime.pdb
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\EntityFramework.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\EntityFramework.SqlServer.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.AspNet.Identity.Core.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.AspNet.Identity.Owin.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Host.SystemWeb.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.Facebook.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.Cookies.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.OAuth.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.Google.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.Twitter.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\ca\Hangfire.Core.resources.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\de\Hangfire.Core.resources.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\es\Hangfire.Core.resources.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\fa\Hangfire.Core.resources.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\fr\Hangfire.Core.resources.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\nb\Hangfire.Core.resources.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\nl\Hangfire.Core.resources.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\pt\Hangfire.Core.resources.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\pt-BR\Hangfire.Core.resources.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\pt-PT\Hangfire.Core.resources.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\zh\Hangfire.Core.resources.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\bin\zh-TW\Hangfire.Core.resources.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.csproj.AssemblyReference.cache
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\obj\Release\Interop.MDACVer.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.csproj.ResolveComReference.cache
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Properties.Resources.resources
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Account.resources
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Admin.resources
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Appointment.resources
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.CareGiver.resources
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Chatting.resources
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Conversation.resources
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Dashboard.resources
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Dispute.resources
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Layout.resources
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.NurseCoordinator.resources
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Office.resources
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Patient.resources
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.PatientRequest.resources
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Patients.resources
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Payment.resources
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Reports.resources
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.RewardPoint.resources
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Schedule.resources
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Schedulers.resources
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Services.resources
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Stripe.resources
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.csproj.GenerateResource.cache
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.csproj.CoreCompileInputs.cache
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.pdb
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLite\obj\Release\Caregive.7905DF8D.Up2Date
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\roslyn\csc.exe
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\roslyn\System.Collections.Immutable.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\roslyn\System.Reflection.Metadata.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\roslyn\vbc.exe
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\roslyn\VBCSCompiler.exe
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\roslyn\VBCSCompiler.exe.config
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\CaregiverLite.dll.config
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\CaregiverLite.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\CaregiverLite.pdb
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Antlr3.Runtime.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\CaregiverLiteWCF.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\ClosedXML.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\DocumentFormat.OpenXml.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\EntityFramework.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\EntityFramework.SqlServer.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\EPPlus.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Excel.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\ExcelNumberFormat.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Hangfire.Core.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Hangfire.SqlServer.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\ICSharpCode.SharpZipLib.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\itextsharp.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.AspNet.Identity.Core.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.AspNet.Identity.Owin.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.IO.RecyclableMemoryStream.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Host.SystemWeb.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.Cookies.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.Facebook.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.Google.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.OAuth.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.Twitter.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Web.Infrastructure.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Newtonsoft.Json.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\NReco.VideoConverter.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Owin.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.Helpers.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.Mvc.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.Optimization.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.Razor.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.WebPages.Deployment.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.WebPages.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.WebPages.Razor.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\WebGrease.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\CaregiverLiteWCF.pdb
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\CaregiverLiteWCF.dll.config
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\ClosedXML.pdb
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\ClosedXML.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\DocumentFormat.OpenXml.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\EPPlus.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\ExcelNumberFormat.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Hangfire.Core.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Hangfire.SqlServer.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\itextsharp.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.IO.RecyclableMemoryStream.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Newtonsoft.Json.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\NReco.VideoConverter.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.Helpers.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.Mvc.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.Optimization.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.Razor.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.WebPages.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.WebPages.Deployment.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.WebPages.Razor.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Antlr3.Runtime.pdb
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\EntityFramework.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\EntityFramework.SqlServer.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.AspNet.Identity.Core.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.AspNet.Identity.Owin.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Host.SystemWeb.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.Facebook.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.Cookies.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.OAuth.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.Google.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.Twitter.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\ca\Hangfire.Core.resources.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\de\Hangfire.Core.resources.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\es\Hangfire.Core.resources.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\fa\Hangfire.Core.resources.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\fr\Hangfire.Core.resources.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\nb\Hangfire.Core.resources.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\nl\Hangfire.Core.resources.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\pt\Hangfire.Core.resources.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\pt-BR\Hangfire.Core.resources.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\pt-PT\Hangfire.Core.resources.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\zh\Hangfire.Core.resources.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\zh-TW\Hangfire.Core.resources.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.csproj.AssemblyReference.cache
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\Interop.MDACVer.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.csproj.ResolveComReference.cache
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Properties.Resources.resources
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Account.resources
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Admin.resources
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Appointment.resources
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.CareGiver.resources
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Chatting.resources
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Conversation.resources
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Dashboard.resources
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Dispute.resources
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Layout.resources
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.NurseCoordinator.resources
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Office.resources
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Patient.resources
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.PatientRequest.resources
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Patients.resources
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Payment.resources
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Reports.resources
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.RewardPoint.resources
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Schedule.resources
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Schedulers.resources
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Services.resources
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Stripe.resources
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.csproj.GenerateResource.cache
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.csproj.CoreCompileInputs.cache
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.pdb
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\Caregive.7905DF8D.Up2Date
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\roslyn\csc.exe
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\roslyn\System.Collections.Immutable.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\roslyn\System.Reflection.Metadata.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\roslyn\vbc.exe
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\roslyn\VBCSCompiler.exe
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\roslyn\VBCSCompiler.exe.config
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\CaregiverLite.dll.config
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\CaregiverLite.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\CaregiverLite.pdb
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Antlr3.Runtime.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\CaregiverLiteWCF.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\ClosedXML.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\DocumentFormat.OpenXml.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\EntityFramework.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\EntityFramework.SqlServer.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\EPPlus.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Excel.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\ExcelNumberFormat.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Hangfire.Core.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Hangfire.SqlServer.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\ICSharpCode.SharpZipLib.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\itextsharp.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.AspNet.Identity.Core.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.AspNet.Identity.Owin.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.IO.RecyclableMemoryStream.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Host.SystemWeb.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.Cookies.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.Facebook.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.Google.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.OAuth.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.Twitter.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Web.Infrastructure.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Newtonsoft.Json.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\NReco.VideoConverter.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Owin.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.Helpers.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.Mvc.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.Optimization.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.Razor.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.WebPages.Deployment.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.WebPages.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.WebPages.Razor.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\WebGrease.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\CaregiverLiteWCF.pdb
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\ClosedXML.pdb
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\ClosedXML.xml
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\DocumentFormat.OpenXml.xml
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\EPPlus.xml
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\ExcelNumberFormat.xml
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Hangfire.Core.xml
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Hangfire.SqlServer.xml
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\itextsharp.xml
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.IO.RecyclableMemoryStream.xml
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Newtonsoft.Json.xml
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\NReco.VideoConverter.xml
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.Helpers.xml
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.Mvc.xml
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.Optimization.xml
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.Razor.xml
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.WebPages.xml
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.WebPages.Deployment.xml
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\System.Web.WebPages.Razor.xml
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Antlr3.Runtime.pdb
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\EntityFramework.xml
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\EntityFramework.SqlServer.xml
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.AspNet.Identity.Core.xml
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.AspNet.Identity.Owin.xml
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.xml
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Host.SystemWeb.xml
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.xml
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.Facebook.xml
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.Cookies.xml
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.OAuth.xml
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.Google.xml
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.Twitter.xml
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\ca\Hangfire.Core.resources.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\de\Hangfire.Core.resources.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\es\Hangfire.Core.resources.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\fa\Hangfire.Core.resources.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\fr\Hangfire.Core.resources.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\nb\Hangfire.Core.resources.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\nl\Hangfire.Core.resources.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\pt\Hangfire.Core.resources.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\pt-BR\Hangfire.Core.resources.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\pt-PT\Hangfire.Core.resources.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\zh\Hangfire.Core.resources.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\zh-TW\Hangfire.Core.resources.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.csprojResolveAssemblyReference.cache
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\Interop.MDACVer.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.csproj.ResolveComReference.cache
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Properties.Resources.resources
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Account.resources
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Admin.resources
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Appointment.resources
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.CareGiver.resources
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Chatting.resources
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Conversation.resources
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Dashboard.resources
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Dispute.resources
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Layout.resources
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.NurseCoordinator.resources
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Office.resources
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Patient.resources
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.PatientRequest.resources
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Patients.resources
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Payment.resources
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Reports.resources
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.RewardPoint.resources
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Schedule.resources
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Schedulers.resources
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Services.resources
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.Views.Resources.Stripe.resources
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.csproj.GenerateResource.Cache
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\obj\Release\CaregiverLite.pdb
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Sockets.Plugin.Abstractions.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Quickblox.Sdk.Platform.Abstractions.dll
+D:\Office folder\NEWGTPASEVA\PasevaServer\CaregiverLiteWebServices\CaregiverLite\bin\Sockets.Plugin.dll

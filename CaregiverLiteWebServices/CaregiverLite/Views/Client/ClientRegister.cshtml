@@ -1,0 +1,84 @@
+﻿
+@*<br />
+@using (Html.BeginForm("UploadClientData", "Client", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="file" name="file" /><br />
+    <input type="submit" value="Import to database" class="btn btn-primary" />
+}
+<br />
+<div>
+    @ViewBag.Success
+</div>*@
+
+
+
+<br />
+@*@using (Html.BeginForm("UploadClientData", "Client", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {*@
+<input type="file" name="file" id="myfile" /><br />
+<input type="submit" value="Import to database" class="btn btn-primary" onclick="Addnew();" />
+@*}*@
+<br />
+
+
+<script type="text/javascript">
+
+    function Addnew() {
+        debugger;
+        if (window.FormData !== undefined) {
+
+            var fileUpload = $("#myfile").get(0);
+            var files = fileUpload.files;
+
+            // Create FormData object
+            var fileData = new FormData();
+
+            // Looping over all files and add it to FormData object
+            for (var i = 0; i < files.length; i++) {
+                fileData.append(files[i].name, files[i]);
+            }
+           // fileData.append('username', 'Manas');
+
+            $.ajax({
+                // url: '/Marketings/ImportScheduledExcelData',
+                url: '/Client/UploadClientData',
+                type: "POST",
+                contentType: false, // Not to set any content header
+                processData: false, // Not to process data
+                data: fileData,
+                success: function (result) {
+
+                    $(".loading").hide();
+                    if (result) {
+
+                        debugger;
+                        var filename = result;
+                        var iframe = document.createElement("iframe");
+                        iframe.src = filename;
+                        debugger;
+                        iframe.style.display = 'none';
+                        document.body.appendChild(iframe);
+                        debugger;
+                        toastr.success("Client Created Successfully");
+
+                    }
+                },
+                error: function (err) {
+
+                    alert(err.statusText);
+
+                }
+            });
+        } else {
+            alert("FormData is not supported.");
+        }
+
+
+
+    }
+
+</script>
+
+
+
+

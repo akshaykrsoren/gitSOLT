@@ -1,0 +1,50 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@CaregiverLite.Views.Resources.Layout.TitleCareGiver</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS START -->
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="~/Content/css/bootstrap-datetimepicker.css" rel="stylesheet">
+    <link href="~/Content/css/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="~/Content/css/dataTables.responsive.css" rel="stylesheet">
+    <link href="~/Content/css/dataTables.tableTools.min.css" rel="stylesheet">
+    <link href="~/Content/css/animate.css" rel="stylesheet">
+    <link href="~/Content/css/style.css" rel="stylesheet">
+    <link href="~/Content/css/chosen.css" rel="stylesheet">
+    <link href="~/Content/css/switchery.css" rel="stylesheet">
+    <link href="~/Content/css/fullcalendar.css" rel="stylesheet">
+    <link href="~/Content/css/toastr.css" rel="stylesheet" />
+    <link href="~/Content/css/fullcalendar.print.css" rel='stylesheet' media='print'>
+    <!-- CSS END -->
+    @System.Web.Optimization.Scripts.Render("~/bundles/CommanJs")
+    <script src="~/Scripts/js/toastr.js"></script>
+    <script src="~/Scripts/js/jquery.validate.min.js"></script>
+    <script src="~/Scripts/js/jquery.validate.unobtrusive.min.js"></script>
+    <style>
+        body {
+            background-image: url('/Content/image/bg.jpg');
+            background-position: bottom center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+
+        span.field-validation-error {
+            float: right;
+            color: red;
+        }
+    </style>
+</head>
+
+<body class="white-bg">
+    @RenderBody()
+</body>
+
+</html>

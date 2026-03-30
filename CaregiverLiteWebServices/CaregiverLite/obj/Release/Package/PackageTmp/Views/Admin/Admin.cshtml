@@ -1,0 +1,615 @@
+﻿
+@{
+    ViewBag.Title = "Office Manager";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .btn-round {
+        border-radius: 50%; /* Make the button round */
+        padding: 10px;
+        background-color: #f1f1f1; /* Button background */
+        border: none;
+        width: 37px;
+        height: 37px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .items-badge {
+        /*align-self: flex-start;
+        border-radius: 6px;
+        background-color: #fff;
+        color: #1b4066;
+        padding: 5px 7px;
+        font: 600 12px Open Sans, sans-serif;
+        border: 1px solid #1b4066;*/
+
+        align-self: flex-start;
+        border-radius: 18px;
+        color: #239450;
+        padding: 6px 10px;
+        font: 600 12px Open Sans, sans-serif;
+        background-color: #D4FFE8;
+    }
+
+
+
+    .items-badgeInActive {
+        align-self: flex-start;
+        border-radius: 18px;
+        color: #E24B4B;
+        padding: 6px 10px;
+        font: 600 12px Open Sans, sans-serif;
+        background-color: #FFDEDE;
+    }
+
+    /*select {
+        background-color: #ffffffa3 !important;
+    }*/
+     .AdminCssbtn {
+      
+       margin-top: 5px;width: 100%;border-radius: 4px;background-color:#FFFFFF !important;border: 1px solid #1B4066;color: #1B4066;font-weight: bold;text-transform: none;letter-spacing: 0px;
+    }
+
+        .AdminCssbtn:hover {
+            background-color: #092C44 !important;
+            color: white !important;
+        }
+
+
+    .toggle-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: -27px;
+    }
+
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 48px; /* reduced width */
+        height: 24px; /* reduced height */
+        margin-left: 66%;
+    }
+
+        .switch input {
+            display: none;
+        }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.4s;
+        border-radius: 28px; /* adjusted to match new height */
+    }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px; /* adjusted height */
+            width: 18px; /* adjusted width */
+            left: 4px; /* adjusted position */
+            bottom: 3px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+    input:checked + .slider {
+        background-color: #4CAF50;
+    }
+
+        input:checked + .slider:before {
+            transform: translateX(22px); /* adjusted translation */
+        }
+
+    #toggleText {
+        font-weight: 700;
+        margin-top: -7px;
+        font-size: 13px;
+    }
+
+    .cancelbtn {
+        background-color: #e6f4ea;
+        color: #1d9b6c;
+        border: 1px solid;
+        border-radius: 4px;
+        height: 40px;
+        font-weight: bold;
+    }
+
+        .cancelbtn:hover {
+            background-color: #d1ecd9;
+        }
+
+    .confirmbtn {
+        background-color: #f4e6e6;
+        color: #d93025;
+        border: 1px solid;
+        border-radius: 4px;
+        height: 40px;
+        font-weight: bold;
+    }
+
+        .confirmbtn:hover {
+            background-color: #ebd2d2;
+        }
+
+
+    .cancelbtnActive {
+        background-color: #e6f4ea;
+        color: #1d9b6c;
+        border: 1px solid;
+        border-radius: 4px;
+        height: 40px;
+        font-weight: bold;
+    }
+
+        .cancelbtnActive:hover {
+            background-color: #d1ecd9;
+        }
+
+    .confirmbtnActive {
+        background-color: #f4e6e6;
+        color: #d93025;
+        border: 1px solid;
+        border-radius: 4px;
+        height: 40px;
+        font-weight: bold;
+    }
+
+        .confirmbtnActive:hover {
+            background-color: #ebd2d2;
+        }
+</style>
+<!-- ADD OfficeAdmin POPUP START -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" id="modalAddPopup">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">@CaregiverLite.Views.Resources.Admin.ButtonAddOfficeAdmin</h4>
+            </div>
+            <div class="modal-body row" id="AddOfficeAdmin">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- EDIT OfficeAdmin POPUP START -->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" id="modalEditPopup">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">@CaregiverLite.Views.Resources.Admin.ButtonEditOfficeAdmin</h4>
+                <div class="toggle-container">
+                    <label class="switch">
+                        <input type="checkbox" id="toggleSwitch">
+                        <span class="slider"></span>
+                    </label>
+                    <span id="toggleText">Active</span>
+                </div>
+
+            </div>
+            <div class="modal fade" id="ConfirmationModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm" id="modalAddPopup">
+                    <div class="modal-content" id="deleteModal" style="width: 366px;    height: 141px;    border-radius: 8px;    bottom: -151px;">
+                        <p style="padding:23px 59px 0px 40px; margin-left:-22px; font-style: normal; font-size: 15px;"><strong style="font-weight: 800; color: #1B4066;">Are you sure you want to inactive this Caregiver ?</strong></p>
+                        <button class="cancelbtn" style="margin-left: 43%;">No, Go Back</button>
+                        <button class="confirmbtn">Yes, Inactive</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="ConfirmationModelActive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm" id="modalAddPopup">
+                    <div class="modal-content" id="deleteModal" style="width: 366px;    height: 141px;    border-radius: 8px;    bottom: -151px;">
+                        <p style="padding:23px 59px 0px 40px; margin-left:-22px; font-style: normal; font-size: 15px;"><strong style="font-weight: 800; color: #1B4066;">Are you sure you want to active this Caregiver ?</strong></p>
+                        <button class="confirmbtnActive" style="margin-left: 43%;">No, Go Back</button>
+                        <button class="cancelbtnActive">Yes, active</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body row" id="EditPanel">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ADD Group(s) POPUP START -->
+<div class="modal fade" id="modalGroupAssignment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Assign Patient Chat Room(s)</h4>
+            </div>
+            <div class="modal-body row" id="AssignGroupToAdmin">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight containerstyle">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title" style="height: 88px ">
+                    @*<h5 style="font-size: 14px;margin: 0 0 22px 7px;padding: 0;text-overflow: ellipsis;float: left;width: 100%;">@CaregiverLite.Views.Resources.Admin.HeaderOfficeAdminList</h5>
+                        <div class="ibox-tools" style="float:left">
+                            <a class="btn btn-xs CutomButton" style="margin-top:-9px;" href="javascript:;" onclick="OpenAddNew()">@CaregiverLite.Views.Resources.Admin.ButtonAddOfficeAdmin</a>
+                            <div class="clearfix"></div>
+                        </div>*@
+                    <div class="row" style="margin-top: 17px;text-align:start;">
+                        <div class="col-md-6">
+                            <span id="AdminHeader" style="font-size:15px;color:#1B1B1C;font-weight:800">
+                                Office Manager
+                            </span>
+                        </div>
+                        <div class="col-md-6" style="text-align:end;">
+                            <a class="btn btn-xs CutomButton" style="margin-top: -10px;float: right;background-color: #092C44;color: white;padding: 10px;height: 42px;font-size: 14px;" href="javascript:;" onclick="OpenAddNew()">
+                                <img src="http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Content/image/AddIcon.svg" alt="Add ">
+                                <span style="margin-left: 3px;">Add Office Manager</span>
+
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        @if (ViewContext.Controller.HasRoles("SuperAdmin") || ViewContext.Controller.IsSysAdmin())
+                        {
+
+                            <div class="form-group col-md-2">
+                                <label>Organisation:</label>
+                                <br />
+
+                                @Html.DropDownList("ddFilterOrganisation", (System.Web.Mvc.SelectList)ViewBag.lstOrganisations, "All", new { @class = "form-control customdropDown", onchange = "Filtration();",  @style = "border: 1px solid #b6b2b2 !important;    border-radius: 4px !important;  margin-top:8px" })
+
+                            </div>
+                        }
+
+                        <div class="form-group col-md-2">
+                            <label>Office:</label>
+                            </br>
+
+                            @Html.DropDownList("ddFilterOffice", (System.Web.Mvc.SelectList)ViewBag.lstOffice, "All", new { @class = "form-control customdropDown", onchange = "Filtration();", @style = "border: 1px solid #b6b2b2 !important;    border-radius: 4px !important; margin-top:8px" })
+                        </div>
+                        <div class="form-group col-md-2">
+                            <div style="margin-top: 30px;">
+                                <button title="Clear Filters" class="btn btn-round" id="Clearbtn" onclick="RemoveFiltration()">
+                                    <img id="ClearIcon" src="http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Content/image/ClearFilter.png" alt="Refresh Icon">
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    @*	<div class="form-group">
+                            <label></label>
+                            <div class="input-group pull-right margin-25">
+                                <a href="javascript:;" class="btn btn-sm btn-primary" onclick="RemoveFiltration();">Remove Filter</a>
+                            </div>
+                            <div class="input-group pull-right margin-25" style="margin-right: 10px;">
+                                <a href="javascript:;" class="btn btn-sm btn-primary" onclick="Filtration();">Filter</a>
+                            </div>
+
+                            <div class="clearfix"></div>
+                        </div>  *@
+
+                    <table id="myDataTable" class="table table-striped table-bordered table-hover dataTables-example">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>@CaregiverLite.Views.Resources.Admin.TableHeaderFirstName</th>
+                                <th>@CaregiverLite.Views.Resources.Admin.TableHeaderLastName</th>
+                                <th>@CaregiverLite.Views.Resources.Admin.TableHeaderUserName</th>
+                                <th>@CaregiverLite.Views.Resources.Admin.TableHeaderEmail</th>
+                                <th>Office(s)</th>
+                                <th>Assign Group</th>
+                                <th style="width: 100px;">@CaregiverLite.Views.Resources.Admin.TableHeaderAction</th>
+                                <th>UserStatus</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/js/jquery-2.1.1.js"></script>
+<script src="~/Scripts/js/jquery.dataTables.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="~/Scripts/js/oms.min.js"></script>
+<script type="text/javascript">
+
+
+    var tempMsg = '@TempData["Message"]';
+    if (tempMsg != "")
+        toastr.success(tempMsg);
+
+    var oTable;
+    $(document).ready(function () {
+      
+        $("#loading").show();
+        var jquey = jQuery.noConflict();
+        oTable = $('#myDataTable').DataTable({
+            responsive: true,
+            "dom": 'lfrtip',
+            "bPaginate": true,
+            "bServerSide": true,
+            "bSortable": true,
+            "sPaginationType": "full_numbers",
+            "oLanguage": {
+                "sProcessing": "<div class=\"loading\" id=\"loading\" style=\"display: block;\"></div>"
+            },
+            "processing": true,
+            "sAjaxSource": "GetAdminList",
+            "fnServerData": function (sSource, aoData, fnCallback) {
+                $.getJSON(sSource, aoData, function (json) {
+                    fnCallback(json);
+                }).fail(function (jqxhr, textStatus, error) {
+                    window.location.reload();
+                });
+            },
+            "fnServerParams": function (aoData) {
+                aoData.push({ "name": "FilterOfficeId", "value": $('#ddFilterOffice option:selected').val() });
+				aoData.push({ "name": "FilterOrganisationId", "value": $('#ddFilterOrganisation option:selected').val() });
+
+            },
+            "fnDrawCallback": function (oSettings) {
+                //Navigation validation
+                var rowsPerPage = this.fnSettings()._iDisplayLength;
+                var rowsToShow = this.fnSettings().fnRecordsDisplay();
+                var table = $('#myDataTable').DataTable();
+                var info = table.page.info();
+                var currentPageNo = info.page + 1;
+                $("#AdminHeader").text("");
+                $("#AdminHeader").text("Office Manager  (" + rowsToShow + ")");
+                $('#myDataTable tbody td').css('height', '40px');
+
+
+
+                $('#myDataTable_filter input ').css({ 'border-radius': '5px', 'height': '36px' });
+                $('#myDataTable_wrapper select ').css({ 'margin-top': '10px', 'border-radius': '5px', 'margin-bottom': '10px' });
+                $('#myDataTable_filter label').contents().filter(function () {
+                    return this.nodeType === 3; // This checks for text nodes
+                }).remove();
+
+                var searchInput = $('#myDataTable_filter input');
+                searchInput.wrap('<div class="search-container" style="position: relative; display: inline-block; width: 100%;"></div>'); // Wrap the search input
+                searchInput.css({
+                    'padding-right': '30px' // Add padding to the right to make space for the icon
+                });
+                searchInput.after('<img src="http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Content/image/SearchIcon.png" class="search-icon" id="SearchIcon" alt="Search Icon" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;">');
+
+                $("#loading").hide();
+            },
+            "responsive": {
+                "details": {
+                    "type": 'column'
+                }
+            },
+            "aoColumns": [
+                            {
+                                className: 'control',
+                                "bSortable": false,
+                                targets: 0,
+                                "mRender": function (oObj) {
+                                    return '';
+                                }
+                            },
+                            {
+                                "sName": "FirstName",
+                                "mRender": function (oObj) {
+                                    return '<span>' + oObj["FirstName"] + '</span>';
+                                }
+                            },
+                            {
+                                "sName": "LastName",
+                                "mRender": function (oObj) {
+                                    return oObj["LastName"];
+                                }
+                            },
+                            {
+                                "sName": "UserName",
+                                "mRender": function (oObj) {
+                                    return oObj["UserName"];
+                                }
+                            },
+                            {
+                                "sName": "Email",
+                                "mRender": function (oObj) {
+                                    return oObj["Email"];
+                                }
+                            },
+                                 {
+                                     "sName": "OfficeName",
+                                     "mRender": function (oObj) {
+
+                                         if (oObj["OfficeName"] == '') {
+                                             return '-';
+                                         }
+
+                                         var OfficeNames = oObj["OfficeName"];
+                                         OfficeNames = OfficeNames.replace(/,/g, '<br>');
+
+                                         // return oObj["OfficeName"];
+                                         return OfficeNames;
+                                     }
+                                 },
+
+                             {
+                                 "sName": "OfficeAdminId",
+                                 "bSortable": false,
+                                 "mRender": function (oObj) {
+                                     var actionhtml = '';
+                                     actionhtml += '<a href="javascript:;" class="btn btn-xs btn-primary AdminCssbtn"  onclick="OpenAssignGroupModal(\'' + oObj["UserId"] + '\' , \'' + oObj["FirstName"] + '\',\'' + oObj["LastName"] + '\',\'' + oObj["QuickBloxId"] + '\',\'' + oObj["Email"] + '\');">Assign Patient Chat Room</a>'
+                                     return actionhtml;
+                                 }
+                             },
+                             {
+                                 "sName": "OfficeAdminId",
+                                 "bSortable": false,
+                                 "mRender": function (oObj) {
+                                     var actionhtml = '';
+                                     @*actionhtml += '<a href="javascript:;" class="btn btn-xs btn-danger" style="margin-top:5px; width:100%;" onclick="DeleteAdmin(\'' + oObj["AdminId"] + '\',\'' + oObj["UserName"] + '\');">@CaregiverLite.Views.Resources.CareGiver.ButtonDelete</a>'
+                                     actionhtml += '<a href="javascript:;" class="btn btn-xs btn-primary" style="margin-top:5px; width:100%;" onclick="EditAdmin(\'' + oObj["AdminId"] + '\');">@CaregiverLite.Views.Resources.CareGiver.ButtonEditProfile</a>'*@
+                                     actionhtml += '<a href="javascript:;" title="Edit"   style="margin-top:5px;margin-left:17px; width:100%;height: 15px;width: 15px;" onclick="EditAdmin(\'' + oObj["AdminId"] + '\');"><img src="http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Content/image/EditIcon.png" alt="Edir Icon"></a>';
+                                     actionhtml += '<a href="javascript:;"  title="Delete"   style="margin-top:5px;margin-left:28px; width:100%;height: 15px;width: 15px;" onclick="DeleteAdmin(\'' + oObj["AdminId"] + '\',\'' + oObj["UserName"] + '\' );"><img src="http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Content/image/DeleteIcon.png" alt="Delete Icon"> </a>';
+
+                                     return actionhtml;
+                                 }
+                },
+                {
+                    "sname": "IsActive",
+                    "bsortable": false,
+                    "mRender": function (oObj) {
+
+                        if (oObj["IsActive"] != "False") {
+
+
+                            return '<span class="items-badge">Active</span>'
+
+                        }
+                        else {
+                            return '<span class="items-badgeInActive">InActive</span>'
+                        }
+                        //  return oObj["IsActive"];
+
+                    }
+                }
+                            //{
+                            //    "sName": "OfficeAdminId",
+                            //    "bSortable": false,
+                            //    "mRender": function (oObj) {
+                            //        var actionhtml = '';
+                            //        actionhtml += '<a href="javascript:;" class="btn btn-xs btn-primary" style="margin-top:5px; width:100%;" onclick="OpenAssignGroupModal(\'' + oObj["UserId"] + '\' , \'' + oObj["FirstName"] + '\',\'' + oObj["LastName"] + '\',\'' + oObj["QuickBloxId"] + '\',\'' + oObj["Email"] + '\');">Assign Group</a>'
+                            //        return actionhtml;
+                            //    }
+                            //}
+            ]
+        });
+
+        $('#myDataTable_filter input').unbind(); //Unbind direct search on each keypress
+        $('#myDataTable_filter input').bind('keyup', function (e) { //Bind Keyup event that filter data only on "Enter" key.
+            if (e.keyCode == 13) {
+                oTable.search(this.value).draw();
+            }
+        });
+        /* Init DataTables */
+        $('.carousel').carousel({
+            interval: false
+        });
+
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': { allow_single_deselect: true },
+            '.chosen-select-no-single': { disable_search_threshold: 10 },
+            '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+            '.chosen-select-width': { width: "95%" }
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+
+        $("#loading").hide();
+    });
+
+
+
+    function OpenAddNew() {
+        $("#loading").show();
+
+        $('#AddOfficeAdmin').load(INITURL + 'Admin/AddAdmin', function () {
+           sessionStorage.setItem("PartialView", "1");
+            $('#myModal').modal('show');
+
+            $("#loading").hide();
+        });
+    }
+
+
+    function EditAdmin(adminid) {
+        //debugger;
+        $("#loading").show();
+        $('#EditPanel').load(INITURL + '/Admin/EditAdmin/' + adminid, function () {
+            sessionStorage.setItem("PartialView", "1");
+            $('#myModal2').modal('show');
+            $("#loading").hide();
+        });
+    }
+
+    function DeleteAdmin(adminid, username) {
+
+        if (confirm('Are you sure you want to delete Office Manager?')) {
+            $("#loading").show();
+            var url = INITURL + '/Admin/DeleteAdmin';
+
+            $.ajax({
+                url: url,
+                data: { AdminId: adminid, UserName: username },
+                cache: false,
+                type: 'POST',
+                async: false,
+                success: function (data) {
+                    if (data == "Success") {
+                        window.location = INITURL + '/Admin/Admin';
+                    }
+                    $("#loading").hide();
+                },
+                error: function (reponse) {
+                    alert("error : " + reponse);
+                    $("#loading").hide();
+                }
+            });
+        }
+    }
+
+    function OpenAssignGroupModal(userid, FirstName, LastName, quickbloxid, email) {
+        $("#loading").show();
+        debugger;
+        var name = FirstName + ' ' + LastName;
+        var url = INITURL + 'Admin/AssignGroup?UserId=' + userid + '&Name=' + name + '&QuickBloxId=' + quickbloxid + '&Email=' + email;
+        $('#AssignGroupToAdmin').load(encodeURI(url), function () {
+            sessionStorage.setItem("PartialView", "1");
+            $('#modalGroupAssignment').modal('show');
+            $("#loading").hide();
+        });
+    }
+
+
+
+    function RemoveFiltration() {
+        $('#ddFilterOffice').val("");
+        oTable.search($('#myDataTable').val()).draw();
+    }
+
+    function Filtration() {
+
+        oTable.search($('#myDataTable').val()).draw();
+    }
+    $('#Clearbtn').mouseover(function () {
+        $('#ClearIcon').attr('src', 'http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Content/image/ClearBluebtn.png'); // Change to your hover image
+    });
+
+    // Revert image on mouseout
+    $('#Clearbtn').mouseout(function () {
+        $('#ClearIcon').attr('src', 'http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Content/image/ClearFilter.png'); // Revert to original image
+    });
+
+    $(document).on('click', '#SearchIcon', function (event) {
+        event.stopPropagation();  // Prevents the outer div's click event
+        var query = $('#myDataTable_filter input').val(); // Get the value from the search input
+        $('#myDataTable').DataTable().search(query).draw(); // Trigger the DataTable search
+
+    });
+</script>

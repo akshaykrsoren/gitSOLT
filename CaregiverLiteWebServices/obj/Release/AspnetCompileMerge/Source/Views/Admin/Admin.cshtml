@@ -1,0 +1,260 @@
+﻿
+@{
+    ViewBag.Title = "Office Manager";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- ADD OfficeAdmin POPUP START -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" id="modalAddPopup">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">@CaregiverLite.Views.Resources.Admin.ButtonAddOfficeAdmin</h4>
+            </div>
+            <div class="modal-body row" id="AddOfficeAdmin">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- EDIT OfficeAdmin POPUP START -->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" id="modalEditPopup">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">@CaregiverLite.Views.Resources.Admin.ButtonEditOfficeAdmin</h4>
+            </div>
+            <div class="modal-body row" id="EditPanel">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>@CaregiverLite.Views.Resources.Admin.HeaderOfficeAdminList</h5>
+                    <div class="ibox-tools">
+                        <a class="btn btn-xs btn-primary" style="margin-top:-9px;" href="javascript:;" onclick="OpenAddNew()">@CaregiverLite.Views.Resources.Admin.ButtonAddOfficeAdmin</a>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <table id="myDataTable" class="table table-striped table-bordered table-hover dataTables-example">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>@CaregiverLite.Views.Resources.Admin.TableHeaderFirstName</th>
+                                <th>@CaregiverLite.Views.Resources.Admin.TableHeaderLastName</th>
+                                <th>@CaregiverLite.Views.Resources.Admin.TableHeaderUserName</th>
+                                <th>@CaregiverLite.Views.Resources.Admin.TableHeaderEmail</th>
+                                <th>Office(s)</th>
+                                <th style="width: 100px;">@CaregiverLite.Views.Resources.Admin.TableHeaderAction</th>
+                                @*<th>Assign Group</th>*@
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/js/jquery-2.1.1.js"></script>
+<script src="~/Scripts/js/jquery.dataTables.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="~/Scripts/js/oms.min.js"></script>
+<script type="text/javascript">
+
+
+    var tempMsg = '@TempData["Message"]';
+    if (tempMsg != "")
+        toastr.success(tempMsg);
+
+    var oTable;
+    $(document).ready(function () {
+
+        $("#loading").show();
+        var jquey = jQuery.noConflict();
+        oTable = $('#myDataTable').dataTable({
+            responsive: true,
+            "dom": 'lfrtip',
+            "bPaginate": true,
+            "bServerSide": true,
+            "bSortable": true,
+            "sPaginationType": "full_numbers",
+            "oLanguage": {
+                "sProcessing": "<div class=\"loading\" id=\"loading\" style=\"display: block;\"></div>"
+            },
+            "processing": true,
+            "sAjaxSource": "GetAdminList",
+            "fnServerData": function (sSource, aoData, fnCallback) {
+                $.getJSON(sSource, aoData, function (json) {
+                    fnCallback(json);
+                }).fail(function (jqxhr, textStatus, error) {
+                    window.location.reload();
+                });
+            },
+            "fnDrawCallback": function (oSettings) {
+                //Navigation validation
+                var rowsPerPage = this.fnSettings()._iDisplayLength;
+                var rowsToShow = this.fnSettings().fnRecordsDisplay();
+                var table = $('#myDataTable').DataTable();
+                var info = table.page.info();
+                var currentPageNo = info.page + 1;
+                $("#loading").hide();
+            },
+            "responsive": {
+                "details": {
+                    "type": 'column'
+                }
+            },
+            "aoColumns": [
+                            {
+                                className: 'control',
+                                "bSortable": false,
+                                targets: 0,
+                                "mRender": function (oObj) {
+                                    return '';
+                                }
+                            },
+                            {
+                                "sName": "FirstName",
+                                "mRender": function (oObj) {
+                                    return '<span>' + oObj["FirstName"] + '</span>';
+                                }
+                            },
+                            {
+                                "sName": "LastName",
+                                "mRender": function (oObj) {
+                                    return oObj["LastName"];
+                                }
+                            },
+                            {
+                                "sName": "UserName",
+                                "mRender": function (oObj) {
+                                    return oObj["UserName"];
+                                }
+                            },
+                            {
+                                "sName": "Email",
+                                "mRender": function (oObj) {
+                                    return oObj["Email"];
+                                }
+                            },
+                                 {
+                                     "sName": "OfficeName",
+                                     "mRender": function (oObj) {
+
+                                         if (oObj["OfficeName"] == '') {
+                                             return '-';
+                                         }
+
+                                         var OfficeNames = oObj["OfficeName"];
+                                         OfficeNames = OfficeNames.replace(/,/g, '<br>');
+
+                                         // return oObj["OfficeName"];
+                                         return OfficeNames;
+                                     }
+                                 },
+                            {
+                                "sName": "OfficeAdminId",
+                                "bSortable": false,
+                                "mRender": function (oObj) {
+                                    var actionhtml = '';
+                                    actionhtml += '<a href="javascript:;" class="btn btn-xs btn-danger" style="margin-top:5px; width:100%;" onclick="DeleteAdmin(\'' + oObj["AdminId"] + '\',\'' + oObj["UserName"] + '\');">@CaregiverLite.Views.Resources.CareGiver.ButtonDelete</a>'
+                                    actionhtml += '<a href="javascript:;" class="btn btn-xs btn-primary" style="margin-top:5px; width:100%;" onclick="EditAdmin(\'' + oObj["AdminId"] + '\');">@CaregiverLite.Views.Resources.CareGiver.ButtonEditProfile</a>'
+                                    return actionhtml;
+                                }
+                            },
+                            //{
+                            //    "sName": "OfficeAdminId",
+                            //    "bSortable": false,
+                            //    "mRender": function (oObj) {
+                            //        var actionhtml = '';
+                            //        actionhtml += '<a href="javascript:;" class="btn btn-xs btn-primary" style="margin-top:5px; width:100%;" onclick="OpenAssignGroupModal(\'' + oObj["UserId"] + '\' , \'' + oObj["FirstName"] + '\',\'' + oObj["LastName"] + '\',\'' + oObj["QuickBloxId"] + '\',\'' + oObj["Email"] + '\');">Assign Group</a>'
+                            //        return actionhtml;
+                            //    }
+                            //}
+            ]
+        });
+
+        $('#myDataTable_filter input').unbind(); //Unbind direct search on each keypress
+        $('#myDataTable_filter input').bind('keyup', function (e) { //Bind Keyup event that filter data only on "Enter" key.
+            if (e.keyCode == 13) {
+                oTable.fnFilter(this.value);
+            }
+        });
+        /* Init DataTables */
+        $('.carousel').carousel({
+            interval: false
+        });
+
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': { allow_single_deselect: true },
+            '.chosen-select-no-single': { disable_search_threshold: 10 },
+            '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+            '.chosen-select-width': { width: "95%" }
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+
+        $("#loading").hide();
+    });
+
+
+
+    function OpenAddNew() {
+        $("#loading").show();
+
+        $('#AddOfficeAdmin').load(INITURL + 'Admin/AddAdmin', function () {
+           sessionStorage.setItem("PartialView", "1");
+            $('#myModal').modal('show');
+
+            $("#loading").hide();
+        });
+    }
+
+
+    function EditAdmin(adminid) {
+        //debugger;
+        $("#loading").show();
+        $('#EditPanel').load(INITURL + '/Admin/EditAdmin/' + adminid, function () {
+            sessionStorage.setItem("PartialView", "1");
+            $('#myModal2').modal('show');
+            $("#loading").hide();
+        });
+    }
+
+    function DeleteAdmin(adminid, username) {
+        if (confirm('Are you sure you want to delete Office Manager?')) {
+            $("#loading").show();
+            var url = INITURL + '/Admin/DeleteAdmin';
+
+            $.ajax({
+                url: url,
+                data: { AdminId: adminid, UserName: username },
+                cache: false,
+                type: 'POST',
+                async: false,
+                success: function (data) {
+                    if (data == "Success") {
+                        window.location = INITURL + '/Admin/Admin';
+                    }
+                    $("#loading").hide();
+                },
+                error: function (reponse) {
+                    alert("error : " + reponse);
+                    $("#loading").hide();
+                }
+            });
+        }
+    }
+
+</script>

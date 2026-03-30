@@ -1,0 +1,242 @@
+﻿@model CaregiverLite.Models.ManualEntryModel
+
+
+<style>
+    #popupdiv label {
+        color: #055175;
+    }
+
+    .signature-section {
+        flex: 1;
+        /*border: 1px solid #ccc;*/
+        /*border-radius: 8px;*/
+        padding: 20px;
+        /*background-color: #f9f9f9;*/
+    }
+   
+</style>
+
+
+@using (Html.BeginForm("ShowManualDetails", "PatientRequest", FormMethod.Post, new { @id = "fmManualEntryDetails", @class = "horizontal-form", @enctype = "multipart/form-data" }))
+{
+<div id="main_div" class="Main_detail_div">
+
+
+
+    <div class="alert alert-danger alert-dismissable" style="display:none" id="dvError3">
+        <button onclick="divClose();" class="close" type="button">×</button>
+        <label id="lblError3"></label>
+    </div>
+
+
+
+    <div class="row" id="popupdiv">
+        <div class="col-md-4">
+            <div class="form-group" style="padding-left:30px">
+                <div>
+                    <label>Patient Name  </label>
+                </div>
+                <div>
+                    <span>@Html.DisplayFor(model => model.PatientName)</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <div>
+                    <label>Caregiver Name </label>
+                </div>
+                <div>
+                    <span>@Html.DisplayFor(model => model.NurseName)</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group" style="padding-right:20px">
+                <div>
+                    <label>Office </label>
+                </div>
+                <div>
+                    <span>@Html.DisplayFor(model => model.OfficeName)</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mt-4">
+            <div class="form-group" style="padding-left:30px">
+                <div>
+                    <label>Submission Date </label>
+                </div>
+                <div>
+                    <span>@Html.DisplayFor(model => model.InsertedDateTime)</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4  mt-4">
+            <div class="form-group" style="padding-right:20px">
+                <div>
+                    <label>Appointment Date </label>
+                </div>
+                <div>
+                    <span>@Html.DisplayFor(model => model.AppointmentDate)</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4  mt-4">
+            <div class="form-group" style="padding-right:20px">
+                <div>
+                    <label>Status</label>
+                </div>
+                <div id="Stat">
+                    <span>@Html.DisplayFor(model => model.Status)</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row" id="popupdiv">
+        @if (!string.IsNullOrWhiteSpace(Model.StartDrivingDateTime))
+        {
+            <div class="col-md-4  mt-4">
+                <div class="form-group" style="padding-left:30px">
+                    <div>
+                        <label>Start Driving Date & Time</label>
+                    </div>
+                    <div>
+                        <span>@Html.DisplayFor(model => model.StartDrivingDateTime)</span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-4 mt-4">
+                <div class="form-group">
+                    <div>
+                        <label>Stop Driving Date & Time</label>
+                    </div>
+                    <div>
+                        <span>@Html.DisplayFor(model => model.StopDrivingDateTime)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4  mt-4">
+                <div class="form-group" style="padding-right:20px">
+                    <div>
+                        <label>Total Traveling Distanced</label>
+                    </div>
+                    <div>
+                        <span>@Html.DisplayFor(model => model.Miles)</span>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="col-md-4  mt-4">
+            <div class="form-group" style="padding-left:30px">
+                <div>
+                    <label>Check-In Date & Time  </label>
+                </div>
+                <div>
+                    <span>@Html.DisplayFor(model => model.CheckInDateTime)</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4  mt-4">
+            <div class="form-group">
+                <div>
+                    <label>Check-Out Date & Time  </label>
+                </div>
+                <div>
+                    <span>@Html.DisplayFor(model => model.CheckOutDateTime)</span>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+    <div class="row" id="popupdiv">
+        <div class="col-md-12 mt-4">
+            <div class="form-group" style="padding-left:30px;padding-right:20px">
+                <div>
+                    <label>Reason of manual entry</label>
+                </div>
+                <div>
+                    <span>@Html.DisplayFor(model => model.ReasonForManualEntry)</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    @if (!string.IsNullOrEmpty(Model.ImagePath))
+    {
+        <div class="col-md-6">
+            <div class="signature-section">
+                <h3>Signature</h3>
+                @*<canvas id="signatureCanvas">*@
+
+                <img src=@Model.ImagePath id="PatientSign" width="200" style="border: 1px solid grey; width: 181px;" />
+                @*</canvas>*@
+            </div>
+        </div>
+
+    }
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    @*@if(ViewBag.Status == "Pending Approval")
+        {*@
+    @*<div class="col-md-12 text-center">
+        <button type="button" id="btn" name="R" onclick="Save(this)" class="btn" style="border-radius: 4px;background-color:#ee5d5d; color:white">REJECT</button>
+        <button type="button" id="btn" name="A" onclick="Save(this)" class="btn" style="border-radius: 4px;background-color:#47E8B7; color:white">APPROVE</button>
+        <div class="clearfix"></div>
+    </div>*@
+
+
+
+
+
+}
+
+
+
+<script>
+
+    $(document).ready(function()
+    {
+    debugger;
+    var statusCheck=@Html.Raw(Json.Encode(@ViewBag.Status));
+
+        if(statusCheck=='Approved')
+        {
+            $("#Stat").css("color", "#1dca75");
+        }
+        else
+        {
+            $("#Stat").css("color", "#ee5d5d");
+
+        }
+
+     
+
+
+    });
+
+
+
+
+</script>
+
+

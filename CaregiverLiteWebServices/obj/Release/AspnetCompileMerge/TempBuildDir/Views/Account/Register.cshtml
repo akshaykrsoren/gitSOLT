@@ -1,0 +1,370 @@
+﻿@model CaregiverLite.Models.CareGiverModel
+@{
+    ViewBag.Title = @CaregiverLite.Views.Resources.Account.TitleLogin;
+    Layout = "~/Views/shared/_LoginLayout.cshtml";
+}
+<style>
+    .custom-checkbox {
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        position: relative;
+        z-index: 1;
+        top: 3px;
+        background: url("../image/checkbox.png") no-repeat;
+        cursor: pointer;
+    }
+
+        .custom-checkbox.selected {
+            background: url("../image/checkbox-selected.png") no-repeat;
+        }
+
+        .custom-checkbox input[type="checkbox"] {
+            margin: 0;
+            position: absolute;
+            z-index: 2;
+            cursor: pointer;
+            outline: none;
+            opacity: 0;
+        }
+</style>
+<div class="row">
+    <div class="col-md-6 col-md-offset-3" style="padding-top: 40px;">
+        <div style="background:#f5f5f5;padding:0 10px;border-radius:10px;">
+            <div class="row">
+                <h1 style="text-align:center;">@CaregiverLite.Views.Resources.Account.TitleLogin</h1>
+                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @id = "fmAddCareGiver", @class = "horizontal-form", @enctype = "multipart/form-data" }))
+                {
+                    <div class="alert alert-danger alert-dismissable" style="display:none" id="dvError3">
+                        <button onclick="divClose();" class="close" type="button">×</button>
+                        <label id="lblError3"></label>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>@CaregiverLite.Views.Resources.CareGiver.TableHeaderName</label>
+                            @Html.ValidationMessageFor(model => model.Name)
+                            @Html.TextBoxFor(model => model.Name, new { @type = "text", @maxlength = "100", @placeholder = @CaregiverLite.Views.Resources.CareGiver.PlaceHolderName, @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            <label>@CaregiverLite.Views.Resources.CareGiver.LabelHeaderServices</label>
+                            @Html.ValidationMessageFor(model => model.ServiceNames)
+                            <div class="form-group">
+                                @Html.DropDownList("ddlService", new MultiSelectList(@ViewBag.ServiceList, "ServiceId", "ServiceName"), new { @multiple = "multiple", @class = "chosen-select" })
+                                @Html.HiddenFor(model => model.ServiceNames, new { @id = "hdnServices" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>@CaregiverLite.Views.Resources.CareGiver.TableHeaderEmail</label>
+                            @Html.ValidationMessageFor(model => model.Email)
+                            @Html.TextBoxFor(model => model.Email, new { @type = "email", @maxlength = "100", @placeholder = @CaregiverLite.Views.Resources.CareGiver.PlaceHolderEmail, @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            <label>@CaregiverLite.Views.Resources.CareGiver.TableHeaderUserName</label>
+                            @Html.ValidationMessageFor(model => model.Username)
+                            @Html.TextBoxFor(model => model.Username, new { @type = "text", @maxlength = "256", @placeholder = @CaregiverLite.Views.Resources.CareGiver.PlaceHolderUserName, @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            <label>Complete Address (Enter Street, City & State)</label>
+                            @Html.ValidationMessageFor(model => model.Address)
+                            @Html.TextBoxFor(model => model.Address, new { @type = "text", @placeholder = @CaregiverLite.Views.Resources.CareGiver.PlaceHolderAddress, @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            <label>@CaregiverLite.Views.Resources.CareGiver.TableHeaderZipCode</label>
+                            @Html.ValidationMessageFor(model => model.ZipCode)
+                            @Html.TextBoxFor(model => model.ZipCode, new { @type = "text", @maxlength = "10", @placeholder = @CaregiverLite.Views.Resources.CareGiver.PlaceHolderZipCode, @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            <label>@CaregiverLite.Views.Resources.Account.PlaceHolderEducation</label>
+                            @Html.ValidationMessageFor(model => model.Education)
+                            <input type="password" style="display:none" />
+                            @Html.TextBoxFor(model => model.Education, new { @type = "text", @maxlength = "256", @placeholder = @CaregiverLite.Views.Resources.Account.PlaceHolderEducation, @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputFile">@CaregiverLite.Views.Resources.CareGiver.LabelPhotoUpload</label>
+                            @Html.ValidationMessageFor(model => model.ProfileImage)
+                            @Html.HiddenFor(model => model.ProfileImage, new { @id = "hdnProfileImage" })
+                            @Html.TextBoxFor(model => model.ProfileImageFile, new { @type = "file", @class = "form-control", @accept = "image/*" })
+                            @*<input type="file" name="ProfileImageFile" id="ProfileImageFile" /><br><br>*@
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputFile">@CaregiverLite.Views.Resources.CareGiver.LabelVideoUpload</label>
+                            @Html.ValidationMessageFor(model => model.ProfileVideo)
+                            @Html.HiddenFor(model => model.ProfileVideo, new { @id = "hdnProfileVideo" })
+                            @Html.TextBoxFor(model => model.ProfileVideoFile, new { @type = "file", @class = "form-control", @accept = "video/*" })
+                            @*<input type="file" name="ProfileImageFile" id="ProfileImageFile" /><br><br>*@
+                        </div>
+                        <div class="form-group">
+                            <label>@CaregiverLite.Views.Resources.CareGiver.TableHeaderHourRate</label>
+                            @Html.ValidationMessageFor(model => model.HoursRate)
+                            <div class="input-group" style="width:100%">
+                                <span class="input-group-addon">$</span>
+                                @Html.TextBoxFor(model => model.HoursRate, new { @type = "text", @maxlength = "6", @onkeypress = "return isNumberAndDot(event)", @placeholder = @CaregiverLite.Views.Resources.CareGiver.PlaceHolderHourRate, @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>@CaregiverLite.Views.Resources.CareGiver.TableHeaderPhone</label>
+                            @Html.ValidationMessageFor(model => model.Phone)
+                            <input type="text" style="display:none" />
+                            @Html.TextBoxFor(model => model.Phone, new { @type = "text", @autocomplete = "off", @maxlength = "100", @onkeypress = "return isNumber(event)", @placeholder = @CaregiverLite.Views.Resources.CareGiver.PlaceHolderPhone, @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            <label>@CaregiverLite.Views.Resources.CareGiver.TableHeaderPassword</label>
+                            @Html.ValidationMessageFor(model => model.Password)
+                            <input type="password" style="display:none" />
+                            @Html.TextBoxFor(model => model.Password, new { @type = "password", @maxlength = "256", @placeholder = @CaregiverLite.Views.Resources.CareGiver.PlaceHolderPassword, @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            <label>@CaregiverLite.Views.Resources.Account.PlaceHolderReTypePassword</label>
+                            @Html.ValidationMessageFor(model => model.RetypePassword)
+                            <input type="password" style="display:none" />
+                            @Html.TextBoxFor(model => model.RetypePassword, new { @type = "password", @maxlength = "256", @placeholder = @CaregiverLite.Views.Resources.Account.PlaceHolderReTypePassword, @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">@CaregiverLite.Views.Resources.CareGiver.LabelHeaderServiceRadius</label>
+                            @Html.ValidationMessageFor(model => model.ServiceRadius)
+                            @Html.HiddenFor(model => model.Latitude)
+                            @Html.HiddenFor(model => model.Longitude)
+
+                            @*<label class="radio-inline">
+                                    @Html.RadioButtonFor(model => model.ServiceRadius, "15", new { @value = "15", @type = "radio", @class = "radio-inline", @name = "inlineCheckbox" }) 15 Miles
+                                </label>
+                                <label class="radio-inline">
+                                    @Html.RadioButtonFor(model => model.ServiceRadius, "30", new { @value = "30", @type = "radio", @class = "radio-inline", @name = "inlineCheckbox" }) 30 Miles
+                                </label>
+                                <label class="radio-inline">
+                                    @Html.RadioButtonFor(model => model.ServiceRadius, "70", new { @value = "70", @type = "radio", @class = "radio-inline", @name = "inlineCheckbox" }) 70 Miles
+                                </label>*@
+                            @Html.DropDownListFor(model => model.ServiceRadius, ViewData["Radious"] as List<SelectListItem>, "Select service radius", new { @class = "form-control" })
+
+                        </div>
+                        <div class="form-group">
+                            <label></label>
+                            <div disabled>
+                                <label>
+                                    <span id="spCanEdit" class="custom-checkbox" style="width:auto">
+                                        <input onclick="changecheck();" id="chk" type="checkbox">
+                                        <span style="padding-left:30px">Admin can Edit profile</span>
+                                    </span>
+                                </label>
+                            </div>
+                            @Html.HiddenFor(model => model.CanAdminEdit)
+                        </div>
+                        <div class="form-group">
+                            <button type="button" onclick="Addnew()" class="btn btn-sm btn-primary pull-right">@CaregiverLite.Views.Resources.CareGiver.LabelHeaderRegister</button>
+                            <div class="clearfix"></div>
+                        </div>
+
+                    </div>
+
+
+                }
+
+            </div>
+            <div class="clearfix"></div>
+
+            <p class="m-t" style="padding-bottom:10px; text-align:center;"><a href="~/Account/Login">@CaregiverLite.Views.Resources.Account.ButtonLogIn</a> </p>
+        </div>
+    </div>
+</div>
+<style>
+    button.btn.btn-sm.btn-primary.pull-right {
+        margin: 20px 0 0 0;
+    }
+</style>
+<script type="text/javascript">
+    var latitude;
+    var longitude;
+
+
+    $.validator.setDefaults({
+        ignore: [],
+    });
+    $(document).ready(function () {
+        $("#loading").show();
+
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': { allow_single_deselect: true },
+            '.chosen-select-no-single': { disable_search_threshold: 10 },
+            '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+            '.chosen-select-width': { width: "95%" }
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+        $("#loading").hide();
+    });
+
+    function changecheck() {
+        $("#spCanEdit").toggleClass('selected');
+    }
+
+    function Addnew() {
+        $('#loading').show();
+
+        var canedit = $("#spCanEdit").hasClass("selected") == true ? true : false;
+        $("#CanAdminEdit").val(canedit);
+
+        var selectedValues = "";
+
+        $("#ddlService :selected").each(function () {
+            selectedValues += $(this).val() + ",";
+        });
+
+        $("#hdnServices").val(selectedValues);
+
+        if ($("#ProfileImageFile").val() != null && $("#ProfileImageFile").val() != "") {
+            $("#hdnProfileImage").val("Value");
+        }
+        GetLanLat();
+
+        var result = CheckUserName();
+        if (result == false) {
+            $("#dvError3").css("display", "");
+            $("#lblError3").html("User Name already exists");
+            $('#loading').hide();
+            return false;
+        }
+        else {
+
+            $("#dvError3").css("display", "none");
+        }
+
+        var result1 = CheckEmail();
+        if (result1 == false) {
+            $("#dvError3").css("display", "");
+            $("#lblError3").html("Email already exists");
+            $('#loading').hide();
+            return false;
+        }
+        else {
+            $("#dvError3").css("display", "none");
+        }
+        if ($(".radio-inline").find(":checked").val() == undefined) {
+            $("#radiobutton").css("padding", "20px 0px");
+        }
+        else {
+            $("#radiobutton").css("padding", "7px 0px");
+        }
+        $('#loading').hide();
+        $("#fmAddCareGiver").submit();
+    }
+
+    $(":radio").click(function (event) {
+        $("#radiobutton").css("padding", "7px 0px");
+    });
+
+    function isNumber(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
+    }
+
+    function GetLanLat() {
+        var Address = $("#Address").val();
+        var Pincode = $("#ZipCode").val();
+
+        $.ajax({
+            type: "GET",
+            url: "//maps.google.com/maps/api/geocode/json",
+            data: "address=" + Address + "&sensor=false",
+            async: false,
+            contentType: "text/plain; charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                if (result["status"] == "OK") {
+                    $("#Latitude").val(result["results"][0]["geometry"]["location"]["lat"]);
+                    $("#Longitude").val(result["results"][0]["geometry"]["location"]["lng"]);
+                    //alert(result["results"][0]["geometry"]["location"]["lat"]);
+                    //alert(result["results"][0]["geometry"]["location"]["lng"]);
+
+
+                }
+                else if (result.status === "ZERO_RESULTS") {
+                    Pincode = $("#PostalCode").val();
+                    //-------------------Only Pincode--------------------
+                    $.ajax({
+                        type: "GET",
+                        url: "//maps.google.com/maps/api/geocode/json",
+                        data: "address=" + Pincode + "&sensor=false",
+                        async: false,
+                        contentType: "text/plain; charset=utf-8",
+                        dataType: "json",
+                        success: function (result) {
+                            if (result["status"] == "OK") {
+                                $("#Latitude").val(result["results"][0]["geometry"]["location"]["lat"]);
+                                $("#Longitude").val(result["results"][0]["geometry"]["location"]["lng"]);
+
+                                //alert(result["results"][0]["geometry"]["location"]["lat"]);
+                                //alert(result["results"][0]["geometry"]["location"]["lng"]);
+                            }
+                            else {
+                                alert('Address is invalid');
+                            }
+                        }
+                    });
+                    //----------End Only Pincode-----------------------------
+                }
+            }
+        });
+        //----------End Pincode+Address----------------
+    }
+    $('#ddlService').val(2);
+    $('#ddlService').trigger("chosen:updated");
+
+    function CheckUserName() {
+        var url = INITURL + '/Account/IsUserNameExists';
+        var result;
+        $.ajax({
+            url: url,
+            data: { Username: $("#Username").val(), UserId: "" },
+            cache: false,
+            async: false,
+            type: 'POST',
+            success: function (data) {
+                result = data;
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+        return result;
+    }
+
+    function CheckEmail() {
+        var url = INITURL + '/Account/IsEmailExists';
+        var result;
+        $.ajax({
+            url: url,
+            data: { Email: $("#Email").val(), UserId: "" },
+            cache: false,
+            async: false,
+            type: 'POST',
+            success: function (data) {
+                result = data;
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+        return result;
+    }
+
+    function divClose() {
+        $("#dvError3").css("display", "none");
+    }
+
+    function isNumberAndDot(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode != 46) {
+            return false;
+        }
+        return true;
+    }
+</script>

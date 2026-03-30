@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="26d0228b-69df-4924-8849-1f6484e2a246" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:15268/CaregiverLiteService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="CaregiverLiteService.xsd" MetadataType="Schema" ID="ae49d027-17f4-4ee2-a01e-017cf6ffe431" SourceId="1" SourceUrl="http://localhost:15268/CaregiverLiteService.svc?xsd=xsd2" />
+    <MetadataFile FileName="CaregiverLiteService1.xsd" MetadataType="Schema" ID="bb24ea5b-3581-4357-a251-5908c259acc0" SourceId="1" SourceUrl="http://localhost:15268/CaregiverLiteService.svc?xsd=xsd4" />
+    <MetadataFile FileName="CaregiverLiteService.wsdl" MetadataType="Wsdl" ID="be08b2b2-c88d-4f96-8056-8ca874bc2380" SourceId="1" SourceUrl="http://localhost:15268/CaregiverLiteService.svc?wsdl" />
+    <MetadataFile FileName="CaregiverLiteService.disco" MetadataType="Disco" ID="842e1231-0127-4f2d-a2cb-b6ca16f5f050" SourceId="1" SourceUrl="http://localhost:15268/CaregiverLiteService.svc?disco" />
+    <MetadataFile FileName="CaregiverLiteService2.xsd" MetadataType="Schema" ID="ee06fe39-b677-4644-bc48-df36dfaa0b7c" SourceId="1" SourceUrl="http://localhost:15268/CaregiverLiteService.svc?xsd=xsd3" />
+    <MetadataFile FileName="CaregiverLiteService3.xsd" MetadataType="Schema" ID="0004bc80-c6fa-4c78-9bb3-de7827ed588d" SourceId="1" SourceUrl="http://localhost:15268/CaregiverLiteService.svc?xsd=xsd1" />
+    <MetadataFile FileName="CaregiverLiteService4.xsd" MetadataType="Schema" ID="09d512c5-5295-4d72-8e22-cc6dff676adc" SourceId="1" SourceUrl="http://localhost:15268/CaregiverLiteService.svc?xsd=xsd0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

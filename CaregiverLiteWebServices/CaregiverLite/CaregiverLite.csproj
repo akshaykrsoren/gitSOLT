@@ -1,0 +1,989 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{43CAB6FD-7AAD-468E-8B53-2565D716D25D}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CaregiverLite</RootNamespace>
+    <AssemblyName>CaregiverLite</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>0</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ClosedXML, Version=0.95.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClosedXML.0.95.4\lib\net40\ClosedXML.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DifferenzLibrary, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Bin\DifferenzLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.7.2.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.7.2\lib\net40\DocumentFormat.OpenXml.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPPlus, Version=4.1.0.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.1.0\lib\net40\EPPlus.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Excel, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Excel.1.0.0\lib\dotnet\Excel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ExcelNumberFormat, Version=1.0.10.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelNumberFormat.1.0.10\lib\net20\ExcelNumberFormat.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Hangfire.Core, Version=1.7.22.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hangfire.Core.1.7.22\lib\net45\Hangfire.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Hangfire.SqlServer, Version=1.7.22.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hangfire.SqlServer.1.7.22\lib\net45\Hangfire.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.4.369, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\ICSharpCode.SharpZipLib.dll.0.85.4.369\lib\net20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.1, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.1\lib\itextsharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=1.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IO.RecyclableMemoryStream.1.4.1\lib\net45\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NReco.VideoConverter, Version=1.1.4.0, Culture=neutral, PublicKeyToken=395ccb334978a0cd, processorArchitecture=MSIL">
+      <HintPath>..\packages\NReco.VideoConverter.1.1.4\lib\net40\NReco.VideoConverter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="Quickblox.Sdk">
+      <HintPath>..\..\..\..\Backups\06-06-2017\SDK-dotnet-master\Quickblox\Quickblox.Sdk\bin\Debug\Quickblox.Sdk.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="WSServiceAddAppointment, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\Pramendra\Pictures\Paseva Scheduler Batch Update 15-12-2021\Agin WellsKyapp Build\bin\WSServiceAddAppointment.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.3.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Action Filters\RBACAttribute.cs" />
+    <Compile Include="Action Filters\RBACUser.cs" />
+    <Compile Include="Action Filters\RBACUserId.cs" />
+    <Compile Include="Action Filters\RBAC_ExtendedMethods.cs" />
+    <Compile Include="Action Filters\SessionExpireAttribute.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Constants\Constactvarcs.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AddSuperAdminLoginController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AttendanceManagementController.cs" />
+    <Compile Include="Controllers\CareGiverController.cs" />
+    <Compile Include="Controllers\ChartController.cs" />
+    <Compile Include="Controllers\ChattingController.cs" />
+    <Compile Include="Controllers\ClientController.cs" />
+    <Compile Include="Controllers\ClientRequestController.cs" />
+    <Compile Include="Controllers\ConversationsController.cs" />
+    <Compile Include="Controllers\CoronaStatsController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\GenerateReportsController.cs" />
+    <Compile Include="Controllers\InTakechattingController.cs" />
+    <Compile Include="Controllers\InTakeController.cs" />
+    <Compile Include="Controllers\MarketingClientAttendanceController.cs" />
+    <Compile Include="Controllers\MarketingsController.cs" />
+    <Compile Include="Controllers\NurseCoordinatorController.cs" />
+    <Compile Include="Controllers\OfficeController.cs" />
+    <Compile Include="Controllers\OpenMapFromExcelLinkController.cs" />
+    <Compile Include="Controllers\OrganisationController.cs" />
+    <Compile Include="Controllers\PatientRequestController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PatientsController.cs" />
+    <Compile Include="Controllers\RewardPointAdvanceController.cs" />
+    <Compile Include="Controllers\RewardPointController.cs" />
+    <Compile Include="Controllers\SchedulersController.cs" />
+    <Compile Include="Controllers\ServicesController.cs" />
+    <Compile Include="Controllers\UnAuthorisedController.cs" />
+    <Compile Include="Controllers\UserManagementController.cs" />
+    <Compile Include="Controllers\VisitTypeController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AddSuperAdminLoginDetails.cs" />
+    <Compile Include="Models\AdministratorModel.cs" />
+    <Compile Include="Models\AdminModel.cs" />
+    <Compile Include="Models\AppointmentRequestDetails.cs" />
+    <Compile Include="Models\AttendanceManagementDetails.cs" />
+    <Compile Include="Models\CareGiverBaseService.cs" />
+    <Compile Include="Models\CareGiverModel.cs" />
+    <Compile Include="Models\CareGiverTimeSlotModel.cs" />
+    <Compile Include="Models\ChattingModel.cs" />
+    <Compile Include="Models\Client.cs" />
+    <Compile Include="Models\ClientAddRequest.cs" />
+    <Compile Include="Models\ClientRequest.cs" />
+    <Compile Include="Models\ClientVisitRequest.cs" />
+    <Compile Include="Models\CoronaStatsDetailsModel.cs" />
+    <Compile Include="Models\DataTableProperty.cs" />
+    <Compile Include="Models\EmployeeClientModel.cs" />
+    <Compile Include="Models\EmployeeResponse.cs" />
+    <Compile Include="Models\EmplyeeRequest.cs" />
+    <Compile Include="Models\Encryption.cs" />
+    <Compile Include="Models\ErrorLogServiceProxy.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\InTakePatientDetails.cs" />
+    <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ManualEntryModel.cs" />
+    <Compile Include="Models\MarketerAttendanceModel.cs" />
+    <Compile Include="Models\MarketerDetailsModel.cs" />
+    <Compile Include="Models\MessageQueueServiceProxy.cs" />
+    <Compile Include="Models\NurseClockInAttendance.cs" />
+    <Compile Include="Models\NurseCoordinatorModel.cs" />
+    <Compile Include="Models\OfficeModel.cs" />
+    <Compile Include="Models\OrganisationModel.cs" />
+    <Compile Include="Models\PatientDetailsModel.cs" />
+    <Compile Include="Models\PatientRequestsDetailModel.cs" />
+    <Compile Include="Models\PatientRequestsModel.cs" />
+    <Compile Include="Models\PdfModel.cs" />
+    <Compile Include="Models\PermissionModel.cs" />
+    <Compile Include="Models\PushNotification.cs" />
+    <Compile Include="Models\QuickBlox.cs" />
+    <Compile Include="Models\QuickBloxModel.cs" />
+    <Compile Include="Models\RatingModel.cs" />
+    <Compile Include="Models\ReportsManagementDetails.cs" />
+    <Compile Include="Models\RescheduleFormData.cs" />
+    <Compile Include="Models\RewardPointModel.cs" />
+    <Compile Include="Models\RoleModel.cs" />
+    <Compile Include="Models\ScheduleClientRequestModel.cs" />
+    <Compile Include="Models\SchedulePatientRequestModel.cs" />
+    <Compile Include="Models\SchedulerModel.cs" />
+    <Compile Include="Models\ServiceModel.cs" />
+    <Compile Include="Models\SupplyFormData.cs" />
+    <Compile Include="Models\UnavailabilityRequestModel.cs" />
+    <Compile Include="Models\UserProfile.cs" />
+    <Compile Include="Models\Utility\Schedular.cs" />
+    <Compile Include="Models\Utility\UploadFile.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ServiceReference1\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Startup.cs" />
+    <Compile Include="Views\Resources\Account.Designer.cs" />
+    <Compile Include="Views\Resources\Admin.Designer.cs" />
+    <Compile Include="Views\Resources\Appointment.Designer.cs" />
+    <Compile Include="Views\Resources\CareGiver.Designer.cs" />
+    <Compile Include="Views\Resources\Chatting.Designer.cs" />
+    <Compile Include="Views\Resources\Conversation.Designer.cs" />
+    <Compile Include="Views\Resources\Dashboard.Designer.cs" />
+    <Compile Include="Views\Resources\Dispute.Designer.cs" />
+    <Compile Include="Views\Resources\Layout.Designer.cs" />
+    <Compile Include="Views\Resources\NurseCoordinator.Designer.cs" />
+    <Compile Include="Views\Resources\Office.Designer.cs" />
+    <Compile Include="Views\Resources\Patient.Designer.cs" />
+    <Compile Include="Views\Resources\PatientRequest.Designer.cs" />
+    <Compile Include="Views\Resources\Patients.Designer.cs" />
+    <Compile Include="Views\Resources\Payment.Designer.cs" />
+    <Compile Include="Views\Resources\Reports.Designer.cs" />
+    <Compile Include="Views\Resources\RewardPoint.Designer.cs" />
+    <Compile Include="Views\Resources\Schedule.Designer.cs" />
+    <Compile Include="Views\Resources\Schedulers.Designer.cs" />
+    <Compile Include="Views\Resources\Services.Designer.cs" />
+    <Compile Include="Views\Resources\Stripe.Designer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Audio\sound.mp3" />
+    <Content Include="Audio\sound.wav" />
+    <Content Include="Constants\CareGiverDocuments\CareGiver_1c4551b9-8a70-49dd-9329-55d2928d80491438589308.jpeg" />
+    <Content Include="Constants\CareGiverDocuments\CareGiver_738abbf9-fe4f-418d-9f66-e0cbed1e5f241437732186.jpeg" />
+    <Content Include="Constants\CareGiverDocuments\CareGiver_738abbf9-fe4f-418d-9f66-e0cbed1e5f241437732319.jpeg" />
+    <Content Include="Constants\CareGiverDocuments\CareGiver_738abbf9-fe4f-418d-9f66-e0cbed1e5f241437732368.jpeg" />
+    <Content Include="Constants\CareGiverDocuments\CareGiver_738abbf9-fe4f-418d-9f66-e0cbed1e5f241437732530.jpeg" />
+    <Content Include="Constants\CareGiverDocuments\CareGiver_738abbf9-fe4f-418d-9f66-e0cbed1e5f241437733820.jpeg" />
+    <Content Include="Constants\CareGiverDocuments\CareGiver_738abbf9-fe4f-418d-9f66-e0cbed1e5f241437734963.jpeg" />
+    <Content Include="Constants\CareGiverDocuments\CareGiver_738abbf9-fe4f-418d-9f66-e0cbed1e5f241437735508.jpeg" />
+    <Content Include="Constants\CareGiverDocuments\CareGiver_738abbf9-fe4f-418d-9f66-e0cbed1e5f241437735523.jpeg" />
+    <Content Include="Constants\CareGiverDocuments\CareGiver_738abbf9-fe4f-418d-9f66-e0cbed1e5f241437735529.jpeg" />
+    <Content Include="Constants\CareGiverDocuments\CareGiver_b2d9c9a0-2199-48ff-aa1c-83b7a85db4a21438584047.jpeg" />
+    <Content Include="Constants\CareGiverDocuments\CareGiver_b2d9c9a0-2199-48ff-aa1c-83b7a85db4a21438586600.jpeg" />
+    <Content Include="Constants\CareGiverDocuments\CareGiver_dcc2fa01-9102-4d60-af37-d613779484ba1437736472.jpeg" />
+    <Content Include="Constants\CareGiverDocuments\CareGiver_dcc2fa01-9102-4d60-af37-d613779484ba1437736483.jpeg" />
+    <Content Include="Constants\CareGiverDocuments\CareGiver_dcc2fa01-9102-4d60-af37-d613779484ba1437736490.jpeg" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\animate.css" />
+    <Content Include="Content\css\blueimp-gallery.min.css" />
+    <Content Include="Content\css\bootstrap-datetimepicker.css" />
+    <Content Include="Content\css\bootstrap.css" />
+    <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\chosen-sprite%402x.png" />
+    <Content Include="Content\css\chosen-sprite.png" />
+    <Content Include="Content\css\chosen.css" />
+    <Content Include="Content\css\custom.css" />
+    <Content Include="Content\css\dataTables.bootstrap.css" />
+    <Content Include="Content\css\dataTables.responsive.css" />
+    <Content Include="Content\css\dataTables.tableTools.min.css" />
+    <Content Include="Content\css\fullcalendar.css" />
+    <Content Include="Content\css\fullcalendar.print.css" />
+    <Content Include="Content\css\green%402x.png" />
+    <Content Include="Content\css\green.png" />
+    <Content Include="Content\css\img\error.png" />
+    <Content Include="Content\css\img\error.svg" />
+    <Content Include="Content\css\img\loading.gif" />
+    <Content Include="Content\css\img\play-pause.png" />
+    <Content Include="Content\css\img\play-pause.svg" />
+    <Content Include="Content\css\img\video-play.png" />
+    <Content Include="Content\css\img\video-play.svg" />
+    <Content Include="Content\css\jquery.steps.css" />
+    <Content Include="Content\css\morris-0.4.3.min.css" />
+    <Content Include="Content\css\star-rating.css" />
+    <Content Include="Content\css\star-rating.min.css" />
+    <Content Include="Content\css\style.css" />
+    <Content Include="Content\css\switchery.css" />
+    <Content Include="Content\css\toastr.css" />
+    <Content Include="Content\font-awesome\css\font-awesome.css" />
+    <Content Include="Content\font-awesome\css\font-awesome.min.css" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\ic-trending-up-24px.svg" />
+    <Content Include="Content\image\bg.jpg" />
+    <Content Include="Content\image\DefaultProfile.png" />
+    <Content Include="Content\jquery-ui.css" />
+    <Content Include="EmailTemplates\RescheduleAppointmentPateint.html" />
+    <Content Include="EmailTemplates\WelcomeCareGiver.html" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="image\bg.jpg" />
+    <Content Include="image\bigstock-Map-Marker-Map-Pin-Vector-Ma-92524379-Converted-1-195x300.png" />
+    <Content Include="image\blue-dot.png" />
+    <Content Include="image\CareGiverProfileImages\da29d10d-bb77-4888-8597-5f74a38b4c76.jpeg" />
+    <Content Include="image\CertificateSample.jpg" />
+    <Content Include="image\checkbox-selected-booked.png" />
+    <Content Include="image\checkbox-selected-partial.png" />
+    <Content Include="image\checkbox-selected-partial1.png" />
+    <Content Include="image\checkbox-selected.png" />
+    <Content Include="image\checkbox.png" />
+    <Content Include="image\checkbox1.png" />
+    <Content Include="image\free-map-marker-icon-red.png" />
+    <Content Include="image\green-dot.png" />
+    <Content Include="image\IconApproved.png" />
+    <Content Include="image\loading.gif" />
+    <Content Include="image\map-marker-2-xxl.png" />
+    <Content Include="image\marker-x.png" />
+    <Content Include="image\marker.png" />
+    <Content Include="image\nurse.jpg" />
+    <Content Include="image\nurse.png" />
+    <Content Include="image\ok-white-full.png" />
+    <Content Include="image\ok-white.png" />
+    <Content Include="image\ok.png" />
+    <Content Include="image\physician_icon.png" />
+    <Content Include="image\red-dot.png" />
+    <Content Include="image\red_checked_selected.png" />
+    <Content Include="image\Red_Green_Marker.png" />
+    <Content Include="image\Red_Marker.png" />
+    <Content Include="image\Remove-icon.png" />
+    <Content Include="image\Signatures\CareGiverSignature_1444285478.jpeg" />
+    <Content Include="image\Signatures\CareGiverSignature_1444285537.jpeg" />
+    <Content Include="image\Signatures\CareGiverSignature_9fe99038-0545-42f9-9f48-42856a042dc61485162979.jpeg" />
+    <Content Include="image\Signatures\CareGiverSignature_9fe99038-0545-42f9-9f48-42856a042dc61485163124.jpeg" />
+    <Content Include="image\Signatures\CareGiverSignature_9fe99038-0545-42f9-9f48-42856a042dc61485163870.jpeg" />
+    <Content Include="image\Signatures\CareGiverSignature_9fe99038-0545-42f9-9f48-42856a042dc61485164004.jpeg" />
+    <Content Include="image\Signatures\CareGiverSignature_9fe99038-0545-42f9-9f48-42856a042dc61485167182.jpeg" />
+    <Content Include="image\Signatures\CareGiverSignature_9fe99038-0545-42f9-9f48-42856a042dc61485167633.jpeg" />
+    <Content Include="image\Signatures\CareGiverSignature_9fe99038-0545-42f9-9f48-42856a042dc61485168854.jpeg" />
+    <Content Include="image\Signatures\CareGiverSignature_9fe99038-0545-42f9-9f48-42856a042dc61485169046.jpeg" />
+    <Content Include="image\Signatures\CareGiverSignature_9fe99038-0545-42f9-9f48-42856a042dc61485169157.jpeg" />
+    <Content Include="image\Signatures\CareGiverSignature_9fe99038-0545-42f9-9f48-42856a042dc61485172079.jpeg" />
+    <Content Include="image\Signatures\CareGiverSignature_F29AE6BE-7B3D-45DB-978A-F153579A91331437733080.jpeg" />
+    <Content Include="image\Signatures\CareGiverSignature_F29AE6BE-7B3D-45DB-978A-F153579A91331437733196.jpeg" />
+    <Content Include="image\sort.png" />
+    <Content Include="image\sort_asc.png" />
+    <Content Include="image\sort_desc.png" />
+    <Content Include="image\Spinner-1s-32px.gif" />
+    <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Iphone Certificate\CareGiverDevelopment.p12" />
+    <Content Include="Iphone Certificate\CareGiverProduction.p12" />
+    <Content Include="Iphone Certificate\CareGiverProduction_old.p12" />
+    <Content Include="Iphone Certificate\PatientDevelopment.p12" />
+    <Content Include="Iphone Certificate\PatientProduction.p12" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="Iphone Certificate\CareGiveLiteProduction.p12" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.CareGiverReviewList.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.CareGivers.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.CareGiverSchedule.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.CareGiversList.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.CareGiverTimeSlots.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.CareGiverUserNRate.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.Class.AdminsList.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.Class.Permission.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.Class.Role.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.Class.SchedulePatientRequestList.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.Class.SuperAdmin.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.Disputes.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.PatientRequestList.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.PatientRequests.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.Patients.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.PatientsList.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.Services.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.StripeAccessToken.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.UnavailabilityRequest.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.UnavailabilityRequestsList.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.CareGiverTrackLocation.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.ChattingsList.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.Class.SchedulePatientRequest.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.GetDatesList.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.RatingsList.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.RewardPointsList.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.Scheduler.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.SchedulersList.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.Chatting.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.ChattingGroupMember.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.Class.ScheduleInfo.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.NurseCoordinator.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.NurseCoordinatorsList.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.PatientDetailsList.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.PatientsDetail.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.Admin.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.AdminsList.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.AttendanceDetailsList.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.Class.CornaStatsDetailsList.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.Office.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.OfficesList.datasource" />
+    <Content Include="Properties\DataSources\CaregiverLiteWCF.PatientChatList.datasource" />
+    <Content Include="Properties\DataSources\WSServiceAddAppointment.Model.RootRegister.datasource" />
+    <None Include="Properties\PublishProfiles\CaregiverLite.pubxml" />
+    <Content Include="sample\Patient_Detail_Sample_File_Demo.xlsx" />
+    <None Include="Properties\PublishProfiles\dfsdf.pubxml" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\Config.js" />
+    <None Include="Scripts\jquery-1.10.2-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <None Include="Scripts\jquery-1.8.0.intellisense.js" />
+    <Content Include="Scripts\jquery-1.8.0.js" />
+    <Content Include="Scripts\jquery-1.8.0.min.js" />
+    <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\js\bootstrap-datetimepicker.js" />
+    <Content Include="Scripts\js\bootstrap.js" />
+    <Content Include="Scripts\js\bootstrap.min.js" />
+    <Content Include="Scripts\js\chosen.jquery.js" />
+    <Content Include="Scripts\js\curvedLines.js" />
+    <Content Include="Scripts\js\dataTables.bootstrap.js" />
+    <Content Include="Scripts\js\dataTables.responsive.js" />
+    <Content Include="Scripts\js\dataTables.tableTools.min.js" />
+    <Content Include="Scripts\js\easypiechart.js" />
+    <Content Include="Scripts\js\excanvas.min.js" />
+    <Content Include="Scripts\js\fullcalendar.min.js" />
+    <Content Include="Scripts\js\icheck.min.js" />
+    <Content Include="Scripts\js\images\gritter-light.png" />
+    <Content Include="Scripts\js\images\gritter-long.png" />
+    <Content Include="Scripts\js\images\gritter.png" />
+    <Content Include="Scripts\js\images\ie-spacer.gif" />
+    <Content Include="Scripts\js\inspinia.js" />
+    <Content Include="Scripts\js\InTake.js" />
+    <Content Include="Scripts\js\InTakeChat.js" />
+    <Content Include="Scripts\js\jquery-2.1.1.js" />
+    <Content Include="Scripts\js\jquery-jvectormap-1.2.2.min.js" />
+    <Content Include="Scripts\js\jquery-jvectormap-world-mill-en.js" />
+    <Content Include="Scripts\js\jquery.dataTables.js" />
+    <Content Include="Scripts\js\jquery.flot.js" />
+    <Content Include="Scripts\js\jquery.flot.pie.js" />
+    <Content Include="Scripts\js\jquery.flot.resize.js" />
+    <Content Include="Scripts\js\jquery.flot.spline.js" />
+    <Content Include="Scripts\js\jquery.flot.symbol.js" />
+    <Content Include="Scripts\js\jquery.flot.time.js" />
+    <Content Include="Scripts\js\jquery.flot.tooltip.min.js" />
+    <Content Include="Scripts\js\jquery.gritter.css" />
+    <Content Include="Scripts\js\jquery.gritter.min.js" />
+    <Content Include="Scripts\js\jquery.jeditable.js" />
+    <Content Include="Scripts\js\jquery.metisMenu.js" />
+    <Content Include="Scripts\js\jquery.peity.min.js" />
+    <Content Include="Scripts\js\jquery.slimscroll.min.js" />
+    <Content Include="Scripts\js\jquery.sparkline.min.js" />
+    <Content Include="Scripts\js\jquery.steps.min.js" />
+    <Content Include="Scripts\js\jquery.validate.js" />
+    <Content Include="Scripts\js\jquery.validate.min.js" />
+    <Content Include="Scripts\js\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\js\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\js\MapLibrary.js" />
+    <Content Include="Scripts\js\moment.js" />
+    <Content Include="Scripts\js\moment.min.js" />
+    <Content Include="Scripts\js\oms.min.js" />
+    <Content Include="Scripts\js\pace.min.js" />
+    <Content Include="Scripts\js\raphael-2.1.0.min.js" />
+    <Content Include="Scripts\js\star-rating.js" />
+    <Content Include="Scripts\js\star-rating.min.js" />
+    <Content Include="Scripts\js\switchery.js" />
+    <Content Include="Scripts\js\toastr.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\QuickBlox\quickblox.min.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\_references.js" />
+    <None Include="Service References\ServiceReference1\CaregiverLiteService.disco" />
+    <None Include="Service References\ServiceReference1\configuration91.svcinfo" />
+    <None Include="Service References\ServiceReference1\configuration.svcinfo" />
+    <None Include="Service References\ServiceReference1\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <None Include="Service References\ServiceReference1\CaregiverLiteService.wsdl" />
+    <None Include="Service References\ServiceReference1\CaregiverLiteService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReference1\CaregiverLiteService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReference1\CaregiverLiteService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReference1\CaregiverLiteService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReference1\CaregiverLiteService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ContactUs.cshtml" />
+    <Content Include="Views\Account\Error.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\LoginDetails.cshtml" />
+    <Content Include="Views\Account\Profile.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\SessionTimeout.cshtml" />
+    <Content Include="Views\Account\SessionTimeoutTemp.cshtml" />
+    <Content Include="Views\Account\Verification.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Account\_editProfile.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\_FeedBackReview.cshtml" />
+    <Content Include="Views\Account\_viewProfile.cshtml" />
+    <Content Include="Views\AddSuperAdminLogin\AddUsersToRoles.cshtml" />
+    <Content Include="Views\AddSuperAdminLogin\Index.cshtml" />
+    <Content Include="Views\Admin\AddAdmin.cshtml" />
+    <Content Include="Views\Admin\Admin.cshtml" />
+    <Content Include="Views\Admin\AssignGroupToAdmin.cshtml" />
+    <Content Include="Views\Admin\EditAdmin.cshtml" />
+    <Content Include="Views\AttendanceManagement\AttendanceDetail-old.cshtml" />
+    <Content Include="Views\AttendanceManagement\AttendanceDetail.cshtml" />
+    <Content Include="Views\AttendanceManagement\AttendanceDetailAllStatus.cshtml" />
+    <Content Include="Views\AttendanceManagement\AttendanceDetailsManaul.cshtml" />
+    <Content Include="Views\AttendanceManagement\AttendanceList.cshtml" />
+    <Content Include="Views\AttendanceManagement\AttendanceList1.cshtml" />
+    <Content Include="Views\AttendanceManagement\EditAttendanceDetailData.cshtml" />
+    <Content Include="Views\AttendanceManagement\ExcelReport.cshtml" />
+    <Content Include="Views\AttendanceManagement\ExcelReportClockInClockOut.cshtml" />
+    <Content Include="Views\AttendanceManagement\ExcelReportNo.cshtml" />
+    <Content Include="Views\AttendanceManagement\SendVisitRequestData.cshtml" />
+    <Content Include="Views\AttendanceManagement\TestClientMap.cshtml" />
+    <Content Include="Views\CareGiver\AddCareGiver.cshtml" />
+    <Content Include="Views\CareGiver\AssignGroupToCaregiver.cshtml" />
+    <Content Include="Views\CareGiver\CareGiver.cshtml" />
+    <Content Include="Views\CareGiver\EditCareGiver.cshtml" />
+    <Content Include="Views\CareGiver\SendApproval.cshtml" />
+    <Content Include="Views\CareGiver\SendEmployeeRequestDataPage.cshtml" />
+    <Content Include="Views\CareGiver\ViewCareGiver.cshtml" />
+    <Content Include="Views\Chart\DashBoard.cshtml" />
+    <Content Include="Views\Chart\Index.cshtml" />
+    <Content Include="Views\Chart\ManualAutoScheduling_ChartData.cshtml" />
+    <Content Include="Views\Chart\PatientOfficewise_ChartData.cshtml" />
+    <Content Include="Views\Chart\TypeOfVisitByPatient_ChartData.cshtml" />
+    <Content Include="Views\Chart\WeeklyScheduleActivity_ChartData.cshtml" />
+    <Content Include="Views\Chatting\AddNewGroup.cshtml" />
+    <Content Include="Views\Chatting\AssignCaregiver.cshtml" />
+    <Content Include="Views\Chatting\AssignMember.cshtml" />
+    <Content Include="Views\Chatting\AssignNurseCoordinator.cshtml" />
+    <Content Include="Views\Chatting\AssignScheduler.cshtml" />
+    <Content Include="Views\Chatting\ChatManagement.cshtml" />
+    <Content Include="Views\Chatting\ChatManagementMember.cshtml" />
+    <Content Include="Views\Chatting\Chatting.cshtml" />
+    <Content Include="Views\Chatting\EditGroupDetail.cshtml" />
+    <Content Include="Views\Chatting\GroupChat.cshtml" />
+    <Content Include="Views\Chatting\NoAuthorize.cshtml" />
+    <Content Include="Views\Chatting\OneToOneChat.cshtml" />
+    <Content Include="Views\Chatting\OpenChatWindow.cshtml" />
+    <Content Include="Views\Chatting\OpenGroupChatWindow.cshtml" />
+    <Content Include="Views\Chatting\PatientChatRoom.cshtml" />
+    <Content Include="Views\Chatting\PatientGroupChatting.cshtml" />
+    <Content Include="Views\Chatting\SupplyFormDetails.cshtml" />
+    <Content Include="Views\Chatting\ViewGroupMemberList.cshtml" />
+    <Content Include="Views\Chatting\_AssignPermission.cshtml" />
+    <Content Include="Views\ClientRequest\ClientRequest.cshtml" />
+    <Content Include="Views\Client\AddClient.cshtml" />
+    <Content Include="Views\Client\ClientRegister.cshtml" />
+    <Content Include="Views\Client\EditClientDetail.cshtml" />
+    <Content Include="Views\Client\Index.cshtml" />
+    <Content Include="Views\Conversations\Conversations.cshtml" />
+    <Content Include="Views\Conversations\ViewConversation.cshtml" />
+    <Content Include="Views\CoronaStats\CoronaStats.cshtml" />
+    <Content Include="Views\Dashboard\Dashboard.cshtml" />
+    <Content Include="Views\Dashboard\GetCancelledAppointment.cshtml" />
+    <Content Include="Views\Dashboard\GetFinishedJobs.cshtml" />
+    <Content Include="Views\Dashboard\GetLastWeekPayment.cshtml" />
+    <Content Include="Views\Dashboard\GetPendingJobs.cshtml" />
+    <Content Include="Views\Dashboard\GetProjectedPayment.cshtml" />
+    <Content Include="Views\Dashboard\GetRescheduleAlerts.cshtml" />
+    <Content Include="Views\GenerateReports\ExcelReportPauseResume.cshtml" />
+    <Content Include="Views\GenerateReports\GenerateReports.cshtml" />
+    <Content Include="Views\GenerateReports\OpenDetailsView.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\MarketingClientAttendance\ClientAttendanceDetail.cshtml" />
+    <Content Include="Views\MarketingClientAttendance\MarketersExcelReport.cshtml" />
+    <Content Include="Views\MarketingClientAttendance\MarketingAttendanceList.cshtml" />
+    <Content Include="Views\Marketings\AddMarketers.cshtml" />
+    <Content Include="Views\Marketings\EditmarketingDetail.cshtml" />
+    <Content Include="Views\Marketings\ImportScheduledAppointment.cshtml" />
+    <Content Include="Views\Marketings\Marketings.cshtml" />
+    <Content Include="Views\NurseCoordinator\AddNurseCoordinator.cshtml" />
+    <Content Include="Views\NurseCoordinator\EditNurseCoordinator.cshtml" />
+    <Content Include="Views\NurseCoordinator\NurseCoordinator.cshtml" />
+    <Content Include="Views\Office\Office.cshtml" />
+    <Content Include="Views\Office\_AddOffice.cshtml" />
+    <Content Include="Views\Office\_AssignZipcodes.cshtml" />
+    <Content Include="Views\Office\_EditOffice.cshtml" />
+    <Content Include="Views\OpenMapFromExcelLink\Index.cshtml" />
+    <Content Include="Views\Organisation\Organisation.cshtml" />
+    <Content Include="Views\Organisation\_AddOrganisation.cshtml" />
+    <Content Include="Views\Organisation\_AssignZipcodes.cshtml" />
+    <Content Include="Views\Organisation\_EditOrganisation.cshtml" />
+    <Content Include="Views\PatientRequest\AddPatientRequest.cshtml" />
+    <Content Include="Views\PatientRequest\ExcelReport.cshtml" />
+    <Content Include="Views\PatientRequest\GetNurseList.cshtml" />
+    <Content Include="Views\PatientRequest\ImportScheduledAppointmentReader.cshtml" />
+    <Content Include="Views\PatientRequest\ImportScheduleWithWellskyData.cshtml" />
+    <Content Include="Views\PatientRequest\PatientRequest.cshtml" />
+    <Content Include="Views\PatientRequest\PatientRequestManualEntry.cshtml" />
+    <Content Include="Views\PatientRequest\PatientRequestManualEntryCompleteApproval.cshtml" />
+    <Content Include="Views\PatientRequest\ShowManualDetails.cshtml" />
+    <Content Include="Views\PatientRequest\ShowManualEntryDetail.cshtml" />
+    <Content Include="Views\Patients\AddPatient.cshtml" />
+    <Content Include="Views\Patients\EditPatientDetail.cshtml" />
+    <Content Include="Views\Patients\Patients.cshtml" />
+    <Content Include="Views\Patients\SendClientRequestDataPage.cshtml" />
+    <Content Include="Views\RewardPointAdvance\RewardPointAdvance.cshtml" />
+    <Content Include="Views\RewardPoint\RewardPoint.cshtml" />
+    <Content Include="Views\RewardPoint\ViewRewardPoint.cshtml" />
+    <Content Include="Views\Schedulers\AddScheduler.cshtml" />
+    <Content Include="Views\Schedulers\AssignGroupToScheduler.cshtml" />
+    <Content Include="Views\Schedulers\AssignOfficeToScheduler.cshtml" />
+    <Content Include="Views\Schedulers\EditScheduler.cshtml" />
+    <Content Include="Views\Schedulers\Schedulers.cshtml" />
+    <Content Include="Views\Services\Services.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_Layout1.cshtml" />
+    <Content Include="Views\Shared\_LayoutAtt.cshtml" />
+    <Content Include="Views\Shared\_Layout_old.cshtml" />
+    <Content Include="Views\Shared\_Layout_working.cshtml" />
+    <Content Include="Views\Shared\_LeftMenu.cshtml" />
+    <Content Include="Views\Shared\_LeftMenu1.cshtml" />
+    <Content Include="Views\Shared\_LeftMenu_old.cshtml" />
+    <Content Include="Views\Shared\_LoginLayout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\UnAuthorised\Index.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Patients\PatientProfileDetail.cshtml" />
+    <Content Include="Views\Account\PasswordEmailConfirmation.cshtml" />
+    <Content Include="Views\Account\CreateNewPassword.cshtml" />
+    <Content Include="Views\Account\PasswordChangedSuccessful.cshtml" />
+    <Content Include="Views\UserManagement\UserProfile.cshtml" />
+    <Content Include="Views\UserManagement\EditCareGiverProfile.cshtml" />
+    <Content Include="Views\UserManagement\EditNurseCoordinatorProfile.cshtml" />
+    <Content Include="Views\UserManagement\EditSchedularProfile.cshtml" />
+    <Content Include="Views\UserManagement\EditAdminProfile.cshtml" />
+    <Content Include="Views\UserManagement\UserInRole.cshtml" />
+    <Content Include="Views\VisitType\VisitList.cshtml" />
+    <Content Include="Views\AttendanceManagement\PayrollExport.cshtml" />
+    <Content Include="Views\AttendanceManagement\BillingReportExport.cshtml" />
+    <Content Include="Views\Chart\CheckInHours_ChartData.cshtml" />
+    <Content Include="Views\PatientRequest\ShowPatienRequestData.cshtml" />
+    <Content Include="Views\InTake\InTakePatientDetails.cshtml" />
+    <Content Include="Views\InTake\IntakePatientChatPage.cshtml" />
+    <Content Include="Views\InTakechatting\InTakePatientChatDetailPage.cshtml" />
+    <Content Include="Views\Chatting\AuthFormView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="BulkSchedulingExcel\" />
+    <Folder Include="Content\ExportedFile\" />
+    <Folder Include="Content\fonts\" />
+    <Folder Include="Downloadss\" />
+    <Folder Include="Excel\" />
+    <Folder Include="ExportedFile\" />
+    <Folder Include="InsuranceReport\" />
+    <Folder Include="MarketersReportPath\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Resources\Account.resx" />
+    <EmbeddedResource Include="Views\Resources\Admin.resx" />
+    <EmbeddedResource Include="Views\Resources\Appointment.resx" />
+    <EmbeddedResource Include="Views\Resources\CareGiver.resx" />
+    <EmbeddedResource Include="Views\Resources\Chatting.resx" />
+    <EmbeddedResource Include="Views\Resources\Conversation.resx" />
+    <EmbeddedResource Include="Views\Resources\Dashboard.resx" />
+    <EmbeddedResource Include="Views\Resources\Dispute.resx" />
+    <EmbeddedResource Include="Views\Resources\Layout.resx" />
+    <EmbeddedResource Include="Views\Resources\NurseCoordinator.resx" />
+    <EmbeddedResource Include="Views\Resources\Office.resx" />
+    <EmbeddedResource Include="Views\Resources\Patient.resx" />
+    <EmbeddedResource Include="Views\Resources\PatientRequest.resx" />
+    <EmbeddedResource Include="Views\Resources\Patients.resx" />
+    <EmbeddedResource Include="Views\Resources\Payment.resx" />
+    <EmbeddedResource Include="Views\Resources\Reports.resx" />
+    <EmbeddedResource Include="Views\Resources\RewardPoint.resx" />
+    <EmbeddedResource Include="Views\Resources\Schedule.resx" />
+    <EmbeddedResource Include="Views\Resources\Schedulers.resx" />
+    <EmbeddedResource Include="Views\Resources\Services.resx" />
+    <EmbeddedResource Include="Views\Resources\Stripe.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CaregiverLiteWCF\CaregiverLiteWCF.csproj">
+      <Project>{cded4bab-91a8-4d19-af4c-a6a59b84c0e9}</Project>
+      <Name>CaregiverLiteWCF</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\ServiceReference1\" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="MDACVer">
+      <Guid>{54AF9343-1923-11D3-9CA4-00C04F72C514}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>50</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <WarningLevel>0</WarningLevel>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <WarningLevel>0</WarningLevel>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>16581</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:15177/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

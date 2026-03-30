@@ -1,0 +1,122 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="//maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
+<script src="~/Scripts/js/oms.min.js"></script>
+<style>
+    .ibox-title {
+        background: #C4C4C4;
+    }
+
+        .ibox-title h5 {
+            color: #000;
+        }
+
+    .navigator li {
+        display: inline-block;
+        padding: 0 5px;
+    }
+        
+
+    .carousel-control {
+        top: 0;
+    }
+    th {
+    
+    border-right: 1px solid #ddd; 
+    }
+    #schedulebox table > thead > tr > th {
+    border : 0;
+    }
+    .custom-checkbox {
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        position: relative;
+        z-index: 1;
+        top: 3px;
+        background: url("../image/checkbox.png") no-repeat;
+        cursor: pointer;
+    }
+
+        .custom-checkbox.selected {
+            background: url("../image/checkbox-selected.png") no-repeat;
+        }
+
+        .custom-checkbox.booked {
+            background: url("../image/checkbox-selected-booked.png") no-repeat;
+        }
+
+        .custom-checkbox.partial {
+            background: url("../image/red_checked_selected.png") no-repeat;
+        }
+
+        .custom-checkbox input[type="checkbox"] {
+            margin: 0;
+            position: absolute;
+            z-index: 2;
+            cursor: pointer;
+            outline: none;
+            opacity: 0;
+        }
+
+    label {
+        display: block;
+        padding: 2px 0;
+    }
+
+    .carousel-control .glyphicon-chevron-left, .carousel-control .icon-prev {
+       margin-right: 0;
+    margin-top: -50px;
+    }
+
+    
+
+    .carousel-control .glyphicon-chevron-right, .carousel-control .icon-next {
+    margin-right: 0;
+    margin-top: -50px;
+}
+
+    .ibox-tools {
+        display: none;
+        float: right;
+        margin-top: 0;
+        position: relative;
+        padding: 0;
+    }
+    #myDataTable3_filter > label {
+        display : none;
+    }
+    #myDataTableLAstWeekPayment_filter > label {
+    display : none;
+    }
+     .popover{
+    z-index:100000000;
+        width: 170px;
+}
+      .panel-default>.panel-heading {
+    color: #fff;
+    background-color: #088BCA;
+    border-color: #ddd;
+}
+    a:hover, a:focus {
+    text-decoration: none;
+    color: #fff;
+}
+    .carousel-control .glyphicon-chevron-left, .carousel-control .icon-prev {
+    margin-right: 0;
+    margin-top: -5px;
+}
+    .carousel-control .glyphicon-chevron-right, .carousel-control .icon-next {
+    margin-right: 0;
+    margin-top: -5px;
+}
+    .panel-heading {
+    cursor: pointer;
+}
+</style>
+
+
+<script src="~/Scripts/Config.js"></script>
+

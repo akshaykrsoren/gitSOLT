@@ -1,0 +1,1801 @@
+﻿﻿@{
+    ViewBag.Title = "Chatting";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .unReadCount {
+        float: right;
+        height: 25px;
+        width: auto;
+        padding-top: 7px;
+        font-size: 12px;
+        border-radius: 15px;
+    }
+
+    .table-fixed tbody {
+        height: 230px;
+        overflow-y: auto;
+        width: 100%;
+    }
+
+    .table-fixed thead, .table-fixed tbody, .table-fixed tr, .table-fixed td, .table-fixed th {
+        display: block;
+    }
+
+    .costomdialog {
+        width: 70%;
+    }
+
+    .customcontent {
+        padding: 15px;
+    }
+
+    .btnCenterclass {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
+
+    .btnss {
+        background-color: DodgerBlue;
+        border: none;
+        color: white;
+        padding: 12px 30px;
+        cursor: pointer;
+        font-size: 20px;
+    }
+
+        /* Darker background on mouse-over */
+        .btnss:hover {
+            background-color: RoyalBlue;
+        }
+</style>
+
+
+@using (Html.BeginForm("CreatePdf", "Chatting", FormMethod.Post, new
+{
+    @id = "FileResultCreatePdf1",
+    @class = "horizontal-form",
+    @enctype =
+
+                        "multipart/form-data"
+}))
+{
+    <div class="modal fade" id="myModalSupply" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog costomdialog modal-lg modal-Vd" id="modalEditPopup">
+            <div class="modal-content customcontent">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">Supply Form</h4>
+                </div>
+                <div class="modal-body row" id="SupplyformId">
+
+                    <div id="main_div" class="Edit_div">
+                        <div class="alert alert-danger alert-dismissable" style="display:none" id="dvError3">
+                            <button onclick="divClose();" class="close" type="button">×</button>
+                            <label id="lblError3"></label>
+                        </div>
+
+                        <div class="card mt-5 py-5">
+                            <div class="row">
+                                <div class="col-md-12 text-center mb-5">
+                                    <img src="https://solifetec.com/assets/img/logo/pseva22.png" style="width: 132px;margin-bottom:20px;">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-3">
+                                    <label for="name">Employee Name:</label>
+                                    <b><p id="empname"></p></b>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="name">Patient Name:</label>
+                                    <b><p id="Patientname"></p></b>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="name">Office Name:</label>
+                                    <b><p id="offcName"></p></b>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="quality">Date:</label>
+                                    <b><p id="date"></p></b>
+
+                                </div>
+
+                            </div>
+                            <div class="row">
+
+                            </div>
+
+                            <form>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h3 class="text-center">Supplies form</h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label for="name">Produt Name:</label>
+                                        <input type="text" class="form-control" id="name" placeholder="Enter Product name" name="name">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="quality">Quantity:</label>
+                                        <input type="text" class="form-control" id="quality" placeholder="Enter quality" name="quality">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="description">Description:</label>
+                                        <input type="text" class="form-control" id="description" placeholder="Enter description"
+                                               name="Description">
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="form-group col-md-4">
+
+                                        <input type="text" class="form-control" id="name1" placeholder="Enter Product name" name="name">
+                                    </div>
+                                    <div class="form-group col-md-4">
+
+                                        <input type="text" class="form-control" id="quality1" placeholder="Enter quality" name="quality">
+                                    </div>
+                                    <div class="form-group col-md-4">
+
+                                        <input type="text" class="form-control" id="description1" placeholder="Enter description"
+                                               name="Description">
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="form-group col-md-4">
+
+                                        <input type="text" class="form-control" id="name2" placeholder="Enter Product name" name="name">
+                                    </div>
+                                    <div class="form-group col-md-4">
+
+                                        <input type="text" class="form-control" id="quality2" placeholder="Enter quality" name="quality">
+                                    </div>
+                                    <div class="form-group col-md-4">
+
+                                        <input type="text" class="form-control" id="description2" placeholder="Enter description"
+                                               name="Description">
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="form-group col-md-4">
+
+                                        <input type="text" class="form-control" id="name3" placeholder="Enter Product name" name="name">
+                                    </div>
+                                    <div class="form-group col-md-4">
+
+                                        <input type="text" class="form-control" id="quality3" placeholder="Enter quality" name="quality">
+                                    </div>
+                                    <div class="form-group col-md-4">
+
+                                        <input type="text" class="form-control" id="description3" placeholder="Enter description"
+                                               name="Description">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+
+                                        <button type="submit" class="btn btn-primary pull-right-20 btnCenterclass" href="#" onclick="SELFSupply
+
+();">
+                                            Submit
+                                        </button>
+                                        @*<button type="submit" class="btn btn-primary">Submit</button>*@
+                                        <!-- <button id="addItem">Add More Item</button> -->
+                                    </div>
+
+                                </div>
+                                <div id="data"></div>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+<div class="modal fade" id="modalCaregiverAssignment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Assign Caregiver to chatroom(s)</h4>
+            </div>
+            <div class="modal-body row" id="AssignCaregiver">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="modalSupplyFormDetailsAssignment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog costomdialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Supply Form Details(s)</h4>
+            </div>
+            <div class="modal-body row" id="GetsSupplyFormData">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal" id="myModal12" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Supply form</h4>
+            </div>
+            <div class="container"></div>
+            <div class="modal-body">
+                <div>
+
+                    @*<table class="table table-responsive table-bordered" id="table2">
+                            <tr>
+                                <td>Name</td>
+                                <td>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Quality</td>
+                                <td>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Description</td>
+                                <td>
+
+                                </td>
+                            </tr>
+                        </table>*@
+
+                    <table class="table table-striped table-bordered table-hover dataTables-example" id="table2">
+                        <thead>
+                            <tr>
+                                <td>
+                                    <b>Name</b>
+                                </td>
+                                <td>
+                                    <b>Quality</b>
+                                </td>
+                                <td style="width:10%;">
+                                    <b>Description</b>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" data-dismiss="modal" class="btn">Close</a>
+                <a href="#" class="btn btn-primary">print Report</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Chat List</h5>
+                </div>
+                <div class="ibox-tools">
+                    <a class="btn btn-xs btn-primary popup-act" style="margin-top:-9px;" id="btnshow"
+                       href="javascript:;"
+                       onclick="OpenSupplyForm();">Supply Form</a>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="ibox-tools">
+                    <a class="btn btn-xs btn-primary popup-act" style="margin-top:-9px;" id="btnshow"
+                       href="javascript:;"
+                       onclick="OpenNewCaregiverAssignee();">assignCarecagiverInpatientChatroom</a>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="ibox-tools">
+                    <a class="btn btn-xs btn-primary popup-act" style="margin-top:-9px;" id="btnshow"
+                       href="javascript:;"
+                       onclick="OpenNewSupplyformData();">assignCarecagiverInpatientChatroom</a>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="ibox-content">
+                    <div class="form-group col-md-2 pull-right">
+                        <label>Search:</label>
+                        <input type="text" class="form-control" id="table-filter" placeholder="Search Here..">
+                    </div>
+                    <div class="form-group col-md-2 pull-right" id="divOfficeFilter">
+                        <label>@CaregiverLite.Views.Resources.PatientRequest.FilterLabelOffice</label>
+                        <br>
+                        <div class="form-group" style="margin-right: 10px;">
+                            @Html.DropDownList("ddlOfficeDropDownList", (System.Web.Mvc.SelectList)ViewBag.OfficeDropDownList, new
+                       {
+                           @class
+
+= "form-control",
+                           style = "width:170px",
+                           @onchange = "officeFilter(this.value)"
+                       })
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <table id="oneToOneChatTable" class="table table-striped table-bordered table-hover dataTables-example">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Role</th>
+                                <th>Office</th>
+                                <th>Chat</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+
+                    <div id="loadMore" class="input-group pull-right margin-25" style="display:none;margin-right: 10px;margin-top: 10px;">
+                        <img id="loadingMore" style="display:none" src="~/image/Spinner-1s-32px.gif" />
+                        <a id="btnLoadMore" class="btn btn-sm btn-primary" onclick="loadMore();">Load More</a>
+                        <span id="allmsg" class="text-primary"></span>
+                    </div>
+                    <div class="clearfix"></div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<script src='https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.min.js'></script>*@
+<script src="~/Scripts/js/jquery-2.1.1.js"></script>
+<script src="~/Scripts/js/jquery.dataTables.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+<script src="~/Scripts/js/oms.min.js"></script>
+
+<script>
+
+        $('#ddlOfficeDropDownList').val(0);
+
+        var IsSuperAdmin = '@Session["IsSuperAdmin"]'
+
+        var limit = 1000;
+        var skip = 0;
+        var totalEntriesOneToOne = 0;
+        var officeIds = [];
+
+        var groupChat = [];
+
+        var qbDialogs = [];
+
+        var displayOneToOneChat = [];
+
+        var searchInput = "";
+
+        var searchFilter = "||";
+
+        var IsSearch = 0;
+
+        var IsOfficeFilter = 0;
+
+        var filterGroup = [];
+
+        var PatientName = "abcd";
+
+        var patientGroupName = "Alok Babu(115)";
+        var ChattingId = "3904";
+
+
+        if (IsSuperAdmin == "false") {
+
+            $('#divOfficeFilter').hide();
+        }
+
+        // for officewise filter
+        //var ddlArray = new Array();
+        //var ddl = document.getElementById('ddlOfficeDropDownList');
+        //for (i = 0; i < ddl.options.length; i++) {
+        //    ddlArray[i] = ddl.options[i].value;
+        //    officeIds.push(ddlArray[i]);
+        //}
+
+        var form;
+        a4 = [595.28, 841.89];
+
+
+        $(document).ready(function () {
+
+
+            n = new Date();
+            y = n.getFullYear();
+            m = n.getMonth() + 1;
+            d = n.getDate();
+            document.getElementById("date").innerHTML = m + "/" + d + "/" + y;
+
+            document.getElementById("empname").innerHTML = PatientName;
+
+
+            //debugger;
+            //$('#btnClick').click(function (e) {
+            //    var fname = document.getElementById('name');
+            //    var quality = document.getElementById('quality');
+            //    var description = document.getElementById('description');
+
+            //    var table = document.getElementsByTagName('table2')[0];
+
+            //    var newRow = table2.insertRow(0);
+
+            //    var cell1=newRow.
+            //    debugger;
+            //    var doc = new jsPDF()
+            //    var h1 = document.querySelector('#myModalSupply')
+            //    debugger;
+            //    doc.fromHTML(h1, 15, 15)
+            //    debugger;
+
+            //    doc.save("output.pdf")
+            //}
+            //);
+
+
+            $("#loading").show();
+
+            var jquey = jQuery.noConflict();
+
+            CreateSession();
+
+
+        });
+
+
+
+
+        //function OpenAssignNewCaregiverModal(ChattingGroupId, GroupName) {
+
+
+            //$("#loading").show();
+            ////  var url=INITURL+ 'Chatting/AssignCaregiver?ChattingGroupId=' + ChattingGroupId + '&GroupName=\"' + unescape(GroupName) +'\"';
+
+            //var url = INITURL + 'Chatting/AssignCaregiver?ChattingGroupId=' + ChattingGroupId + '&GroupName=' + unescape(GroupName);
+
+            //$('#AssignCaregiver').load(encodeURI(url), function () {
+            //    sessionStorage.setItem("PartialView", "1");
+            //    $('#modalCaregiverAssignment').modal('show');
+            //    $("#loading").hide();
+            //});
+      //  }
+
+
+
+
+        debugger;
+        function OpenNewSupplyformData(e)
+        {
+            debugger;
+            $("#loading").show();
+            //  var url=INITURL+ 'Chatting/AssignCaregiver?ChattingGroupId=' + ChattingGroupId + '&GroupName=\"' + unescape(GroupName) +'\"';
+            debugger;
+            var url = INITURL + 'Chatting/SupplyFormDetails?ChattingGroupId=' + ChattingId + '&GroupName='+ unescape(patientGroupName) ;
+            debugger;
+            $('#GetsSupplyFormData').load(encodeURI(url), function () {
+                debugger;
+                sessionStorage.setItem("PartialView", "1");
+                debugger;
+                $('#modalSupplyFormDetailsAssignment').modal('show');
+                $("#loading").hide();
+            });
+
+
+
+
+            @*debugger;
+            var url = '@Url.Action("GetSupplyFormData", "Chatting")';
+
+            // var url = "http://localhost:15177/AttendanceManagement/GenerateReportAction";
+            debugger;
+            $.ajax({
+                url: url,
+                type: "POST",
+                traditional: true,
+               // data: things,
+
+                // data: '{ "things":' + JSON.stringify(things) + ',"PatientName":' + JSON.stringify(PatientName) + '}',
+
+                data: { GroupName: patientGroupName, chattingId: ChattingId },
+                success: function (res) {
+                    debugger;
+                    $(".loading").hide();
+
+                    if (res) {
+
+                        debugger;
+                        //var totalSelectedFiles = $("input[type=file]")[0].files.length;
+                        //totalFiles = $("input[type=file]")[0].files;
+                       // window.open(res);
+
+                    }
+
+                    else {
+                        toastr.warning("No File Exported!");
+                    }
+
+
+                  //  $('#myModalSupply').modal('hide');
+
+                },
+                error: function (reponse) {
+                    alert("error : " + JSON.stringify(reponse));
+                    $(".loading").hide();
+                }
+            });*@
+
+
+
+
+
+
+
+        }
+
+
+
+        debugger
+        function SELFSupply(e) {
+            debugger;
+            $('#loading').show();
+            var name = $("#name").val();
+            var quality = $("#quality").val();
+            var description = $("#description").val();
+
+            var name1 = $("#name1").val();
+            var quality1 = $("#quality1").val();
+            var description1 = $("#description1").val();
+
+            var name2 = $("#name2").val();
+            var quality2 = $("#quality2").val();
+            var description2 = $("#description2").val();
+            //var Productname = $("#Productname").val();
+
+            var name3 = $("#name3").val();
+            var quality3 = $("#quality3").val();
+            var description3 = $("#description3").val();
+
+            debugger;
+            var things = [
+            { name: name, quality: quality, description: description },
+            { name: name1, quality: quality1, description: description1 },
+            { name: name2, quality: quality2, description: description2 },
+            { name: name3, quality: quality3, description: description3 }
+            ];
+
+            debugger;
+            // things = JSON.stringify({ 'things': things });
+            var things = {
+                things: things,
+                patientGroupName: patientGroupName,
+                ChattingId:ChattingId
+            }
+
+            debugger;
+            if (name == "" && quality == "" && description == "") {
+                toastr.error("Please select required field.");
+                $("#loading").hide();
+                return false;
+            }
+            else if (name == "") {
+                toastr.error("Please select Name.");
+                $("#loading").hide();
+                return false;
+            }
+            else if (quality == "") {
+                toastr.error("Please select to Quality.");
+                $("#loading").hide();
+                return false;
+            }
+            else if (description == "") {
+                toastr.error("Please select to Description.");
+                $("#loading").hide();
+                return false;
+            }
+            //else if (Productname == "") {
+            //    toastr.error("Please select to Description.");
+            //    $("#loading").hide();
+            //    return false;
+            //}
+
+            // traditional: true,
+            // data: '{ "listkey":' + JSON.stringify(list) + '}',
+
+            debugger;
+            var url = '@Url.Action("CreatePdf", "Chatting")';
+
+            // var url = "http://localhost:15177/AttendanceManagement/GenerateReportAction";
+            debugger;
+            $.ajax({
+                url: url,
+                type: "POST",
+                traditional: true,
+                data: things,
+
+                // data: '{ "things":' + JSON.stringify(things) + ',"PatientName":' + JSON.stringify(PatientName) + '}',
+
+                // data: { name: name, quality: quality, description: description,Productname: Productname},
+                success: function (res) {
+                    debugger;
+                    $(".loading").hide();
+
+                    if (res) {
+
+                        debugger;
+                        //var totalSelectedFiles = $("input[type=file]")[0].files.length;
+                        //totalFiles = $("input[type=file]")[0].files;
+                        window.open(res);
+
+                    }
+
+                    else {
+                        toastr.warning("No File Exported!");
+                    }
+
+                    $("#name").val() = " ";
+                    $("#quality").val() = " ";
+                    $("#description").val() = " ";
+
+
+                    $('#myModalSupply').modal('hide');
+
+                },
+                error: function (reponse) {
+                    alert("error : " + JSON.stringify(reponse));
+                    $(".loading").hide();
+                }
+            });
+
+
+
+        }
+
+
+        //window.setInterval(function () {
+
+
+        //    var sToken = sessionStorage.getItem("sToken");
+
+
+        //  //getOneToOneChatDialogQB(1, 0)
+
+
+        //}, 1000 * 10);
+
+        // });
+
+
+        debugger;
+        function CreateSession() {
+            //START CREATE SESSION
+
+            QB.createSession(function (err, result) {
+
+                if (err) {
+
+                } else {
+                    sessionStorage.setItem("sToken", result.token);
+
+                    if (sFromQBId == '0') {
+                        RegisterNewUser("@Session["FromUserEmail"]", "@Session["LoginUserUserId"]");
+                    }
+                    else {
+                        var user = {
+                            id: sFromQBId,
+                            login: "@Session["FromUserEmail"]",
+                            password: "Welcome007!"
+                        };
+
+                        QB.createSession({ login: user.login, password: user.password }, function (err, result) {
+                            if (err) {
+                                $("#loading").hide();    // Added by Vinod Verma
+                                alert(err.message);
+                            } else {
+                                sessionStorage.setItem("sToken", result.token);
+                                debugger;
+                                getOneToOneDialogs(limit, skip, 1, searchFilter);
+
+                            }
+                        });
+                    }
+                }
+            });
+            //END CREATE SESSION
+        }
+
+
+        function getOneToOneDialogs(limit, skip, flagIsload, searchFilter) {
+
+
+            var filters = {
+                count: 1,
+                data: {
+                    class_name: "ChatDialogType",
+                    ChatCategory: 1,
+                }
+            }
+
+            debugger;
+            QB.chat.dialog.list(filters, function (error, response) {
+
+                if (error) {
+                    return false;
+                }
+
+                totalEntriesGroupOnetoOne = response.items.count
+                //  debugger;
+
+                if (totalEntriesGroupOnetoOne > 100) {
+                    $("#loadMore").show();
+                }
+                else {
+                    $("#loadMore").hide();
+                }
+
+                if (response.items.count > 0) {
+                    //alert(response.items.count);
+                    var oneToOneChatTotalDialog = response.items.count
+
+                    debugger;
+
+                    var filters = {
+                        limit: limit,
+                        skip: skip,
+                        sort_desc: "last_message_date_sent",
+                        //sort_desc: "created_at",
+                        data: {
+                            class_name: "ChatDialogType",
+                            ChatCategory: 1,
+                        }
+                    }
+
+                    debugger;
+                    QB.chat.dialog.list(filters, function (error, response) {
+                        if (error) {
+
+                            return false;
+                        }
+
+                        //  var dialogs = response.items
+
+                        // qbDialogs
+                        debugger;
+                        qbDialogs = $.merge($.merge([], qbDialogs), response.items);
+
+                        debugger;
+                        //var localEntries = response.limit + response.skip;
+
+
+                        var dialogs = response.items
+
+                        debugger;
+                        var OnetoOnegroupDialogIds = "";
+                        alert(dialogs.length);
+                        for (i = 0; i < dialogs.length ; i++)
+                        {
+                          //  debugger;
+                           // if (i != 99)
+                                OnetoOnegroupDialogIds += dialogs[i]._id + ","
+                            //else
+                            //    OnetoOnegroupDialogIds += dialogs[i]._id
+                        }
+
+
+
+                        //var qbDialogs = []
+                        debugger;
+
+                        // getAllOneToOneChatDialogs(filters, oneToOneChatTotalDialog);
+                        //   }
+
+                        // $("#loading").hide();
+                        //  });
+
+
+
+
+                        debugger;
+                        var url = INITURL + '/Chatting/GetOneToOnechatRoomGroupList';
+                        //alert(now());
+                        $.ajax({
+                            url: url,
+                            data: { QBGroupDialogIds: OnetoOnegroupDialogIds },
+                            cache: false,
+                            type: 'POST',
+                            async: false,
+                            success: function (data) {
+
+                                debugger;
+                                totalEntriesOneToOne = data.length;
+
+                                //if (totalEntriesOneToOne > 100) {
+                                //    $("#loadMore").show();
+                                //}
+                                //else {
+                                //    $("#loadMore").hide();
+                                //}
+
+
+                                debugger;
+                                // groupChat = data;
+                                var dataSource = data;
+
+                                console.log(groupChat.length);
+                                console.log(qbDialogs.length);
+
+                                    debugger;
+                                    for (var d = 0; d < qbDialogs.length; d++) {
+                                        var dt;
+                                        dt = qbDialogs[d].last_message_date_sent;
+                                        count = qbDialogs[d].unread_messages_count;
+                                        try {
+                                            for (var x = 0; x < dataSource.length; x++) {
+                                                if (qbDialogs[d]._id == dataSource[x].QuickBloxDialogId) {
+                                                    dataSource[x]["Time"] = dt;
+                                                    dataSource[x]["unreadMsgCount"] = count;
+                                                }
+                                            }
+                                        } catch (e) { }
+                                    }
+
+                                  //  if (groupChat != null)
+
+
+                                 sortData = dataSource.sort(function (a, b) { return b.Time - a.Time });
+
+
+                                   // groupChat = [];
+
+                                    if (groupChat.length > 0) {
+
+                                        for (var i = 0; i < sortData.length; i++) {
+                                            var groupchatIndex = 0;
+                                            var currentData = sortData[i];
+                                            groupChat.push(sortData[i]);
+
+                                          //  console.log(groupChat);
+                                           // var groupchatData = $.grep(groupChat, function (element, index) {
+                                               ///groupchatIndex = index;
+                                               /// return element.DialogId == currentData.DialogId;
+                                          // });
+                                          // if (groupchatData != null && groupchatData.length > 0) {
+                                                // debugger;
+                                               // var chatData = groupchatData[0];
+                                              // chatData.unreadMsgCount = currentData.unreadMsgCount;
+                                              // chatData.Time = currentData.Time;
+                                          // }
+                                           // else {
+                                               // groupChat.push(currentData);
+                                            //}
+                                        }
+
+                                    }
+                                    else {
+                                        groupChat = $.merge($.merge([], groupChat), sortData);
+
+                                    }
+
+                                    groupChat = groupChat.sort(function (a, b) { return b.Time - a.Time });
+
+                                   // groupChat = groupChat.sort(function (a, b) { return b.Time - a.Time });
+
+
+                                    var oneToOneChatTable = "";
+
+                                   // $('#oneToOneChatTable tbody').remove();
+
+                                // htmlTable(limit, skip, 0)
+
+
+                                  //  var displayGroupChat = [];
+
+                                    //if (IsOfficeFilter) {
+                                    //    displayGroupChat = filterGroup
+                                    //}
+                                    //else {
+                                      //  displayGroupChat = groupChat
+                                   // }
+
+                                    var arrlength = limit + skip;
+
+                                    if (limit + skip > totalEntriesOneToOne)
+                                        arrlength = totalEntriesOneToOne;
+                                    debugger;
+                                //  $('#oneToOneChatTable tbody').remove();
+
+                                    for (var tb1 = 0; tb1 <groupChat.length ; tb1++) {
+
+                                        var unReadHtml = '';
+                                        var chatBtnhtml = '';
+
+                                        chatBtnhtml = '<a href="/Chatting/OpenChatWindow?Id=' + groupChat[tb1].NurseId + '&UserId=' + groupChat
+
+[tb1].UserId + '" class="btn btn-xs btn-primary" style="margin-top:5px; width:100%;" >Chat</a>'
+
+                                        if (groupChat[tb1].unreadMsgCount > 0) {
+                                            unReadHtml = "<span style='position:absolute;right:0;' class='label label-danger unReadCount'>" +
+
+groupChat[tb1].unreadMsgCount + "</span>";
+                                        }
+
+                                        oneToOneChatTable += "<tr>" +
+
+                                        "<td style='position:relative;width:30%;'>" + groupChat[tb1].CareGiverName + unReadHtml + "</td>" +
+                                        "<td>" + groupChat[tb1].Role + "</td>" +
+                                        "<td>" + groupChat[tb1].OfficeName + "</td>" +
+                                        "<td>" + chatBtnhtml + "</td>" +
+                                        "</tr>";
+
+                                        debugger;
+                                       displayOneToOneChat.push(groupChat[tb1]);
+                                    }
+
+
+
+                                    $('#oneToOneChatTable').append(oneToOneChatTable).promise().then(function () {
+                                        // run when the animation succeeds
+                                    }).then(function () {
+                                        // also run when the animation succeeds
+                                        debugger;
+                                        $("#loading").hide();
+                                       // $("#loadMore").show();
+                                        //  if (flagIsfilter == 1)
+
+                                    });
+
+
+
+                                    if (groupChat.length == 0) {
+                                        oneToOneChatTable += "<tr><td>No chat available</td><td></td><td></td><td></td></tr>";
+                                    }
+
+
+
+
+                                    $("#loadingMore").hide();
+                                //    $("#btnLoadMore").show();
+
+
+                                    if (skip > totalEntriesGroupOnetoOne) {
+                                        $("#btnLoadMore").hide();
+                                        $("#allmsg").show();
+                                        $("#allmsg").text("No more patient chat room available");
+                                    }
+                                    else {
+                                        $("#btnLoadMore").show();
+                                        $("#allmsg").hide();
+                                    }
+
+                                //var filters = {
+                                //    count: 1,
+                                //    data: {
+                                //        class_name: "ChatDialogType",
+                                //        ChatCategory: 1,
+                                //    }
+                                //}
+
+                                //debugger;
+                                //QB.chat.dialog.list(filters, function (error, response) {
+
+                                //    if (error) {
+                                //        return false;
+                                //    }
+
+                                //    if (response.items.count > 0) {
+                                //        //alert(response.items.count);
+                                //        var oneToOneChatTotalDialog = response.items.count
+
+
+
+                                //        debugger;
+
+                                //        var filters = {
+                                //            limit: limit,
+                                //            skip: skip,
+                                //            sort_desc: "last_message_date_sent",
+                                //            data: {
+                                //                class_name: "ChatDialogType",
+                                //                ChatCategory: 1,
+                                //            }
+                                //        }
+                                //        //var qbDialogs = []
+                                //        debugger;
+
+                                //        getAllOneToOneChatDialogs(filters, oneToOneChatTotalDialog);
+                                //    }
+
+                                //    // $("#loading").hide();
+                                //});
+                            },
+                            error: function (reponse) {
+                                //alert("error : " + reponse);
+                                $("#loading").hide();
+                                $("#loadingMore").hide();
+                                $("#btnLoadMore").hide();
+                            }
+                        });
+
+                    })
+                }
+            })
+        }
+
+
+
+
+
+
+
+
+
+        debugger;
+        function htmlTable(limit, skip, IsOfficeFilter) {
+
+            //var oneToOneChatTable = "";
+            debugger;
+            var displayGroupChat = [];
+
+            if (IsOfficeFilter) {
+                displayGroupChat = filterGroup
+            }
+            else {
+                displayGroupChat = groupChat
+            }
+
+            var arrlength = limit + skip;
+
+            if (limit + skip > totalEntriesOneToOne)
+                arrlength = totalEntriesOneToOne;
+            debugger;
+          //  $('#oneToOneChatTable tbody').remove();
+
+            for (var tb1 = skip; tb1 < arrlength ; tb1++) {
+
+                var unReadHtml = '';
+                var chatBtnhtml = '';
+
+                chatBtnhtml = '<a href="/Chatting/OpenChatWindow?Id=' + displayGroupChat[tb1].NurseId + '&UserId=' + displayGroupChat
+
+[tb1].UserId + '" class="btn btn-xs btn-primary" style="margin-top:5px; width:100%;" >Chat</a>'
+
+                if (displayGroupChat[tb1].unreadMsgCount > 0) {
+                    unReadHtml = "<span class='label label-danger unReadCount'>" + displayGroupChat[tb1].unreadMsgCount + "</span>";
+                }
+
+                oneToOneChatTable += "<tr>" +
+                "<td>" + displayGroupChat[tb1].CareGiverName + unReadHtml + "</td>" +
+                "<td>" + displayGroupChat[tb1].Role + "</td>" +
+                "<td>" + displayGroupChat[tb1].OfficeName + "</td>" +
+                "<td>" + chatBtnhtml + "</td>" +
+                "</tr>";
+
+                debugger;
+                displayOneToOneChat.push(displayGroupChat[tb1]);
+            }
+
+            //setTimeout(function () {
+
+            //    if (displayOneToOneChat.length == 0) {
+            //        oneToOneChatTable += "<tr><td>No chat available</td><td></td><td></td><td></td></tr>";
+            //    }
+            //}, 500);
+
+            //setTimeout(function () {
+            //    if (arrlength == 0) {
+            //        oneToOneChatTable += "<tr><td>No chat available</td><td></td><td></td><td></td></tr>";
+            //    }
+            //}, 500);
+
+
+            //if (arrlength == 0) {
+            //    oneToOneChatTable += "<tr><td>No chat available</td><td></td><td></td><td></td></tr>";
+            //}
+
+           // $("#oneToOneChatTable").append(oneToOneChatTable);
+
+
+            $('#oneToOneChatTable').append(oneToOneChatTable).promise().then(function () {
+                // run when the animation succeeds
+            }).then(function () {
+                // also run when the animation succeeds
+                debugger;
+                //  if (flagIsfilter == 1)
+                $("#loading").hide();
+            });
+
+
+            $("#loadingMore").hide();
+            debugger;
+            if (limit + skip <= totalEntriesGroupOnetoOne) {
+                $("#btnLoadMore").show();
+            }
+            else {
+                $("#allmsg").text("No more chat available");
+            }
+
+            $("#loading").hide();
+
+        }
+
+        debugger;
+        var getAllOneToOneChatDialogs = function (filters, totalEntries) {
+
+
+            debugger;
+            QB.chat.dialog.list(filters, function (error, response) {
+                if (error) {
+
+                    return false;
+                }
+
+                //  var dialogs = response.items
+
+                // qbDialogs
+                debugger;
+                qbDialogs = $.merge($.merge([], qbDialogs), response.items);
+
+                debugger;
+                var localEntries = response.limit + response.skip;
+
+                if (totalEntries >= localEntries) {
+                    debugger;
+                    var filters = {
+                        limit: 50,
+                        skip: localEntries,
+                        sort_desc: "last_message_date_sent",
+                        data: {
+                            class_name: "ChatDialogType",
+                            ChatCategory: 1
+                        }
+                    }
+                    debugger;
+                    getAllOneToOneChatDialogs(filters, totalEntries);
+                }
+                else {
+                    debugger;
+                    for (var d = 0; d < qbDialogs.length; d++) {
+                        var dt;
+                        dt = qbDialogs[d].last_message_date_sent;
+                        count = qbDialogs[d].unread_messages_count;
+                        try {
+                            for (var x = 0; x < groupChat.length; x++) {
+                                if (qbDialogs[d]._id == groupChat[x].QuickBloxDialogId) {
+                                    groupChat[x]["Time"] = dt;
+                                    groupChat[x]["unreadMsgCount"] = count;
+                                }
+                            }
+                        } catch (e) { }
+                    }
+
+                    if (groupChat != null)
+                        groupChat = groupChat.sort(function (a, b) { return b.Time - a.Time });
+
+                    var oneToOneChatTable = "";
+
+                    $('#oneToOneChatTable tbody').remove();
+
+                    htmlTablefilterSearch(limit, skip, 0)
+
+                    //var oneToOneChatTable = "";
+
+                    //$('#oneToOneChatTable tbody').remove();
+
+                    //for (var tb1 = 0; tb1 < groupChat.length ; tb1++) {
+
+                    //    var unReadHtml = '';
+                    //    var chatBtnhtml = '';
+
+                    //    chatBtnhtml = '<a href="/Chatting/OpenChatWindow?Id=' + groupChat[tb1].NurseId + '&UserId=' + groupChat[tb1].UserId +
+
+'" class="btn btn-xs btn-primary" style="margin-top:5px; width:100%;" >Chat</a>'
+
+                    //    if (groupChat[tb1].unreadMsgCount > 0) {
+                    //        unReadHtml = "<span class='label label-danger unReadCount'>" + groupChat[tb1].unreadMsgCount + "</span>";
+                    //    }
+
+                    //    oneToOneChatTable += "<tr>" +
+                    //    "<td>" + groupChat[tb1].CareGiverName + unReadHtml + "</td>" +
+                    //    "<td>" + groupChat[tb1].Role + "</td>" +
+                    //    "<td>" + groupChat[tb1].OfficeName + "</td>" +
+                    //    "<td>" + chatBtnhtml + "</td>" +
+                    //    "</tr>";
+
+                    //}
+
+                    if (groupChat.length == 0) {
+                        oneToOneChatTable += "<tr><td>No chat available</td><td></td><td></td><td></td></tr>";
+                    }
+
+                    $("#oneToOneChatTable").append(oneToOneChatTable);
+                }
+
+            });
+        }
+
+
+
+        function htmlTablefilterSearch(limit, skip, IsOfficeFilter) {
+
+            //var oneToOneChatTable = "";
+            debugger;
+            var displayGroupChat = [];
+
+            if (IsOfficeFilter) {
+                displayGroupChat = filterGroup
+            }
+            else {
+                displayGroupChat = groupChat
+            }
+
+            var arrlength = limit + skip;
+
+            if (limit + skip > totalEntriesOneToOne)
+                arrlength = totalEntriesOneToOne;
+
+            $('#oneToOneChatTable tbody').remove();
+
+            for (var tb1 = skip; tb1 < arrlength ; tb1++) {
+
+                var unReadHtml = '';
+                var chatBtnhtml = '';
+
+                chatBtnhtml = '<a href="/Chatting/OpenChatWindow?Id=' + displayGroupChat[tb1].NurseId + '&UserId=' + displayGroupChat
+
+[tb1].UserId + '" class="btn btn-xs btn-primary" style="margin-top:5px; width:100%;" >Chat</a>'
+
+                if (displayGroupChat[tb1].unreadMsgCount > 0) {
+                    unReadHtml = "<span class='label label-danger unReadCount'>" + displayGroupChat[tb1].unreadMsgCount + "</span>";
+                }
+
+                oneToOneChatTable += "<tr>" +
+                "<td>" + displayGroupChat[tb1].CareGiverName + unReadHtml + "</td>" +
+                "<td>" + displayGroupChat[tb1].Role + "</td>" +
+                "<td>" + displayGroupChat[tb1].OfficeName + "</td>" +
+                "<td>" + chatBtnhtml + "</td>" +
+                "</tr>";
+
+                displayOneToOneChat.push(displayGroupChat[tb1]);
+            }
+
+            //setTimeout(function () {
+
+            //    if (displayOneToOneChat.length == 0) {
+            //        oneToOneChatTable += "<tr><td>No chat available</td><td></td><td></td><td></td></tr>";
+            //    }
+            //}, 500);
+
+           // setTimeout(function () {
+                if (arrlength == 0) {
+                    oneToOneChatTable += "<tr><td>No chat available</td><td></td><td></td><td></td></tr>";
+                }
+           // }, 500);
+
+
+            //if (arrlength == 0) {
+            //    oneToOneChatTable += "<tr><td>No chat available</td><td></td><td></td><td></td></tr>";
+            //}
+
+            $("#oneToOneChatTable").append(oneToOneChatTable);
+
+            $("#loadingMore").hide();
+
+            if (limit + skip <= totalEntriesOneToOne) {
+                $("#btnLoadMore").show();
+            }
+            else {
+                $("#allmsg").text("No more chat available");
+            }
+
+            $("#loading").hide();
+
+        }
+
+
+        debugger;
+
+        function loadMore() {
+
+
+            debugger;
+            skip = limit + skip;
+
+            $("#btnLoadMore").hide();
+
+            $("#loadingMore").show();
+
+            if (skip < totalEntriesGroupOnetoOne) {
+                getOneToOneDialogs(limit, skip, 1, searchFilter);
+
+                //if (IsOfficeFilter)
+                //setTimeout(function () {
+                //    htmlTable(limit, skip, IsOfficeFilter)
+                //}, 1000);
+                // htmlTable(limit, skip, IsOfficeFilter)
+
+            }
+            else {
+                $("#loadingMore").hide();
+                $("#btnLoadMore").hide();
+                $("#allmsg").text("No more chat available");
+            }
+
+        }
+
+
+        function getOneToOneChatDialogQB(limit, skip) {
+            //alert('getOneToOneChatDialogQB Call');
+            var filters = {
+                limit: limit,
+                skip: skip,
+                sort_desc: "last_message_date_sent",
+                data: {
+                    class_name: "ChatDialogType",
+                    ChatCategory: 1,
+                }
+            }
+
+            QB.chat.dialog.list(filters, function (error, response) {
+
+                if (error) {
+
+                    return false;
+                }
+
+                var sortData = response.items;
+
+                //  sortData = sortData.sort(function (a, b) { return b.last_message_date_sent - a.last_message_date_sent });
+
+                for (var i = 0; i < sortData.length; i++) {
+                    var groupchatIndex = 0;
+                    var currentData = sortData[i];
+                    var groupchatData = $.grep(displayOneToOneChat, function (element, index) {
+                        ///groupchatIndex = index;
+                        return element.QuickBloxDialogId == currentData._id;
+                    });
+                    if (groupchatData != null && groupchatData.length > 0) {
+
+                        var chatData = groupchatData[0];
+                        chatData.unreadMsgCount = currentData.unread_messages_count;
+                        chatData.Time = currentData.last_message_date_sent;
+                    }
+                    //else {
+                    //    displayOneToOneChat.push(currentData);
+                    //}
+                }
+
+                var oneToOneChatTableV1 = "";
+
+               // $('#oneToOneChatTable tbody').remove();
+
+                //var groupchatData1 = $.grep(displayOneToOneChat, function (element, index) {
+                //    ///groupchatIndex = index;
+                //    return element.Time == null;
+                //});
+
+                //if (groupchatData1)
+                //{
+
+                //}
+
+                //  var displaysortOneToOneChat = displayOneToOneChat.sort(function (a, b) { return b.CareGiverName - a.CareGiverName });
+
+
+
+                //displayOneToOneChat[199].Time = 0;
+                //displayOneToOneChat[175].Time = 0;
+
+
+                var displaysortOneToOneChat = [];
+                function SortByTime(b, a) {
+                    var aTime = a.Time;
+                    var bTime = b.Time;
+                    return ((aTime < bTime) ? -1 : ((aTime > bTime) ? 1 : 0));
+                }
+
+                displaysortOneToOneChat = displayOneToOneChat.sort(SortByTime);
+
+                displaysortOneToOneChat = displayOneToOneChat.sort(SortByTime);
+
+
+                //var displaysortOneToOneChat = displayOneToOneChat.sort(function (a, b) {
+
+                //    if (a.Time === b.Time) {
+                //        return 0;
+                //    }
+
+                //    return b.Time - a.Time
+                //});
+
+                //  var displaysortOneToOneChat = displayOneToOneChat;
+
+                for (var tb1 = 0; tb1 < displaysortOneToOneChat.length ; tb1++) {
+
+                    var unReadHtml = '';
+                    var chatBtnhtml = '';
+
+                    chatBtnhtml = '<a href="/Chatting/OpenChatWindow?Id=' + displaysortOneToOneChat[tb1].NurseId + '&UserId=' +
+
+displaysortOneToOneChat[tb1].UserId + '" class="btn btn-xs btn-primary" style="margin-top:5px; width:100%;" >Chat</a>'
+
+                    if (displaysortOneToOneChat[tb1].unreadMsgCount > 0) {
+                        unReadHtml = "<span class='label label-danger unReadCount'>" + displaysortOneToOneChat[tb1].unreadMsgCount + "</span>";
+                    }
+
+                    oneToOneChatTableV1 += "<tr>" +
+                    "<td>" + displaysortOneToOneChat[tb1].CareGiverName + unReadHtml + "</td>" +
+                    "<td>" + displaysortOneToOneChat[tb1].Role + "</td>" +
+                    "<td>" + displaysortOneToOneChat[tb1].OfficeName + "</td>" +
+                    "<td>" + chatBtnhtml + "</td>" +
+                    "</tr>";
+                }
+
+
+                setTimeout(function () {
+
+                    if (displaysortOneToOneChat.length == 0) {
+                        oneToOneChatTableV1 += "<tr><td>No chat available</td><td></td><td></td><td></td></tr>";
+                    }
+                }, 500);
+
+
+
+                $("#oneToOneChatTable").append(oneToOneChatTableV1);
+
+
+            });
+
+        }
+
+
+        function officeFilter(OfficeId) {
+
+
+            if (OfficeId == "0") {
+
+                $("#loading").show();
+
+                IsOfficeFilter = 0;
+
+                groupChat = [];
+
+                displayOneToOneChat = [];
+
+                qbDialogs = [];
+
+                oneToOneChatTable = "";
+
+                limit = 100;
+                skip = 0;
+
+                $('#oneToOneChatTable tbody').remove();
+
+                setTimeout(getOneToOneDialogs(limit, skip, 1, "||"), 1000);
+
+                // getOneToOneDialogs(limit, skip, 1, "||");
+            }
+            else {
+
+                $("#loading").show();
+
+                IsOfficeFilter = 1;
+
+                displayOneToOneChat = [];
+
+                //  groupChat = [];
+
+                filterGroup = []
+
+                limit = 100;
+                skip = 0;
+
+                var filterGroupCount = 0;
+
+                var OfficeSelect = document.getElementById("ddlOfficeDropDownList");
+                var OfficeNameText = OfficeSelect.options[OfficeSelect.selectedIndex].text;
+
+                filterGroup = groupChat.filter(function (el) {
+
+                    var x = OfficeNameText;
+                    var y = el.OfficeName;
+
+                    // str.includes("world");
+                    return el.OfficeName.includes(OfficeNameText);
+                    // return el.OfficeName == OfficeName;
+                });
+
+
+                totalEntriesOneToOne = filterGroup.length;
+
+                var arrLength = 0;
+
+                if (totalEntriesOneToOne > limit)
+                    arrLength = limit
+                else
+                    arrLength = totalEntriesOneToOne
+
+                if (filterGroup.length < 100) {
+
+                    $("#btnLoadMore").hide();
+                    $("#allmsg").text("No more chat available");
+                }
+                else {
+
+                    $("#btnLoadMore").show();
+                    $("#allmsg").hide();
+                }
+                oneToOneChatTable = "";
+
+                $('#oneToOneChatTable tbody').remove();
+
+                for (var tb1 = 0; tb1 < arrLength ; tb1++) {
+
+                    var unReadHtml = '';
+                    var chatBtnhtml = '';
+
+                    chatBtnhtml = '<a href="/Chatting/OpenChatWindow?Id=' + filterGroup[tb1].NurseId + '&UserId=' + filterGroup[tb1].UserId +
+
+'"class="btn btn-xs btn-primary" style="margin-top:5px; width:100%;" >Chat</a>'
+
+                    if (filterGroup[tb1].unreadMsgCount > 0) {
+                        unReadHtml = "<span class='label label-danger unReadCount'>" + filterGroup[tb1].unreadMsgCount + "</span>";
+                    }
+
+                    oneToOneChatTable += "<tr>" +
+                    "<td>" + filterGroup[tb1].CareGiverName + unReadHtml + "</td>" +
+                    "<td>" + filterGroup[tb1].Role + "</td>" +
+                    "<td>" + filterGroup[tb1].OfficeName + "</td>" +
+                    "<td>" + chatBtnhtml + "</td>" +
+                    "</tr>";
+
+                    displayOneToOneChat.push(filterGroup[tb1]);
+                }
+
+                if (filterGroup.length == 0) {
+                    oneToOneChatTable += "<tr><td>No chat available for this office</td><td></td><td></td><td></td></tr>";
+                }
+
+
+                $("#oneToOneChatTable").append(oneToOneChatTable);
+
+
+
+                setTimeout(function () {
+                    $("#loading").hide();
+                }, 500);
+
+            }
+        }
+
+
+
+
+        $("#table-filter").keyup(function (event) {
+            if (event.keyCode == 13) {
+
+
+                $('#ddlOfficeDropDownList').val(0);
+
+
+                var input = document.getElementById("table-filter");
+
+
+                totalEntriesOneToOne = 0;
+
+                limit = 100;
+                skip = 0;
+
+                officeIds = [];
+
+                groupChat = [];
+
+                qbDialogs = [];
+
+                displayOneToOneChat = [];
+
+
+                oneToOneChatTable = "";
+
+                searchInput = $('#table-filter').val();
+
+                if (searchInput == "")
+                    searchInput = "||";
+
+                $("#loading").show();
+
+                $('#oneToOneChatTable tbody').remove();
+
+                $("#allmsg").hide();
+
+                setTimeout(function () {
+                    getOneToOneDialogssss(limit, skip, 1, searchInput);
+                }, 1000);
+
+                // setTimeout(getOneToOneDialogs(limit, skip, 1, searchInput), 1000);
+                //getOneToOneDialogs(limit, skip, 1, searchInput);
+            }
+        });
+
+
+
+        debugger;
+        function getOneToOneDialogssss(limit, skip, flagIsload, searchFilter) {
+
+            debugger;
+            var url = INITURL + '/Chatting/GetOneToOneChatList';
+            //alert(now());
+            $.ajax({
+                url: url,
+                data: { searchFilter: searchFilter },
+                cache: false,
+                type: 'POST',
+                async: true,
+                success: function (data) {
+
+                    debugger;
+                    totalEntriesOneToOne = data.TotalNumberofRecord
+
+                    if (totalEntriesOneToOne > 100) {
+                        $("#loadMore").show();
+                    }
+                    else {
+                        $("#loadMore").hide();
+                    }
+
+
+                    debugger;
+                    groupChat = data.objChattingsList
+
+
+                    debugger;
+
+                    //var filters = {
+                    //    limit: limit,
+                    //    skip: skip,
+                    //    sort_desc: "last_message_date_sent",
+                    //    data: {
+                    //        class_name: "ChatDialogType",
+                    //        ChatCategory: 1,
+                    //    }
+                    //}
+
+
+
+
+                    var filters = {
+                        count: 1,
+                        data: {
+                            class_name: "ChatDialogType",
+                            ChatCategory: 1,
+                        }
+                    }
+
+                    debugger;
+                    QB.chat.dialog.list(filters, function (error, response) {
+
+                        if (error) {
+                            return false;
+                        }
+
+                        if (response.items.count > 0) {
+                            //alert(response.items.count);
+                            var oneToOneChatTotalDialog = response.items.count
+
+
+
+                            //debugger;
+
+                            //var filters = {
+                            //    limit: limit,
+                            //    skip: skip,
+                            //    sort_desc: "last_message_date_sent",
+                            //    data: {
+                            //        class_name: "ChatDialogType",
+                            //        ChatCategory: 1,
+                            //    }
+                            //}
+                            //var qbDialogs = []
+                            debugger;
+
+                            getAllOneToOneChatDialogs(filters, oneToOneChatTotalDialog);
+                        }
+
+                        // $("#loading").hide();
+                    });
+                },
+                error: function (reponse) {
+                    //alert("error : " + reponse);
+                    $("#loading").hide();
+                    $("#loadingMore").hide();
+                    $("#btnLoadMore").hide();
+                }
+            });
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        debugger;
+        function OpenSupplyForm() {
+            debugger;
+            $("#loading").show();
+            // alert(INITURL);
+            debugger;
+            // $('#SupplyformId').load(INITURL + 'Chatting/SupplyForm', function () {
+            debugger;
+            //   sessionStorage.setItem("PartialView", "1");
+          //  document.getElementById(lbl).innerHTML = val;
+
+           // document.getElementById("date").innerHTML=
+           // $('#EmpName').val(PatientName);
+
+            debugger;
+            $('#myModalSupply').modal('show');
+            $("#loading").hide();
+            // });
+        }
+
+
+        function OpenNewCaregiverAssignee() {
+
+            //var ChattingGroupId = "3904";
+            //var GroupName = "Alok Babu(115)";
+
+
+
+            $("#loading").show();
+
+            //var url=INITURL+ 'Chatting/AssignCaregiver?ChattingGroupId=' + ChattingGroupId + '&GroupName=\"' + unescape(GroupName) +'\"';
+
+            var url = INITURL + 'Chatting/AssignCaregiver?ChattingGroupId=' + ChattingGroupId + '&GroupName=' + unescape(GroupName);
+
+            $('#AssignCaregiver').load(encodeURI(url), function () {
+                sessionStorage.setItem("PartialView", "1");
+                $('#modalCaregiverAssignment').modal('show');
+                $("#loading").hide();
+            });
+        }
+
+
+
+</script>

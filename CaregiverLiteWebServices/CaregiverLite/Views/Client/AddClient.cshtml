@@ -1,0 +1,612 @@
+﻿@model CaregiverLite.Models.Client
+ 
+@using (Html.BeginForm("AddClient", "Client", FormMethod.Post, new { @id = "fmAddClierntDetails", @class = "horizontal-form", @enctype = "multipart/form-data" }))
+    {
+   
+
+    <div id="main_div"> 
+
+        <div class="alert alert-danger alert-dismissable" style="display:none" id="dvError3">
+            <button onclick="divClose();" class="close" type="button">×</button>
+            <label id="lblError3"></label>
+        </div>
+        <div class="col-md-6">
+            @*CRNumber Name*@
+            <div class="form-group">
+                <label>CRNumber</label>
+                <span style="color:red;">*</span>
+                @Html.TextBoxFor(model => model.CRNumber, new { @type = "text", @maxlength = "25", @placeholder = "CR Number", @class = "form-control", @tabindex = "1", @onblur = "javascript:IsCRNumberExist();" })
+                @Html.ValidationMessageFor(model => model.CRNumber, "", new { @class = "text-danger" })
+
+            </div>
+            @*ClientName*@ 
+            <div class="form-group">
+                <label>ClientName</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.ClientName)
+                @Html.TextBoxFor(model => model.ClientName, new { @type = "text", @maxlength = "100", @placeholder = "ClientName", @class = "form-control", @tabindex = "2" })
+            </div>
+
+            @*Phone Number*@            
+            <div class="form-group">
+                <label>Phone</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.Phone)
+                @Html.TextBoxFor(model => model.Phone, new { @type = "text", @maxlength = "25", @placeholder = "Phone", @class = "form-control", @tabindex = "3",@onblur = "javascript:IsPhoneNoExist();" })
+            </div> 
+            @*Email*@
+            <div class="form-group">
+                <label>Email</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.Email)
+                @Html.TextBoxFor(model => model.Email, new { @type = "text", @maxlength = "25", @placeholder = "Email", @class = "form-control", @tabindex = "4" })
+            </div>
+            
+            <div class="form-group">
+                <label>Office</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.OfficeId)
+                @Html.DropDownListFor(model => model.OfficeId, Model.OfficeSelectList, "Select...", new { @class = "form-control", @tabindex = "5" })
+
+            </div>
+        </div>
+        <div class="col-md-6">
+            @*Street*@
+            <div class="form-group">
+                <label>Street</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.Street)
+                @Html.TextBoxFor(model => model.Street, new { @type = "text", @maxlength = "150", @placeholder = "Street", @class = "form-control", @tabindex = "6" })
+
+            </div>
+            
+            @*State*@
+           
+           
+             @*City*@
+            <div class="form-group">
+                <label>City</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.City)
+                @Html.TextBoxFor(model => model.City, new { @type = "text", @maxlength = "25", @placeholder = "City", @class = "form-control", @tabindex = "8" })
+
+            </div>
+			
+			
+			 <div class="form-group">
+                <label>State</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.State)
+                @Html.TextBoxFor(model => model.State, new { @type = "text", @maxlength = "25", @placeholder = "State", @class = "form-control", @tabindex = "7" })
+            </div>
+
+          @*ZipCode*@ 
+             <div class="form-group">
+                <label>ZipCode</label>
+                @Html.TextBoxFor(model => model.ZipCode, new { @type = "text", @maxlength = "25", @placeholder = "ZipCode", @class = "form-control", @tabindex = "9" })
+                @Html.ValidationMessageFor(model => model.ZipCode, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="form-group">
+                <label>CompanyName</label>
+                @Html.TextBoxFor(model => model.CompanyName, new { @type = "text", @maxlength = "25", @placeholder = "Company Name", @class = "form-control", @tabindex = "10" })
+                @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger" })
+
+            </div>
+            
+            <div>
+                @Html.HiddenFor(model => model.TimezoneOffset, new { @id = "hdnTimezoneOffset" })
+                @Html.HiddenFor(model => model.TimezoneId, new { @id = "hdntimeZoneId" })
+                @Html.HiddenFor(model => model.TimezonePostfix, new { @id = "hdnTimezonePostfix" })
+                @Html.HiddenFor(model => model.Latitude)
+                @Html.HiddenFor(model => model.Longitude)
+            </div>
+        </div>
+       
+
+        <div class="col-md-12">
+            <button type="button" onclick="Addnew()" class="btn btn-sm btn-primary pull-right" tabindex="11">ADD</button>
+            <div class="clearfix"></div>
+        </div>
+
+        <input type="hidden" id="hdndstOffset" />
+        <input type="hidden" id="hdnrawOffset" />
+        <input type="hidden" id="hdntimeZoneFullName" />
+
+        
+    </div> 
+}
+ 
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script type="text/javascript">
+    
+    var latitude;
+    var longitude; 
+    var IsCRNumber = 0;
+    $("#loading").hide();
+
+    $.validator.setDefaults({
+        ignore: [],
+    });
+    $(document).ready(function () {
+
+        $('#Street').keypress(function (event) {
+            if ($('#Street').val().length > 99) {
+                toastr.error("Description will not allow greater then 150 characters.");
+                $('#Street').focus()
+                return false;
+            }
+        });        
+        $('#ZipCode').blur(function (event) {
+
+            if ($('#ZipCode').val().length > 3 && ($("#Street").val() + $("#City").val() + $("#State").val()).length > 3) {
+
+                $("#loading").show();
+                GetLanLat()
+                $("#loading").hide();
+                return false;
+            }
+        });
+
+
+
+        $("#loading").show();
+
+
+        var form = $("#fmAddClierntDetails").closest("form");
+        form.removeData('validator');
+        form.removeData('unobtrusiveValidation');
+        $.validator.unobtrusive.parse(form);
+
+        $('#myModal').on('shown.bs.modal', function () {
+
+            $("#Date").datepicker(
+            {
+                minDate: 0,
+                onSelect: function () {
+                    $(this).change();
+                }
+
+                //,dateFormat: 'dd-mm-yy'
+            });
+
+
+            $("#RepeatDate").datepicker(
+            {
+                minDate: 0,
+                onSelect: function () {
+                    $(this).change();
+                }
+
+                //,dateFormat: 'dd-mm-yy'
+            });
+
+        });
+
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': { allow_single_deselect: true },
+            '.chosen-select-no-single': { disable_search_threshold: 10 },
+            '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+            '.chosen-select-width': { width: "95%" }
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+
+        }
+        $("#loading").hide();
+    });
+
+     
+
+    function Addnew() {
+       
+        $('#loading').show();
+        
+        var ClientName = $("#ClientName").val();
+        var CRNumber = $("#CRNumber").val();
+        var ZipCode = $("#ZipCode").val();
+        var ClientId = $("#ClientId").val();
+        //var Date = $("#Date").val();
+        var Street = $("#Street").val();
+        var City = $("#City").val();
+        var State = $("#State").val();
+        var Phone = $("#Phone").val();
+        var OfficeId = $("#OfficeId").val();
+
+        if (ClientName == "" && CRNumber == "" && ZipCode == "" && ClientId == "" && Street == "" && City == "" && State == "" && Phone == "" && OfficeId == "") {
+            toastr.error('Please fill all required fields');
+            $('#loading').hide();
+            return false;
+        }
+         
+         if (CRNumber == "" || CRNumber == "undefined") {
+            toastr.error('Please Enter CRNumber');
+            $('#loading').hide();
+            return false;
+        }
+        else if (ClientName == "") {
+            toastr.error('Please Enter Client Name');
+            $('#loading').hide();
+            return false;
+        } 
+        else if (Phone == "") {
+            toastr.error('Please Enter Phone');
+            $('#loading').hide();
+            return false;
+        }
+        else if (OfficeId == "") {
+            toastr.error('Please Select OfficeId');
+            $('#loading').hide();
+            return false;
+        }
+
+        else if (Street == "") {
+            toastr.error('Please Enter Street Information');
+            $('#loading').hide();
+            return false;
+        } else if (State == "") {
+            toastr.error('Please Enter State Id');
+            $('#loading').hide();
+            return false;
+        }
+        else if (City == "") {
+            toastr.error('Please Enter City Information');
+            $('#loading').hide();
+            return false;
+        } 
+        else if (ZipCode == "") {
+            toastr.error('Please Enter ZipCode');
+            $('#loading').hide();
+            return false;
+        }
+        $("#dvError3").hide();
+        var selectedValues = "";
+
+        if (!GetLanLat()) {
+            $('#loading').hide();
+            return false;
+        }
+        var lat = $("#Latitude").val();
+        var long = $("#Longitude").val(); 
+        var TimezoneOffset = $("#hdnTimezoneOffset").val();
+        var timeZoneId = $("#hdntimeZoneId").val();
+        var TimezonePostfix = $("#hdnTimezonePostfix").val();
+
+        if (lat === null || lat === '' || lat === 'undefined' || lat === 'undefined' || long === null || long === '') {
+            toastr.error('Please enter valid address');
+            $('#loading').hide();
+            return false;
+        }
+         
+
+        if ($("#fmAddClierntDetails").valid()) {
+             
+            if (IsCRNumber == 0) {
+               
+                $("#fmAddClierntDetails").submit();
+            }
+            else {
+                toastr.error("ClientId already exist with provided CRNumber.");
+                $('#loading').hide();
+            }
+        }
+        else {
+            $('#loading').hide();
+        }
+    }
+
+    function isNumber(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+            toastr.error("Enter Number Only")
+        }
+        return true;
+    }
+
+    function GetLanLat() {
+        debugger;
+        var Address = $("#Street").val() +','+$("#City").val() +','+$("#State").val();//$("#Address").val();
+        var Pincode = $("#ZipCode").val();
+        
+        var flag = true;
+        $.ajax({
+            type: "GET",
+            url: "https://maps.google.com/maps/api/geocode/json",
+            data: "address=" + Address + ",  zip code=" + Pincode + "&key=AIzaSyCqG0NdAH_5gP1_D8jGhmTGeqNR-9z_afw",
+            async: false,
+            contentType: "text/plain; charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                if (result["status"] == "OK") {
+				debugger;
+                    //add = result;
+                    $("#Latitude").val(result["results"][0]["geometry"]["location"]["lat"]);
+                    $("#Longitude").val(result["results"][0]["geometry"]["location"]["lng"]);
+                    var Latitude = result["results"][0]["geometry"]["location"]["lat"];
+                    var Longitude = result["results"][0]["geometry"]["location"]["lng"];
+
+                    //$("#City").val(result.results[0].address_components[2].long_name);
+                    //$("#State").val(result.results[0].address_components[3].long_name);
+
+                    var today = new Date();
+                    //var UTCDate = today.toUTCString();
+                    //var UtcNow = Math.floor(today.getTime() / 1000);
+
+                    var timestamp = today.getTime() / 1000 + today.getTimezoneOffset() * 60;
+                    $.ajax({
+                        type: "GET",
+                        url: "https://maps.googleapis.com/maps/api/timezone/json?location=" + Latitude + "," + Longitude + "&timestamp=" + timestamp + "&sensor=false&key=AIzaSyCqG0NdAH_5gP1_D8jGhmTGeqNR-9z_afw",
+                        async: false,
+                        contentType: "text/plain; charset=utf-8",
+                        dataType: "json",
+                        success: function (data, result) {
+
+
+                            if (data["status"] == "OK" && result == "success") {
+                                $("#hdndstOffset").val(data.dstOffset);
+                                $("#hdnrawOffset").val(data.rawOffset);
+                                $("#hdntimeZoneFullName").val(data.timeZoneName);
+                                $("#hdntimeZoneId").val(data.timeZoneId);
+
+                                var str = data.timeZoneName;
+                                var splitString = str.split(" ");
+                                var abbr = "";
+                                for (i = 0; i < splitString.length; i++) {
+                                    abbr += splitString[i].charAt(0);
+                                }
+                                $("#hdnTimezonePostfix").val(abbr);
+                                //var TimeZoneOffset = data.rawOffset;
+                                var TimeZoneOffset = data.dstOffset + data.rawOffset
+                                // console.log(TimeZoneOffset);
+
+                                TimeZoneOffset = TimeZoneOffset < 0 ? "-" + Math.abs(TimeZoneOffset) / 60 : "+" + Math.abs(TimeZoneOffset) / 60;
+                                $("#hdnTimezoneOffset").val(parseInt(TimeZoneOffset));
+                                return true;
+                            }
+                        }
+                    });
+                }
+                else if (result.status === "ZERO_RESULTS") {
+                   debugger; 
+                    toastr.error('Please enter valid address');
+                    flag = false;
+                }
+            }
+        });
+        //----------End Pincode+Address----------------
+        return flag;
+    }
+
+    function divClose() {
+        $("#dvError3").css("display", "none");
+    }
+
+    function isNumberAndDot(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode != 46) {
+            return false;
+        }
+        return true;
+    }
+
+    function GetTime(val) {
+        if (val !== '') {
+            var Address = $("#Street").val() + $("#City").val() + $("#State").val();//$("#Address").val();
+            var Pincode = $("#ZipCode").val();
+            $('#drpFromTime option[value!="0"]').remove();
+            $('#drpToTime option[value!="0"]').remove();
+
+            if (Address !== '') {
+                if (Pincode !== '') {
+                    $('#loading').show();
+                    var flag = true;
+                    $.ajax({
+                        type: "GET",
+                        url: "https://maps.google.com/maps/api/geocode/json",
+                        data: "address=" + Address + ", zip code=" + Pincode + "&key=AIzaSyCqG0NdAH_5gP1_D8jGhmTGeqNR-9z_afw",
+                        async: false,
+                        contentType: "text/plain; charset=utf-8",
+                        dataType: "json",
+                        success: function (result) {
+                            if (result["status"] == "OK") {
+                                var Latitude = result["results"][0]["geometry"]["location"]["lat"];
+                                var Longitude = result["results"][0]["geometry"]["location"]["lng"];
+                                var today = new Date();
+                                var timestamp = today.getTime() / 1000 + today.getTimezoneOffset() * 60;
+                                $.ajax({
+                                    type: "GET",
+                                    url: "https://maps.googleapis.com/maps/api/timezone/json?location=" + Latitude + "," + Longitude + "&timestamp=" + timestamp + "&sensor=false&key=AIzaSyCqG0NdAH_5gP1_D8jGhmTGeqNR-9z_afw",
+                                    async: false,
+                                    contentType: "text/plain; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (data, result) {
+                                        if (data["status"] == "OK" && result == "success") {
+                                            var str = data.timeZoneName;
+                                            var splitString = str.split(" ");
+                                            var abbr = "";
+                                            for (i = 0; i < splitString.length; i++) {
+                                                abbr += splitString[i].charAt(0);
+                                            }
+                                            var TimeZoneOffset = data.dstOffset * 1000 + data.rawOffset * 1000;
+                                            //TimeZoneOffset = TimeZoneOffset < 0 ? "-" + Math.abs(TimeZoneOffset) / 60 : "+" + Math.abs(TimeZoneOffset) / 60;
+                                            //var offset = TimeZoneOffset / 60;
+                                            //debugger
+                                            var localDate = new Date(timestamp * 1000 + TimeZoneOffset)
+                                            //console.log(localDate);
+                                            //var CurrentTimebasedonTimezone = new Date(new Date().getTime() + offset * 1000).toUTCString().replace(/ GMT$/, "");
+                                            //var localDate = new Date(CurrentTimebasedonTimezone).getDate();
+                                            //localDate = localDate.toLocaleDateString()
+
+                                            var selectedDate = $('#Date').val();
+                                            var Sdate = new Date(selectedDate);
+
+                                            //var CurrentHours = new Date(CurrentTimebasedonTimezone).getHours();
+                                            var CurrentHours = new Date(localDate).getHours();
+                                            //  console.log(CurrentHours);
+                                            //debugger
+
+                                            if (Sdate.setHours(0, 0, 0, 0) != localDate.setHours(0, 0, 0, 0)) {
+                                                CurrentHours = 0;
+                                            }
+
+                                            //if (selectedDate != localDate) {
+                                            //    CurrentHours = 0;
+                                            //}
+
+                                            for (var i = CurrentHours + 1; i <= 24; i++) {
+                                                var hours = i;
+                                                var minutes = 0;
+                                                var seconds = 0;
+                                                var ampm = hours >= 12 ? 'PM' : 'AM';
+                                                hours = hours % 12;
+                                                hours = hours ? (hours < 10) ? ("0" + hours) : hours : 12;
+                                                minutes = minutes < 10 ? '0' + minutes : minutes;
+                                                var strTime = hours + ':' + minutes + ' ' + ampm;
+                                                var id = i === 0 ? i + 1 : i + 1;
+                                                if (i < 24) {
+                                                    var temphour = i < 10 ? '0' + i : i;
+                                                    $("#drpFromTime").append($("<option>").attr("value", temphour + ":00:00").text(strTime + " (" + abbr + ") ").attr("id", id));
+                                                    $("#drpToTime").append($("<option>").attr("value", temphour + ":00:00").text(strTime + " (" + abbr + ") ").attr("id", id));
+                                                } else {
+                                                    $("#drpToTime").append($("<option>").attr("value", "23:59:59").text("11:59 PM" + " (" + abbr + ") ").attr("id", id));
+                                                }
+                                            }
+                                            $("#loading").hide();
+                                            return true;
+                                        }
+                                    }
+                                });
+                            }
+                            else if (result.status === "ZERO_RESULTS") {
+                                $("#loading").hide();
+                                toastr.error('Please enter valid address with valid zip code');
+                                $('#drpFromTime option[value!="0"]').remove();
+                                $('#drpToTime option[value!="0"]').remove();
+                                flag = false;
+                            }
+                        }
+                    });
+                }
+                else {
+                    toastr.error('Please Enter ZipCode');
+                    $('#drpFromTime option[value!="0"]').remove();
+                    $('#drpToTime option[value!="0"]').remove();
+                }
+            } else {
+                toastr.error('Please Enter Address');
+                $('#drpFromTime option[value!="0"]').remove();
+                $('#drpToTime option[value!="0"]').remove();
+            }
+        } else {
+            $('#drpFromTime option[value!="0"]').remove();
+            $('#drpToTime option[value!="0"]').remove();
+        }
+    }
+
+function IsPhoneNoExist() {
+        debugger;
+      /*  IsCRNumber = 0;*/
+        var tempCRNumber = $("#Phone").val();
+        if (tempCRNumber != "") {
+            $(".loading").show();
+            var url = INITURL + '/Client/IsPhoneNoExists';
+            $.ajax({
+                url: url,
+                data: { PhoneNo: tempCRNumber },
+                type: "POST",
+                success: function (data) {
+
+                    $(".loading").hide();
+                    if (data == true) {
+                        toastr.error("PhoneNo already exist.");
+                        IsCRNumber = 1;
+                        $("#Phone").focus();
+                    }
+                    else {
+                        //  alert('CRNumber not exist');
+                        IsCRNumber = 0;
+                    }
+
+                },
+                error: function (reponse) {
+                    //alert("error : " + JSON.stringify(reponse));
+                    $(".loading").hide();
+                }
+            });
+        }
+
+    }
+
+
+
+    function IsCRNumberExist()
+    {
+        
+        /*IsCRNumber*/ = 0;
+        var tempCRNumber = $("#CRNumber").val();
+        if (tempCRNumber != "")
+        {
+        $(".loading").show();
+        var url = INITURL + '/Client/IsCRNumberExist';
+        $.ajax({
+            url: url,
+            data: { CRNumber: tempCRNumber },
+            type: "POST",
+            success: function (data) {
+
+                $(".loading").hide();
+                if (data == true) {
+                    toastr.error("CRNumber already exist.");
+                    IsCRNumber = 1;
+                    $("#CRNumber").focus();
+                }
+                else {
+                  //  alert('CRNumber not exist');
+                    IsCRNumber = 0;
+                }
+
+            },
+            error: function (reponse) {
+                //alert("error : " + JSON.stringify(reponse));
+                $(".loading").hide();
+            }
+        });
+    }
+     
+    }
+
+ $('#OfficeId').change(function () {
+        debugger;
+        var chkOfficeId = $("#OfficeId").val();
+                if (chkOfficeId != null && chkOfficeId != '') {
+                    $.getJSON('@Url.Action("GetTopCRNumberByOfficeId")', { officeId: chkOfficeId }
+                        , function (res) {
+
+
+                            $("#CRNumber").val(res);
+
+
+                            debugger;
+                            //if (regions != null && !jQuery.isEmptyObject(regions)) {
+                            //    regionsSelect.append($('<option/>', {
+                            //        value: null,
+                            //        text: "Select"
+                            //    }));
+                            //    $.each(regions, function (index, region) {
+                            //        regionsSelect.append($('<option/>', {
+                            //            value: region.Value,
+                            //            text: region.Text
+                            //        }));
+                            //    });
+                            //};
+
+                        });
+                }
+
+  })
+
+</script>

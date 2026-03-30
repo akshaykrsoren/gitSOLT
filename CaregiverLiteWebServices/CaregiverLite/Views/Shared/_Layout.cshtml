@@ -1,0 +1,1035 @@
+﻿@{
+    Layout = null;
+}
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@CaregiverLite.Views.Resources.Layout.TitleCareGiver</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS START -->
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="~/Content/css/bootstrap-datetimepicker.css" rel="stylesheet">
+    <link href="~/Content/css/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="~/Content/css/dataTables.responsive.css" rel="stylesheet">
+    <link href="~/Content/css/dataTables.tableTools.min.css" rel="stylesheet">
+    <link href="~/Content/css/animate.css" rel="stylesheet">
+    <link href="~/Content/css/style.css" rel="stylesheet">
+    <link href="~/Content/css/chosen.css" rel="stylesheet">
+    <link href="~/Content/css/switchery.css" rel="stylesheet">
+    <link href="~/Content/css/fullcalendar.css" rel="stylesheet">
+    <link href="~/Content/css/toastr.css" rel="stylesheet" />
+    <link href="~/Content/css/fullcalendar.print.css" rel='stylesheet' media='print'>
+    @*@System.Web.Optimization.Styles.Render("~/Content/CommanCss")*@
+
+    @System.Web.Optimization.Scripts.Render("~/bundles/CommanJs")
+    <script src="~/Scripts/js/toastr.js"></script>
+    <script src="~/Scripts/js/jquery.validate.min.js"></script>
+    <script src="~/Scripts/js/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <!-- Replace 'Roboto' with 'Muslin' if available -->
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>*@
+    <script src="~/Scripts/QuickBlox/quickblox.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Content/image/Title_icon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-multiselect@0.9.15/dist/css/bootstrap-multiselect.css">
+  
+    <style>
+         .confirm_BTN {
+        background-color: #FFDEDE;
+        color: #E24B4B;
+        border: 1px solid;
+        border-radius: 4px;
+        height: 40px;
+        font-weight: bold;
+    }
+
+        .confirm_BTN:hover {
+            background-color: #ebd2d2;
+        }
+
+    .cancel_BTN {
+        background-color: #D4FFE8;
+        color: #239450;
+        border: 1px solid;
+        border-radius: 4px;
+        height: 40px;
+        font-weight: bold;
+    }
+
+        .cancel_BTN:hover {
+            background-color: #d1ecd9;
+        }
+         
+
+        span[style="color:red;"] {
+            color: #1F305B !important;
+            font-weight: bold;
+        }
+
+        .form-control {
+            -webkit-appearance: none;
+        }
+
+
+        .customdropDown {
+            background-image: url('http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Content/image/dropdownArrow.png') !important;
+            appearance: none;
+            background-repeat: no-repeat !important;
+            background-position: center right;
+            background-position-x: 93%;
+            /*background-position-y: 14px !important;*/
+            background-position-x: 92%;
+        }
+
+
+
+        select.form-group-sm .form-control, select.input-sm {
+            height: 30px;
+            line-height: 20px;
+            text-align: center;
+        }
+
+        .modal.right .modal-dialog {
+            position: fixed;
+            top: 0;
+            margin: 0;
+            width: 54%;
+            height: 88vh;
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+            /*transition: right 0.8s ease-out;*/
+            overflow-y: auto;
+            overflow-x: hidden;
+            right: 54%;
+        }
+
+        .modal-backdrop {
+            margin-top: 74px;
+        }
+        /* Show the modal when it is opened */
+        .modal.right .modal-dialog.show {
+            transform: translateX(0);
+        }
+
+        .customheader {
+            position: fixed;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .sign-out-btn1 {
+            border-radius: 2px;
+            padding: 8px;
+            width: 16%;
+            float: right;
+            border: none;
+            border-radius: 7px;
+        }
+
+        #toast-container > div.toast-info {
+            background-image: none !important;
+        }
+
+        #toast-container > div.toast-error {
+            background-image: none !important;
+        }
+
+        #toast-container > div.toast-warning {
+            background-image: none !important;
+        }
+
+        .bg-success {
+            background-color: white;
+        }
+
+        .btn-primary {
+            background-color: #1F305B !important;
+            border-radius: 4px;
+            text-transform: none;
+            /*font-size:1vw;*/
+        }
+
+        .modal-content, .modal-header {
+            border-radius: 6px !important;
+        }
+
+
+        .CutomButton {
+            margin-top: -9px;
+            font-size: 15px;
+            background-color: #FFF4C2;
+            color: black;
+            border-radius: 5px;
+            border: 1px solid black;
+        }
+
+        .customDropDown1 {
+            width: 170px;
+            background-color: #e2dedea3;
+            border: 1px solid #00000040;
+        }
+
+        .containerstyle {
+            /*width: 1266px;*/
+            width: 100% !important;
+            background-color: #F9FBFF !important;
+        }
+
+            .containerstyle h5 {
+                font-size: 14px;
+                margin: 0 0 22px 7px;
+                padding: 0;
+                text-overflow: ellipsis;
+                float: left;
+                width: 100%;
+            }
+
+        .top-bar {
+            background-color: #fff;
+            box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.05);
+            display: flex;
+            width: 100%;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 11px 38px;
+            border-bottom: 1px solid lightgray;
+        }
+
+        .ibox {
+            margin-top: 62px;
+        }
+
+
+        .logo {
+            aspect-ratio: 2.25;
+            object-fit: contain;
+            object-position: center;
+            width: 108px;
+            max-width: 100%;
+        }
+
+        /* .user-actions {
+                display: flex;
+                gap: 15px;
+                margin: auto 0;
+            }*/
+
+        .action-icon {
+            justify-content: center;
+            align-items: center;
+            border-radius: 34px;
+            background-color: #f6f6f8;
+            display: flex;
+            width: 40px;
+            height: 40px;
+            padding: 0 8px;
+        }
+
+        .notification-icon {
+            position: relative;
+        }
+
+
+
+        .notification-count {
+            position: absolute;
+            top: -2px;
+            right: -10px;
+            background-color: #1b4066;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font: 700 9px/1.2 Mulish, sans-serif;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #060b1e;
+            font: 700 14px/1.2 Mulish, sans-serif;
+        }
+
+        .user-avatar {
+            aspect-ratio: 1;
+            object-fit: cover;
+            width: 40px;
+            border-radius: 50%;
+        }
+
+
+        /*.modal-content{
+         background-color: #EEF8FE;
+        }*/
+
+        .modal-content .modal-header {
+            background-color: white;
+            color: #1f305b;
+        }
+
+        select {
+            width: 170px;
+            background-color: #e2dedea3 !important;
+            border: 1px solid #b6b2b2 !important;
+        }
+
+        .page-heading {
+            border-top: 0;
+            padding: 4px 10px 6px 10px;
+        }
+
+        .close span {
+            color: #1f305b;
+        }
+
+        select {
+            background-color: #ffffffa3 !important;
+        }
+
+
+        .ibox-title {
+            border-width: thin;
+            border-left-color: #e7eaec;
+            border-right-color: #e7eaec;
+            border-radius: 4px;
+        }
+
+        .ibox-content {
+            border-width: thin;
+            border-left-color: #e7eaec;
+            border-right-color: #e7eaec;
+        }
+    </style>
+
+
+</head>
+<script type="text/javascript">
+
+    var chatCountSession = false;
+
+    var sFromQBId = "@Session["FromQBId"]";
+    var idleTime = 0;
+    var Enable=0;
+
+    var UserId="@Session["UserId"]";
+
+    $(document).ready(function () {
+
+
+
+
+        if('@Session["Role"]' == 'NurseCoordinator' || '@Session["Role"]' == 'Nurse')
+        {
+            ChatPermission();
+        }
+
+        //  ChatPermission();
+
+        //Time Out Functionality Start
+        //Increment the idle time counter every minute.
+        idleInterval= setInterval(timerIncrement, 60000); // 1 minute
+        //Zero the idle timer on mouse movement.
+        $(this).bind( "mousemove click keypress",function (e) {
+            idleTime = 0;
+        });
+        //Time Out Functionality End
+
+        $('#loading').show();
+        var url = window.location;
+        $('.nav').find('.active').removeClass('active');
+        $('.nav li a').each(function () {
+            if (this.href == url) {
+                $(this).parent().addClass('active');
+            }
+        });
+        $('#loading').hide();
+
+        window.setInterval(function () {
+            /// call your function here
+            var today = new Date();
+            var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+            var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+            var dateTime = date + ' ' + time;
+           //  getHeaderCountGroup();
+         //  ChatPermission();
+        }, 500* 10);
+
+
+        debugger;
+        var varImg = document.getElementById("Toggle");
+        if('@Session["NotificationSoundStatus"]' == '0')
+        {
+            // notitext.innerHTML = "OFF";
+            Enable=0;
+           // varImg.src ="https://paseva.com/Content/image/u.png";
+            varImg.src ="http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Content/image/u.png";
+            varImg.alt = "OFF";
+
+        }
+        else
+        {
+            //notitext.innerHTML = "ON";
+            Enable=1;
+           // varImg.src ="https://paseva.com/Content/image/m.png";
+            varImg.src ="http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Content/image/m.png";
+            varImg.alt = "ON";
+
+        }
+
+
+
+
+        $('#Toggle').click(function()
+        {
+
+            var varImg1 = document.getElementById("Toggle");
+            debugger;
+            if(varImg1.alt == "ON")
+            {
+                varImg1.alt = "OFF";
+                Enable=0;
+               // varImg1.src ="https://pasevauat.com/Content/image/u.png";
+
+			       varImg.src ="http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Content/image/u.png";
+                varImg1.style.border="1px solid transperant";
+
+
+                debugger;
+            }
+            else
+            { debugger;
+                varImg1.alt = "ON";
+                Enable=1;
+               // varImg1.src ="https://pasevauat.com/Content/image/m.png";
+			     varImg.src ="http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Content/image/m.png";
+                varImg1.style.border="1px solid transperant";
+                debugger;
+
+            }
+            myscript();
+
+        });
+
+
+
+
+        function myscript()
+        {
+
+            var url = window.location;
+            $.ajax({
+                url: "@Url.Action("UpdatetNotificationSoundValue", "Account")",
+                data: { LogedInUserId: '@Session["LoginUserUserId"]' },
+            type: 'POST',
+            async: false,
+            success: function (data)
+            {
+                Enable =parseInt(data);
+
+            },
+            error: function (error) {
+                throw error;
+            }
+        });
+
+
+    }
+
+
+
+
+        //QuickBlox start
+        QB.init(@System.Web.Configuration.WebConfigurationManager.AppSettings["QuickbloxApp_Id"],
+              "@System.Web.Configuration.WebConfigurationManager.AppSettings["QuickbloxAuth_Key"]",
+              "@System.Web.Configuration.WebConfigurationManager.AppSettings["QuickbloxAuth_Secret"]",
+              true);
+
+        //if(localStorage.getItem('onetoonecount')==null)
+        //{
+            CreateSession();
+        //}
+        //else
+        //{
+        //    $('#lblMessageCount1').text(localStorage.getItem('onetoonecount'));
+        //    $('#lblMessageCount2').text(localStorage.getItem('patientchatRoomCount'));
+        //    $('#lblMessageCount3').text(localStorage.getItem('GroupChatcount'));
+
+        //}
+
+
+        function CreateSession() {
+            //START CREATE SESSION
+            @*QB.createSession(function (err, result) {
+                //debugger;
+                if (err) {
+                    //debugger;
+                    //alert(err.message);
+                    //console.log(err.message);
+                } else {
+                    //alert("Session Token- " + result.token);
+                    sessionStorage.setItem("sToken", result.token);
+
+                    if (sFromQBId == '0') {
+                        RegisterNewUser("@Session["FromUserEmail"]", "@Session["LoginUserUserId"]");
+                    }
+                    else {*@
+            var user = {
+                id: sFromQBId,
+                login: "@Session["FromUserEmail"]",
+                            password: "Welcome007!"
+                        };
+                        QB.createSession({ login: user.login, password: user.password }, function (err, result) {
+                            if (err) {
+                                //debugger;
+                               // alert(err.message);
+                                console.log(err.message);
+                            } else {
+                                //alert("Session Token- " + result.token);
+                                sessionStorage.setItem("sToken", result.token);
+                                var url= window.location.href;
+
+                                //if(url=='http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Patients/Patients')
+                                //{
+                                ChatPermission();
+
+                                   getHeaderCountGroup();
+
+                            //}
+                            }
+                        });
+                    }
+              //  }
+           // });
+            //END CREATE SESSION
+       // }
+
+        DisplayUnreadCount = function(ChatDialogType)
+        {
+         //  debugger;
+
+
+            //  var officeIds =  [1,2,4,5,6,8,10,11,12,14]
+
+           var officeId = '@Session["OfficeId"]'
+
+           //var officeId = "1,2,4,5,6,8,10,11,12,14";
+
+
+
+           var  officeIds = officeId.split(',');
+        @*// var officeIds = '@(ViewBag.OfficeList)';*@
+
+
+            //var officeIdsv1 = [];
+
+            //for (i = 0; i < officeIds.length; i++) {
+            //    officeIdsv1.push(officeIds[i]);
+            //}
+
+            if(ChatDialogType == 1)
+            {
+                //filters.data.OfficeID= officeIds;
+
+                var filters = { limit:40,
+                    skip: 0,
+                    sort_desc: "last_message_date_sent",
+                    data: {
+                        class_name: "ChatDialogType",
+                        ChatCategory: ChatDialogType,
+                    }
+                };
+            }
+            else{
+
+                var filters = { limit: 40,
+                    skip: 0,
+                    sort_desc: "last_message_date_sent",
+                    data: {
+                        class_name: "ChatDialogType",
+                        ChatCategory: ChatDialogType,
+                        OfficeID: {
+                            in: officeIds
+                        },
+                    }
+                };
+
+            }
+        @*if(ChatDialogType != 1 && ('@Session["Role"]' == 'NurseCoordinator' || '@Session["Role"]' == 'Nurse'))
+            {
+                var OfficeId =  '@Session["OfficeId"]' ;
+                filters.data.OfficeID= OfficeId;
+            }
+            else{
+            }*@
+
+            // Get dialogs from quickblox
+            QB.chat.dialog.list(filters, function(err, resDialogs) {
+                //   debugger;
+                if (err) {
+                    //     debugger;
+                    console.log(err);
+                } else {
+                    //    debugger;
+                    var headcount = 0;
+                    for (var i = 0; i < resDialogs.items.length; i++) {
+
+                        headcount += resDialogs.items[i].unread_messages_count; //dialogs[i].unread_messages_count;
+                    }
+                    debugger;
+                    var existingCount = parseInt($('#lblMessageCount'+ChatDialogType).text().replace("+", "").trim());
+                    var newCount = headcount;
+
+                    if(ChatDialogType==1){
+                        localStorage.setItem('onetoonecount',newCount);
+                    }
+                    if(ChatDialogType==2)
+                    {
+                        localStorage.setItem('patientchatRoomCount',newCount);
+                    }
+                    if(ChatDialogType==3)
+                    {
+                        localStorage.setItem('GroupChatcount',newCount);
+                    }
+
+
+                    // debugger;
+                    //if(resDialogs.items.length > 99 && headcount != 0)
+                    //{
+                    //  headcount = headcount + '+';
+                    //}
+
+                    debugger;
+                    if(headcount != 0 && headcount >99)
+                    {
+                        headcount = "99+";
+                    }
+
+                    debugger;
+
+                    $('#lblMessageCount'+ChatDialogType).text(headcount);
+
+
+                    // if(existingCount < newCount && !existingCount)
+                    if(existingCount >0){
+                        if(existingCount < newCount )
+                        {
+
+                            //  $('#lblMessageCount'+ChatDialogType).text(headcount);
+                            debugger;
+                            //  alert(Enable);
+                            if(Enable==0)
+                            {
+                                playSound();
+                            }
+                            debugger;
+
+                            $('#cntNotification'+ChatDialogType).animate({
+                                'height': '50px',
+                                'width': '50px',
+                                'padding-top': '20px',
+                                'font-size': '25px'
+                            });
+                            debugger;
+                            if(ChatDialogType==1)
+                            {
+                                toastr.success("New Message Arrived");
+                            }
+                            if(ChatDialogType==2)
+                            {
+                                toastr.success("New PatientChat Message Arrived");
+                            }
+                            if(ChatDialogType==3)
+                            {
+                                toastr.success("New Group Message Arrived");
+                            }
+
+                            $('#cntNotification'+ChatDialogType).animate({
+                                'height': '17px',
+                                'width': '30px',
+                                'padding-top': '2px',
+                                'font-size': '10px'
+                            });
+                        }
+                    }
+                }
+            });
+        }
+        function playSound()
+        {
+            debugger;
+            try {
+                var audio = new Audio();
+                audio.src = '/Audio/sound.wav';
+                audio.autoplay=true;
+
+                debugger;
+                // audio.src="http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Sound/ChatNotification.mp3";
+                var playPromise = audio.play();
+                // var timeelapsed=audio.ti
+                debugger;
+                if (playPromise !== undefined) {
+                    playPromise.then(function () {
+                        // Automatic playback started!
+                    }).catch(function (error) {
+                        // Automatic playback failed.
+                        // Show a UI element to let the user manually start playback.
+                    });
+                }
+            }
+            catch (e) {
+                // alert(e);
+            }
+        }
+
+
+
+        debugger;
+        function getHeaderCountGroup()
+        {
+            //return;
+            debugger;
+            if(chatCountSession==false){
+
+                // Display one to one dialog counts
+                DisplayUnreadCount(1);
+
+                // Display patient chat room dialog counts
+                DisplayUnreadCount(2);
+
+                // Display group chat dialog counts
+                DisplayUnreadCount(3);
+
+                chatCountSession=true;
+
+
+            }
+            else
+            {
+                if(chatCountSession==true){
+
+                    // Display one to one dialog counts
+                    DisplayUnreadCount(1);
+
+                    // Display patient chat room dialog counts
+                    DisplayUnreadCount(2);
+
+                    // Display group chat dialog counts
+                    DisplayUnreadCount(3)
+
+                    // chatCountSession=false;
+                }
+            }
+
+        }
+
+
+        // **********************************************************************
+
+        //Register New User Start
+        function RegisterNewUser(Login, UserId1) {
+            var RegisterUser = { 'login': Login, 'password': "Welcome007!", 'tag': "differenzsystem", 'email': Login };
+
+            QB.users.create(RegisterUser, function (err, user1) {
+                if (user1) {
+                    //Add new QuickBlox Id For Specific User
+                    var url = INITURL + '/Chatting/SaveQBId';
+                    var QBId = user1.id;
+                    $.ajax({
+                        url: url,
+                        data: { UserId: UserId1, QuickBloxId: QBId },
+                        cache: false,
+                        type: 'POST',
+                        async: false,
+                        success: function (data) {
+                            if (data == "Success") {
+
+                                sFromQBId = "" + QBId + "";
+                                sessionStorage.setItem("FromQBId", QBId);
+                                CreateSession();
+                            }
+                        },
+                        error: function (reponse) {
+                            //alert("error : " + reponse);
+                            $("#loading").hide();
+                        }
+                    });
+
+
+                    // success
+                } else {
+                    return;
+                    // error
+                }
+            });
+        }
+        //Register New User End
+
+        //QuickBlox End
+        $('#lblMsgNotification').removeClass('active');
+        $('#lblGroupMsgNotification').removeClass('active');
+        $('#lblCommonGroupMsg').removeClass('active');
+
+    });
+
+    //Time Out Functionality Function Start
+    function timerIncrement() {
+        idleTime = idleTime + 1;
+        if (idleTime > 30) { // 30 minutes
+            toastr.info("Session Timeout...");
+            window.location.href = "@Url.Action("SessionTimeout", "account")";
+        }
+    }
+
+    //Time Out Functionality Function End
+
+    function ChatPermission() {
+
+        try {
+            var url = window.location;
+            // $('#loading').show();
+            $.ajax({
+                url: "@Url.Action("IsAllowForChat", "Account")",
+                type: 'POST',
+                async: false,
+                success: function (data) {
+                    result = data;
+
+                    var paramstt = window.location.href.toString().split(window.location.host)[1];
+                    paramstt = paramstt.substring(10);
+
+
+
+                    if("@Session["IsAllowOneToOneChat"]" != null&&"@Session["IsAllowOneToOneChat"].ToString()" != "True" && paramstt == "OneToOneChat")
+                    {
+                        window.location.href = "@Url.Action("NoAuthorize", "Chatting")";
+                    }
+                else if("@Session["IsAllowForPatientChatRoom"]" != null&&"@Session["IsAllowForPatientChatRoom"].ToString()" != "True" && paramstt == "PatientChatRoom")
+                    {
+                        window.location.href = "@Url.Action("NoAuthorize", "Chatting")";
+                    }
+                else if("@Session["IsAllowGroupChat"]" != null&&"@Session["IsAllowGroupChat"].ToString()" != "True" && paramstt == "GroupChat")
+                    {
+                        window.location.href = "@Url.Action("NoAuthorize", "Chatting")";
+                    }
+
+                },
+                error: function (error) {
+                    throw error;
+                }
+            });
+
+        } catch (e) {
+            //  $('#loading').hide();
+            console.log(e);
+        }
+    }
+</script>
+
+<body style="background-color:white;">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-multiselect@0.9.15/dist/js/bootstrap-multiselect.min.js"></script>
+    <div class="loading" id="loading">
+    </div>
+    <section>
+        <header class="top-bar" style="border:1px solid #efefef;">
+            <img src="~/Content/LeftMenuLogo/PasevaLogos.png" alt="Company Logo" class="logo" />
+            <div class="user-actions">
+
+
+                @*<div class="action-icon notification-icon" title="Patient chat room">
+                        <img src="~/Content/LeftMenuLogo/OneChatNotification.svg" alt="Notifications" class="nav-icon" />
+                        <div class="notification-count" id="lblMessageCount1"> 0 </div>
+                    </div>
+                    <div class="action-icon notification-icon">
+                        <img src="~/Content/LeftMenuLogo/PatientchatNotification.svg" alt="Notifications" class="nav-icon" />
+                        <div class="notification-count" id="lblMessageCount2"> 0 </div>
+                    </div>
+                    <div class="action-icon notification-icon" style="margin-right: 25px;">
+                        <img src="~/Content/LeftMenuLogo/GroupChatNotification.svg" alt="Notifications" class="nav-icon" />
+                        <div class="notification-count" id="lblMessageCount3"> 0 </div>
+                    </div>*@
+
+                <div class="action-icon notification-icon" href="~/Chatting/OneToOneChat" title="Personal Chat">
+                    <a href="~/Chatting/OneToOneChat">
+                        <img src="~/Content/LeftMenuLogo/OneChatNotification.svg" alt="Notifications" class="nav-icon" />
+                        <div class="notification-count" id="lblMessageCount1"> 0 </div>
+                    </a>
+                </div>
+                <div class="action-icon notification-icon" title="Patient Chat">
+                    <a href="~/Chatting/PatientChatRoom">
+                        <img src="~/Content/LeftMenuLogo/PatientchatNotification.svg" alt="Notifications" class="nav-icon" />
+                        <div class="notification-count" id="lblMessageCount2"> 0 </div>
+                    </a>
+                </div>
+                <div class="action-icon notification-icon" style="margin-right: 25px;" title="Group Chat">
+                    <a class="count-info" href="~/Chatting/GroupChat">
+                        <img src="~/Content/LeftMenuLogo/GroupChatNotification.svg" alt="Notifications" class="nav-icon" />
+                        <div class="notification-count" id="lblMessageCount3"> 0 </div>
+                    </a>
+                </div>
+
+
+                @*@if (Session["role"].ToString() != "SuperAdminPatientApp" && Session["role"].ToString() != "MarketingSuperAdmin")*@
+
+                @if (Session["role"].ToString() != "SuperAdminPatientApp")
+                {
+                    <div class="action-icon">
+                        <input id="Toggle" type="image" src="" alt="" width="25" height="40" style="padding-top: 2px ;cursor:grab" outline="none" alt="Help" class="nav-icon">
+                    </div>
+                    <!-- <input id="Toggle" type="image" src="" alt="" width="25" height="40" style="padding-top: 20px ;cursor:grab" outline="none"> -->
+                }
+
+                <div class="user-profile" style="cursor: pointer;" onclick="OpenProfile()">
+                    @*<img src="~/Content/LeftMenuLogo/ProfileImgNotification.png" alt="User Avatar" class="user-avatar" />*@
+                    @*<img src="~/Content/image/DefaultProfile.png" alt="User Avatar" class="user-avatar" />*@
+
+                    @if (Session["role"].ToString() == "Nurse")
+                    {
+                        var roleImagePath = Session["ProfileImage"].ToString();
+                        <img src="@roleImagePath" alt="User Avatar" class="user-avatar" />
+                    }
+                    else
+                    {
+                        <img src="~/Content/image/DefaultProfile.png" alt="User Avatar" class="user-avatar" />
+                    }
+                    <span>
+                        Welcome @if (Session["Name"] != null)
+                        {@Session["Name"].ToString();
+                        }
+                    </span>
+                </div>
+
+            </div>
+        </header>
+
+        <div class="row">
+            <div class="col-xs-3 col-lg-2" style="margin-right: 0px;">
+                @Html.Partial("_LeftMenu");
+            </div>
+
+            <div class="col-xs-9 col-lg-10">
+                @RenderBody()
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <div class="modal fade right" id="ProfilemOdeal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" id="modalViewPopup" style="top:74px;">
+            <div class="modal-content">
+                <div class="modal-header customheader">
+                    <button type="button" class="close" id="btnClose" data-dismiss="modal" aria-label="Close" style="color:#282572;float:left">
+                        <span aria-hidden="true">&#8592;<span class="modal-title" id="gridSystemModalLabel" style="margin-left: 12px;">Profile</span>     </span>
+                    </button>
+                    <button class="sign-out-btn1" id="ProfileSignout1">
+                        <img src="~/Content/LeftMenuLogo/SignOut.svg" alt="" class="nav-icon" />
+                        <span>Sign Out</span>
+                    </button>
+                </div>
+
+                <div class="modal-body row" id="UserProfileView" style="background-color:#F9FBFF">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="LogoutModel1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" id="modalAddPopup">
+            <div class="modal-content" id="deleteModal" style="width: 366px; height: 159px; border-radius: 8px; bottom: -151px;">
+                <p style="padding: 35px; margin-left:-22px; font-style: normal; font-size: 15px;"><strong style="font-weight: 800; color: #1B4066;">Are you sure you want sign out?.</strong></p>
+                <button class="btn-Cancel" style="padding-bottom: 0px; margin-left: 111px; display: flex; width: 111px; padding: 10px 12px; justify-content: center; align-items: center; gap: 10px; border-radius: 6px; border: 1px solid #1B4066; background-color: #FFF; color:#1B4066 ">No, Go Back</button>
+                <button class="btn-Logout" style="margin-left: 242px; display: flex; width: 111px; padding: 11px 12px; justify-content: center; align-items: center; gap: 12px; margin-top: -44px; background-color: #092C44; color: white; border-radius: 6px;">Yes</button>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade right" id="EditProfilemOdeal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" id="modalEditPopup" style="top:74px;">
+            <div class="modal-content">
+                <div class="modal-header customheader">
+                    <button type="button" class="close" id="btnClose" data-dismiss="modal" aria-label="Close" style="color:#282572;float:left">
+                        <span aria-hidden="true">&#8592;<span class="modal-title" id="gridSystemModalLabel" style="margin-left: 12px;">Profile</span>     </span>
+                    </button>
+                    <button class="sign-out-btn1" id="ProfileSignout1">
+                        <img src="~/Content/LeftMenuLogo/SignOut.svg" alt="" class="nav-icon" />
+                        <span>Sign Out</span>
+                    </button>
+                </div>
+
+                <div class="modal-body row" id="UserEditProfileView" style="background-color:#F9FBFF">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="LogoutModel1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" id="modalAddPopup">
+            <div class="modal-content" id="deleteModal" style="width: 366px; height: 159px; border-radius: 8px; bottom: -151px;">
+                <p style="padding: 35px; margin-left:-22px; font-style: normal; font-size: 15px;"><strong style="font-weight: 800; color: #1B4066;">Are you sure you want sign out?.</strong></p>
+                <button class="btn-Cancel" style="padding-bottom: 0px; margin-left: 111px; display: flex; width: 111px; padding: 10px 12px; justify-content: center; align-items: center; gap: 10px; border-radius: 6px; border: 1px solid #1B4066; background-color: #FFF; color:#1B4066 ">No, Go Back</button>
+                <button class="btn-Logout" style="margin-left: 242px; display: flex; width: 111px; padding: 11px 12px; justify-content: center; align-items: center; gap: 12px; margin-top: -44px; background-color: #092C44; color: white; border-radius: 6px;">Yes</button>
+
+            </div>
+        </div>
+    </div>
+    <script>
+
+                                $(document).ready(function(){
+
+                                    $("#ProfileSignout1").click(function () {
+                                        debugger;
+                                        sessionStorage.setItem("PartialView", "1");
+                                        $('#LogoutModel1').modal('show');
+                                        /* $("#loading").hide();*/
+
+                                    });
+                                    $('.btn-Logout').click(function () {
+                                        debugger;
+                                        window.location.href = '/Account/Logout';
+                                    });
+
+
+
+                                    $('.btn-Cancel').click(function () {
+                                        debugger;
+                                        $('#LogoutModel1').modal('hide'); // Close pop-up without action
+                                    });
+                                });
+
+                                function OpenProfile() {
+
+
+                                    $('#UserProfileView').load(INITURL + 'UserManagement/UserProfile/' + UserId, function () {
+
+                                        sessionStorage.setItem("PartialView", "1");
+                                        $('#ProfilemOdeal').modal({
+                                            backdrop: 'static',
+                                            keyboard: false
+                                        });
+
+                                        $('#ProfilemOdeal').modal('show');
+                                        $("#loading").hide();
+                                    });
+                                }
+    </script>
+    
+   
+    
+</body>
+</html>

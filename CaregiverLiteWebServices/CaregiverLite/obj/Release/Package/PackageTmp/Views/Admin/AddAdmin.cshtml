@@ -1,0 +1,216 @@
+﻿@model CaregiverLite.Models.AdminModel
+
+<div id="main_div">
+    @using (Html.BeginForm("AddAdmin", "Admin", FormMethod.Post, new { @id = "fmOfficeAdmin", @class = "horizontal-form", @enctype = "multipart/form-data" }))
+    {
+        @Html.HiddenFor(model => model.Password, new { @id = "Password" })
+        <div class="alert alert-danger alert-dismissable" style="display:none" id="dvError3">
+            <button onclick="divClose();" class="close" type="button">×</button>
+            <label id="lblError3"></label>
+        </div>
+        <div class="col-md-12">
+            @Html.HiddenFor(model => model.QuickBloxId)
+            @Html.HiddenFor(model=>model.OldEmail)
+            <div class="form-group">
+                <label>First Name</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.FirstName)
+                @Html.TextBoxFor(model => model.FirstName, new { @type = "text", @maxlength = "100", @placeholder = "Enter First name", @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                <label>Last Name</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.LastName)
+                @Html.TextBoxFor(model => model.LastName, new { @type = "text", @maxlength = "100", @placeholder = "Enter Last name", @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.Email)
+                @Html.TextBoxFor(model => model.Email, new { @type = "email", @maxlength = "100", @placeholder = "Enter Email", @class = "form-control" })
+            </div>
+
+
+            <div class="form-group">
+                <label>Username</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.Username)
+                @Html.TextBoxFor(model => model.Username, new { @type = "text", @maxlength = "256", @placeholder = "Enter Username", @class = "form-control" })
+            </div>
+
+            @*<div class="form-group">
+                <label>Password</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.Password)
+                @Html.PasswordFor(model => model.Password, new { @autocomplete = "new-password", @type = "password", @maxlength = "256", @placeholder = "Enter Password", @class = "form-control" })
+                <span style="position: absolute; right: 16px;height: 40px;">
+                    <i class="fa fa-eye btn btn-link" id="HidePasswordEdit" style="position: relative; top: -30px;display:none" aria-hidden="true"></i>
+                    <i class="fa fa-eye-slash btn btn-link" id="showPasswordEdit" style="position: relative; top: -30px;" aria-hidden="true"></i>
+                </span>
+            </div>*@
+
+
+        </div>
+
+
+
+        <div class="col-md-12">
+            <button type="button" onclick="Addnew()" class="btn btn-sm btn-primary pull-right">Save</button>
+            <div class="clearfix"></div>
+        </div>
+    }
+</div>
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script type="text/javascript">
+
+
+    function Addnew() {
+        $("#Password").val("PSolt#24hidden");
+        $('#loading').show();
+
+        // var Name = $("#Name").val();
+        var FirstName = $("#FirstName").val();
+        var LastName = $("#LastName").val();
+        var Email = $("#Email").val();
+        var UserName = $("#Username").val();
+        var Password = $("#Password").val();
+
+
+        if (FirstName == "" && LastName == "" && Email == "" && UserName == "" && Password == "") {
+            toastr.error('Please fill all required fields');
+            $('#loading').hide();
+            return false;
+        }
+        else if (FirstName == "") {
+            toastr.error('Please Enter First Name');
+            $('#loading').hide();
+            return false;
+        }
+        else if (LastName == "") {
+            toastr.error('Please Enter Last Name');
+            $('#loading').hide();
+            return false;
+        }
+        else if (Email == "") {
+            toastr.error('Please Enter Email');
+            $('#loading').hide();
+            return false;
+        }
+        else if (UserName == "") {
+            toastr.error('Please Enter UserName');
+            $('#loading').hide();
+            return false;
+        }
+        else if (Password == "") {
+            toastr.error('Please Enter Password');
+            $('#loading').hide();
+            return false;
+        }
+
+
+        var result = CheckUserName();
+        if (result == false) {
+            $("#dvError3").css("display", "");
+            $("#lblError3").html("User Name already exists");
+            $('#loading').hide();
+            return false;
+        }
+
+        var result1 = CheckEmail();
+        if (result1 == false) {
+            $("#dvError3").css("display", "");
+            $("#lblError3").html("Email already exists");
+            $('#loading').hide();
+            return false;
+        }
+
+
+        $("#dvError3").hide();
+
+        if ($("#fmOfficeAdmin").valid()) {
+
+          //  RegisterAdmin(Email);
+            $("#fmOfficeAdmin").submit();
+
+            //debugger;
+            
+           
+        }
+        else {
+            $('#loading').hide();
+        }
+    }
+
+
+    //function RegisterAdmin(Email) {
+
+    //    var RegisterUser = { 'login': Email, 'password': "Welcome007!", 'tag': "differenzsystem", 'email': Email };
+
+    //    QB.users.create(RegisterUser, function (err, user1) {
+    //        if (user1) {
+    //            //Add new QuickBlox Id For Specific User
+
+    //            var QBId = user1.id;
+    //            $("#QuickBloxId").val(QBId);
+
+    //            // success
+    //        } else {
+    //            return;
+    //            // error
+    //        }
+    //        $("#fmOfficeAdmin").submit();
+    //    });
+    //}
+    function CheckUserName() {
+        var url = INITURL + '/Schedulers/IsUserNameExists';
+        var result;
+        $.ajax({
+            url: url,
+            data: { Username: $("#Username").val(), UserId: $("#UserId").val() },
+            cache: false,
+            async: false,
+            type: 'POST',
+            success: function (data) {
+                result = data;
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+        return result;
+    }
+
+    function CheckEmail() {
+        var url = INITURL + '/Schedulers/IsEmailExists';
+        var result;
+        $.ajax({
+            url: url,
+            data: { Email: $("#Email").val(), UserId: $("#UserId").val() },
+            cache: false,
+            async: false,
+            type: 'POST',
+            success: function (data) {
+                result = data;
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+        return result;
+    }
+
+    function divClose() {
+        $("#dvError3").css("display", "none");
+    }
+    $("#showPasswordEdit").click(function () {
+        $("#showPasswordEdit").css("display", "none"); $("#HidePasswordEdit").css("display", "block");
+        $("#Password").get(0).type = 'text';
+    });
+    $("#HidePasswordEdit").click(function () {
+        $("#showPasswordEdit").css("display", "block"); $("#HidePasswordEdit").css("display", "none");
+        $("#Password").get(0).type = 'password';
+    });
+</script>

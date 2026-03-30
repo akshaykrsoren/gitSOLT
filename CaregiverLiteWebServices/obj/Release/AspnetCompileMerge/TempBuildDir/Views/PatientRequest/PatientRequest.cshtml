@@ -1,0 +1,1997 @@
+﻿@model CaregiverLite.Models.SchedulePatientRequestModel
+@{
+    ViewBag.Title = @CaregiverLite.Views.Resources.PatientRequest.TitlePatientRequest;
+    // Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .approve {
+        float: right;
+    }
+    input[type=search] {
+    margin-bottom:7px;
+	}
+    #myModal1 { overflow-y:scroll }
+</style>
+<link rel="stylesheet" type="text/css" media="all" href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" />
+<style>
+    /*Rating CSS Start*/
+    fieldset, label {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+    }
+
+    h1 {
+        font-size: 1.5em;
+        margin: 10px;
+    }
+
+    /****** Style Star Rating Widget *****/
+
+    .rating {
+        border: none;
+        float: left;
+    }
+
+        .rating > input {
+            display: none;
+        }
+
+        .rating > label:before {
+            margin: 5px;
+            font-size: 1.25em;
+            font-family: FontAwesome;
+            display: inline-block;
+            content: "\f005";
+        }
+
+        .rating > .half:before {
+            content: "\f089";
+            position: absolute;
+        }
+
+        .rating > label {
+            color: #ddd;
+            float: right;
+        }
+
+        /***** CSS Magic to Highlight Stars on Hover *****/
+
+        .rating > input:checked ~ label, /* show gold star when clicked */
+        .rating:not(:checked) > label:hover, /* hover current star */
+        .rating:not(:checked) > label:hover ~ label {
+            color: #43AADB;
+        }
+            /* hover previous stars in list */
+
+            .rating > input:checked + label:hover, /* hover current star when changing rating */
+            .rating > input:checked ~ label:hover,
+            .rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+            .rating > input:checked ~ label:hover ~ label {
+                color: #43AADB;
+            }
+    /*Rating CSS End*/
+    #dvMapLegend {
+        background: #fff;
+        padding: 10px;
+        margin: 10px;
+        border: 1px solid #000;
+    }
+
+    .dvMapLegendb {
+        background: #fff;
+        padding: 10px;
+        margin: 10px;
+        border: 1px solid #000;
+    }
+
+    .map-driving {
+        color: #4986E7;
+        /*color: #0000ff;*/
+        font-size: 16px;
+    }
+
+    .map-notdriving {
+        color: #000000;
+        font-size: 16px;
+    }
+
+    .map-pic {
+        position: absolute;
+        top: 6.4px;
+        left: 15px;
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+    }
+
+    .bluemarkerimage {
+        position: relative;
+        width: 70px;
+    }
+
+    .gm-style-iw > div > div {
+        overflow: hidden !important;
+    }
+</style>
+
+<!-- ADD APPOINTMENT POPUP START -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" id="modalAddPopup">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" id="btnClose" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">@CaregiverLite.Views.Resources.PatientRequest.HeaderAddPatientRequest</h4>
+            </div>
+            <div class="modal-body row" id="AddPatientRequest">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myCompleteRequest" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Details</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-6" id="PatientNameDiv">
+                        <label>Patient Name:</label>
+                        <span id="PatinentNameSpan"></span>
+                    </div>
+                    <div class="col-sm-6" id="RequestedDateDiv">
+                        <label>Requested Date:</label>
+                        <span id="RequestedDateSpan"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6" id="frmtmDiv">
+                        <label>From Time:</label>
+                        <span id="frmtmSpan"></span>
+                    </div>
+                    <div class="col-sm-6" id="totmDiv">
+                        <label>To Time:</label>
+                        <span id="totmSpan"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6" id="checkInDiv">
+                        <label>CheckIn Time:</label>
+                        <span id="checkInSpan"></span>
+                    </div>
+                    <div class="col-sm-6" id="checkOutDiv">
+                        <label>CheckOut Time:</label>
+                        <span id="checkOutSpan"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" id="milesDiv">
+                        <label>Miles:</label>
+                        <span id="milesSpan"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" id="PatientDescriptionDiv">
+                        <label>Description:</label>
+                        <span id="DiscriptionSpan"></span>
+                    </div>
+                </div>
+				
+                <div class="row" style="display:none">
+                    <div class="col-sm-6" id="checkInLatLongDiv">
+                        <label>Check-In Latitude & Longitude:</label>
+                        <span id="checkInLatLongSpan"></span>
+                    </div>
+                    <div class="col-sm-6" id="checkOutLatLongDiv">
+                        <label>Check-Out Latitude & Longitude:</label>
+                        <span id="checkOutLatLongSpan"></span>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-6" id="checkInAddressDiv">
+                        <label>Check-In Address:</label>
+                        <span id="checkInAddressSpan"></span>
+                    </div>
+                    <div class="col-sm-6" id="checkOutAddressDiv">
+                        <label>Check-Out Address:</label>
+                        <span id="checkOutAddressSpan"></span>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <a id="ViewOnMapCheckInOutAddress" class="btn btn-primary pull-right m-r-sm" >View on Map</a>
+                </div>
+                @*<div id="AddPatientSignature" class="row">
+                        <div class="col-sm-12">
+                            <label>Patient Signature: </label>
+                        </div>
+                        <img id="signature" alt="Image" style="margin-right:16px; width:560px;height:200px;margin-left:16px;" />
+                </div>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ADD NURSES POPUP END -->
+<!-- VIEW NURSES POPUP START -->
+@*<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">@CaregiverLite.Views.Resources.PatientRequest.HeaderPatientRequestDetail</h4>
+                </div>
+                <div class="modal-body row" id="ViewPanel">
+                </div>
+            </div>
+        </div>
+    </div>*@
+<!-- VIEW NURSES POPUP END -->
+<!-- ADD Rating POPUP START -->
+<div class="modal fade" id="myModalRating" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Add Caregiver Rating</h4>
+            </div>
+            <div class="modal-body row" id="AddRating">
+                <div class="col-lg-9 row">
+                    <table>
+                        <tr>
+                            <td>
+                                <h4 style="padding-left:2em">
+                                    Give Rating
+                                </h4>
+                            </td>
+                            <td>
+                                <fieldset style="padding-left:2em" class="rating">
+                                    <input type="radio" id="star5" name="rating" value="5" /><label class="full" for="star5" title="Awesome - 5 stars"></label>
+
+                                    <input type="radio" id="star4" name="rating" value="4" /><label class="full" for="star4" title="good - 4 stars"></label>
+
+                                    <input type="radio" id="star3" name="rating" value="3" /><label class="full" for="star3" title="Average - 3 stars"></label>
+
+                                    <input type="radio" id="star2" name="rating" value="2" /><label class="full" for="star2" title="Poor - 2 stars"></label>
+
+                                    <input type="radio" id="star1" name="rating" value="1" /><label class="full" for="star1" title="Very Poor - 1 star"></label>
+                                </fieldset>
+                            </td>
+                            <td>
+                                <h4 id="btnSaveRating"></h4>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ADD Rating POPUP END -->
+<!-- Caregiver Check-In And Check-Out Location On Map START -->
+<div class="modal fade" id="myModalCheckInCheckOutLocation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" onclick="clearMapCheckInOut()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                
+                <h4 class="modal-title" id="gridSystemModalLabel">Caregiver Check-In And Check-Out Location On Map</h4>
+            </div>
+            <div class="modal-body row" id="">
+                <img id="test" />
+                <div class="col-md-12">
+                    <div class="page-width">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="map" id="mapLocation" style="height:400px;width:870px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Caregiver Check-In And Check-Out Location On Map END -->
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>@CaregiverLite.Views.Resources.PatientRequest.HeaderPatientRequestList</h5>
+                    <div class="ibox-tools">
+                        <a class="btn btn-xs btn-primary" style="margin-top:-9px;" href="javascript:;" onclick="OpenAddNew()">@CaregiverLite.Views.Resources.PatientRequest.ButtonAddPatientRequest</a>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="form-group col-md-2 pull-right">
+                            <label>@CaregiverLite.Views.Resources.PatientRequest.FilterLabelToDate</label>
+                            <div class="input-group date" id="datetimepicker2">
+                                <input type="text" id="ToDate" class="form-control">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-2 pull-right">
+                            <label>@CaregiverLite.Views.Resources.PatientRequest.FilterLabelFromDate</label>
+                            <div class="input-group date" id="datetimepicker1">
+                                <input type="text" id="FromDate" class="form-control">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-2 pull-right">
+                            <label>@CaregiverLite.Views.Resources.PatientRequest.FilterLabelStatus</label>
+                            </br>
+                            <select id="ddFilterStatus" name="ddFilterStatus" onchange="Filtration();" style="width: 148px;height:34px;border-color:#e5e6e7">
+                                <option value="0">All</option>
+                                <option value="1">Not Accepted</option>
+                                <option value="2">Completed</option>
+                                <option value="3">Accepted</option>
+                                <option value="4">Cancelled</option>
+                                <option value="5">Requested</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2 pull-right">
+                            @*<label>@CaregiverLite.Views.Resources.PatientRequest.FilterLabelStatus</label>*@
+                            <label>@CaregiverLite.Views.Resources.PatientRequest.FilterLabelOffice</label>
+                            </br>
+                            @*<select id="ddFilterOffice" name="ddFilterOffice" onchange="Filtration();" style="width: 148px;height:34px;border-color:#e5e6e7">
+                                <option value="0">All</option>
+                                <option value="1">Office 1</option>
+                                <option value="2">Office 2</option>
+                                <option value="3">Office 3</option>
+                                <option value="4">Office 4</option>
+                                <option value="5">Office 5</option>
+                            </select>*@
+                            @Html.DropDownList("ddFilterOffice", (System.Web.Mvc.SelectList)ViewBag.lstOffice, new { @class = "form-control", onchange = "Filtration();" })
+                        </div>
+                        @*<div class="ibox-title">
+                                <div class="ibox-tools">
+                                    <a class="btn btn-xs btn-primary" style="margin-top:-9px;" href="javascript:;" onclick="Filtration();">@CaregiverLite.Views.Resources.PatientRequest.ButtonFilter</a>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>*@
+                    </div>
+                    <div class="form-group">
+                        <label></label>
+                        <div class="input-group pull-right margin-25">
+                            <a href="javascript:;" class="btn btn-sm btn-primary" onclick="RemoveFiltration();">@CaregiverLite.Views.Resources.PatientRequest.ButtonClearFilter</a>
+                        </div>
+                        <div class="input-group pull-right margin-25" style="margin-right: 10px;">
+                            <a href="javascript:;" class="btn btn-sm btn-primary"  onclick="Filtration();">@CaregiverLite.Views.Resources.PatientRequest.ButtonFilter</a>
+                        </div>
+
+                        <div class="clearfix"></div>
+                    </div>
+                    <input type="hidden" id="hdnPatientRequestId" />
+                    <table id="myDataTable" class="table table-striped table-bordered table-hover dataTables-example">
+                        <thead>
+                            <tr>
+                                @*<th></th>*@
+                                <th><input type="checkbox" name="select_all" id="myDataTable-select-all"></th>
+                                <th>@CaregiverLite.Views.Resources.PatientRequest.TableHeaderSchedulerName</th>
+                                <th>@CaregiverLite.Views.Resources.PatientRequest.TableHeaderPatientName</th>
+                                <th>@CaregiverLite.Views.Resources.PatientRequest.TableHeaderAddress</th>
+                                <th>@CaregiverLite.Views.Resources.PatientRequest.TableHeaderZipCode</th>
+                                <th>@CaregiverLite.Views.Resources.PatientRequest.TableHeaderMedicalId</th>
+                                <th>@CaregiverLite.Views.Resources.PatientRequest.TableHeaderDescription</th>
+                                <th>@CaregiverLite.Views.Resources.PatientRequest.TableHeaderRequestedDate</th>
+                                <th>@CaregiverLite.Views.Resources.PatientRequest.TableHeaderAppointmentDate</th>
+                                <th>@CaregiverLite.Views.Resources.PatientRequest.LabelFromTime</th>
+                                <th>@CaregiverLite.Views.Resources.PatientRequest.LabelToTime</th>
+                                <th>@CaregiverLite.Views.Resources.PatientRequest.TableHeaderCaregiver</th>
+                                <th>@CaregiverLite.Views.Resources.PatientRequest.TableHeaderStatus</th>
+                                <th>Office</th>
+                                <th>@CaregiverLite.Views.Resources.PatientRequest.TableHeaderTotalCaregiversNotified</th>
+                                @*<th style="display:none;visibility:hidden">hdnSignature</th>*@
+                                @*<th>Status</th>*@
+                                <th style="width: 100px;">@CaregiverLite.Views.Resources.CareGiver.TableHeaderAction</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div class="ibox-title">
+                    <div class="ibox-tools">
+                        <a class="btn btn-xs btn-primary" style="margin-top:-9px;background-color: #e00e0e;" href="javascript:;" id="btnRemoveAppointment">@CaregiverLite.Views.Resources.PatientRequest.ButtonRemovePatientAppointmnet</a>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- VIEW NURSES POPUP START -->
+<div class="modal fade" id="care-giver-details" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 1001;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">@CaregiverLite.Views.Resources.CareGiver.HeaderCareGiverDetail</h4>
+            </div>
+            <div class="modal-body row" id="ViewPanel">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade " id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Notified caregiver(s) :</h4>
+            </div>
+            <div class="modal-body row">
+                <button type="button" id="ViewOnMap" class="btn btn-primary pull-right m-r-sm" data-toggle="modal" data-target="#myModalViewCaregiverOnMap">View on Map</button>
+                <div id="GetNurseList" style="padding: 10px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+@* model for map view of Notified caregiver(s) *@
+<div class="modal fade " id="myModalViewCaregiverOnMap" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Notified caregiver(s) on Map :</h4>
+            </div>
+            <div class="modal-body row">
+                <img id="test" />
+                <div class="col-md-6">
+                    <div class="page-width">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="map" id="map" style="height:468px;width:850px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* model for map view of track location *@
+<div class="modal fade " id="myModalTrackLocation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" onclick="clearMap()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Track caregiver Location on Map :</h4>
+            </div>
+            <div class="modal-body row">
+                <img id="test" />
+                <div class="col-md-6">
+                    <div class="page-width">
+                        <div class="row">
+                            <div class="col-md-12 m-b-sm">
+                                <label class="text-primary">Miles : </label> <span id="tmiles" class="text-primary"></span>
+                            </div>
+                            <h5>
+                                <span id="nolocation" class="text-success" style="display:none">
+                                </span>
+                            </h5>
+
+                            <div class="col-md-12">
+                                <div class="map mt30" id="divmap" style="height:468px;width:850px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/Scripts/js/jquery-2.1.1.js"></script>
+<script src="~/Scripts/js/jquery.dataTables.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+
+@*<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>*@
+<style type="text/css">
+    #map {
+        width: 800px;
+        height: 400px;
+    }
+</style>
+<style type="text/css">
+    .portfolio-item {
+        margin: 0 0 15px;
+        right: 0;
+    }
+
+        .portfolio-item .portfolio-link {
+            display: block;
+            position: relative;
+            max-width: 100px;
+            margin: 0 auto;
+        }
+
+            .portfolio-item .portfolio-link .portfolio-hover {
+                background: #000000;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                opacity: 0.50;
+                transition: all ease .5s;
+                -webkit-transition: all ease .5s;
+                -moz-transition: all ease .5s;
+            }
+
+                .portfolio-item .portfolio-link .portfolio-hover:hover {
+                    opacity: 0.50;
+                }
+
+                .portfolio-item .portfolio-link .portfolio-hover .portfolio-hover-content {
+                    position: absolute;
+                    width: 100%;
+                    height: 20px;
+                    font-size: 20px;
+                    text-align: center;
+                    top: 50%;
+                    margin-top: -14px;
+                    color: #fff;
+                }
+
+                    .portfolio-item .portfolio-link .portfolio-hover .portfolio-hover-content i {
+                        margin-top: -7px;
+                    }
+</style>
+
+<script src="//maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCySi2MFE1G-NwmKnJL0GCc-OVlnWGmzEc&amp;" type="text/javascript"></script>
+@*<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCySi2MFE1G-NwmKnJL0GCc-OVlnWGmzEc" type="text/javascript"></script>*@
+
+@*<script src="~/Scripts/CustomGoogleMapMarker.js"></script>*@
+<script src="~/Scripts/js/oms.min.js"></script>
+<script src="~/Scripts/js/MapLibrary.js"></script>
+<script>
+
+    $("#btnClose").click(function () {
+        $("#modalAddPopup").css('width', '600px');
+    });
+
+    function Filtration() {
+        if ($('#ToDate').val() == "" && $('#FromDate').val() != "") {
+            toastr.error('Please fill To Date');
+        }
+        else if ($('#FromDate').val() == "" && $('#ToDate').val() != "")
+        {
+            toastr.error('Please fill From Date');
+        }
+        else {
+            oTable.search($('#myDataTable').val()).draw();
+        }
+    }
+    function RemoveFiltration() {
+        $('#FromDate').val('');
+        $('#ToDate').val('');
+        $('#ddFilterStatus').val(0);
+        $('#ddFilterOffice').val(0);
+        oTable.search($('#myDataTable').val()).draw();
+    }
+
+    function clearMap()
+    { document.getElementById("divmap").innerHTML = ""; }
+
+    
+    var oTable;
+    //$(document).ready(function () {
+    //    setInterval(function () {
+    //        //var RequestPatientId = localStorage.getItem("PatientRequestId");
+    //        LoadTrackLocationMap(localStorage.getItem("PatientRequestId"));
+
+    //    }, 30000);
+
+    //})
+    function ViewCareGiverProfile(id) {
+        
+        
+        $("#loading").show();
+        $('#ViewPanel').load(INITURL + '/CareGiver/ViewCareGiver/' + id, function () {
+            $('#care-giver-details').modal('show');
+            sessionStorage.setItem("PartialView", "1");
+        });
+    }
+
+    function LoadNotifiedNurseList(PatientRequestId, TotalCaregiversNotified) {
+        localStorage.setItem("PatientRequestId", PatientRequestId);
+        $("#GetNurseList").load('@(Url.Action("GetNurseList", "PatientRequest", null, Request.Url.Scheme))?PatientRequestId=' + PatientRequestId, function (data, response, status, xhr) {
+            //console.log(JSON.stringify(data, response, status));
+        });
+
+        if (TotalCaregiversNotified > 0) {
+            $('#myModal1').modal('show');
+        }
+        else {
+            alert("No caregivers found for this request.");
+        }
+    }
+
+    function LoadTrackLocationMap(PatientRequestId) {
+
+        @*$("#GetNurseList").load('@(Url.Action("GetNurseList", "PatientRequest", null, Request.Url.Scheme))?PatientRequestId=' + PatientRequestId, function (data, response, status, xhr) {
+            //console.log(JSON.stringify(data, response, status));
+        });*@
+        $("#loading").show();
+
+        $('#myModalTrackLocation').modal({ backdrop: 'static', keyboard: false })
+        $('#myModalTrackLocation').modal('show');
+        $.ajax({
+            url: "@Url.Action("TrackLocationByPatientRequestId", "PatientRequest")",
+            data: { PatientRequestId: PatientRequestId },
+            cache: false,
+            dataType: 'json',
+            type: 'POST',
+            success: function (data, response) {
+                
+                //   if(data == )
+                if (data.Result.length > 0) {
+                    //console.log(JSON.stringify(data));
+
+                    var TotalMiles = data.Result[0].TotalMiles;
+                    //  $('#tmiles').val(TotalMiles);
+                    $('#tmiles').html(TotalMiles).show();
+                    var trackedLocations = data.Result;
+                    TrackLocationMap(trackedLocations)
+                }
+                else {
+
+                    $('#nolocation').html('No Location Available').show();
+                }
+
+            },
+            error: function (xhr, response) {
+                console.log(xhr, response);
+
+                $('#loading').hide();
+            }
+        });
+
+
+        $("#loading").hide();
+
+    }
+
+
+
+    function seeAddress(that, lat, long) {
+        $.ajax({
+            url: "https://maps.googleapis.com/maps/api/geocode/json?latlng= " + lat + "," + long + "&sensor=true",
+            type: "GET",
+            async: false,
+            success: function (data) {
+                $(that).parent().html("<strong>Address: </strong>" + data.results[0].formatted_address);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(xhr.status);
+            }
+        });
+    }
+
+    function TrackLocationMap(trackedLocations) {
+        setTimeout(function () {
+
+            
+            var gm = google.maps;
+            var infowindow;
+
+            //   var bounds = new google.maps.LatLngBounds();
+            //var latlng = new google.maps.LatLng(trackedLocations[0].LocationLatitude, trackedLocations[0].LocationLongitude);
+
+            //var myOptions =
+            //{
+            //    zoom: 16,
+            //    center: latlng,
+            //    mapTypeId: google.maps.MapTypeId.ROADMAP
+            //};
+            //var map = new google.maps.Map(document.getElementById("divmap"), myOptions);
+            //var oms = new OverlappingMarkerSpiderfier(map);
+            var iw = new gm.InfoWindow();
+
+            //console.log(trackedLocations);
+            if (trackedLocations != null && trackedLocations.length > 0) {
+
+                var img = new Image();
+                img.bluepin = "https://scheduler.paseva.com/CaregiverLiteMobileService/Images/CareGiverProfileImages/blue-dot.png";
+                img.greenpin = "https://scheduler.paseva.com/CaregiverLiteMobileService/Images/CareGiverProfileImages/green-dot.png";
+                img.redpin = "https://scheduler.paseva.com/CaregiverLiteMobileService/Images/CareGiverProfileImages/red-dot.png";
+                var bounds = new google.maps.LatLngBounds();
+                var mapCenter = {
+                    lat: parseFloat(trackedLocations[0].LocationLatitude),
+                    lng: parseFloat(trackedLocations[0].LocationLongitude)
+                }
+
+                var map = new google.maps.Map(document.getElementById('divmap'),
+                 {
+                     center: mapCenter,
+                     zoom: 16,
+                     mapTypeId: google.maps.MapTypeId.ROADMAP
+                 });
+                
+                // when only one marker
+                if (trackedLocations.length == 1) {
+
+
+                    var centerinfowindow = new google.maps.InfoWindow();
+                    var centermarker = new google.maps.Marker({
+                        position: mapCenter,
+                        map: map
+                    });
+                    centermarker.setIcon(img.redpin)
+
+
+                    var centercontent =
+                        '<div><strong>Date: </strong>' +
+                            trackedLocations[0].LocationDateTime +
+                            '</div>' +
+                            '<div><strong>Latitude: </strong>' +
+                            trackedLocations[0].LocationLatitude.substr(0, trackedLocations[0].LocationLatitude.indexOf(".") + 7) +
+                            '</div>' +
+                            '<div><strong>Longitude: </strong>' +
+                            trackedLocations[0].LocationLongitude.substr(0, trackedLocations[0].LocationLongitude.indexOf(".") + 7) +
+                            '</div>' +
+                            '<div><strong>Status: </strong>' +
+                            trackedLocations[0].Status +
+                            '</div>' +
+                                '<div>' +
+                                    '<a class="btn btn-xs btn-primary" style="margin-top:5px;" href="javascript:;" onclick="seeAddress(this,' + trackedLocations[0].LocationLatitude + ',' + trackedLocations[0].LocationLongitude + ')">See Address</a>'
+                    '</div>';
+
+
+
+                    google.maps.event.addListener(centermarker,
+                        'click',
+                        (function (centermarker, centercontent, centerinfowindow) {
+                            return function () {
+                                centerinfowindow.setContent(centercontent);
+                                centerinfowindow.open(map, centermarker);
+
+                            };
+                        })(centermarker, centercontent, centerinfowindow));
+                }
+                for (var i = 0; i < trackedLocations.length-1; i++) {
+                    if ((i + 1) < trackedLocations.length-1) {
+
+                        var service = new google.maps.DirectionsService();
+                        var directionsDisplay = new google.maps.DirectionsRenderer();
+
+                        //   var bounds = new google.maps.LatLngBounds();
+
+                        var src = new google.maps.LatLng(
+                            parseFloat(trackedLocations[i].LocationLatitude),
+                            parseFloat(trackedLocations[i].LocationLongitude)
+                        );
+                        var des = new google.maps.LatLng(
+                            parseFloat(trackedLocations[i + 1].LocationLatitude),
+                            parseFloat(trackedLocations[i + 1].LocationLongitude)
+                        );
+
+
+                        //var distance = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(src), new google.maps.LatLng(des));
+                        //console.log(distance);
+
+                        //for draw polylines on road path
+                        //service.route({
+                        //    origin: src,
+                        //    destination: des,
+                        //    travelMode: google.maps.DirectionsTravelMode.DRIVING
+                        //}, function (result, status) {
+                        //    if (status == google.maps.DirectionsStatus.OK) {
+                        //        // new path for the next result
+                        //        var path = new google.maps.MVCArray();
+                        //        //Set the Path Stroke Color
+                        //        // new polyline for the next result
+                        //        var poly = new google.maps.Polyline({
+                        //            map: map,
+                        //            strokeColor: '#4986E7',
+                        //            //strokeOpacity: 1.0,
+                        //            //strokeWeight: 2,
+
+                        //        });
+                        //        poly.setPath(path);
+                        //        for (var k = 0, len = result.routes[0].overview_path.length; k < len; k++) {
+                        //            path.push(result.routes[0].overview_path[k]);
+                        //            bounds.extend(result.routes[0].overview_path[k]);
+                        //            map.fitBounds(bounds);
+                        //        }
+                        //    } else alert("Directions Service failed:" + status);
+                        //});
+
+                        var polyLine = new google.maps.Polyline({
+                            path: [src, des],
+                            strokeColor: '#0000FF',
+                            strokeOpacity: 1.0,
+                            strokeWeight: 2,
+                            map: map
+                        });
+
+                        var content =
+                            '<div><strong>Date: </strong>' +
+                                trackedLocations[i].LocationDateTime +
+                                '</div>' +
+                                '<div><strong>Latitude: </strong>' +
+                                trackedLocations[i].LocationLatitude.substr(0, trackedLocations[i].LocationLatitude.indexOf(".") + 7) +
+                                '</div>' +
+                                '<div><strong>Longitude: </strong>' +
+                                trackedLocations[i].LocationLongitude.substr(0, trackedLocations[i].LocationLongitude.indexOf(".") + 7) +
+                                '</div>' +
+                                '<div><strong>Status: </strong>' +
+                                trackedLocations[i].Status +
+                                '</div>' +
+                                '<div>' +
+                                    '<a class="btn btn-xs btn-primary" style="margin-top:5px;" href="javascript:;" onclick="seeAddress(this,' + trackedLocations[i].LocationLatitude + ',' + trackedLocations[i].LocationLongitude + ')">See Address</a>'
+                        '</div>';
+
+                        var infowindow = new google.maps.InfoWindow();
+
+                        var marker = new google.maps.Marker({
+                            position: src,
+                            map: map
+                        });
+                        bounds.extend(marker.position);
+
+                        google.maps.event.addListener(marker,
+                            'click',
+                            (function (marker, content, infowindow) {
+                                return function () {
+                                    infowindow.setContent(content);
+                                    infowindow.open(map, marker);
+
+                                };
+                            })(marker, content, infowindow));
+
+                        marker.setIcon(img.redpin)
+
+
+                        map.fitBounds(bounds);
+
+
+                        if (i === 0) {
+                            marker.setIcon(img.bluepin)
+                            marker.setAnimation(google.maps.Animation.BOUNCE);
+                        }
+
+                        //set marker for last location
+                        if ((i + 2) === trackedLocations.length-1) {
+                            var infowindowDes = new google.maps.InfoWindow();
+
+                            var markerDes = new google.maps.Marker({
+                                position: des,
+                                map: map
+
+                            });
+
+                            markerDes.setAnimation(google.maps.Animation.BOUNCE);
+                            markerDes.setIcon(img.greenpin)
+
+                            bounds.extend(markerDes.position);
+                            var contentDes =
+                                '<div><strong>Date: </strong>' +
+                                    trackedLocations[i + 1].LocationDateTime +
+                                    '</div>' +
+                                    '<div><strong>Latitude: </strong>' +
+                                    trackedLocations[i + 1].LocationLatitude.substr(0, trackedLocations[i + 1].LocationLatitude.indexOf(".") + 7) +
+                                    '</div>' +
+                                    '<div><strong>Longitude: </strong>' +
+                                    trackedLocations[i + 1].LocationLongitude.substr(0, trackedLocations[i + 1].LocationLongitude.indexOf(".") + 7) +
+                                    '</div>' +
+                                    '<div><strong>Status: </strong>' +
+                                    trackedLocations[i + 1].Status +
+                                    '</div>' +
+                                '<div>' +
+                                    '<a class="btn btn-xs btn-primary" style="margin-top:5px;" href="javascript:;" onclick="seeAddress(this,' + trackedLocations[i + 1].LocationLatitude + ',' + trackedLocations[i + 1].LocationLongitude + ')">See Address</a>'
+                            '</div>';
+
+                            google.maps.event.addListener(markerDes,
+                                'click',
+                                (function (markerDes, contentDes, infowindowDes) {
+                                    return function () {
+                                        infowindowDes.setContent(contentDes);
+                                        infowindowDes.open(map, markerDes);
+
+                                    };
+                                })(markerDes, contentDes, infowindowDes));
+
+                            map.fitBounds(bounds);
+                        }
+
+                    }
+                }
+
+                var legend = document.createElement('dvMapLegend');
+                legend.className = "dvMapLegendb";
+                if (legend != null) {
+
+                    var divDriving = document.createElement('div');
+                    divDriving.className = "map-driving";
+                    divDriving.innerHTML = '_____ Driving';
+                    legend.appendChild(divDriving);
+
+                    //var divNotDriving = document.createElement('div');
+                    //divNotDriving.className = "map-notdriving";
+                    //divNotDriving.innerHTML = '_____ Not driving';
+                    //legend.appendChild(divNotDriving);
+
+                    var startpoint = document.createElement('div');
+                    startpoint.className = "map-notdriving";
+                    startpoint.innerHTML = '<img src="' + img.bluepin + '" />' + '     Start Point';
+                    legend.appendChild(startpoint);
+
+                    var endpoint = document.createElement('div');
+                    endpoint.className = "map-notdriving";
+                    endpoint.innerHTML = '<img src="' + img.greenpin + '" />' + '     Last Point';
+                    legend.appendChild(endpoint);
+
+
+                    map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend);
+
+                    $("#divMapLegend").show();
+                }
+
+            }
+        }, 500);
+    }
+
+
+
+
+    $('#ViewOnMap').click(function () {
+        $("#loading").show();
+        // BindMap();
+        var RequestPatientId = localStorage.getItem("PatientRequestId");
+        console.log(RequestPatientId);
+        $.ajax({
+            url: "@Url.Action("GetNurseListForMap", "PatientRequest")",
+            data: { PatientRequestId: RequestPatientId },
+            cache: false,
+            dataType: 'json',
+            type: 'POST',
+            success: function (data, response) {
+                
+                var NurseList = data.Result;
+                BindMap(NurseList)
+
+            },
+            error: function (xhr, response) {
+                console.log(xhr, response);
+
+                $('#loading').hide();
+            }
+        });
+        $("#loading").hide();
+    });
+
+    function BindMap(NurseList) {
+        setTimeout(function () {
+            var gm = google.maps;
+            var infowindow;
+            var bounds = new google.maps.LatLngBounds();
+            //var latlng = new google.maps.LatLng(NurseList[0].CurrentLatitude, NurseList[0].CurrentLongitude);
+            var myOptions =
+            {
+                zoom: 12,
+                //center: latlng,
+                mapTypeId: 'satellite'//google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("map"), myOptions);
+
+            var oms = new OverlappingMarkerSpiderfier(map);
+            var iw = new gm.InfoWindow();
+
+            
+            //  var NurseList = trackedLocations;
+            if (NurseList.length != 0) {
+                for (var i = 0; i < NurseList.length; i++) {
+                    //if (NurseList[i].CurrentLatitude != "") {
+                        var isAvailable = "";
+                        var color = "";
+                        var markerimage = "";
+                        var nurseid = NurseList[i].NurseId;
+                        @*var OpenURL = '@Url.Action("CareGiverDetails", "Appointment", new { NurseId = "REPLACEME" })'
+                OpenURL = OpenURL.replace("REPLACEME", nurseid);*@
+                        color = "#D44B4B";
+                        markerimage = "https://scheduler.paseva.com/CaregiverLiteMobileService/Images/CareGiverProfileImages/marker-x.png";
+
+                        //var ProfileImageURL = NurseList[i].ProfileImage;
+                        //function imageExists(ProfileImageURL, callback) {
+                        //    var img = new Image();
+                        //    img.onload = function () { callback(true); };
+                        //    img.onerror = function () { callback(false); };
+                        //    img.src = ProfileImageURL;
+                        //}
+
+                        //if (NurseList[i].IsAvailable == false) {
+                        //    isAvailable = "Not Available";
+                        //    color = "#D44B4B";
+                        //    markerimage = "../images/Red_Marker.png";
+                        //    OpenURL = "javascript:void(0)";
+                        //}
+                        //else {
+                        //    isAvailable = "Available";
+                        //    color = "#2A9D42";
+                        //    markerimage = "../images/Green_Marker.png";
+                        //}
+                        var innerMarkerText = '';
+                        innerMarkerText += '<div class="row custom-class" style="width:350px;" >';
+                        innerMarkerText += "<div class='col-md-2' style='padding-left:15px;'>";
+                        innerMarkerText += '<img src="' + NurseList[i].ProfileImage + '" class="img-circle" style="border:1px solid; margin-right:10px; height: 60px;width:70px" /></td></tr>';
+                        innerMarkerText += "</div>";
+                        innerMarkerText += "<div class='col-md-10' style='text-align:center;'>";
+                        innerMarkerText += "<div class='col-md-12'> <strong style='text-transform: capitalize;' >";
+                        innerMarkerText += NurseList[i].Name
+                        innerMarkerText += "</strong></div>";
+                        innerMarkerText += "<div class='col-md-12' style='font-size: smaller;text-transform: capitalize;'>";
+                        innerMarkerText += NurseList[i].Education
+                        innerMarkerText += "</div>";
+                        innerMarkerText += "<div class='col-md-12'>";
+                        innerMarkerText += "Timezone : " + NurseList[i].TimezoneId
+                        innerMarkerText += "</div>";
+                        //innerMarkerText += "<div class='col-md-6' style='padding:0px;text-align:center'>";
+                        innerMarkerText += "</div>";
+                        //innerMarkerText += "</div>";
+                        //innerMarkerText += "<div class='col-md-6' style='padding:0px;padding-top:10px;padding-bottom:10px;'>";
+                        //innerMarkerText += "</div>";
+                        innerMarkerText += "</div>";
+
+                        if (
+                            (NurseList[i].CurrentLatitude.length == 0 || NurseList[i].CurrentLongitude.length == 0)
+                            || (NurseList[i].CurrentLatitude == "0" || NurseList[i].CurrentLongitude == "0")) {
+                        //var latlng = new google.maps.LatLng(NurseList[i].Latitude, NurseList[i].Longitude);
+                        var latlng = new google.maps.LatLng(NurseList[i].Latitude, NurseList[i].Longitude);
+                    }
+                    else {
+                        var latlng = new google.maps.LatLng(NurseList[i].CurrentLatitude, NurseList[i].CurrentLongitude);
+                    }
+                    //var latlng = new google.maps.LatLng(NurseList[i].CurrentLatitude, NurseList[i].CurrentLongitude);
+
+                        var width = 69, height = 100, radius = 0, imageURL = NurseList[i].ProfileImage, iconImage = markerimage;
+
+                    overlay = new CustomMarker(latlng, map, imageURL, iconImage, innerMarkerText);
+                    //oms.addLayer(overlay);
+                    bounds.extend(latlng);
+                    //}
+                }
+                // Don't zoom in too far on only one marker
+                //if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
+                //    var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + (0.001), bounds.getNorthEast().lng() + (0.001));
+                //    var extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - (0.001), bounds.getNorthEast().lng() - (0.001));
+                //    bounds.extend(extendPoint1);
+                //    bounds.extend(extendPoint2);
+                //}
+                map.fitBounds(bounds);
+
+                //
+                zoomChangeBoundsListener = google.maps.event.addListenerOnce(map, 'bounds_changed', function (event) {
+                                            if (this.getZoom()) {
+                                                if (NurseList.length == 1) {
+                                                    this.setZoom(12);
+                                                }
+                                            }
+                                        });
+                setTimeout(function () { google.maps.event.removeListener(zoomChangeBoundsListener) }, 2000);
+                //
+            }
+        }
+        , 500);
+        //setTimeout(function () { google.maps.event.trigger(map, "resize"); }, 500);
+    }
+
+    $("#loading").hide();
+
+    CustomMarker.prototype = new google.maps.OverlayView();
+    function CustomMarker(latlng, map, imageURL, iconImage, innerMarkerText) {
+        this.latlng_ = latlng;
+        this.setMap(map);
+        this.imageURL = imageURL;
+        this.iconImage = iconImage;
+        this.innerMarkerText = innerMarkerText;
+        var iw = new google.maps.InfoWindow({ content: innerMarkerText, pixelOffset: new google.maps.Size(5, 0) });
+        google.maps.event.addListener(this,
+                              'click',
+                              (function (mm, tt) {
+                                  return function () {
+                                      iw.setContent(tt);
+                                      iw.setPosition(latlng);
+                                      iw.open(map, mm);
+                                      //setTimeout(function () { $(".custom-class").parent().css("overflow", "hidden"); }, 1000);
+                                  };
+                              })(this, innerMarkerText));
+
+
+
+        //google.maps.event.addListener(this, 'click', (function (mm, tt) {
+        //    iw.close();
+        //    return function () {
+        //        iw.setContent(tt);
+        //        iw.open(map, mm);
+        //    }
+        //})(this, innerMarkerText));
+    }
+
+
+    CustomMarker.prototype.draw = function () {
+        var me = this;
+        var div = this.div_;
+        if (!div) {
+            div = this.div_ = document.createElement('DIV');
+            div.style.border = "none";
+            div.style.position = "absolute";
+            div.style.paddingLeft = "0px";
+            div.style.cursor = 'pointer';
+            div.id = "dvmarker";
+            //div.style.zoom = '0.9';
+            var blueimg = document.createElement("img");
+            blueimg.src = this.iconImage;
+            //blueimg.style.position = "relative";
+            //blueimg.style.width = "70px";
+            blueimg.className = 'bluemarkerimage';
+            div.appendChild(blueimg);
+
+            var img = document.createElement("img");
+            img.src = this.imageURL;
+            img.className = 'map-pic';
+            div.appendChild(img);
+
+            google.maps.event.addDomListener(div, "click", function (event) {
+                google.maps.event.trigger(me, "click");
+            });
+
+            google.maps.event.addDomListener(div, "mouseover", function (event) {
+                google.maps.event.trigger(me, "mouseover");
+            });
+
+            google.maps.event.addDomListener(div, "mouseout", function (event) {
+                google.maps.event.trigger(me, "mouseout");
+            });
+
+
+            var panes = this.getPanes();
+            panes.overlayImage.appendChild(div);
+        }
+
+        // Position the overlay
+        var point = this.getProjection().fromLatLngToDivPixel(this.latlng_);
+        if (point) {
+            div.style.left = point.x - 25 + 'px';
+            div.style.top = point.y - 30 + 'px';
+        }
+    };
+
+    $(document).ready(function () {
+		localStorage.setItem("IsEdit", '0');
+
+        //setInterval(function () {
+        //    //var RequestPatientId = localStorage.getItem("PatientRequestId");
+
+        //            LoadTrackLocationMap(localStorage.getItem("PatientRequestId"));
+
+        //        }, 30000);
+
+        var value = '@Request.QueryString["IsAdded"]';
+        if (value != '') {
+            if (value == 'True') {
+                toastr.success('Patient Request is Added SuccessFully');
+                var originalURL = window.location.href;
+                window.history.pushState("string", '@ViewBag.Title', originalURL.substring(0, originalURL.indexOf('?')));
+            } else {
+                toastr.error('Internal server error');
+            }
+        }
+
+        //$("#loading").show();
+
+        var jquey = jQuery.noConflict();
+        oTable = $('#myDataTable').DataTable({
+
+            responsive: true,
+            //aaSorting: [],
+            "dom": 'lfrtip',
+            "bPaginate": true,
+            "bServerSide": true,
+            "bSortable": true,
+            "sPaginationType": "full_numbers",
+            "oLanguage": {
+                "sProcessing": "<div class=\"loading\" id=\"loading\" style=\"display: block;\"></div>"
+            },
+            "processing": true,
+            "sAjaxSource": "GetAllSchedulePatientRequest",
+            "fnServerData": function (sSource, aoData, fnCallback) {
+                $.getJSON(sSource, aoData, function (json) {
+                    fnCallback(json)
+                }).fail(function (jqxhr, textStatus, error) {
+                    window.location.reload();
+                });
+            },
+            "fnServerParams": function (aoData) {
+                aoData.push({ "name": "FilterOffice", "value": $('#ddFilterOffice option:selected').val() });
+                aoData.push({ "name": "FilterStatus", "value": $('#ddFilterStatus option:selected').text() });
+                aoData.push({ "name": "FromDate", "value": $('#FromDate').val() });
+                aoData.push({ "name": "ToDate", "value": $('#ToDate').val() });
+            },
+            "fnDrawCallback": function (oSettings) {
+                //Navigation validation
+                var rowsPerPage = this.fnSettings()._iDisplayLength;
+                var rowsToShow = this.fnSettings().fnRecordsDisplay();
+                var table = $('#myDataTable').DataTable();
+                var info = table.page.info();
+                var currentPageNo = info.page + 1;
+                //Paginationvalidation(rowsPerPage, rowsToShow, currentPageNo, '#myDataTable');
+                $('#myDataTable-select-all').prop('checked', false);
+
+                $("#loading").hide
+                    ();
+            },
+            "responsive": {
+                "details": {
+                    "type": 'column'
+                }
+            },
+            "autoWidth": false,
+            //"aoColumnDefs": [ { "bVisible": false, "aTargets": [ 0 ] } ],
+            "aoColumns": [
+                            //{
+                            //    "sName": "",
+                            //    className: 'control',
+                            //    //orderable: true,
+                            //    targets: 0,
+                            //    "mRender": function (oObj) {
+                            //        return '';
+                            //    }
+                            //},
+                            {
+                                'targets': 0,
+                                'searchable': false,
+                                'orderable': false,
+                                'className': 'dt-body-center',
+                                'render': function (oObj, data, type, full, meta) {
+                                    var PatientRequestId = oObj["PatientRequestId"];
+                                    return '<input class="cs" type="checkbox" id="' + PatientRequestId + '" name="' + PatientRequestId + '" value="' + PatientRequestId + '">';
+                                }
+                            },
+                            {
+                                "sName": "Scheduler Name",
+                                //"bSortable": true,
+                                //"width": "50px",
+                                // "visible": false,
+                                "mRender": function (oObj) {
+                                    return oObj["SchedulerName"];
+                                }
+                            },
+
+                            {
+                                "sName": "Patient Name",
+                                //"bSortable": true,
+                                "mRender": function (oObj) {
+                                    return oObj["PatientName"];
+                                }
+                            },
+                            {
+                                "sName": "Address",
+                                //"bSortable": true,
+                                "mRender": function (oObj) {
+                                    return '<span>' + oObj["Address"] + '</span>';
+                                }
+                            },
+                            {
+                                "sName": "ZipCode",
+                                //"bSortable": true,
+                                "mRender": function (oObj) {
+                                    return oObj["ZipCode"];
+                                }
+                            },
+                            {
+                                "sName": "MedicalId",
+                                "mRender": function (oObj) {
+                                    return '<span>' + oObj["MedicalId"] + '</span>';
+                                }
+                            },
+
+                          {
+                              "sName": "Description",
+                              "bSortable": false,
+                              "mRender": function (oObj) {
+                                  //return '<span>' + oObj["Description"] + '</span>';
+                                  return '<span title="' + oObj["Description"] + '">' + (oObj["Description"].length >= 99 ? (oObj["Description"].substring(0, 10) + "...") : oObj["Description"]) + '</span>';
+                              }
+                          },
+                            {
+                                "sName": "InsertDateTime",
+                                //"bSortable": true,
+                                "mRender": function (oObj) {
+                                    return oObj["InsertDateTime"];
+                                }
+                            },
+                            {
+                                "sName": "Date",
+                                //"bSortable": true,
+                                "mRender": function (oObj) {
+                                    return oObj["Date"];
+                                }
+                            },
+                            {
+                                "sName": "FromTime",
+                                //"bSortable": true,
+                                "mRender": function (oObj) {
+                                    if (oObj["TimezonePostfix"] !== null) {
+                                        return '<span>' + oObj["FromTime"] + " (" + oObj["TimezonePostfix"] + ") " + '</span>';
+                                    } else {
+                                        return '<span>' + oObj["FromTime"] + '</span>';
+                                    }
+                                }
+                            },
+                            {
+                                "sName": "ToTime",
+                                //"bSortable": true,
+                                "mRender": function (oObj) {
+                                    if (oObj["TimezonePostfix"] !== null) {
+                                        return '<span>' + oObj["ToTime"] + " (" + oObj["TimezonePostfix"] + ") " + '</span>';
+                                    } else {
+                                        return '<span>' + oObj["ToTime"] + '</span>';
+                                    }
+                                }
+                            },
+                             {
+                                 "sName": "Caregiver Name",
+                                 "bSortable": false,
+                                 "mRender": function (oObj) {
+                                     //return '<span>' + oObj["CaregiverName"] + '</span>';
+                                     var actionhtml = '';
+                                     if (oObj["CaregiverName"] != "") {
+                                         actionhtml += '<center><a href="javascript:;" style="text-transform: capitalize;text-decoration: underline;" onclick="ViewCareGiverProfile(\'' + oObj["NurseId"] + '\');">' + oObj["CaregiverName"] + '</a></center>'
+                                     }
+                                     return actionhtml;
+                                 }
+                             },
+                             {
+                                 "sName": "Status",
+                                 "mRender": function (oObj) {
+                                     if (oObj["Status"] === 'Completed') {
+                                         var actionhtml = '';
+                                         //With Signature
+                                         //actionhtml += '<a href="javascript:;" style="width:100%; margin-top:5px;" class="btn btn-xs btn-primary" onclick="CompletedRequest(\'' + oObj["PatientName"] + "\',\'" + oObj["Description"] + "\',\'" + oObj["InsertDateTime"] + "\',\'" + oObj["PatientSignature"] + "\',\'" + oObj["CheckInTime"] + "\',\'" + oObj["CheckOutTime"] + "\',\'" + oObj["Miles"] + "\',\'" + oObj["FromTime"] + "\',\'" + oObj["ToTime"] + "\' " + ')"><span>' + oObj["Status"] + '</span></a>'
+                                         //WithOut Signature
+                                         actionhtml += '<a href="javascript:;" style="width:100%; margin-top:5px;" class="btn btn-xs btn-primary" onclick="CompletedRequest(\'' + oObj["PatientName"] + "\',\'" + escape(oObj["Description"]) + "\',\'" + oObj["InsertDateTime"] + "\',\'\',\'" + oObj["CheckInTime"] + "\',\'" + oObj["CheckOutTime"] + "\',\'" + oObj["Miles"] + "\',\'" + oObj["FromTime"] + "\',\'" + oObj["ToTime"] + "\',\'" + oObj["CheckInLatLong"] + "\',\'" + oObj["CheckOutLatLong"] + "\',\'" + oObj["CheckInAddress"] + "\',\'" + oObj["CheckOutAddress"] + "\' " + ')"><span>' + oObj["Status"] + '</span></a>'
+                                         return actionhtml;
+                                     }
+                                     else {
+
+                                         return '<span>' + oObj["Status"] + '</span>';
+                                     }
+                                 }
+                             },
+                             {
+                                 "sName": "Office",
+                                 "mRender": function (oObj) {
+                                     //return oObj["Office"];
+                                     //debugger;
+                                     return '<span>' + oObj["OfficeName"] + '</span>';
+                                 }
+                             },
+                            //{
+                            //    "sName": "Status",
+                            //    "mRender": function (oObj) {
+
+
+                            //        return '<span>' + oObj["Status"] + '</span>';
+                            //    }
+                            //},
+                            {
+                                "sName": "Total Caregivers Notified",
+                                "bSortable": false,
+                                "mRender": function (oObj) {
+                                    //alert(oObj.DrivingStartTime)
+                                    //console.log(JSON.stringify(oObj));
+                                    var actionhtml = '';
+                                    if (oObj["DrivingStartTime"] != "") {
+                                        actionhtml += '<a href="javascript:;" style="width:100%; margin-top:5px;" class="btn btn-xs btn-primary" onclick="LoadTrackLocationMap(\'' + oObj["PatientRequestId"] + '\')" >TRACK LOCATION</a>'
+                                    }
+                                    else if (oObj["TotalCaregiversNotified"] > 0) {
+                                        actionhtml += '<a href="javascript:;" style="width:100%; margin-top:5px;" class="btn btn-xs btn-primary" onclick="LoadNotifiedNurseList(\'' + oObj["PatientRequestId"] + '\',' + oObj["TotalCaregiversNotified"] + ')">' + oObj["TotalCaregiversNotified"] + '</a>'
+                                    }
+                                    else {
+                                        actionhtml += '<center>' + oObj["TotalCaregiversNotified"] + '</center>'
+                                    }
+                                    return actionhtml;
+                                    //return '<span>' + oObj["TotalCaregiversNotified"] + '</span>';
+                                }
+                            },
+                            {
+                                "sName": "IsCancelled",
+                                //"bSortable": true,
+                                "mRender": function (oObj) {
+                                    //alert(oObj["IsCancelled"]);
+                                    if (oObj["IsCancelled"] == false) {
+                                        var actionhtml = '';
+                                        if (oObj["Status"] === 'Completed') {
+                                            actionhtml += '<a href="javascript:;" style="width:100%; margin-top:5px;" class="btn btn-xs btn-primary" onclick="OpenAddRating(\'' + oObj["PatientRequestId"] + '\')">Rating</a>';
+                                        } else {
+                                            actionhtml += '<a href="javascript:;" style="width:100%; margin-top:5px;" class="btn btn-xs btn-primary" onclick="CancelRequest(\'' + oObj["PatientRequestId"] + '\')">@CaregiverLite.Views.Resources.PatientRequest.ButtonCancel</a>'
+                                        }
+                                        return actionhtml;
+                                    }
+                                    else {
+
+                                        return 'Cancelled';
+                                    }
+                                }
+                            }
+                            //},
+                            // {
+                            //     "sName": "PatientSignature",
+                            //     "mRender": function (oObj) {
+                            //         return '<span style="display:none;">' + oObj["PatientSignature"] + '</span>';
+                            //     }
+                            // }
+            ],
+            'order': [[7, 'desc']],
+
+        });
+
+        $('#datetimepicker1').datetimepicker({
+            format: "YYYY-MM-DD"
+        });
+        $('#datetimepicker2').datetimepicker({
+            format: "YYYY-MM-DD"
+        });
+
+        $('#myDataTable_filter input').unbind(); //Unbind direct search on each keypress
+        $('#myDataTable_filter input').bind('keyup', function (e) { //Bind Keyup event that filter data only on "Enter" key.
+            if (e.keyCode == 13) {
+                // oTable.fnFilter(this.value);
+                oTable.search(this.value).draw();
+            }
+        });
+        /* Init DataTables */
+        $('.carousel').carousel({
+            interval: false
+        });
+
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': { allow_single_deselect: true },
+            '.chosen-select-no-single': { disable_search_threshold: 10 },
+            '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+            '.chosen-select-width': { width: "95%" }
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+
+
+
+        var tempMsg = '@TempData["message"]';
+        if (tempMsg != "")
+            toastr.success(tempMsg);
+
+        //Handle click on "Select all" control
+        $('#myDataTable-select-all').on('click', function () {
+            // Get all rows with search applied
+            // var rows = oTable.rows({'search : "applied"'}).nodes();
+            var rows = oTable.rows({ 'search': 'applied' }).nodes();
+
+            $('input[type="checkbox"]', rows).prop('checked', this.checked);
+
+        });
+        // Handle click on checkbox to set state of "Select all" control
+        $('#myDataTable tbody').on('change', 'input[type="checkbox"]', function () {
+            // If checkbox is not checked
+            if (this.checked) {
+                var el = $('#myDataTable-select-all').get(0);
+                // If "Select all" control is checked and has 'indeterminate' property
+                if (el && el.checked && ('indeterminate' in el)) {
+                    // Set visual state of "Select all" control
+                    // as 'indeterminate'
+                    el.indeterminate = true;
+                }
+            }
+        });
+
+        //$("#myDataTable-select-all").click(function () {
+        //    $(".checkBox").prop('checked',
+        //        $(this).prop('checked'));
+        //});
+
+        $("#btnRemoveAppointment").click(function () {
+
+            var selectedIDs = new Array();
+            $('input:checkbox.cs').each(function () {
+                if ($(this).prop('checked')) {
+                    selectedIDs.push($(this).val());
+                }
+            });
+
+            if (selectedIDs != "") {
+                var r = confirm("Are you sure you want to remove patient appointment?");
+                if (r == true) {
+
+                    $("#loading").show();
+                    var url = INITURL + '/PatientRequest/RemovePatientRequest';
+                    $.ajax({
+                        url: url,
+                        data: JSON.stringify({ PatientRequestId: selectedIDs }),
+                        cache: false,
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        type: 'POST',
+                        success: function (data) {
+
+                            if (data == "Success") {
+                                toastr.success('Patient Request is removed successfully');
+                                $("#loading").hide();
+                                oTable.search('').draw();
+                            }
+                            else {
+
+                                $("#loading").hide();
+                            }
+                        },
+                        error: function (xhr) {
+                            console.log(xhr, "error");
+                        }
+                    });
+                }
+            }
+            else {
+
+                toastr.info("Please select at least one Appointment.");
+            }
+        });
+    });
+    function CancelRequest(PatientId) {
+        var r = confirm("Are you sure you want to cancel patient request?");
+        if (r == true) {
+
+            $("#loading").show();
+            var url = INITURL + '/PatientRequest/CancelPatientRequest';
+
+            $.ajax({
+                url: url,
+                data: JSON.stringify({ patientrequestid: PatientId }),
+                cache: false,
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                success: function (data) {
+
+                    if (data == "Success") {
+                        toastr.success('Patient Request is cancelled successfully');
+                        $("#loading").hide();
+                        oTable.search('').draw()
+                        //oTable.fnFilter('');
+                    }
+                    else {
+
+                        $("#loading").hide();
+                    }
+                },
+                error: function (xhr) {
+                    console.log(xhr, "error");
+                }
+            });
+
+        }
+    }
+
+    function CompletedRequest(name, desc, requestedDate, signature, checkIn, checkOut, miles, fromtime, totime, CheckInLatLong, CheckOutLatLong, CheckInAddress, CheckOutAddress) {
+        desc = unescape(desc);
+        
+        if (signature != null) {
+            $('#signature').attr("src", signature);
+            $('#signature').show();
+        } else {
+            $('#signature').hide();
+        }
+
+        if (name != null) {
+            $("#PatientNameDiv").show();
+            $("#PatinentNameSpan").text(name);
+        }
+        else {
+            $("#PatientNameDiv").hide();
+        }
+
+        if (desc != null) {
+            $("#PatientDescriptionDiv").show();
+            $("#DiscriptionSpan").text(desc);
+        }
+        else {
+            $("#PatientDescriptionDiv").hide();
+        }
+
+        if (requestedDate != null) {
+            $("#RequestedDateDiv").show();
+            $("#RequestedDateSpan").text(requestedDate);
+        }
+        else {
+            $("#RequestedDateDiv").hide();
+        }
+        if (checkIn != null) {
+            $("#checkInDiv").show();
+            $("#checkInSpan").text(checkIn);
+        }
+        else {
+            $("#checkInDiv").hide();
+        }
+        if (checkOut != null) {
+            $("#checkOutDiv").show();
+            $("#checkOutSpan").text(checkOut);
+        }
+        else {
+            $("#checkOutDiv").hide();
+        }
+        if (miles != null) {
+            $("#milesDiv").show();
+            $("#milesSpan").text(miles);
+        }
+        else {
+            $("#milesDiv").hide();
+        }
+        if (fromtime != null) {
+            $("#frmtmDiv").show();
+            $("#frmtmSpan").text(fromtime);
+        }
+        else {
+            $("#frmtmDiv").hide();
+        }
+
+        if (totime != null) {
+            $("#totmDiv").show();
+            $("#totmSpan").text(totime);
+        }
+        else {
+            $("#totmDiv").hide();
+        }
+
+        //
+        if (CheckInLatLong != null) {
+            $("#checkInLatLongDiv").show();
+            $("#checkInLatLongSpan").text(CheckInLatLong);
+        }
+        else {
+            $("#checkInLatLongDiv").hide();
+        }
+        if (CheckOutLatLong != null) {
+            $("#checkOutLatLongDiv").show();
+            $("#checkOutLatLongSpan").text(CheckOutLatLong);
+        }
+        else {
+            $("#checkOutLatLongDiv").hide();
+        }
+
+        if (CheckInLatLong != null) {
+            $("#checkInAddressDiv").show();
+            $("#checkInAddressSpan").text(CheckInAddress);
+        }
+        else {
+            $("#checkInAddressDiv").hide();
+        }
+        if (CheckOutLatLong != null) {
+            $("#checkOutAddressDiv").show();
+            $("#checkOutAddressSpan").text(CheckOutAddress);
+        }
+        else {
+            $("#checkOutAddressDiv").hide();
+        }
+        //
+
+
+        $('#myCompleteRequest').modal('show');
+    }
+
+    function OpenAddNew() {
+        $("#loading").show();
+        $('#AddPatientRequest').load(INITURL + 'PatientRequest/AddPatientRequest', function () {
+            sessionStorage.setItem("PartialView", "1");
+            $('#myModal').modal({ backdrop: 'static', keyboard: false })
+            $('#myModal').modal('show');
+
+        });
+    }
+    function OpenAddRating(PatientRequestId1) {
+        $("#loading").show();
+
+        $("#star1").prop('checked', false);
+        $("#star2").prop('checked', false);
+        $("#star3").prop('checked', false);
+        $("#star4").prop('checked', false);
+        $("#star5").prop('checked', false);
+
+        $('#myModalRating').modal('show');
+        var url = INITURL + '/PatientRequest/GetRatingByPatientRequestId';
+        //var Comment1 = document.getElementById("Comment" + NurseId1).value;
+        $.ajax({
+            url: url,
+            data: { PatientRequestId: PatientRequestId1 },
+            cache: false,
+            type: 'POST',
+            async: false,
+            success: function (data) {
+                //if (data["Result"] == "0") {
+                //    $("#star1").prop('checked', true);
+                //}
+                if (data["Result"] > "0") {
+                    $("#star1").prop('checked', true);
+                }
+                if (data["Result"] > "1") {
+                    $("#star2").prop('checked', true);
+                }
+                if (data["Result"] > "2") {
+                    $("#star3").prop('checked', true);
+                }
+                if (data["Result"] > "3") {
+                    $("#star4").prop('checked', true);
+                }
+                if (data["Result"] > "4") {
+                    $("#star5").prop('checked', true);
+                }
+                var actionhtml = '<a href="javascript:;" style="width:100%; margin-left:5px;" class="btn btn-xs btn-primary" onclick="SaveRating(\'' + PatientRequestId1 + '\')">Save</a>';
+                document.getElementById('btnSaveRating').innerHTML = actionhtml;
+                if (data == "Success") {
+                    //window.location = INITURL + '/PatientRequest/RewardPointAdvance';
+                }
+                $("#loading").hide();
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+                $("#loading").hide();
+            }
+        });
+
+        @*$.ajax({
+            url: "@Url.Action("GetRatingByPatientRequestId", "PatientRequest")",
+            data: { PatientRequestId: PatientRequestId },
+        cache: false,
+        dataType: 'json',
+        type: 'POST',
+        success: function (data, response) {
+            
+            //   if(data == )
+            if (data.Result.length > 0) {
+                //console.log(JSON.stringify(data));
+
+                var TotalMiles = data.Result[0].TotalMiles;
+                //  $('#tmiles').val(TotalMiles);
+                $('#tmiles').html(TotalMiles).show();
+                var trackedLocations = data.Result;
+                TrackLocationMap(trackedLocations)
+            }
+            else {
+
+                $('#nolocation').html('No Location Available').show();
+            }
+
+        },
+        error: function (xhr, response) {
+            console.log(xhr, response);
+
+            $('#loading').hide();
+        }
+    });
+        $("#loading").hide();*@
+        //});
+    }
+
+    function SaveRating(PatientRequestId1) {
+        $("#loading").show();
+        //$('#AddPatientRequest').load(INITURL + 'PatientRequest/AddPatientRequest', function () {
+        //    sessionStorage.setItem("PartialView", "1");
+        $('#myModalRating').modal('show');
+        var Rating1 = "0";
+        if ($("#star1").prop("checked")) {
+            // do something
+            Rating1 = "1";
+        }
+        if ($("#star2").prop("checked")) {
+            // do something
+            Rating1 = "2";
+        }
+        if ($("#star3").prop("checked")) {
+            // do something
+            Rating1 = "3";
+        }
+        if ($("#star4").prop("checked")) {
+            // do something
+            Rating1 = "4";
+        }
+        if ($("#star5").prop("checked")) {
+            // do something
+            Rating1 = "5";
+        }
+        
+        var url = INITURL + '/PatientRequest/SetRatingByPatientRequestId';
+        //var Comment1 = document.getElementById("Comment" + NurseId1).value;
+        $.ajax({
+            url: url,
+            data: { PatientRequestId: PatientRequestId1, Rating: Rating1 },
+            cache: false,
+            type: 'POST',
+            async: false,
+            success: function (data) {
+                
+                //if (data["Result"] == "0") {
+                //    $("#star1").prop('checked', true);
+                //}
+                if (data["Result"] > "0") {
+                    $("#star1").prop('checked', true);
+                }
+                if (data["Result"] > "1") {
+                    $("#star2").prop('checked', true);
+                }
+                if (data["Result"] > "2") {
+                    $("#star3").prop('checked', true);
+                }
+                if (data["Result"] > "3") {
+                    $("#star4").prop('checked', true);
+                }
+                if (data["Result"] > "4") {
+                    $("#star5").prop('checked', true);
+                }
+
+                //if (data == "Success") {
+                //    actionhtml += '<a href="javascript:;" style="width:100%; margin-top:5px;" class="btn btn-xs btn-primary" onclick="OpenAddRating(\'' + oObj["PatientRequestId"] + '\')">Save</a>';
+                //    //window.location = INITURL + '/PatientRequest/RewardPointAdvance';
+                //}
+                $("#loading").hide();
+                toastr.success("Rating Accepted");
+                $('#myModalRating').modal('hide');
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+                $("#loading").hide();
+            }
+        });
+    }
+
+    //View Checkin-checkout caregiver Start
+    $('#ViewOnMapCheckInOutAddress').click(function () {
+        $('#myModalCheckInCheckOutLocation').modal('show');
+        setTimeout(function () {
+
+            var gm = google.maps;
+            var infowindow;
+            var iw = new gm.InfoWindow();
+
+            var CheckInLatLong1 = $("#checkInLatLongSpan").text();
+            var checkOutLatLong1 = $("#checkOutLatLongSpan").text();
+            var CheckInLatLongArray = CheckInLatLong1.split(',', 2);
+            var CheckOutLatLongArray = checkOutLatLong1.split(',', 2);
+
+
+            var img = new Image();
+            img.bluepin = "https://scheduler.paseva.com/CaregiverLiteMobileService/Images/CareGiverProfileImages/blue-dot.png";
+            img.greenpin = "https://scheduler.paseva.com/CaregiverLiteMobileService/Images/CareGiverProfileImages/green-dot.png"
+            img.redpin = "https://scheduler.paseva.com/CaregiverLiteMobileService/Images/CareGiverProfileImages/red-dot.png"
+            var bounds = new google.maps.LatLngBounds();
+
+
+            if (CheckInLatLongArray != null && CheckInLatLongArray.length > 0) {
+
+                var mapCenter = {
+                    lat: parseFloat(CheckInLatLongArray[0]),
+                    lng: parseFloat(CheckInLatLongArray[1])
+                }
+
+                var map = new google.maps.Map(document.getElementById('mapLocation'),
+                 {
+                     center: mapCenter,
+                     zoom: 16,
+                     mapTypeId: google.maps.MapTypeId.ROADMAP
+                 });
+               
+
+                var centerinfowindow = new google.maps.InfoWindow();
+                var centermarker = new google.maps.Marker({
+                    position: mapCenter,
+                    map: map
+                });
+               
+                centermarker.setIcon(img.bluepin);
+                
+                
+                var centercontent =
+                        '<div><strong>Latitude: </strong>' +
+                        //CheckInLatLongArray[0] +
+                        CheckInLatLongArray[0].substr(0, CheckInLatLongArray[0].indexOf(".") + 7) +
+                        '</div>' +
+                        '<div><strong>Longitude: </strong>' +
+                        CheckInLatLongArray[1].substr(0, CheckInLatLongArray[1].indexOf(".") + 7) +
+                        '</div>' +
+                        '<div>' +
+                                '<a class="btn btn-xs btn-primary" style="margin-top:5px;" href="javascript:;" onclick="seeAddress(this,' + CheckInLatLongArray[0] + ',' + CheckInLatLongArray[1] + ')">See Address</a>'
+                '</div>';
+                google.maps.event.addListener(centermarker,
+                    'click',
+                    (function (centermarker, centercontent, centerinfowindow) {
+                        return function () {
+                            centerinfowindow.setContent(centercontent);
+                            centerinfowindow.open(map, centermarker);
+                           
+                        };
+                    })(centermarker, centercontent, centerinfowindow));
+            }
+
+            if (CheckOutLatLongArray != null && CheckOutLatLongArray.length > 0) {
+                var mapC = {
+                    lat: parseFloat(CheckOutLatLongArray[0]),
+                    lng: parseFloat(CheckOutLatLongArray[1])
+                }
+                var centerinfowindow = new google.maps.InfoWindow();
+                var cmarker = new google.maps.Marker({
+                    position: mapC,
+                    map: map
+                });
+                cmarker.setIcon(img.greenpin)
+                var centercontent1 =
+
+                        '<div><strong>Latitude: </strong>' +
+                        CheckOutLatLongArray[0].substr(0, CheckOutLatLongArray[0].indexOf(".") + 7) +
+                        '</div>' +
+                        '<div><strong>Longitude: </strong>' +
+                        CheckOutLatLongArray[1].substr(0, CheckOutLatLongArray[1].indexOf(".") + 7) +
+                        '</div>' +
+                        '<div>' +
+                                '<a class="btn btn-xs btn-primary" style="margin-top:5px;" href="javascript:;" onclick="seeAddress(this,' + CheckOutLatLongArray[0] + ',' + CheckOutLatLongArray[1] + ')">See Address</a>'
+                '</div>';
+                google.maps.event.addListener(cmarker,
+                    'click',
+                    (function (cmarker, centercontent1, centerinfowindow) {
+                        return function () {
+                            centerinfowindow.setContent(centercontent1);
+                            centerinfowindow.open(map, cmarker);
+                            google.maps.event.trigger(map, 'resize');
+
+                        };
+                    })(cmarker, centercontent1, centerinfowindow));
+            }
+
+            var legend = document.createElement('dvMapLegend');
+            legend.className = "dvMapLegendb";
+            if (legend != null) {
+                var startpoint = document.createElement('div');
+                startpoint.className = "map-notdriving";
+                startpoint.innerHTML = '<img src="' + img.bluepin + '" />' + '     Check-In Point';
+                legend.appendChild(startpoint);
+
+                var endpoint = document.createElement('div');
+                endpoint.className = "map-notdriving";
+                endpoint.innerHTML = '<img src="' + img.greenpin + '" />' + '     Check-Out Point';
+                legend.appendChild(endpoint);
+
+                map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend);
+
+                $("#divMapLegend").show();
+            }
+           
+        }, 500);
+        google.maps.event.trigger(map, 'resize');
+     
+    });
+
+    function clearMapCheckInOut()
+    { document.getElementById("mapLocation").innerHTML = ""; }
+    //View Checkin-checkout caregiver End
+</script>

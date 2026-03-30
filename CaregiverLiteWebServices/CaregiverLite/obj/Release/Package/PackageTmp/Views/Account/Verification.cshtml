@@ -1,0 +1,346 @@
+﻿@model CaregiverLite.Models.CareGiverModel
+@{
+    ViewBag.Title = "Verification";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .carousel-control {
+        top: 43%;
+    }
+    span.field-validation-error , .errormsg{
+    color: red;
+    float: right;
+}
+    .file_div {
+    height:auto;
+    }
+   
+    .img-grid {
+    display: block;
+    max-width: 100%;
+    height: 180px;
+    width: 180px;
+    margin: 10px;
+}
+    a.removercerti {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.approved , .removercerti > img{
+    width: 20px;
+    height: 20px;
+}
+img.approved {
+    position: absolute;
+    top: 0;
+    right: 25px;
+}
+</style>
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Certificate</h4>
+            </div>
+            <div class="modal-body">
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+@if (ViewBag.CertiList != null)
+{ var i =0;
+    foreach (var data in (List<CaregiverLite.CaregiverLiteService.CareGivers>)ViewBag.CertiList)
+    {
+
+        <li data-target="#carousel-example-generic" data-slide-to="@i"
+            @if(i == 0)
+             {
+               @:class="active" 
+            }
+            ></li>
+        i++;
+    }
+   
+}
+                      
+                    </ol>
+                    <div class="carousel-inner" role="listbox">
+@if (ViewBag.CertiList != null)
+{
+    var i = 0;
+
+    foreach (var data in (List<CaregiverLite.CaregiverLiteService.CareGivers>)ViewBag.CertiList)
+    {
+        <div @if (i == 0) 
+             { 
+                 @: class="item active"
+             } 
+             else 
+             {
+                  @: class="item"
+            }>
+            <img src="@data.Certificate">
+        </div>
+i++;
+    }
+
+}
+                        
+                    </div>
+                    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-md-5">
+@using (Html.BeginForm("Verification", "Account", FormMethod.Post, new { @id = "fmVerification", @class = "horizontal-form", @enctype = "multipart/form-data" }))
+    {
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Upload Certificate</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            @*@Html.ValidationMessageFor(model => model.ProfileImage)
+                            @Html.Hidden("hdnProfileImage", new { @id = "hdnProfileImage" })*@
+                            <lable class="errormsg">@ViewBag.Message</lable>
+                           @Html.TextBoxFor(model => model.ProfileImageFile, new { @type = "file", @class = "form-control file_div", @accept = "image/*", @id = "EditProfileImageFile" })
+
+
+                        </div>
+                    </div>
+                    <div style="margin-top:10px;">
+                      
+                        <button type="button" onclick="Addnew()" class="btn btn-sm btn-primary pull-right">Upload</button>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+}
+        </div>
+        <div class="col-md-7">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Certificate List</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        @if (ViewBag.CertiList != null)
+                        { 
+                            foreach(var data in (List<CaregiverLite.CaregiverLiteService.CareGivers>) ViewBag.CertiList )
+                            {
+                            <div class="col-md-4">
+                                <a href="#" data-toggle="modal" data-target="#myModal"><img class="img-responsive img-grid" src="@data.Certificate"  /></a>
+                                @if(data.IsCertificateApproved == "True")
+                                {
+                                <img src="~/image/IconApproved.png" class="approved" alt="Approved" title="Approved">
+                                }
+                                <a href="#" class="removercerti" id="@data.NurseCertificateId" onclick="deletecerti(this.id);"><img src="~/image/Remove-icon.png"></a>
+                            </div>
+                            }
+                        }
+                       
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script>
+    
+   
+    $(document).ready(function () {
+       
+		$('.carousel').carousel({
+		  interval: false
+		});
+		$('#datetimepicker1').datetimepicker({
+			format: 'DD-MM-YYYY'
+		});
+		$('#datetimepicker2').datetimepicker({
+			format: 'DD-MM-YYYY'
+		});
+		$('#datetimepicker3').datetimepicker({
+			format: 'DD-MM-YYYY'
+		});
+		$('#datetimepicker4').datetimepicker({
+			format: 'DD-MM-YYYY'
+		});
+
+		$('.dataTables-example').dataTable({
+			responsive: true,
+			"dom": 'T<"clear">lfrtip',
+			"tableTools": {
+				"sSwfPath": "js/plugins/dataTables/swf/copy_csv_xls_pdf.swf"
+			}
+		});
+
+		$(window).on('load', function () {
+		   
+		    $('[data-ride="carousel"]').each(function () {
+		       // alert(1);
+		        var $carousel = $(this);
+		        var $items = $carousel.find('.item');
+		        if ($items.length > 1) {
+		        //    alert(1);
+		            Plugin.call($carousel, $carousel.data());
+		        } else {
+		           // alert(0);
+		            $items.addClass('active');
+		            $('.carousel-indicators,.carousel-control', $carousel).remove();
+		        }
+		    });
+		});
+		/* Init DataTables */
+		var oTable = $('#editable').dataTable();
+		/* Apply the jEditable handlers to the table */
+		oTable.$('td').editable( '../example_ajax.php', {
+			"callback": function( sValue, y ) {
+				var aPos = oTable.fnGetPosition( this );
+				oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+			},
+			"submitdata": function ( value, settings ) {
+				return {
+					"row_id": this.parentNode.getAttribute('id'),
+					"column": oTable.fnGetPosition( this )[2]
+				};
+			},
+			"width": "90%",
+			"height": "100%"
+		} );
+
+		var config = {
+		'.chosen-select'           : {},
+		'.chosen-select-deselect'  : {allow_single_deselect:true},
+		'.chosen-select-no-single' : {disable_search_threshold:10},
+		'.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+		'.chosen-select-width'     : {width:"95%"}
+	}
+	for (var selector in config) {
+		$(selector).chosen(config[selector]);
+	}
+
+	function fnClickAddRow() {
+		$('#editable').dataTable().fnAddData( [
+			"Custom row",
+			"New row",
+			"New row",
+			"New row",
+			"New row" ] );
+	}
+
+		 $('#external-events div.external-event').each(function() {
+
+            // store data so the calendar knows to render an event upon drop
+            $(this).data('event', {
+                title: $.trim($(this).text()), // use the element's text as the event title
+                stick: true // maintain when Users navigates (see docs on the renderEvent method)
+            });
+
+            // make the event draggable using jQuery UI
+            $(this).draggable({
+                zIndex: 1111999,
+                revert: true,      // will cause the event to go back to its
+                revertDuration: 0  //  original position after the drag
+            });
+
+        });
+
+		 /* initialize the calendar
+         -----------------------------------------------------------------*/
+        var date = new Date();
+        var d = date.getDate();
+        var m = date.getMonth();
+        var y = date.getFullYear();
+
+        $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            editable: true,
+            droppable: true, // this allows things to be dropped onto the calendar
+            drop: function() {
+                // is the "remove after drop" checkbox checked?
+                if ($('#drop-remove').is(':checked')) {
+                    // if so, remove the element from the "Draggable Events" list
+                    $(this).remove();
+                }
+            },
+            events: [
+                {
+                    title: '',
+                    start: new Date(y, m, 1),
+					url: 'http://differenzuat.com/caregiver/schedule_details.html'
+                },
+            ],
+        });
+
+		$(".fc-button").click();
+	});
+
+		$('#myModal3').on('shown.bs.modal', function() {
+		$(".fc-month-button").click();
+	})
+
+		function Addnew() {
+		    if ($("#ProfileImageFile").val() != null && $("#ProfileImageFile").val() != "") {
+		        $("#hdnProfileImage").val("Value");
+		    }
+		    $("#fmVerification").submit();
+		}
+		function deletecerti(id)
+		{
+		   // alert(id);
+		    if (confirm('@CaregiverLite.Views.Resources.CareGiver.MsgDeleteConfirmation')) {
+		        $("#loading").show();
+		        var url = INITURL + '/Account/DeleteNurseCertificateById';
+
+		        $.ajax({
+		            url: url,
+		            data: { NurseCertificateId: id },
+		            cache: false,
+		            type: 'POST',
+		            async: false,
+		            success: function (data) {
+		                if (data == "Success") {
+		                    window.location = INITURL + '/Account/Verification';
+		                }
+		                $("#loading").hide();
+		            },
+		            error: function (reponse) {
+		                alert("error : " + reponse);
+		                $("#loading").hide();
+		            }
+		        });
+		    }
+		}
+
+    $("#loading").hide();
+    var tempMsg = '@TempData["message"]';
+    if (tempMsg != "")
+        toastr.success(tempMsg);
+		
+
+</script>
+<!-- SCRIPT START -->

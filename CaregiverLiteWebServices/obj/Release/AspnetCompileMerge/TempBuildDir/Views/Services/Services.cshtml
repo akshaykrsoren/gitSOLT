@@ -1,0 +1,220 @@
+﻿@model CaregiverLite.Models.ServiceModel
+@{
+    ViewBag.Title = @CaregiverLite.Views.Resources.Services.TitleServices;
+    //Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+<style>
+    .navigator li {
+        display: inline-block;
+        padding: 0 5px;
+    }
+
+    .field-validation-error {
+        color: red;
+        float: right;
+    }
+
+    .carousel-control {
+        top: 43%;
+    }
+</style>
+
+@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+{
+    <!-- EDIT POPUP START -->
+
+    <!-- EDIT POPUP END -->
+}
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "fmAddServiceRequest", @class = "horizontal-form", @enctype = "multipart/form-data" }))
+{
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-md-4">
+                @*<div class="alert alert-danger alert-dismissable" style="display:none" id="dvError1">
+                        <button onclick="divClose();" class="close" type="button">×</button>
+                        <label id="lblError1"></label>
+                    </div>*@
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>@CaregiverLite.Views.Resources.Services.HeaderAddService</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>@CaregiverLite.Views.Resources.Services.LabelService</label>
+                                    <span style="color:red;">*</span>
+                                    @Html.ValidationMessageFor(model => model.ServiceName)
+                                    @Html.TextBoxFor(model => model.ServiceName, new { @type = "text", @maxlength = "100", @placeholder = @CaregiverLite.Views.Resources.Services.PlaceHolderServiceName, @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @*<button type="submit" class="btn btn-xs btn-success pull-right">@CaregiverLite.Views.Resources.Services.ButtonAdd</button>*@
+                            <button type="button" onclick="AddServices()" class="btn btn-sm btn-primary pull-right">@CaregiverLite.Views.Resources.Services.ButtonAdd</button>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>@CaregiverLite.Views.Resources.Services.HeaderServicesDetails</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <table class="table table-bordered table-hover no-margins">
+                            <thead>
+                                <tr>
+                                    <th style="width: 70%;">@CaregiverLite.Views.Resources.Services.TableHeaderServices</th>
+                                    <th style="width: 30%;">@CaregiverLite.Views.Resources.Services.TableHeaderActions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (CaregiverLiteWCF.Services item in ViewBag.ServiceList)
+                                {
+                                    <tr>
+                                        <td>@item.ServiceName</td>
+                                        <td>
+                                            <a href="javascript:;" class="btn btn-xs btn-primary" onclick="OpenEditPopup(@item.ServiceId, '@item.ServiceName')">@CaregiverLite.Views.Resources.Services.ButtonEdit</a>
+                                            <a href="javascript:;" class="btn btn-sm btn-danger" onclick="DeleteService(@item.ServiceId, '@item.ServiceName')">@CaregiverLite.Views.Resources.Services.ButtonDelete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">@CaregiverLite.Views.Resources.Services.HeaderEditService</h4>
+                </div>
+                <div class="modal-body">
+                    @*<div class="alert alert-danger alert-dismissable" style="display:none" id="dvError2">
+                            <button onclick="divClose();" class="close" type="button">×</button>
+                            <label id="lblError2"></label>
+                        </div>*@
+                    <div class="form-group">
+                        @*<input type="text" id="txtServiceName" value="" class="form-control">*@
+                        <label>@CaregiverLite.Views.Resources.Services.LabelService</label>
+                        <span style="color:red;">*</span>
+                        @Html.ValidationMessageFor(model => model.ServiceName)
+                        @Html.TextBoxFor(model => model.ServiceName, new { @id = "txtServiceName", @type = "text", @maxlength = "100", @placeholder = @CaregiverLite.Views.Resources.Services.PlaceHolderServiceName, @class = "form-control" })
+                        <input type="hidden" id="txtServiceId" value="" class="form-control">
+                    </div>
+                    <a href="javascript:;" onclick="UpdateService()" class="btn btn-sm btn-primary pull-right">@CaregiverLite.Views.Resources.Services.ButtonUpdate</a>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    function AddServices() {
+        var ServiceNameValue = $("#ServiceName").val();
+
+        if (ServiceNameValue == "") {
+            toastr.error('Please enter service type');
+            $('#loading').hide();
+            return false;
+        } else {
+            $('#loading').show();
+            $.ajax({
+                url: INITURL + "/Services/UpdateService",
+                data: { ServiceName: ServiceNameValue },
+                cache: false,
+                type: "POST",
+                success: function (data, result) {
+                    $('#loading').hide();
+                    if (result === 'success') {
+                        alert(ServiceNameValue + " added successfully");
+                        window.location = INITURL + "/Services/Services"
+                    } else {
+                        $('#loading').hide();
+                    }
+                },
+                error: function (reponse) {
+                    $('#loading').hide();
+                }
+            });
+        }
+    }
+
+    function OpenEditPopup(ServiceId, ServiceName) {
+        $('#loading').show();
+        $("#txtServiceId").val(ServiceId);
+        $("#txtServiceName").val(ServiceName);
+        $('#myModal').modal('show');
+        $('#loading').hide();
+    }
+
+    function UpdateService() {
+        var EditServiceName = $("#txtServiceName").val();
+
+        if (EditServiceName == "") {
+            toastr.error('Please enter service type');
+            $('#loading').hide();
+            return false;
+        } else {
+            $('#loading').show();
+            $.ajax({
+                url: INITURL + "/Services/UpdateService",
+                data: { ServiceId: $("#txtServiceId").val(), ServiceName: $("#txtServiceName").val() },
+                cache: false,
+                type: "POST",
+                success: function (data, result) {
+                    $('#loading').hide();
+                    if (result === 'success') {
+                        alert(EditServiceName + " updated successfully");
+                        window.location = INITURL + "/Services/Services"
+                    } else {
+                        $('#loading').hide();
+                    }
+                },
+                error: function (reponse) {
+                    $('#loading').hide();
+                }
+            });
+        }
+    }
+
+    function DeleteService(id, ServiceName) {
+        if (confirm("Are you sure you want to delete " + ServiceName + "?")) {
+            $('#loading').show();
+            $.ajax({
+                url: INITURL + "/Services/DeleteService",
+                data: { ServiceId: id },
+                cache: false,
+                type: "POST",
+                success: function (data) {
+                    $('#loading').hide();
+                    if (data == "1") {
+                        alert(ServiceName + " deleted successfully");
+                        window.location = INITURL + "/Services/Services"
+                    }
+                    else {
+                        alert(ServiceName + " is in other use. You can not delete it.");
+                        $('#loading').hide();
+                    }
+                },
+                error: function (reponse) {
+                    $('#loading').hide();
+                }
+            });
+        }
+    }
+
+    function divClose() {
+        $("#dvError1").css("display", "none");
+        $("#dvError2").css("display", "none");
+    }
+</script>

@@ -1,0 +1,42 @@
+﻿<div id="main_div">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label>Member List</label>
+            <div class="col-md-06" style="overflow-y:auto;scroll:auto;max-height:300px">
+                <table class="table table-striped table-bordered table-hover dataTables-example">
+                    <thead>
+                        <tr>
+                            <td>
+                                <b>Member Name</b>
+                            </td>
+                            <td><b>Email-Id </b></td>
+                            <td> <b>Role Type</b> </td>
+                                <td style="width:10%;">
+                                    <b>Group Admin</b>
+                                </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (ViewBag.GroupMemberDetail != null)
+                        {
+                            foreach (var item in ViewBag.GroupMemberDetail)
+                            {
+                                <tr id="@item.UserId">
+                                    <td>@item.MemberName</td>
+                                    <td>@item.Email</td>
+                                    <td>@item.Type</td>
+                                        <td>
+                                            <center>
+                                                    <button class="btn btn-xs btn-danger" style="margin:5px; width:auto;" onclick="RemoveMember('@ViewBag.ChattingGroupId','@item.UserId','@item.QuickBloxId')"><span class="fa fa-remove"></span></button>
+                                            </center>
+                                        </td>
+                                    
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

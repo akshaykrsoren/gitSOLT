@@ -1,0 +1,95 @@
+﻿<style>
+    .input1 {
+        background-color: blue;
+        color: white;
+        width: 100px;
+        height: 37px;
+    }
+
+    .inputfile {
+        margin-left: 54px;
+        line-height: 45px;
+        color: olivedrab;
+    }
+
+    .file {
+        font-size: 24px;
+        color: cornflowerblue;
+        margin-left: 44px;
+    }
+</style>
+
+
+<br />
+@*@using (Html.BeginForm("ImportScheduledExcelData", "PatientRequest", FormMethod.Post, new { @id = "fmGenerateReportexcels", @class = "horizontal-form", @enctype = "multipart/form-data" }))
+    {*@
+@*<br /> <input type="file" name="file" id="FileUpload1" /><br />
+    <input type="submit"  value="Importation Of ScheduledData" class="btn btn-primary" />*@
+<label class="file" for="myfile" id="FileUpload1">Select files:</label>
+<input class="inputfile" type="file" id="myfile" name="myfile" accept=".xls,.xlsx,.pdf" multiple style="font-size: 20px;margin-left: 47px;"><br><br>
+<input class="btn btn-xs btn-primary" type="submit" onclick="Addnew();" style="height: 38px;width: 96px;margin-left: 45px">
+@*}*@
+<br />
+@*<div>
+        @ViewBag.Success
+    </div>*@
+
+<script type="text/javascript">
+
+    function Addnew() {
+        $('#loading').show();
+        debugger;
+        if (window.FormData !== undefined) {
+
+            var fileUpload = $("#myfile").get(0);
+            var files = fileUpload.files;
+
+            // Create FormData object
+            var fileData = new FormData();
+			
+			console.log("hey",files);
+
+            // Looping over all files and add it to FormData object
+            for (var i = 0; i < files.length; i++) {
+                fileData.append(files[i].name, files[i]);
+            }
+           // fileData.append('username', 'Manas');
+
+            $.ajax({
+                url: '/PatientRequest/ImportScheduledExcelData',
+
+             //   url: '/Caregiver/GetReadExcelSheetUpload',
+                type: "POST",
+                contentType: false, // Not to set any content header
+                processData: false, // Not to process data
+                data: fileData,
+                success: function (result) {
+
+                    $(".loading").hide();
+                    if (result) {
+
+                        debugger;
+                        var filename = result;
+                        var iframe = document.createElement("iframe");
+                        iframe.src = filename;
+                        debugger;
+                        iframe.style.display = 'none';
+                        document.body.appendChild(iframe);
+                        debugger;
+                        toastr.success("Appoinment Schedule Successfully");
+                    }
+
+                },
+                error: function (err) {
+                    alert(err.statusText);
+                }
+            });
+        } else {
+            alert("FormData is not supported.");
+        }
+
+
+
+    }
+
+</script>

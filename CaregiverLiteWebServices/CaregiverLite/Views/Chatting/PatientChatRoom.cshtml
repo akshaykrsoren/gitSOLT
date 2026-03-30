@@ -1,0 +1,1146 @@
+﻿
+@{
+    ViewBag.Title = "Patient Chat Room List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .unReadCount {
+        float: right;
+        height: 25px;
+        width: auto;
+        padding-top: 7px;
+        font-size: 12px;
+        border-radius: 15px;
+    }
+
+    .table-fixed tbody {
+        height: 230px;
+        overflow-y: auto;
+        width: 100%;
+    }
+
+    .table-fixed thead, .table-fixed tbody, .table-fixed tr, .table-fixed td, .table-fixed th {
+        display: block;
+    }
+     .ChatRoombtn{
+       text-align: center; margin-top: 5px;width: auto;border-radius: 4px;background-color:#FFFFFF !important;border: 1px solid #1B4066;color: #1B4066; text-transform: none;font-weight: bold;letter-spacing: 0px;
+    }
+    .ChatRoombtn:hover{
+         background-color: #092C44 !important;
+         color: white !important; 
+    }
+    /*select {
+    width: 170px;
+    background-color: #e2dedea3 !important;
+    border: 1px solid #b6b2b2 !important;
+}*/
+     .SearchImage{position: absolute; right: 23px; top: 52%; transform: translateY(-52%); cursor: pointer}
+
+     @@media (min-width: 300px) and  (max-width: 780px) {
+       .SearchImage{position: absolute; right: 23px; top: 55%; transform: translateY(-55%); cursor: pointer}
+  }
+</style>
+
+<!-- ADD nurseCoordinator POPUP START -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Assign Office Staff</h4>
+            </div>
+            <div class="modal-body row" id="AssignNurseCoordinator">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ADD Caregiver POPUP START -->
+<div class="modal fade" id="modalCaregiverAssignment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Assign Caregiver(s)</h4>
+            </div>
+            <div class="modal-body row" id="AssignCaregiver">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ADD Any Member POPUP START -->
+<div class="modal fade" id="modalMemberAssignment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Assign Member(s)</h4>
+            </div>
+            <div class="modal-body row" id="AssignMember">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight containerstyle">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Patient Chat</h5>
+                    <div id="DailogIdTest"></div>
+                    <div class="ibox-tools">
+                        <div class="clearfix"></div>
+                        @*<p class="btn btn-xs btn-primary pull-left" style="margin-top:-8px;" onclick="printDiv()">Print</p>*@
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    @*<div class="form-group col-md-1 pull-right" style="margin-top:25px;">
+                            <a class="btn btn-xs btn-primary" onclick="searchFunction()">Search</a>
+                        </div>*@
+
+                    @*<div class="form-group col-md-2 pull-right">
+                        <label></label>
+                        <input type="text" class="form-control" id="table-filter" style="border-radius:4px" placeholder="Search by Name..">
+                        <img src="http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Content/image/SearchIcon.png" class="search-icon" id="SearchIcon" alt="Search Icon" style="position: absolute; right: 23px; top: 65%; transform: translateY(-50%); cursor: pointer;">
+                    </div>
+
+                    <div class="form-group col-md-2 pull-left" id="divOfficeFilter">
+
+                        <label>@CaregiverLite.Views.Resources.PatientRequest.FilterLabelOffice</label>
+                        </br>
+                        <div class="form-group" style="margin-right: 10px;">
+                            @Html.DropDownList("ddlOfficeDropDownList", (System.Web.Mvc.SelectList)ViewBag.OfficeDropDownList, new { @class = "form-control customDropDown", @onchange = "officeFilter(this.value)", @style = "width: 202px;    border: 1px solid #b6b2b2 !important;    border-radius: 4px !important;    background: #ffffffa3 !important;" })
+                        </div>
+                    </div>*@
+
+
+                    <div class="row">
+                        @if (Session["OrganisationId"].ToString() == "0")
+                        {
+                            <div class="col-xs-7 col-md-9">
+                                <div class="form-group col-md-2" id="divOfficeFilter">
+                                    <label>@CaregiverLite.Views.Resources.PatientRequest.FilterLabelOffice</label>
+                                    <br />
+                                    <div class="form-group" style="margin-right: 10px;">
+                                        @Html.DropDownList("ddlOfficeDropDownList", (System.Web.Mvc.SelectList)ViewBag.OfficeDropDownList, new { @class = "form-control customdropDown", @onchange = "officeFilter(this.value)", @style = "width: 202px;    border: 1px solid #b6b2b2 !important;    border-radius: 4px !important;    background: #ffffffa3 !important;" })
+                                    </div>
+                                </div>
+
+                            </div>
+                        }
+                            <div class="col-xs-5 col-md-3">
+                                <div class="form-group">
+                                    <label></label>
+                                    <input type="text" class="form-control" id="table-filter" style="border-radius:4px" placeholder="Search by Name..">
+                                    <img src="http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Content/image/SearchIcon.png" class="search-icon SearchImage" id="SearchIcon" alt="Search Icon">
+                                </div>
+                            </div>
+
+                        </div>
+
+                    <div class="clearfix"></div>
+                    @* <div style="height:1000px; overflow:auto;">*@
+                    <table id="patientchatroomTable" class="table table-striped table-bordered table-hover dataTables-example">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Office</th>
+                                <th>Chat</th>
+                                <th style="width: 0px;text-align: center;">Office Staff</th>
+                                <th style="width: 0px;text-align: center;">Caregiver</th>
+                                <th>Member</th>
+                                <th style="display:none">Unread Count</th>
+                                <th style="display:none">Time</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                    @*</div>*@
+
+                    <div id="loadMore" class="input-group pull-right margin-25" style="display:none;margin-right: 10px;margin-top: 10px;">
+                        <img id="loadingMore" style="display:none" src="~/image/Spinner-1s-32px.gif" />
+                        <a id="btnLoadMore" class="btn btn-sm btn-primary" style="border-radius:4px; text-transform: none;" onclick="loadMore();">Load More</a>
+                        <span id="allmsg" class="text-primary"></span>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/js/jquery-2.1.1.js"></script>
+<script src="~/Scripts/js/jquery.dataTables.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="~/Scripts/js/oms.min.js"></script>
+<script>
+
+    var IsSuperAdmin = '@Session["IsSuperAdmin"]'
+
+    var IsOrganisationId="@Session["OrganisationId"]"
+
+    var sFromQBId = "@Session["FromQBId"]";
+
+
+
+    var limit = 100;
+    var skip = 0;
+    var totalEntriesPatient = 0;
+    // var officeIds = "1";
+    var officeIds = [];
+    // officeIds.push("1");
+
+    var groupChat = [];
+
+    var searchInput = "";
+
+    var IsSearch = 0;
+
+    var IsLoadAlldata = 0;
+
+    var IsFilterflag = 0;
+
+    // for officewise filter
+
+    if (IsSuperAdmin == "false") {
+
+        $('#divOfficeFilter').hide();
+    }
+
+    debugger;
+    if (IsOrganisationId == 0) {
+        var ddlArray = new Array();
+        var ddl = document.getElementById('ddlOfficeDropDownList');
+        for (i = 0; i < ddl.options.length; i++) {
+            ddlArray[i] = ddl.options[i].value;
+            officeIds.push(ddlArray[i]);
+        }
+    }
+
+
+
+
+    $(document).ready(function () {
+
+	 $('#ddlOfficeDropDownList').val(0);
+
+
+        localStorage.setItem("IsOffcFilterFlag", 0);
+
+        localStorage.setItem("OfficeId", 0);
+
+
+        $("#loading").show();
+
+        var jquey = jQuery.noConflict();
+
+        CreateSession();
+        //setTimeout(getPatientChatRoomDialogs, 10000);
+
+        window.setInterval(function () {
+
+
+            var sToken = sessionStorage.getItem("sToken");
+
+            if (sToken == null) {
+                CreateSession();
+            }
+
+            if (localStorage.getItem("IsOffcFilterFlag") == 0) {
+                //if (searchInput != null && IsSearch == 1) {
+
+
+                //    getPatientChatRoomDialogs(limit, skip, 0, officeIds, 0, 1);
+                //}
+                //else {
+                //    getPatientChatRoomDialogs(limit, skip, 0, officeIds, 0, 0);
+                //}
+                //    getPatientChatRoomDialogs(100, 0, 0,officeIds,0,0);
+            }
+        }, 1000 * 10);
+
+    });
+
+
+
+    function CreateSession() {
+        //START CREATE SESSION
+        QB.createSession(function (err, result) {
+
+            if (err) {
+
+            } else {
+                sessionStorage.setItem("sToken", result.token);
+                sessionStorage.setItem("sToken", result.token);
+
+                if (sFromQBId == '0') {
+                    console.log("Error:" + sFromQBId);
+                    RegisterNewUser("@Session["FromUserEmail"]", "@Session["LoginUserUserId"]");
+                }
+                else {
+                    var user = {
+                        id: sFromQBId,
+                        login: "@Session["FromUserEmail"]",
+                        password: "Welcome007!"
+                    };
+
+                    QB.createSession({ login: user.login, password: user.password }, function (err, result) {
+                        if (err) {
+
+                            alert(err.message);
+                        } else {
+                            sessionStorage.setItem("sToken", result.token);
+
+                            sessionStorage.setItem("sToken", result.token);
+                            getPatientChatRoomDialogs(limit, skip, 1, officeIds, 0, 0);
+                        }
+                    });
+                }
+            }
+        });
+        //END CREATE SESSION
+    }
+
+    debugger;
+
+    function getPatientChatRoomDialogs(limit, skip, flagIsload, officeIds, flagIsfilter, flagIsSearch) {
+
+        //if (flagIsfilter)
+        //    groupChat = [];
+
+        debugger;
+        var filterOfficeId = officeIds;
+
+        if (flagIsload)
+            $("#loading").show();
+
+
+        if (IsOrganisationId > 0) {
+            debugger;
+            if (flagIsSearch) {
+                var filters = {
+                    count: 1,
+                    name: {
+                        ctn: searchInput
+                    },
+                    data: {
+                        class_name: "ChatDialogType",
+                        ChatCategory: 2
+                        //,
+                        //OfficeID: {
+                        //    in: officeIds
+                        //},
+                        // OfficeID: officeIds
+                    }
+                }
+            }
+            else {
+                debugger;
+                var filters = {
+                    count: 1,
+                    data: {
+                        class_name: "ChatDialogType",
+                        ChatCategory: 2
+                        //,
+                        //OfficeID: {
+                        //    in: officeIds
+                        //},
+                        // OfficeID: officeIds
+                    }
+                }
+            }
+        }
+        else {
+
+            if (flagIsSearch) {
+                var filters = {
+                    count: 1,
+                    name: {
+                        ctn: searchInput
+                    },
+                    data: {
+                        class_name: "ChatDialogType",
+                        ChatCategory: 2,
+                        OfficeID: {
+                            in: officeIds
+                        },
+                        // OfficeID: officeIds
+                    }
+                }
+            }
+            else {
+                debugger;
+                var filters = {
+                    count: 1,
+                    data: {
+                        class_name: "ChatDialogType",
+                        ChatCategory: 2,
+                        OfficeID: {
+                            in: officeIds
+                        },
+                        // OfficeID: officeIds
+                    }
+                }
+            }
+
+
+        }
+
+        //  var totalEntriesPatient = 0;
+
+        debugger;
+        QB.chat.dialog.list(filters, function (error, response) {
+            if (error) {
+                return false;
+            }
+
+            totalEntriesPatient = response.items.count
+            //  debugger;
+
+            if (totalEntriesPatient > 100) {
+                $("#loadMore").show();
+            }
+            else {
+                $("#loadMore").hide();
+            }
+
+            if (IsOrganisationId > 0) {
+
+                if (flagIsSearch) {
+                    var filters = {
+                        limit: limit,
+                        skip: skip,
+                        sort_desc: "last_message_date_sent",
+                        name: {
+                            ctn: searchInput
+                        },
+                        data: {
+                            class_name: "ChatDialogType",
+                            ChatCategory: 2
+                            //,
+                            ////  OfficeID: officeIds
+                            //OfficeID: {
+                            //    in: officeIds
+                            //},
+                        }
+                    }
+                }
+                else {
+                    debugger;
+                    var filters = {
+                        limit: limit,
+                        skip: skip,
+                        sort_desc: "last_message_date_sent",
+                        //name: {
+                        //    ctn: "Bles"
+                        //},
+                        data: {
+                            class_name: "ChatDialogType",
+                            ChatCategory: 2
+                            //,
+                         
+                            //OfficeID: {
+                            //    in: officeIds
+                            //},
+                        }
+                    }
+                }
+
+            }
+            else {
+
+
+                if (flagIsSearch) {
+                    var filters = {
+                        limit: limit,
+                        skip: skip,
+                        sort_desc: "last_message_date_sent",
+                        name: {
+                            ctn: searchInput
+                        },
+                        data: {
+                            class_name: "ChatDialogType",
+                            ChatCategory: 2,
+                            //  OfficeID: officeIds
+                            OfficeID: {
+                                in: officeIds
+                            },
+                        }
+                    }
+                }
+                else {
+                    debugger;
+                    var filters = {
+                        limit: limit,
+                        skip: skip,
+                        sort_desc: "last_message_date_sent",
+                        //name: {
+                        //    ctn: "Bles"
+                        //},
+                        data: {
+                            class_name: "ChatDialogType",
+                            ChatCategory: 2,
+                            //  OfficeID: officeIds
+                            OfficeID: {
+                                in: officeIds
+                            },
+                        }
+                    }
+                }
+
+            }
+
+           debugger;
+            if ((localStorage.getItem("IsOffcFilterFlag") == 0 && flagIsfilter == 0) || (localStorage.getItem("IsOffcFilterFlag") == 1 && flagIsfilter == 1)) {
+                QB.chat.dialog.list(filters, function (error, response) {
+                    if (error) {
+                          debugger;
+                        return false;
+                    }
+                     debugger;
+                    var dialogs = response.items
+
+                    var patientgroupDialogIds = "";
+					//alert(dialogs.length);
+                    for (i = 0; i < dialogs.length ; i++) {
+                        debugger;
+                        if (i != 99)
+                            patientgroupDialogIds += dialogs[i]._id + ","
+                        else
+                            patientgroupDialogIds += dialogs[i]._id
+                    }
+                        //alert(patientgroupDialogIds+'Vinod ID');
+                       //document.getElementById("DailogIdTest").innerHTML=patientgroupDialogIds+'Test Id';
+                    debugger;
+                    if ((localStorage.getItem("IsOffcFilterFlag") == 0 && flagIsfilter == 0) || (localStorage.getItem("IsOffcFilterFlag") == 1 && flagIsfilter == 1)) {
+                        var url = INITURL + '/Chatting/GetPatientRoomGroupList';
+                        $.ajax({
+                            url: url,
+                            data: { QBGroupDialogIds: patientgroupDialogIds, GroupType: 1 },
+                            cache: false,
+                            type: 'POST',
+                            async: false,
+                            success: function (data) {
+
+                                //  debugger
+                                if ((localStorage.getItem("IsOffcFilterFlag") == 0 && flagIsfilter == 0) || (localStorage.getItem("IsOffcFilterFlag") == 1 && flagIsfilter == 1)) {
+
+
+                                    if ((localStorage.getItem("OfficeId") == 0) || (filterOfficeId[0] == localStorage.getItem("OfficeId"))) {
+                                        var dataSource = data;
+                                        //debugger;
+                                        for (var d = 0; d < dialogs.length; d++) {
+                                            var dt;
+                                            dt = dialogs[d].last_message_date_sent;
+                                            count = dialogs[d].unread_messages_count;
+                                            try {
+                                                for (var x = 0; x < dataSource.length; x++) {
+                                                    if (dialogs[d]._id == dataSource[x].DialogId) {
+                                                        dataSource[x]["Time"] = dt;
+                                                        dataSource[x]["unreadMsgCount"] = count;
+                                                    }
+                                                }
+                                            } catch (e) { }
+                                        }
+
+
+                                        var sortData = dataSource.sort(function (a, b) { return b.Time - a.Time });
+
+                                        //if (flagIsfilter) {
+                                        //    IsFilterflag == 0
+                                        //    groupChat = [];
+                                        //}
+
+
+                                        //localStorage.setItem("IsOffcFilterFlag", 0);
+
+                                        var IsOffcFilterFlag = localStorage.getItem("IsOffcFilterFlag");
+
+                                        if (flagIsfilter == 1 || IsOffcFilterFlag == 1)
+                                            groupChat = [];
+
+
+                                        if ((IsOffcFilterFlag == 0 && flagIsfilter == 0) || (flagIsfilter == 1 && IsOffcFilterFlag == 1)) {
+
+                                            if (groupChat.length > 0) {
+
+                                                for (var i = 0; i < sortData.length; i++) {
+                                                    var groupchatIndex = 0;
+                                                    var currentData = sortData[i];
+                                                    var groupchatData = $.grep(groupChat, function (element, index) {
+                                                        ///groupchatIndex = index;
+                                                        return element.DialogId == currentData.DialogId;
+                                                    });
+                                                    if (groupchatData != null && groupchatData.length > 0) {
+                                                        // debugger;
+                                                        var chatData = groupchatData[0];
+                                                        chatData.unreadMsgCount = currentData.unreadMsgCount;
+                                                        chatData.Time = currentData.Time;
+                                                    }
+                                                    else {
+                                                        groupChat.push(currentData);
+                                                    }
+                                                }
+
+                                            }
+                                            else {
+                                                groupChat = $.merge($.merge([], groupChat), sortData);
+
+                                            }
+
+                                            groupChat = groupChat.sort(function (a, b) { return b.Time - a.Time });
+
+                                            groupChat = groupChat.sort(function (a, b) { return b.Time - a.Time });
+                                            // mearge two array working
+                                            //  groupChat = $.merge($.merge([], groupChat), sortData);
+
+                                            // debugger;
+
+                                            var patientchatroomTable = "";
+
+                                            //   if (!flagIsload)
+                                            // $("tbody").children().remove()
+
+                                            $('#patientchatroomTable tbody').remove();
+
+                                            for (var tb1 = 0; tb1 < groupChat.length; tb1++) {
+
+                                                var unReadHtml = "";
+                                                var chatBtnhtml = '';
+                                                var assignCaregiverBtnhtml = '';
+                                                var assignOffStaffBtnhtml = '';
+                                                var assignMemberBtnhtml = '';
+
+
+                                                if (groupChat[tb1].unreadMsgCount > 0) {
+                                                    unReadHtml = "<span class='label label-danger unReadCount'>" + groupChat[tb1].unreadMsgCount + "</span>";
+                                                }
+
+                                                chatBtnhtml += '<a href="/Chatting/OpenGroupChatWindow?Id=' + groupChat[tb1].ChattingGroupId + '" class="btn btn-xs btn-primary" style="width:100%;border-radius:4px; text-transform: none; " >Chat</a>';
+
+                                                assignCaregiverBtnhtml += '<input type="button" class="btn btn-xs btn-primary ChatRoombtn" onclick="OpenAssignNewCaregiverModal(' + groupChat[tb1].ChattingGroupId + ',\'' + escape(groupChat[tb1].GroupName) + '\')" value="Assign Caregiver">';
+
+                                                assignOffStaffBtnhtml += '<input type="button" class="btn btn-xs btn-primary ChatRoombtn"  onclick="OpenAssignNew(' + groupChat[tb1].ChattingGroupId + ',\'' + escape(groupChat[tb1].GroupName) + '\')" value="Assign Office Staff">';
+
+                                                assignMemberBtnhtml += '<input type="button" class="btn btn-xs btn-primary" style="margin-left:10px; width:auto;" onclick="OpenAssignNewMemberModal(' + groupChat[tb1].ChattingGroupId + ',\'' + escape(groupChat[tb1].GroupName) + '\',\'' + groupChat[tb1].GroupTypeId + '\')" value="Assign Member">';
+
+
+                                                patientchatroomTable += "<tr>" +
+                                                    "<td>" + groupChat[tb1].GroupName + unReadHtml + "</td>" +
+                                                    "<td>" + groupChat[tb1].OfficeName + "</td>" +
+                                                    "<td>" + chatBtnhtml + "</td>" +
+                                                    "<td>" + assignOffStaffBtnhtml + "</td>" +
+                                                    "<td>" + assignCaregiverBtnhtml + "</td>" +
+                                                    "<td>" + assignMemberBtnhtml + "</td>" +
+                                                    // "<td>" + groupChat[tb1].unreadMsgCount + "</td>" +
+                                                    //"<td>" + groupChat[tb1].Time + "</td>" +
+                                                    "</tr>";
+                                            }
+
+
+                                            if (groupChat.length == 0) {
+                                                patientchatroomTable += "<tr><td>No patient chat room available</td><td></td><td></td><td></td><td></td><td></td></tr>";
+                                            }
+
+                                            //$("#patientchatroomTable").append(patientchatroomTable);
+
+                                            if ((localStorage.getItem("IsOffcFilterFlag") == 0 && flagIsfilter == 0) || (localStorage.getItem("IsOffcFilterFlag") == 1 && flagIsfilter == 1)) {
+
+                                                if ((filterOfficeId.length > 1 && localStorage.getItem("OfficeId") == 0) || (filterOfficeId[0] == localStorage.getItem("OfficeId"))) {
+                                                    $('#patientchatroomTable').append(patientchatroomTable).promise().then(function () {
+                                                        // run when the animation succeeds
+                                                    }).then(function () {
+                                                        // also run when the animation succeeds
+
+                                                        //  if (flagIsfilter == 1)
+                                                        $("#loading").hide();
+                                                    });
+                                                }
+                                            }
+                                            //if (flagIsfilter == 0)
+                                            //    $("#loading").hide();
+
+                                            //var IsOffcFilterFlag = localStorage.getItem("IsOffcFilterFlag");
+
+                                            localStorage.setItem("IsOffcFilterFlag", 0);
+
+                                            //if (IsOffcFilterFlag == 1)
+                                            //$('#patientchatroomTable tbody').remove();
+
+                                            // debugger;
+                                            if (IsSuperAdmin == "false") {
+
+                                                $('td:nth-child(4),th:nth-child(4)').hide();
+                                                $('td:nth-child(5),th:nth-child(5)').hide();
+
+                                            }
+
+                                            if (IsSuperAdmin == "true") {
+                                                $('td:nth-child(6),th:nth-child(6)').hide();
+                                            }
+
+
+
+
+                                            $("#loadingMore").hide();
+                                            //    $("#btnLoadMore").show();
+
+
+                                            if (skip > totalEntriesPatient) {
+                                                $("#btnLoadMore").hide();
+                                                $("#allmsg").show();
+                                                $("#allmsg").text("No more patient chat room available");
+                                            }
+                                            else {
+                                                $("#btnLoadMore").show();
+                                                $("#allmsg").hide();
+                                            }
+
+                                            // var IsOffcFilterFlag = localStorage.getItem("IsOffcFilterFlag");
+                                            //localStorage.setItem("IsOffcFilterFlag", 0);
+
+
+                                            $('#table-filter').css({ 'border-radius': '5px', 'height': '36px' });
+
+
+
+                                        }
+                                        //if (skip > totalEntriesPatient) {
+                                        //    $("#allmsg").text("No more group chat available");
+                                        //}
+                                    }
+                                    else {
+
+                                        if (filterOfficeId.length > 1) {
+                                            {
+                                                var dataSource = data;
+                                                //debugger;
+                                                for (var d = 0; d < dialogs.length; d++) {
+                                                    var dt;
+                                                    dt = dialogs[d].last_message_date_sent;
+                                                    count = dialogs[d].unread_messages_count;
+                                                    try {
+                                                        for (var x = 0; x < dataSource.length; x++) {
+                                                            if (dialogs[d]._id == dataSource[x].DialogId) {
+                                                                dataSource[x]["Time"] = dt;
+                                                                dataSource[x]["unreadMsgCount"] = count;
+                                                            }
+                                                        }
+                                                    } catch (e) { }
+                                                }
+
+
+                                                var sortData = dataSource.sort(function (a, b) { return b.Time - a.Time });
+
+                                                //if (flagIsfilter) {
+                                                //    IsFilterflag == 0
+                                                //    groupChat = [];
+                                                //}
+
+
+                                                //localStorage.setItem("IsOffcFilterFlag", 0);
+
+                                                var IsOffcFilterFlag = localStorage.getItem("IsOffcFilterFlag");
+
+                                                if (flagIsfilter == 1 || IsOffcFilterFlag == 1)
+                                                    groupChat = [];
+
+
+                                                if ((IsOffcFilterFlag == 0 && flagIsfilter == 0) || (flagIsfilter == 1 && IsOffcFilterFlag == 1)) {
+
+                                                    if (groupChat.length > 0) {
+
+                                                        for (var i = 0; i < sortData.length; i++) {
+                                                            var groupchatIndex = 0;
+                                                            var currentData = sortData[i];
+                                                            var groupchatData = $.grep(groupChat, function (element, index) {
+                                                                ///groupchatIndex = index;
+                                                                return element.DialogId == currentData.DialogId;
+                                                            });
+                                                            if (groupchatData != null && groupchatData.length > 0) {
+                                                                // debugger;
+                                                                var chatData = groupchatData[0];
+                                                                chatData.unreadMsgCount = currentData.unreadMsgCount;
+                                                                chatData.Time = currentData.Time;
+                                                            }
+                                                            else {
+                                                                groupChat.push(currentData);
+                                                            }
+                                                        }
+
+                                                    }
+                                                    else {
+                                                        groupChat = $.merge($.merge([], groupChat), sortData);
+
+                                                    }
+
+                                                    groupChat = groupChat.sort(function (a, b) { return b.Time - a.Time });
+
+                                                    groupChat = groupChat.sort(function (a, b) { return b.Time - a.Time });
+                                                    // mearge two array working
+                                                    //  groupChat = $.merge($.merge([], groupChat), sortData);
+
+                                                    // debugger;
+
+                                                    var patientchatroomTable = "";
+
+                                                    //   if (!flagIsload)
+                                                    // $("tbody").children().remove()
+
+                                                    $('#patientchatroomTable tbody').remove();
+
+                                                    for (var tb1 = 0; tb1 < groupChat.length; tb1++) {
+
+                                                        var unReadHtml = "";
+                                                        var chatBtnhtml = '';
+                                                        var assignCaregiverBtnhtml = '';
+                                                        var assignOffStaffBtnhtml = '';
+                                                        var assignMemberBtnhtml = '';
+
+
+                                                        if (groupChat[tb1].unreadMsgCount > 0) {
+                                                            unReadHtml = "<span class='label label-danger unReadCount'>" + groupChat[tb1].unreadMsgCount + "</span>";
+                                                        }
+
+                                                        chatBtnhtml += '<a href="/Chatting/OpenGroupChatWindow?Id=' + groupChat[tb1].ChattingGroupId + '" class="btn btn-xs btn-primary" style="width:100%;border-radius:4px; text-transform: none; " >Chat</a>';
+
+                                                        assignCaregiverBtnhtml += '<input type="button" class="btn btn-xs btn-primary ChatRoombtn" onclick="OpenAssignNewCaregiverModal(' + groupChat[tb1].ChattingGroupId + ',\'' + escape(groupChat[tb1].GroupName) + '\')" value="Assign Caregiver">';
+
+                                                        assignOffStaffBtnhtml += '<input type="button" class="btn btn-xs btn-primary ChatRoombtn"  onclick="OpenAssignNew(' + groupChat[tb1].ChattingGroupId + ',\'' + escape(groupChat[tb1].GroupName) + '\')" value="Assign Office Staff">';
+
+                                                        assignMemberBtnhtml += '<input type="button" class="btn btn-xs btn-primary" style="margin-left:10px; width:auto;" onclick="OpenAssignNewMemberModal(' + groupChat[tb1].ChattingGroupId + ',\'' + escape(groupChat[tb1].GroupName) + '\',\'' + groupChat[tb1].GroupTypeId + '\')" value="Assign Member">';
+
+
+                                                        patientchatroomTable += "<tr>" +
+                                                            "<td>" + groupChat[tb1].GroupName + unReadHtml + "</td>" +
+                                                            "<td>" + groupChat[tb1].OfficeName + "</td>" +
+                                                            "<td>" + chatBtnhtml + "</td>" +
+                                                            "<td>" + assignOffStaffBtnhtml + "</td>" +
+                                                            "<td>" + assignCaregiverBtnhtml + "</td>" +
+                                                            "<td>" + assignMemberBtnhtml + "</td>" +
+                                                            // "<td>" + groupChat[tb1].unreadMsgCount + "</td>" +
+                                                            //"<td>" + groupChat[tb1].Time + "</td>" +
+                                                            "</tr>";
+                                                    }
+
+
+                                                    if (groupChat.length == 0) {
+                                                        patientchatroomTable += "<tr><td>No patient chat room available</td><td></td><td></td><td></td><td></td><td></td></tr>";
+                                                    }
+
+                                                    //$("#patientchatroomTable").append(patientchatroomTable);
+
+                                                    if ((localStorage.getItem("IsOffcFilterFlag") == 0 && flagIsfilter == 0) || (localStorage.getItem("IsOffcFilterFlag") == 1 && flagIsfilter == 1)) {
+
+                                                        if ((filterOfficeId.length > 1 && localStorage.getItem("OfficeId") == 0) || (filterOfficeId[0] == localStorage.getItem("OfficeId"))) {
+                                                            $('#patientchatroomTable').append(patientchatroomTable).promise().then(function () {
+                                                                // run when the animation succeeds
+                                                            }).then(function () {
+                                                                // also run when the animation succeeds
+
+                                                                //  if (flagIsfilter == 1)
+                                                                $("#loading").hide();
+                                                            });
+                                                        }
+                                                    }
+                                                    //if (flagIsfilter == 0)
+                                                    //    $("#loading").hide();
+
+                                                    //var IsOffcFilterFlag = localStorage.getItem("IsOffcFilterFlag");
+
+                                                    localStorage.setItem("IsOffcFilterFlag", 0);
+
+                                                    //if (IsOffcFilterFlag == 1)
+                                                    //$('#patientchatroomTable tbody').remove();
+
+                                                    // debugger;
+                                                    if (IsSuperAdmin == "false") {
+
+                                                        $('td:nth-child(4),th:nth-child(4)').hide();
+                                                        $('td:nth-child(5),th:nth-child(5)').hide();
+
+                                                    }
+
+                                                    if (IsSuperAdmin == "true") {
+                                                        $('td:nth-child(6),th:nth-child(6)').hide();
+                                                    }
+
+
+
+
+                                                    $("#loadingMore").hide();
+                                                    //    $("#btnLoadMore").show();
+
+
+                                                    if (skip > totalEntriesPatient) {
+                                                        $("#btnLoadMore").hide();
+                                                        $("#allmsg").show();
+                                                        $("#allmsg").text("No more patient chat room available");
+                                                    }
+                                                    else {
+                                                        $("#btnLoadMore").show();
+                                                        $("#allmsg").hide();
+                                                    }
+
+                                                    // var IsOffcFilterFlag = localStorage.getItem("IsOffcFilterFlag");
+                                                    //localStorage.setItem("IsOffcFilterFlag", 0);
+
+
+                                                    $('#table-filter').css({ 'border-radius': '5px', 'height': '36px' });
+
+
+
+                                                }
+                                                //if (skip > totalEntriesPatient) {
+                                                //    $("#allmsg").text("No more group chat available");
+                                                //}
+                                            }
+
+                                        }
+                                    }
+                                }
+                            },
+                            error: function (reponse) {
+                                //alert("error : " + reponse);
+                                $("#loading").hide();
+                                $("#loadingMore").hide();
+                                $("#btnLoadMore").hide();
+                            }
+                        });
+                    }
+                    // debugger;
+
+                });
+
+            }
+        });
+
+
+
+    }
+
+
+
+
+    function loadMore() {
+        // debugger;
+        //var localEntries = limit + skip
+        skip = limit + skip;
+
+        $("#loadingMore").show();
+        $("#btnLoadMore").hide();
+
+
+        if (skip < totalEntriesPatient) {
+            if (searchInput != null && IsSearch == 1) {
+                getPatientChatRoomDialogs(limit, skip, 0, officeIds, 0, 1);
+            }
+            else {
+                getPatientChatRoomDialogs(limit, skip, 0, officeIds, 0, 0);
+            }
+        }
+        else {
+            $("#loadMore").hide();
+            $("#allmsg").show();
+            $("#allmsg").text("No more patient chat room available");
+        }
+
+
+    }
+
+    function officeFilter(OfficeId) {
+       // debugger;
+        //var OfficeSelect = document.getElementById("ddlOfficeDropDownList");
+
+        //  var
+
+        //  IsFilterflag = 1;
+
+
+        $("#loading").show();
+
+		 $("#ddlOfficeDropDownList").blur();
+
+
+        $('#patientchatroomTable tbody').remove();
+
+        localStorage.setItem("IsOffcFilterFlag", 1);
+
+        localStorage.setItem("OfficeId", OfficeId);
+
+
+       // localStorage.setItem("IsOffcFilterFlag", 1);
+
+        officeIds = [];
+
+        if (OfficeId == 0) {
+            for (i = 0; i < ddl.options.length; i++) {
+                ddlArray[i] = ddl.options[i].value;
+                officeIds.push(ddlArray[i]);
+            }
+
+        }
+        else {
+            officeIds.push(OfficeId);
+        }
+
+        limit = 100;
+        skip = 0;
+
+        setTimeout(function () {
+
+         getPatientChatRoomDialogs(limit, skip, 1, officeIds, 1, 0);
+
+        }, 1500);
+        //setTimeout(getPatientChatRoomDialogs(limit, skip, 1, officeIds, 1, 0), 1000);
+
+
+      //  getPatientChatRoomDialogs(limit, skip, 1, officeIds, 1, 0);
+    }
+
+    //function searchFunction() {
+
+    //    debugger;
+    //    var input = document.getElementById("table-filter");
+    //    limit = 100;
+    //    skip = 0;
+
+    //    searchInput = $('#table-filter').val();
+
+    //    //  var cs = $(this).val().length;
+
+    //    var lengthCount = $('#table-filter').val().length
+    //    if (lengthCount > 3) {
+    //        IsSearch = 1;
+    //        getPatientChatRoomDialogs(limit, skip, 1, officeIds, 1, 1);
+    //    }
+    //    else if (lengthCount = 0) {
+    //        IsSearch = 0;
+    //        getPatientChatRoomDialogs(limit, skip, 1, officeIds, 0, 0);
+    //    }
+    //    else {
+    //        toastr.warning('Please Enter Minimum 4 charecter');
+    //    }
+
+    //}
+
+    $("#table-filter").keyup(function (event) {
+        if (event.keyCode == 13) {
+            search();
+        }
+    });
+    $(document).on('click', '#SearchIcon', function (event) {
+        search();
+    });
+
+    //function searchFunction() {
+    //    // Declare variables
+    //    var input, filter, table, tr, td, i;
+    //    input = document.getElementById("table-filter");
+    //    filter = input.value.toUpperCase();
+    //    table = document.getElementById("patientchatroomTable");
+    //    tr = table.getElementsByTagName("tr");
+
+    //    // Loop through all table rows, and hide those who don't match the search query
+    //    for (i = 0; i < tr.length; i++) {
+    //        td = tr[i].getElementsByTagName("td")[0];
+    //        if (td) {
+    //            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+    //                tr[i].style.display = "";
+    //            } else {
+    //                tr[i].style.display = "none";
+    //            }
+    //        }
+    //    }
+    //}
+
+
+    /// old code for assign all member in patient chat room
+    //NurseCoordinator
+    //Add new
+    function OpenAssignNew(ChattingGroupId, GroupName) {
+        $("#loading").show();
+        //  var url=INITURL+ 'Chatting/AssignNurseCoordinator?ChattingGroupId=' + ChattingGroupId + '&GroupName=\"' + unescape(GroupName) +'\"';
+
+        var url = INITURL + 'Chatting/AssignNurseCoordinator?ChattingGroupId=' + ChattingGroupId + '&GroupName=' + unescape(GroupName);
+        $('#AssignNurseCoordinator').load(encodeURI(url), function () {
+            sessionStorage.setItem("PartialView", "1");
+            $('#myModal').modal('show');
+            $("#loading").hide();
+        });
+    }
+
+    //Added by Pinki
+    function OpenAssignNewCaregiverModal(ChattingGroupId, GroupName) {
+
+
+        $("#loading").show();
+        //  var url=INITURL+ 'Chatting/AssignCaregiver?ChattingGroupId=' + ChattingGroupId + '&GroupName=\"' + unescape(GroupName) +'\"';
+
+        var url = INITURL + 'Chatting/AssignCaregiver?ChattingGroupId=' + ChattingGroupId + '&GroupName=' + unescape(GroupName);
+
+        $('#AssignCaregiver').load(encodeURI(url), function () {
+            sessionStorage.setItem("PartialView", "1");
+            $('#modalCaregiverAssignment').modal('show');
+            $("#loading").hide();
+        });
+    }
+
+
+    //function printDiv() {
+    //    var printContents = document.getElementById("patientchatroomTable").innerHTML;
+    //    var originalContents = document.body.innerHTML;
+    //    document.body.innerHTML = printContents;
+
+    //    window.print();
+    //    document.body.innerHTML = originalContents;
+    //}
+
+
+
+
+
+
+    function OpenAssignNewMemberModal(ChattingGroupId, GroupName, GroupTypeId) {
+        $("#loading").show();
+        //var url=INITURL+ 'Chatting/AssignMember?ChattingGroupId=' + ChattingGroupId + '&GroupName=\"' + GroupName+'\"';
+        var url = INITURL + 'Chatting/AssignMember?ChattingGroupId=' + ChattingGroupId + '&GroupName=' + unescape(GroupName) + '&GroupTypeId=' + GroupTypeId;
+        $('#AssignMember').load(encodeURI(url), function () {
+            sessionStorage.setItem("PartialView", "1");
+            $('#modalMemberAssignment').modal('show');
+            $("#loading").hide();
+        });
+    }
+
+
+    function search()
+    {
+        var input = document.getElementById("table-filter");
+        limit = 100;
+        skip = 0;
+
+        searchInput = $('#table-filter').val();
+
+        //  var cs = $(this).val().length;
+
+        var lengthCount = $('#table-filter').val().length
+        if (lengthCount > 3) {
+            IsSearch = 1;
+            localStorage.setItem("IsOffcFilterFlag", 1);
+            getPatientChatRoomDialogs(limit, skip, 1, officeIds, 1, 1);
+        }
+        else if (lengthCount == 0) {
+            IsSearch = 0;
+            getPatientChatRoomDialogs(limit, skip, 1, officeIds, 0, 0);
+        }
+        else {
+            IsSearch = 0;
+            toastr.warning('Please Enter Minimum 4 charecter');
+        }
+
+    }
+
+</script>

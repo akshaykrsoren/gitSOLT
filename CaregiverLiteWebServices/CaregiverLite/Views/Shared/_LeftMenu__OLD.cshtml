@@ -1,0 +1,399 @@
+﻿@{
+    Layout = null;
+}
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav" id="side-menu">
+            <li class="nav-header">
+                @*<div class="profile-element">*@
+                    @*<h2 class="block m-t-xs text-center" style="font-size: 27px;">@Html.Raw(CaregiverLite.Views.Resources.Layout.HeaderCAREGIVER)</h2>*@
+                    <div class="profile-element">
+                       <h2 class="block m-t-xs text-center" style="font-size: 27px;">Pa<strong class="font-bold">Seva</strong>&nbsp;&nbsp;<img src="http://pasevauat.com/image/PasevaNewIcon.png" alt="PaSeva Lofo" style="width:35%">
+</h2>
+                   
+                        
+                            @*<img src="http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/image/PasevaNewIcon.png" alt="PaSeva Lofo" width="50" height="60">*@
+                            
+</div>
+                @*</div>*@
+            </li>
+            @*<li class="active">
+                    <a href="~/Dashboard/Dashboard">
+                        <i class="fa fa-th-large"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuDashboard</span>
+                    </a>
+                </li>*@
+				
+	@if (ViewContext.Controller.HasRoles("Admin") || ViewContext.Controller.HasRoles("Scheduler") || ViewContext.Controller.IsSysAdmin())
+            {
+                <li>
+                    <a href="~/Chart/Index">
+                        <i class="fa fa-user"></i>
+                        <span class="nav-label">DashBoard</span>
+                    </a>
+                </li>
+            }
+
+            @if (ViewContext.Controller.HasRoles("Admin") || ViewContext.Controller.HasRoles("Scheduler") || ViewContext.Controller.IsSysAdmin() && Session["role"].ToString() != "SuperAdminPatientApp" || ViewContext.Controller.HasRoles("OrgSuperAdmin"))
+            {
+                <li>
+                    <a href="~/Patients/Patients">
+                        <i class="fa fa-user"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuPatients</span>
+                    </a>
+                </li>
+            }
+            @if (ViewContext.Controller.HasRoles("Admin") || ViewContext.Controller.HasRoles("SuperAdmin"))
+            {
+                <li>
+                    <a href="~/PatientRequest/PatientRequestManualEntry">
+                        @*<i class="fa fa-user"></i>*@
+                        <i class="glyphicon glyphicon-check"></i>
+
+                        <span class="nav-label">Pending Approvals</span>
+                    </a>
+                </li>
+            }
+          @if (ViewContext.Controller.HasRoles("MarketingSuperAdmin"))
+            {
+                <li>
+                    <a href="~/Client/Index">
+                   
+                        <i class="glyphicon glyphicon-check"></i>
+
+                        <span class="nav-label">Clients</span>
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="~/Marketings/Marketings">
+                        <i class="fa fa-user"></i>
+                        <span class="nav-label">Marketers</span>
+                    </a>
+                </li>
+				
+				 <li>
+                    <a href="~/ClientRequest/ClientRequest">
+                        <i class="fa fa-user"></i>
+                        <span class="nav-label">Scheduled Appointment List</span>
+                    </a>
+                </li>
+            
+				<li>
+                    <a href="~/MarketingClientAttendance/MarketingAttendanceList">
+                        <i class="fa fa-user"></i>
+                        <span class="nav-label">Marketers Attendance List</span>
+                    </a>
+                </li>
+				
+             
+            }
+
+
+            @if (!ViewContext.Controller.HasRoles("NurseCoordinator") && !ViewContext.Controller.HasRoles("Nurse") && Session["role"].ToString() != "SuperAdminPatientApp" && !ViewContext.Controller.HasRoles("MarketingSuperAdmin"))
+            {
+                <li>
+                    <a href="~/PatientRequest/PatientRequest">
+                        <i class="fa fa-clock-o"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuPatientRequest</span>
+                    </a>
+                </li>
+
+            }
+
+@*@if ( Session["role"].ToString() != "SuperAdminPatientApp")
+            {
+    <li>
+        <a href="~/PatientRequest/PasevaCustomerPatientRequest">
+            <i class="fa fa-clock-o"></i>
+            <span class="nav-label">Paseva Customer Schedule Appoitment</span>
+        </a>
+    </li>
+}*@
+@*@if (ViewContext.Controller.HasRoles("SuperAdmin") || ViewContext.Controller.HasRoles("Admin") || ViewContext.Controller.IsSysAdmin())
+            {
+
+    <li>
+        <a href="~/AppointmentDetails/AppointmentDetails">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+            <span class="nav-label">Appointment Details</span>
+        </a>
+    </li>
+}*@
+@*@if (ViewContext.Controller.HasRoles("SuperAdmin") || ViewContext.Controller.HasRoles("Admin") || ViewContext.Controller.IsSysAdmin())
+            {
+
+    <li>
+        <a href="~/RescheduledAppointment/RescheduledAppointment">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+            <span class="nav-label">Rescheduled Appointment</span>
+        </a>
+    </li>
+}*@
+@*@if (ViewContext.Controller.HasRoles("SuperAdmin") || ViewContext.Controller.HasRoles("Admin") || ViewContext.Controller.IsSysAdmin())
+            {
+
+    <li>
+        <a href="~/PaymentDetails/PaymentDetails">
+            <i class="fa fa-bank"></i>
+            <span class="nav-label">Payment Details</span>
+        </a>
+    </li>
+}*@
+
+            @*@if (ViewContext.Controller.HasRoles("SuperAdmin;Scheduler") || ViewContext.Controller.IsSysAdmin())
+                {*@
+            @if (!ViewContext.Controller.HasRoles("NurseCoordinator") && !ViewContext.Controller.HasRoles("Nurse") && Session["role"].ToString() != "SuperAdminPatientApp" && !ViewContext.Controller.HasRoles("MarketingSuperAdmin"))
+            {
+                <li>
+                    <a href="~/CareGiver/CareGiver">
+                        <i class="fa fa-user-md"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuCareGiver</span>
+                    </a>
+                </li>
+            }
+            @*}*@
+            @if (ViewContext.Controller.HasRoles("SuperAdmin") && Session["role"].ToString() != "SuperAdminPatientApp" )
+            {
+                <li>
+                    <a href="~/Services/Services">
+                        <i class="fa fa-medkit"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuServices</span>
+                    </a>
+                </li>
+            }
+          @*  @if (ViewContext.Controller.HasRoles("SuperAdmin"))
+            {
+                <li>
+                    <a href="~/ConsentReport/Index">
+                        <i class="fa fa-newspaper-o"></i>
+                        <span class="nav-label">Consent Form</span>
+                    </a>
+                </li>
+            } *@
+
+            @if (ViewContext.Controller.HasRoles("SuperAdmin") || ViewContext.Controller.IsSysAdmin() && Session["role"].ToString() != "SuperAdminPatientApp" || ViewContext.Controller.HasRoles("OrgSuperAdmin"))
+            {
+                <li>
+                    <a href="~/Admin/Admin">
+                        <i class="fa fa-male"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuAdmin</span>
+                    </a>
+                </li>
+            }
+            @if(Session["role"].ToString() != "SuperAdminPatientApp" && !ViewContext.Controller.HasRoles("MarketingSuperAdmin") && !ViewContext.Controller.HasRoles("OrgSuperAdmin"))
+            { 
+            <li>
+                <a href="~/AttendanceManagement/AttendanceList">
+                    <i class="fa fa-male"></i>
+                    <span class="nav-label">Attendance List</span>
+                </a>
+            </li>
+            }
+            @if (ViewContext.Controller.HasRoles("SuperAdmin") || ViewContext.Controller.HasRoles("Admin") || ViewContext.Controller.IsSysAdmin() && Session["role"].ToString() != "SuperAdminPatientApp")
+            {
+
+                <li>
+                    <a href="~/GenerateReports/GenerateReports">
+                        <i class="fa fa-user"></i>
+                        <span class="nav-label"> Caregiver Reports </span>
+                    </a>
+                </li>
+            }
+
+            @if (ViewContext.Controller.HasRoles("SuperAdmin") || ViewContext.Controller.HasRoles("Admin") || ViewContext.Controller.IsSysAdmin() || ViewContext.Controller.HasRoles("Scheduler") && Session["role"].ToString() != "SuperAdminPatientApp" || ViewContext.Controller.HasRoles("OrgSuperAdmin"))
+            {
+
+                <li>
+                    <a href="~/Schedulers/Schedulers">
+                        <i class="fa fa-user"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuScheduler</span>
+                    </a>
+                </li>
+            }
+            @if (ViewContext.Controller.HasRoles("SuperAdmin") || ViewContext.Controller.HasRoles("Admin") || ViewContext.Controller.IsSysAdmin() && Session["role"].ToString() != "SuperAdminPatientApp")
+            {
+
+                <li>
+                    <a href="~/CoronaStats/CoronaStats">
+                        <i class="fa fa-user"></i>
+                        <span class="nav-label">HealthStats</span>
+                    </a>
+                </li>
+            }
+            @if (ViewContext.Controller.HasRoles("SuperAdmin") || ViewContext.Controller.HasRoles("Admin") || ViewContext.Controller.IsSysAdmin() && Session["role"].ToString() != "SuperAdminPatientApp")
+            {
+                <li>
+                    <a href="~/RewardPoint/RewardPoint">
+                        <i class="fa fa-plus-circle"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuRewardPoint</span>
+                    </a>
+                </li>
+            }
+            @if (ViewContext.Controller.HasRoles("SuperAdmin") || ViewContext.Controller.HasRoles("Admin") || ViewContext.Controller.IsSysAdmin() && Session["role"].ToString() != "SuperAdminPatientApp")
+            {
+                <li>
+                    <a href="~/RewardPointAdvance/RewardPointAdvance">
+                        <i class="fa fa-newspaper-o"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuRewardPointAdv</span>
+                    </a>
+                </li>
+            }
+            @*@if (!ViewContext.Controller.HasRoles("NurseCoordinator"))
+                {}*@
+  
+            
+           
+             @if (Session["UserId"].ToString() != "d2c622b6-4b85-491b-a7d3-6cab91fd4dba") {
+                 if (Session["IsOfficePermission"].ToString() == "True" && Session["IsAllowOneToOneChat"].ToString() == "True")
+                 {
+                <li>
+                    <a href="~/Chatting/OneToOneChat">
+                        <i class="fa fa-comments"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuChatting</span>
+                    </a>
+                </li>
+
+                @*<li>
+                        <a href="~/Chatting/Chatting">
+                            <i class="fa fa-comments"></i>
+                            <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuChatting</span>
+                        </a>
+                    </li>*@
+                     }
+                 }
+            
+
+            @if (Session["IsOfficePermission"].ToString() == "True" && Session["IsAllowForPatientChatRoom"].ToString() == "True" && Session["role"].ToString() != "SuperAdminPatientApp")
+            {
+                <li>
+                    <a href="~/Chatting/PatientChatRoom">
+                        <i class="fa fa-group"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuPatientGroupChatting</span>
+                    </a>
+                </li>
+
+                @*<li>
+                        <a href="~/Chatting/PatientGroupChatting">
+                            <i class="fa fa-group"></i>
+                            <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuPatientGroupChatting</span>
+                        </a>
+                    </li>*@
+            }
+            @if (Session["IsOfficePermission"].ToString() == "True" && Session["IsAllowGroupChat"].ToString() == "True" && Session["role"].ToString() != "SuperAdminPatientApp")
+            {
+                <li>
+                    <a href="~/Chatting/GroupChat">
+                        <i class="fa fa-weixin"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuGroupChat</span>
+                    </a>
+                </li>
+            }
+            @if (ViewContext.Controller.IsSysAdmin() || ViewContext.Controller.HasRoles("Admin") && Session["role"].ToString() != "SuperAdminPatientApp")
+            {
+                <li>
+                    <a href="~/NurseCoordinator/NurseCoordinator">
+                        <i class="fa fa-mortar-board"></i>
+                        @*<span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuNurseCoordinator</span>*@
+                        <span class="nav-label">Office Staff</span>
+                    </a>
+                </li>
+            }
+            @if (ViewContext.Controller.IsSysAdmin() && Session["role"].ToString() != "SuperAdminPatientApp" || ViewContext.Controller.HasRoles("OrgSuperAdmin"))
+            {
+                <li>
+                    <a href="~/Office/Office">
+                        <i class="fa fa-bank"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuOffice</span>
+                    </a>
+                </li>
+            }
+
+
+            @*<li>
+                    <a href="~/Appointment/Appointments">
+                        <i class="fa fa-clock-o"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuAppointment</span>
+                    </a>
+                </li>*@
+            @*<li>
+                    <a href="~/Schedule/Schedule">
+                        <i class="fa fa-calendar"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuSchedule</span>
+                    </a>
+                </li>*@
+            @*<li>
+                    <a href="~/Reports/Reports">
+                        <i class="fa fa-file-text"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuReports</span>
+                    </a>
+                </li>*@
+            @*<li>
+                    <a href="~/Account/Profile">
+                        <i class="fa fa-user"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuProfile</span>
+                    </a>
+                </li>*@
+            @*<li>
+                    <a href="~/Account/Verification">
+                        <i class="fa fa-gavel"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuVerification</span>
+                    </a>
+                </li>*@
+            @*<li>
+                    <a href="~/Payment/PaymentInfo">
+                        <i class="fa fa-dollar"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuPaymentInfo</span>
+                    </a>
+                </li>*@
+            @*<li>
+                    <a href="~/Stripe/StripeConnect">
+                        <i class="fa fa-cc-stripe"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuStripAccount</span>
+                    </a>
+                </li>*@
+            @*<li>
+                    <a href="~/Account/ChangePassword">
+                        <i class="fa fa-lock"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuChangePassword</span>
+                    </a>
+                </li>*@
+            @*<li>
+                    <a href="~/Account/ContactUs">
+                        <i class="fa fa-phone-square"></i>
+
+                        <span class="nav-label">Contact Us</span>
+                    </a>
+                </li>*@
+
+            @*@if (Session["role"].ToString() == "SuperAdminPatientApp")
+            {
+                <li>
+                    <a href="~/PasevaCustomerDashBorad/PasevaDashboard">
+                        <i class="fa fa-bank"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.PasevaCustomerDashBorad</span>
+                    </a>
+                </li>
+            }*@
+			
+@if (ViewContext.Controller.HasRoles("OrgSuperAdmin"))
+   {
+    <li>
+        <a href="~/Organisation/Organisation">
+            <i class="fa fa-bank"></i>
+            <span class="nav-label">Organisation</span>
+        </a>
+    </li>
+ }
+
+            <li>
+                <a href="~/Account/Logout">
+                    <i class="fa fa-sign-out"></i>
+                    <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuSignOut</span>
+                </a>
+            </li>
+            
+
+        </ul>
+    </div>
+</nav>

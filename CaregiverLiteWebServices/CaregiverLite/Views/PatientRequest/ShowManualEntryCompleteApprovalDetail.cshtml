@@ -1,0 +1,248 @@
+﻿
+@model CaregiverLite.Models.ManualEntryModel
+
+
+<style>
+    #popupdiv label {
+        color: #055175;
+    }
+</style>
+
+
+
+<div id="main_div" class="Main_detail_div">
+
+
+
+    <div class="alert alert-danger alert-dismissable" style="display:none" id="dvError3">
+        <button onclick="divClose();" class="close" type="button">×</button>
+        <label id="lblError3"></label>
+    </div>
+
+
+
+    <div class="row" id="popupdiv">
+        <div class="col-md-4">
+            <div class="form-group" style="padding-left:30px">
+                <div>
+                    <label>Patient Name  </label>
+                </div>
+                <div>
+                    <span>@Html.DisplayFor(model => model.PatientName)</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <div>
+                    <label>Caregiver Name </label>
+                </div>
+                <div>
+                    <span>@Html.DisplayFor(model => model.NurseName)</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group" style="padding-right:20px">
+                <div>
+                    <label>Office </label>
+                </div>
+                <div>
+                    <span>@Html.DisplayFor(model => model.OfficeName)</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mt-4">
+            <div class="form-group" style="padding-left:30px">
+                <div>
+                    <label>Submission Date </label>
+                </div>
+                <div>
+                    <span>@Html.DisplayFor(model => model.InsertedDateTime)</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4  mt-4">
+            <div class="form-group" style="padding-right:20px">
+                <div>
+                    <label>Start Driving Date & Time</label>
+                </div>
+                <div>
+                    <span>@Html.DisplayFor(model => model.StartDrivingDateTime)</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4  mt-4">
+            <div class="form-group" style="padding-right:20px">
+                <div>
+                    <label>Check-In Date & Time  </label>
+                </div>
+                <div>
+                    <span>@Html.DisplayFor(model => model.CheckInDateTime)</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4  mt-4">
+            <div class="form-group" style="padding-left:30px">
+                <div>
+                    <label>Check-Out Date & Time  </label>
+                </div>
+                <div>
+                    <span>@Html.DisplayFor(model => model.CheckOutDateTime)</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4  mt-4">
+            <div class="form-group" style="padding-right:20px">
+                <div>
+                    <label>Reason</label>
+                </div>
+                <div>
+                    <span>@Html.DisplayFor(model => model.ReasonForManualEntry)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" id="popupdiv">
+
+
+
+    </div>
+
+
+
+    <div class="row" id="popupdiv">
+        @*<div class="col-md-12 mt-4">
+                <div class="form-group" style="padding-left:30px;padding-right:20px">
+                    <div>
+                        <label>Reason of manual entry</label>
+                    </div>
+                    <div>
+                        <span>@Html.DisplayFor(model => model.ReasonForManualEntry)</span>
+                    </div>
+                </div>
+            </div>*@
+        @if (ViewBag.IsResolved == 0)
+        {
+            <div class="col-md-12 mt-4">
+                <div class="form-group" style="padding-left:30px;padding-right:20px">
+                    <div>
+                        <label>Comment</label>
+                    </div>
+                    <div>
+                        @Html.TextAreaFor(model => model.Comment, new
+                   {
+                       @type = "text",
+                       @rows = "4",
+                       @cols = "50",
+                       @placeholder = "Comment",
+                       @class = "form-control",
+                       @onblur = "",
+                       @style = "padding-left:10px;padding-top:10px;padding-right:10px;padding-bottom:10px;resize: none;line-height: 1em"
+                   })
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+</div>
+
+
+@if (ViewBag.IsResolved == 0)
+{
+    <div class="col-md-12 text-center">
+     @*   <button type="button" id="btn" name="R" onclick="Save(this)" class="btn" style="border-radius: 4px;background-color:#ee5d5d; color:white">REJECT</button>*@
+        <button type="button" id="btn" name="A" onclick="Save(this)" class="btn" style="border-radius: 4px;background-color:#47E8B7; color:white">APPROVE</button>
+        <div class="clearfix"></div>
+    </div>
+}
+
+
+
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
+<script>
+
+
+
+    function Save(btn) {
+
+
+        var tempNurseScheduleId = @ViewBag.NurseScheduleId;
+
+
+
+        var btnStatus = $(btn).attr("name");
+
+        var localComment = $(".Main_detail_div #Comment").val();
+
+        if (localComment == "" || localComment == undefined || localComment == null)
+        {
+            if (btnStatus == 'A')
+            {
+                toastr.error("Please write your comment before Approve");
+
+            } else
+            {
+                toastr.error("Please write your comment before Reject");
+            }
+            return;
+        }
+
+        var tempPatientRequestApproval = {
+            NurseScheduleId: "",
+            ApprovalStatus: "",
+            Comment: ""
+        }
+
+
+        tempPatientRequestApproval.NurseScheduleId = tempNurseScheduleId;
+        tempPatientRequestApproval.Comment = localComment;
+        tempPatientRequestApproval.ApprovalStatus = btnStatus;
+
+        console.log(tempPatientRequestApproval);
+
+        debugger;
+        $("#loading").show();
+        var url = INITURL + '/PatientRequest/PatientRequestManualEntryCompleteApprovals';
+
+
+        $.ajax({
+            url: url,
+            data: { PatientRequestApproval: tempPatientRequestApproval },
+            cache: false,
+            type: 'POST',
+            async: false,
+            success: function (data)
+            {
+
+                if (data.Success)
+                {
+
+                    $('#myModalEdit').modal('hide');
+                    toastr.success(data.Message);
+                    $('#myDataTable').DataTable().ajax.reload();
+
+                } else
+                {
+                    $('#myModalEdit').modal('hide');
+                    toastr.error(data.Message);
+                    $('#myDataTable').DataTable().ajax.reload();
+                }
+                $("#loading").hide();
+            },
+            error: function (reponse)
+            { $('#myModalEdit').modal('hide');
+                toastr.error(data.reponse);
+                $("#loading").hide();
+            }
+
+        });
+
+    }
+
+</script>

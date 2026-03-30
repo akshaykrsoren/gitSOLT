@@ -1,0 +1,387 @@
+﻿@model CaregiverLite.Models.GroupChatModel
+
+
+
+@using (Html.BeginForm("CreateNewGroup", "Chatting", FormMethod.Post, new { @id = "frmCreateGroup", @class = "horizontal-form", @enctype = "multipart/form-data" }))
+{
+    <div id="main_div">
+        <div class="alert alert-danger alert-dismissable" style="display:none" id="dvError3">
+            <button onclick="divClose();" class="close" type="button">×</button>
+            <label id="lblError3"></label>
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-group">
+                @Html.HiddenFor(model => model.QuickBloxIds)
+                @Html.HiddenFor(model => model.GroupDialogId)
+                @Html.HiddenFor(model => model.MembersUserId)
+                <div class="form-group">
+                    <label>Group Name</label>
+                    <span style="color:red;">*</span>
+                    @Html.ValidationMessageFor(model => model.GroupName)
+                        @Html.TextBoxFor(model => model.GroupName, new { @type = "text", @maxlength = "25", @placeholder = "", @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label>Subject</label>
+                    <span style="color:red;">*</span>
+                    @Html.ValidationMessageFor(model => model.GroupSubject)
+                    @Html.TextBoxFor(model => model.GroupSubject, new { @type = "text", @placeholder = "", @class = "form-control", @onblur = "javascript:IsGroupNameAndSubjectExist();" })
+                </div>
+
+                @if (Session["Role"].ToString() == "SuperAdmin" || Session["Role"].ToString() == "Scheduler" || Session["Role"].ToString() == "Admin")
+                {
+                    <div class="form-group">
+                        <label class="control-label">Office</label>
+                        <span style="color:red;">*</span>
+                        @Html.ValidationMessageFor(model => Model.OfficeId)
+                        @Html.DropDownList("OfficeId", (System.Web.Mvc.SelectList)ViewBag.lstOffice, "Select Office", new { @class = "form-control" })
+                    </div>
+                }
+                else
+                {
+                    @Html.Hidden("OfficeId", "0")
+
+                    @*@Html.HiddenFor(model => model.OfficeId,"0")*@
+                }
+            </div>
+            @*<div class="form-group">
+                    <label>Member</label>
+                    <div class="form-group">
+                        <Select id="ddlMember" class="chosen-select" name="ddlMember" multiple="multiple">
+                            @if (ViewBag.MemberList != null)
+                            {
+                                foreach (var item in ViewBag.MemberList)
+                                {
+                                    <option value="@item.UserId" nurseid="@item.NurseId" qbid="@item.QuickBloxId" email="@item.Email"> @item.Name </option>
+                                }
+                            }
+                        </Select>
+                    </div>
+                </div>*@
+        </div>
+        <div class="col-md-12">
+            <button type="button" onclick="Next()" class="btn btn-sm btn-primary pull-right">Next</button>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+        <div id="main_div2" style="display:none">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>Member</label>
+                    <div class="form-group">
+                        <Select id="ddlMember" class="chosen-select" name="ddlMember" multiple="multiple">
+                            @if (ViewBag.MemberList != null)
+                            {
+                                foreach (var item in ViewBag.MemberList)
+                                {
+                                    <option value="@item.UserId" qbid="@item.QuickBloxId" email="@item.Email"> @item.Name </option>
+                                }
+                            }
+                        </Select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <button type="button" onclick="CreateNewGroup()" class="btn btn-sm btn-primary pull-right">Create Group</button>
+                <button type="button" onclick="gotoAddScreen1()" style="margin-right:5px" class="btn btn-sm btn-primary pull-right" tabindex="17">@CaregiverLite.Views.Resources.PatientRequest.ButtonPrevious</button>
+
+                <div class="clearfix"></div>
+            </div>
+
+        </div>
+
+}
+
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script type="text/javascript">
+
+    var tempMsg = '@TempData["Message"]';
+    if (tempMsg != "")
+        toastr.success(tempMsg);
+
+    var IsGroupNameSubjectExist = false;
+    $(document).ready(function () {
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': { allow_single_deselect: true },
+            '.chosen-select-no-single': { disable_search_threshold: 10 },
+            '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+            '.chosen-select-width': { width: "95%" }
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+
+        }
+    });
+
+    $('#ddlMember').change(function () {
+        $('#ddlMember option:selected').each(function () {
+            var $value = $(this).attr('qbid');
+            //if (!$value)
+            //    RegisterNewCaregiverOnQuickBlox($(this).attr('email'), $(this).val());
+        });
+    });
+
+
+    function Next() {
+        //debugger;
+        $('#loading').show();
+
+        var GroupName = $("#GroupName").val().trim();
+
+        var GroupSubject = $("#GroupSubject").val().trim();
+
+        var OfficeId = $("#OfficeId").val();
+
+       // var t = IsGroupNameAndSubjectExist();
+
+        debugger;
+        //if ()
+        //{
+        //    return false;
+        //}
+
+
+        if (IsGroupNameSubjectExist == true) {
+            debugger;
+     
+            toastr.error("Group already exists with same name and subject line, please use different name or subject line.");
+            $('#loading').hide();
+        }
+
+        if (GroupName == "") {
+            toastr.error('Please Enter Group Name');
+            $('#GroupName').focus();
+            $('#loading').hide();
+            return false;
+        }
+        else if (GroupSubject == "") {
+            toastr.error('Please Enter Subject Name');
+            $('#GroupSubject').focus();
+            $('#loading').hide();
+            return false;
+        }
+        else if (OfficeId == "") {
+            toastr.error('Please Select Office');
+            $('#OfficeId').focus();
+            $('#loading').hide();
+            return false;
+        }
+
+
+        var url = INITURL + '/Chatting/GetAllMemberByOffice';
+        $.ajax({
+            url: url,
+            cache: false,
+            type: 'POST',
+            data: {
+                OfficeId: OfficeId,
+            },
+            async: true,
+            success: function (data) {
+                //debugger;
+                $('#loading').hide();
+                if (data.result == "Success") {
+
+                    loadMemberList(data.objGroupMemberDetailListing);
+
+                    $("#main_div").css('display', 'none');
+                    $("#main_div2").css('display', 'block');
+                }
+            },
+            error: function (reponse) {
+                $('#loading').hide();
+            }
+        });
+
+
+
+        //$("#main_div").css('display', 'none');
+        //$("#main_div2").css('display', 'block');
+
+
+        $('#loading').hide();
+    }
+
+    function gotoAddScreen1() {
+        $("#main_div2").css('display', 'none');
+        $("#main_div").css('display', 'block');
+
+    }
+
+
+    function loadMemberList(lstMember) {
+
+        //debugger;
+        $('#ddlMember').empty();
+        if (lstMember.length > 0) {
+            $.each(lstMember, function (key, value) {
+                $('#ddlMember').append("<option value=" + value.UserId + " qbid=" + value.QuickBloxId + "email=" + value.Email + ">" + value.MemberName + "</option>");
+            });
+        }
+        $('#ddlMember').trigger("chosen:updated");
+        $('#loading').hide();
+    }
+
+    function CreateNewGroup() {
+        //debugger;
+        $('#loading').show();
+
+        var selectedUserIds = '';
+        var selectedQBIds = '';
+
+
+        $('#ddlMember :selected').each(function () {
+            selectedUserIds += $(this).attr("value") + ',';
+            if ($(this).attr("qbid"))
+                selectedQBIds += parseInt($(this).attr("qbid")) + ',';
+        });
+
+        selectedUserIds = selectedUserIds.replace(/,\s*$/, "");
+        selectedQBIds = selectedQBIds.replace(/,\s*$/, "");
+
+        if (!selectedUserIds) {
+            toastr.info("Please select atleast one member");
+            $('#ddlMember').focus();
+            $('#loading').hide();
+            return;
+        }
+        //debugger;
+
+        $("#MembersUserId").val(selectedUserIds);
+
+        $("#QuickBloxIds").val(selectedQBIds);
+
+
+        if ($("#frmCreateGroup").valid()) {
+            //debugger;
+
+            //UAT
+            @*var SuperAdminQBID = "32129044";*@
+            //local
+            var SuperAdminQBID = "32139280";
+            //Live
+            @*var SuperAdminQBID = "32132455";*@
+
+            var GroupName = $("#GroupName").val();
+
+
+            var user = {
+                id: SuperAdminQBID,
+                login: "superadmin@paseva.com",
+                password: "Welcome007!"
+            };
+
+            QB.createSession({ login: user.login, password: user.password }, function (err, result) {
+                //debugger;
+                if (err) {
+                    alert(err.message);
+                } else {
+
+                    sessionStorage.setItem("sToken", result.token);
+
+                    var occupants = SuperAdminQBID;
+
+                    var dialogOccupants = {
+                        type: 2,
+                        occupants_ids: occupants,
+                        name: GroupName
+                    };
+
+                    //debugger;
+                    //Create New Group Chat Dialog
+                    QB.chat.dialog.create(dialogOccupants, function (err, createdDialog) {
+                        if (err) {
+                            //debugger;
+                            //console.log(err);
+                            //console.log("DIALOG CREATED FAIL");
+                        } else {
+                            //debugger;
+
+                            $("#GroupDialogId").val(createdDialog._id);
+
+                            $("#frmCreateGroup").submit();
+                        }
+                    });
+                }
+            });
+
+
+
+
+            //  RegisterCareGiverQB(Email);
+            // $("#frmCreateGroup").submit();
+        }
+        //var url = INITURL + '/Chatting/CreateNewGroup';
+        //$.ajax({
+        //    url: url,
+        //    cache: false,
+        //    type: 'POST',
+        //    data: {
+        //        GroupName: GroupName,
+        //        UserIds: selectedUserIds,
+        //        QuickBloxId: selectedQBIds
+        //    },
+        //    async: true,
+        //    success: function (data) {
+        //        $('#loading').hide();
+        //        if (data == "Success") {
+        //            $('#addGroupModal').modal('hide');
+        //            toastr.success('New group created successfully.');
+        //        }
+        //    },
+        //    error: function (reponse) {
+        //        $('#loading').hide();
+        //    }
+        //});
+    }
+
+
+    function IsGroupNameAndSubjectExist() {
+
+      //  var IsGroupNameAndSubjectExist = false;
+
+        var GroupName = $("#GroupName").val();
+
+        var GroupSubject = $("#GroupSubject").val();
+
+        $(".loading").show();
+        var url = INITURL + '/Chatting/IsGroupNameAndSubjectExist';
+        $.ajax({
+            url: url,
+            data: { GroupName: GroupName, GroupSubject: GroupSubject },
+            type: "POST",
+            success: function (data) {
+
+                debugger;
+                $(".loading").hide();
+                //if (data == true) {
+                //    toastr.error("MedicalId already exist.");
+                //    IsMedicalExist = 1;
+                //    //$("#MedicalId").focus();
+                //}
+                //else { IsMedicalExist = 0; }
+
+                //if (data == true) {
+                //    IsGroupNameAndSubjectExist = 
+                //}
+                //else
+                //{
+
+                //}
+                IsGroupNameSubjectExist = data;
+
+            },
+            error: function (reponse) {
+                //alert("error : " + JSON.stringify(reponse));
+                $(".loading").hide();
+            }
+        });
+
+      //  return IsGroupNameAndSubjectExist;
+
+
+  //      debugger;
+    }
+</script>

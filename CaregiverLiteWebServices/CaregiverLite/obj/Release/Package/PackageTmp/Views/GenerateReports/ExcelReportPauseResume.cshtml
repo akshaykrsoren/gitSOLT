@@ -1,0 +1,316 @@
+﻿@model CaregiverLite.Models.ReportsManagementDetails
+
+
+<style>
+    #ui-datepicker-div {
+        z-index: 10000 !important;
+    }
+
+    .form-calender {
+        padding: 0 15px;
+    }
+</style>
+
+
+<script>
+    $(function () {
+        var dateFormat = "mm/dd/yy",
+          from = $("#FromDate1")
+            .datepicker({
+                defaultDate: "+1w",
+                changeMonth: true,
+                numberOfMonths: 1,
+                maxDate: new Date()
+
+            })
+            .on("change", function () {
+                //toMinDate.setDate(toMinDate.getDate() - 365);
+                to.datepicker("option", "minDate", getDate(this));
+            }),
+          to = $("#ToDate1").datepicker({
+              defaultDate: "+1w",
+              changeMonth: true,
+              numberOfMonths: 1,
+              maxDate: new Date(),
+              minDate: $("#FromDate1").val()
+
+          })
+          .on("change", function () {
+              // var fromMaxDate = $("#FromDate").val();
+              //fromMaxDate.setDate(fromMaxDate.getDate() - 1);
+              to.datepicker("option", "minDate", getDate(this));
+          });
+
+        function getDate(element) {
+            var date;
+            try {
+                date = $.datepicker.parseDate(dateFormat, element.value);
+            } catch (error) {
+                date = null;
+            }
+
+            return date;
+        }
+        debugger;
+        //$(function () {
+        var ddlCustomers = $("#ddlOffices1");
+        ddlCustomers.empty().append('<option selected="selected" value="0" disabled = "disabled">Loading.....</option>');
+        $.ajax({
+            type: "POST",
+            url: "/GenerateReports/ListOffices",
+            data: '{}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                ddlCustomers.empty().append('<option selected="selected" value="0">Select Office</option>');
+                $.each(response, function () {
+                    ddlCustomers.append($("<option></option>").val(this['Value']).html(this['Text']));
+                });
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        });
+    //});
+
+
+
+
+
+    });
+
+
+</script>
+
+@using (Html.BeginForm("GenerateReportActionForPauseAndResume", "GenerateReports", FormMethod.Post, new { @id = "fmGenerateReportExcel1", @class = "horizontal-form", @enctype = "multipart/form-data" }))
+{
+    <div id="main_div" class="Edit_div">
+        <div class="alert alert-danger alert-dismissable" style="display:none" id="dvError3">
+            <button onclick="divClose();" class="close" type="button">×</button>
+            <label id="lblError3"></label>
+        </div>
+        <div class="row form-calender">
+            <div class="col-md-6">
+                @*Date*@
+                <div class="form-group">
+                    <label>From Date</label>
+                    <span style="color:red;">*</span>
+                    @*@Html.ValidationMessageFor(model => model.Date)*@
+                    @Html.TextBoxFor(model => model.FromDate1, new { @class = "form-control clsDatePicker", @data_toggle = "dropdown", @placeholder = "MM-DD-YYYY", onkeydown = "return false", autocomplete = "off", @tabindex = "9" })
+                    <label id="lblFromDate"></label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label>To Date</label>
+                <span style="color:red;">*</span>
+                @Html.TextBoxFor(model => model.ToDate1, new { @class = "form-control clsDatePicker", @data_toggle = "dropdown", @placeholder = "MM-DD-YYYY", onkeydown = "return false", autocomplete = "off", @tabindex = "9" })
+                <label id="lblToDate"></label>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-4">
+
+                <div>
+                    <label>Offices :</label>
+                    <select id="ddlOffices1"></select>
+                </div>
+                @*<div>
+                    <label>Caregiver :</label>
+                    <select id="Caregivers"></select>
+                </div>
+
+                <div>
+                    <label>Caregiver :</label>
+                    <select id="PatientList"></select>
+                </div>*@
+
+            </div>
+
+            <div class="col-md-pull-4">
+
+                <div>
+                    <label>Caregiver :</label>
+                    <select id="Caregivers1"></select>
+                </div>
+            </div>
+
+            @*<div class="col-md-pull-4">
+
+                <div>
+                    <label>Favourite Patients :</label>
+                    <select id="PatientList1"></select>
+                </div>
+            </div>*@
+        </div>
+
+        <div class="col-md-12">
+            <button type="button" href="javascript:void(0)" onclick="AddnewExcelReport();" class="btn btn-sm btn-primary pull-right" tabindex="10">GENERATE REPORT MILAGE</button>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+
+
+    <div class="col-md-12">
+        <div class="clearfix"></div>
+    </div>
+}
+
+<script type="text/javascript">
+    $(".loading").show();
+
+
+    debugger;
+    function AddnewExcelReport() {
+       $('#loading').show();
+        var FromDate = $("#FromDate1").val();
+        var ToDate = $("#ToDate1").val();
+        var OfficeId = $("#ddlOffices1").val();
+        var NurseId = $("#Caregivers1").val();
+        //var PatientId = $("#PatientList1").val();
+
+        if (FromDate == "" && ToDate == "") {
+            toastr.error("Please select required field.");
+            $("#loading").hide();
+            return false;
+        }
+        else if (FromDate == "") {
+            toastr.error("Please select from date.");
+            $("#loading").hide();
+            return false;
+        }
+        else if (ToDate=="") {
+            toastr.error("Please select to date.");
+            $("#loading").hide();
+            return false;
+        }
+        else if (OfficeId == "0") {
+            toastr.error("Please select Offices.");
+            $("#loading").hide();
+            return false;
+        }
+        else if (NurseId == "null") {
+            toastr.error("Please select Nurse From list.");
+            $("#loading").hide();
+            return false;
+        }
+
+
+        //$(".loading").show();
+        debugger;
+       var url = '@Url.Action("GenerateReportActionForPauseAndResume", "GenerateReports")';
+
+        //var url = "http://localhost:15177/AttendanceManagement/GenerateReportActionForPauseAndResume";
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: { FromDate: FromDate, ToDate: ToDate, OfficeId: OfficeId, NurseId: NurseId},
+            success: function (res) {
+                
+                $(".loading").hide();
+                if (res) {
+                    var filename = res;
+                    var iframe = document.createElement("iframe");
+                    iframe.src = filename;
+                    iframe.style.display = 'none';
+                    document.body.appendChild(iframe);
+                    toastr.success("successfully export.");
+
+                }
+                else {
+                    toastr.warning("No File Exported!");
+                }
+
+            },
+            error: function (reponse) {
+                alert("error : " + JSON.stringify(reponse));
+                $(".loading").hide();
+            }
+        });
+
+        //if($("#fmGenerateReport").valid())
+        //{
+        //    $("#fmGenerateReport").submit();
+        //}
+
+
+    }
+
+
+    $(document).ready(function ()
+    {
+
+
+        $("#ddlOffices1").change(function () {
+
+            var url = '@Url.Action("GetCaregiverByOfficeId", "GenerateReports")';
+            debugger;
+            var OfficeId = $("#ddlOffices1").val();
+            var ddlCustomerss = $("#Caregivers1");
+           // ddlCustomerss.empty().append('<option selected="selected" value="0" disabled = "disabled">Loading.....</option>');
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: { OfficeId: OfficeId },
+                dataType: "json",
+                success: function (response) {
+                   ddlCustomerss.empty();
+                        //.append('<option selected="selected" value="0">All</option>');
+                    $.each(response, function () {
+                        ddlCustomerss.append($("<option></option>").val(this['Value']).html(this['Text']));
+                    });
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+
+
+        });
+
+        debugger;
+        @*$("#Caregivers1").change(function () {
+            debugger;
+            var url = '@Url.Action("GetFavouritePatientByCaregiver", "GenerateReports")';
+            var NurseId = $("#Caregivers1").val();
+            var ddlCustomersss = $("#PatientList");
+           // ddlCustomerss.empty().append('<option selected="selected" value="0" disabled = "disabled">Loading.....</option>');
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: { NurseId: NurseId },
+                dataType: "json",
+                success: function (response) {
+                   // ddlCustomers.empty();
+                    //.append('<option selected="selected" value="0">All</option>');
+                    $.each(response, function () {
+                        ddlCustomersss.append($("<option></option>").val(this['Value']).html(this['Text']));
+                    });
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+
+
+        });*@
+
+
+
+
+    });
+
+
+    //contentType: "application/json; charset=utf-8",
+
+
+</script>

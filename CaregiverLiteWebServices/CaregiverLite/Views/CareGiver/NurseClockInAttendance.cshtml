@@ -1,0 +1,131 @@
+﻿@model IEnumerable<CaregiverLite.Models.NurseClockInAttendance>
+
+    @*@{
+            var tempClockInList = null;
+             tempClockInList = Model.ToList();
+        }*@
+
+    <div class="container">
+        <div class="row">
+             @{ 
+                 if (Model.Count() != 0)
+                 {
+                     var tempClockInList = Model.ToList();
+                    <div class="col-md-12" style="margin-top: 12px;">
+                            <div class="col-md-6 form-group">
+                                <lable style="font-size: 13px;">@CaregiverLite.Views.Resources.CareGiver.TitleCareGiver Name :</lable>
+                                  <lable style="font-size:15px; font-weight:bold;">@tempClockInList[0].Name</lable>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <lable style="font-size: 13px;padding-left: 158px;">Appointment Date :</lable>
+                                <lable  style="font-size:15px; font-weight:bold;">@tempClockInList[0].Date</lable>
+                            </div>
+                        </div>
+
+                            <div class="col-md-6">
+                                <lable style="font-size: 13px;padding-left: 14px;">Address :</lable>
+                                <lable style="font-size:15px; font-weight:bold;">@tempClockInList[0].Address</lable>
+                            </div>
+                 }
+                 
+            }
+           
+            </div> 
+        <div class="row">
+            <table class="table" style="margin: 25px;width: 80%;">
+                <tr style="background-color: #e1f1ff;">
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.ClockInDateTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ClockOutDatetime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ClockInStatus)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Date)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ServiceTime) (In Minutes)
+                    </th>
+
+
+                    <th></th>
+                </tr>
+
+                @{
+                    if (Model.Count() != 0)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ClockInDateTime)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ClockOutDatetime)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ClockInStatus)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Date)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ServiceTime)
+                                </td>
+
+
+
+                            </tr>
+                        }
+                        @*<tr>
+                            <td colspan="5">
+                                <input type="button" class="col=md-4 btn btn-success" value="Track Locations" onclick="NurseTrackLocation(554);" style="float:right" />
+                            </td>
+
+                        </tr>*@
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5">
+                                <p style="color: red;margin-left: 41%;font-weight: bold;font-size: 17px;">No data available</p>
+                            </td>
+
+                        </tr>}
+                }
+            </table>
+        </div>
+    </div>
+
+
+    <script>
+       
+      
+    function NurseTrackLocation(nurseid) {
+        debugger;
+        var tempdate = moment(new Date()).format('MM-DD-YYYY');
+         
+        $('#myModalTrackLocationNurse').modal('show');
+        localStorage.setItem("NurseId", nurseid);
+        $("#Date").datepicker({
+
+            dateFormat: 'mm-dd-yy',
+            onSelect: function () {
+                $(this).change();
+            }
+        });
+        $("#Date").val(tempdate);
+        //myPicker.Value = DateTime.Now
+        $("#dvmap").hide();
+        $("#loading").hide();
+        viewmap();
+    }
+
+    </script>
+
+

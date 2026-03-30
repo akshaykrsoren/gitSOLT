@@ -1,0 +1,91 @@
+﻿@*@Model CaregiverLite.Models.RewardPointModel*@
+<h3>Reward Points Earned by Completed Request</h3>
+<div class="col-md-16" style="z-index: 1001;max-height: 350px;overflow-y: scroll;" >
+
+    <table class="table table-striped table-hover">
+        @*<caption>Care Giver Name: @ViewBag.RewardPointList.objRewardPoint.Name <br>
+            Care Giver Email: @ViewBag.RewardPointList.objRewardPoint.Email
+            </caption>*@
+        <tbody>
+            <tr >
+                <td style="width:300px;font-weight:bold;">@CaregiverLite.Views.Resources.CareGiver.TitleCareGiver Name</td>
+                <td style="width:300px;font-weight:bold;">@CaregiverLite.Views.Resources.RewardPoint.PopupTableHeaderSchedulerName</td>
+                <td style="width:300px;font-weight:bold;">@CaregiverLite.Views.Resources.RewardPoint.PopupTableHeaderAppointmentDate</td>
+                <td style="width:300px;font-weight:bold;">@CaregiverLite.Views.Resources.RewardPoint.PopupTableHeaderAppointmentTime</td>
+                <td style="width:300px;font-weight:bold;">@CaregiverLite.Views.Resources.RewardPoint.PopupTableHeaderPoints</td>
+                @*<td>@Model.Email</td>*@
+            </tr>
+
+            @if (ViewBag.RewardPointList.objRewardPointList != null)
+            {
+                foreach (var item in ViewBag.RewardPointList.objRewardPointList)
+                {
+                    <tr>
+                        <td style="width:300px;"> @item.Name </td>
+                        <td style="width:300px;"> @item.SchedulerName </td>
+                        <td style="width:300px;"> @item.AppointmentDate </td>
+                        <td style="width:300px;"> @item.Time </td>
+                        <td style="width:300px;"> @item.Point </td>
+
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5"> Not Completed Yet </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+    
+    
+</div>
+
+<hr style="border-top: 1px solid #1dca75;padding-top:15px">
+<h3>Reward Points Earned by Good Ratings</h3>
+<div class="col-md-16" style="z-index: 1001;max-height: 300px;overflow-y: scroll;">
+   
+    <table class="table table-striped table-hover">
+        @*<caption>Care Giver Name: @ViewBag.RewardPointList.objRewardPoint.Name <br>
+            Care Giver Email: @ViewBag.RewardPointList.objRewardPoint.Email
+            </caption>*@
+        <tbody>
+            <tr>
+                <td style="width:300px;font-weight:bold;">@CaregiverLite.Views.Resources.RewardPoint.PopupTableHeaderSchedulerName</td>
+                <td style="width:300px;font-weight:bold;">@CaregiverLite.Views.Resources.RewardPoint.PopupTableHeaderAppointmentDate</td>
+                <td style="width:300px;font-weight:bold;">@CaregiverLite.Views.Resources.RewardPoint.PopupTableHeaderAppointmentTime</td>
+                <td style="width:300px;font-weight:bold;">@CaregiverLite.Views.Resources.RewardPoint.PopupTableHeaderRating</td>
+                <td style="width:300px;font-weight:bold;">@CaregiverLite.Views.Resources.RewardPoint.PopupTableHeaderPoints</td>
+                @*<td>@Model.Email</td>*@
+            </tr>
+
+            @if (ViewBag.RatingList.objRatingsList != null)
+            {
+                foreach (var item in ViewBag.RatingList.objRatingsList)
+                {
+                    <tr>
+                        
+                        <td style="width:300px;"> @item.SchedulerName </td>
+                        <td style="width:300px;"> @item.AppointmentDate </td>
+                        <td style="width:300px;"> @item.Time </td>
+                        <td style="width:300px;"> @item.Rate </td>
+                        <td style="width:300px;"> @item.Point </td>
+
+
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5"> Data Not Found </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="clearfix"></div>
+

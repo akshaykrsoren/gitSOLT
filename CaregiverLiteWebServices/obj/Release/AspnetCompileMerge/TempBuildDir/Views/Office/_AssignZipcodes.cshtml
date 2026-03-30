@@ -1,0 +1,159 @@
+﻿@model CaregiverLite.Models.OfficeModel
+
+<div id="main_div">
+    <div class="alert alert-danger alert-dismissable" style="display:none" id="dvError3">
+        <button onclick="divClose();" class="close" type="button">×</button>
+        <label id="lblError3"></label>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label>Enter Zipcode to Assign</label>
+        </div>
+        <div class="form-group">
+            <label>Zipcode(s)<span style="color:red;">*</span></label>
+            <div class="form-group">
+                @Html.HiddenFor(model => model.OfficeId)
+
+
+                @Html.ValidationMessageFor(model => Model.AssignedZipcodes)
+                @Html.TextAreaFor(model => model.AssignedZipcodes, new { @type = "text", @placeholder = "Enter Zipcode with Comma Separated", @class = "form-control", style = "height:50px;" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <button type="button" onclick="AssignZipcode()" class="btn btn-sm btn-primary pull-right">ASSIGN</button>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script type="text/javascript">
+    $(document).ready(function () {
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': { allow_single_deselect: true },
+            '.chosen-select-no-single': { disable_search_threshold: 10 },
+            '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+            '.chosen-select-width': { width: "95%" }
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+    });
+
+
+    function AssignZipcode() {
+        var OfficeId= $("#OfficeId").val();
+        var AssignedZipcodes = $("#AssignedZipcodes").val();
+
+        if (AssignedZipcodes.trim().length == 0)
+        {
+            toastr.error('Please enter proper zipcode.');
+            $("#AssignedZipcodes").focus();
+            $("#AssignedZipcodes").val('');
+            return false;
+        }
+        var url = INITURL + '/Office/AssignZipcodes';
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            async: false,
+            data: { OfficeId: OfficeId, AssignedZipcodes: AssignedZipcodes},
+
+            success: function (data) {
+                if (data == "Success") {
+                    toastr.success('Zipcode Assigned Successfully.');
+                    window.location = INITURL + "/Office/Office";
+                }
+                else {
+                    //$("#dvError2").css("display", "");
+                    //$("#lblError2").html(data.Result);
+                }
+                $('#loading').hide();
+            },
+            error: function (reponse) {
+                $('#loading').hide();
+                alert("error : " + JSON.stringify(reponse));
+            }
+        });
+    }
+
+    function RemoveCaregiver(ChattingGroupId, UserId, QuickBloxId) {
+        if (!confirm('Are you sure you want remove caregiver from this group ?'))
+            return false;
+        if (ChattingGroupId && UserId) {
+            $('#loading').show();
+            var url = INITURL + '/Caregiver/RemoveCaregiverFromGroupChat';
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                data: {
+                    ChattingGroupId: ChattingGroupId,
+                    UserId: UserId,
+                    QuickBloxId: QuickBloxId
+                },
+                async: true,
+                success: function (data) {
+                    if (data.result == "Success") {
+                        $('#' + ChattingGroupId).remove();
+                        LoadChattingGroupSelectList(data.lstChattingGroup);
+                        $('#loading').hide();
+                        toastr.success('Caregiver has been removed successfully.');
+                    }
+                    else {
+                        toastr.error('Something went wrong!');
+                        $('#loading').hide();
+                    }
+                },
+                error: function (reponse) {
+                    $('#loading').hide();
+                }
+            });
+        }
+    }
+
+    function LoadChattingGroupSelectList(lstChattingGroup) {
+        $('#ddlChattingGroup').empty();
+        if (lstChattingGroup.length > 0) {
+            $.each(lstChattingGroup, function (key, value) {
+                $('#ddlChattingGroup').append("<option value=" + value.ChattingGroupId + ">" + value.GroupName + "</option>");
+            });
+        }
+        $('#ddlChattingGroup').trigger("chosen:updated");
+        $('#loading').hide();
+    }
+
+    function RegisterNewCaregiverOnQuickBlox(Login, UserId) {
+        $("#loading").show();
+        var RegisterUser = { 'login': Login, 'password': "Welcome007!", 'tag': "differenzsystem", 'email': Login };
+        QB.users.create(RegisterUser, function (err, user) {
+            if (user) {
+                var url = INITURL + '/Chatting/SaveQBId';
+                var QBId = user.id;
+                $.ajax({
+                    url: url,
+                    data: { UserId: UserId, QuickBloxId: QBId },
+                    type: 'POST',
+                    async: false,
+                    success: function (data) {
+                        $("#loading").hide();
+                        AssignMultipleGroupsToCaregiver(UserId, QBId);
+                        window.location.reload();
+                    },
+                    error: function (reponse) {
+                        alert("error : " + reponse);
+                        $("#loading").hide();
+                        return ;
+                    }
+                });
+            } else {
+                alert("error : " + err);
+                $("#loading").hide();
+                return;
+            }
+        });
+    }
+</script>
+

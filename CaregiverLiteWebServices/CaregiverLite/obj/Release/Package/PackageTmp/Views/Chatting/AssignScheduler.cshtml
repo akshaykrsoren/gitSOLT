@@ -1,0 +1,213 @@
+﻿<div id="main_div">
+    <div class="alert alert-danger alert-dismissable" style="display:none" id="dvError3">
+        <button onclick="divClose();" class="close" type="button">×</button>
+        <label id="lblError3"></label>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label>Group : @ViewBag.GroupName </label>
+        </div>
+        <div class="form-group">
+            <label>Scheduler</label>
+            <div class="form-group">
+                <Select id="ddlScheduler" class="chosen-select" name="ddlScheduler" multiple="multiple">
+                    @if (ViewBag.SchedulerList != null)
+                    {
+                        foreach (var item in ViewBag.SchedulerList)
+                        {
+                            <option value="@item.UserId" schedulerid="@item.SchedulerId" qbid="@item.QuickbloxId" email="@item.Email"> @item.Name </option>
+                        }
+                    }
+                </Select>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <button type="button" onclick="AssignNewScheduler(@ViewBag.ChattingGroupId)" class="btn btn-sm btn-primary pull-right">Assign</button>
+        <div class="clearfix"></div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label>Scheduler List</label>
+            <div class="col-md-06" style="overflow-y:auto;scroll:auto;max-height:300px">
+                <table class="table table-striped table-bordered table-hover dataTables-example">
+                    <thead>
+                        <tr>
+                            <td>
+                                <b>Scheduler</b>
+                            </td>
+                            <td><b>Offices</b></td>
+                            <td style="width:10%;">
+                                <b>Action</b>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (ViewBag.AssignedSchedulerDetail != null)
+                        {
+                            foreach (var item in ViewBag.AssignedSchedulerDetail)
+                            {
+                                <tr id="@item.UserId">
+                                    <td>@item.MemberName</td>
+                                    <td>@item.OfficeName</td>
+                                    <td>
+                                        <center>
+                                            <button class="btn btn-xs btn-danger" style="margin:5px; width:auto;" onclick="RemoveScheduler('@ViewBag.ChattingGroupId','@item.UserId','@item.QuickBloxId')"><span class="fa fa-remove"></span></button>
+                                        </center>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': { allow_single_deselect: true },
+            '.chosen-select-no-single': { disable_search_threshold: 10 },
+            '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+            '.chosen-select-width': { width: "95%" }
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+
+        }
+   
+    });
+
+    $('#ddlScheduler').change(function () {
+        $('#ddlScheduler option:selected').each(function () {
+            var $value = $(this).attr('qbid');
+            if (!$value)
+                RegisterNewCaregiverOnQuickBlox($(this).attr('email'), $(this).val());
+        });
+    });
+
+    function RegisterNewCaregiverOnQuickBlox(Login, UserId1) {
+        $("#loading").show();
+        var RegisterUser = { 'login': Login, 'password': "Welcome007!", 'tag': "differenzsystem", 'email': Login };
+        QB.users.create(RegisterUser, function (err, user1) {
+            if (user1) {
+                var url = INITURL + '/Chatting/SaveQBId';
+                var QBId = user1.id;
+                $.ajax({
+                    url: url,
+                    data: { UserId: UserId1, QuickBloxId: QBId },
+                    type: 'POST',
+                    async: false,
+                    success: function (data) {
+                        $("#ddlScheduler option[value='" + UserId1 + "']").attr('qbid', QBId);
+    
+                        $("#loading").hide();
+                    },
+                    error: function (reponse) {
+                        alert("error : " + reponse);
+                        $("#loading").hide();
+                        return;
+                    }
+                });
+            } else {
+                alert("error : " + err);
+                $("#loading").hide();
+                return '';
+            }
+        });
+    }
+
+    function RemoveScheduler(ChattingGroupId, UserId, QuickBloxId) {
+        if (!confirm('Are you sure you want remove this scheduler ?'))
+            return false;
+        if (ChattingGroupId && UserId) {
+            $('#loading').show();
+            var url = INITURL + '/Chatting/RemoveSchedulerFromGroupChat';
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                data: {
+                    ChattingGroupId: ChattingGroupId,
+                    UserId: UserId,
+                    QuickBloxId: QuickBloxId
+                },
+                async: true,
+                success: function (data) {
+                    if (data.result == "Success") {
+                        $('#' + UserId).remove();
+                        loadSchedulerSelectList(data.lstScheduler);
+                        $('#loading').hide();
+                        toastr.success('Scheduler has been removed successfully.');
+                    }
+                    else {
+                        toastr.error('Something went wrong!');
+                        $('#loading').hide();
+                    }
+                },
+                error: function (reponse) {
+                    $('#loading').hide();
+                }
+            });
+        }
+    }
+
+    function loadSchedulerSelectList(lstScheduler) {
+        $('#ddlScheduler').empty();
+        if (lstScheduler.length > 0) {
+            $.each(lstScheduler, function (key, value) {
+                $('#ddlScheduler').append("<option value=" + value.UserId + " schedulerid=" + value.SchedulerId + " qbid=" + value.QuickbloxId + "email=" + value.Email + ">" + value.Name + "</option>");
+            });
+        }
+        $('#ddlScheduler').trigger("chosen:updated");
+        $('#loading').hide();
+    }
+
+    function AssignNewScheduler(ChattingGroupId)
+    {
+        var selectedUserIds = '';
+        var selectedQBIds = '';
+        $('#ddlScheduler :selected').each(function () {
+            selectedUserIds += $(this).attr("value") + ',';
+            if ($(this).attr("qbid"))
+                selectedQBIds += parseInt($(this).attr("qbid")) + ',';
+        });
+
+        selectedUserIds = selectedUserIds.replace(/,\s*$/, "");
+        selectedQBIds = selectedQBIds.replace(/,\s*$/, "");
+
+        if (selectedUserIds == "") {
+            toastr.info("Please select atleast one scheduler");
+            $('#ddlScheduler').focus();
+            return;
+        }
+        $('#loading').show();
+        var url = INITURL + '/Chatting/AddMemberIntoGroup_V1';
+        $.ajax({
+            url: url,
+            cache: false,
+            type: 'POST',
+            data: {
+                ChattingGroupId: ChattingGroupId,
+                UserIds: selectedUserIds,
+                QuickBloxId: selectedQBIds
+            },
+            async: true,
+            success: function (data) {
+                $('#loading').hide();
+                if (data == "Success") {
+                    $('#modalSchedulerAssignment').modal('hide');
+                    toastr.success('Schedulers have been assigned successfully.');
+                }
+            },
+            error: function (reponse) {
+                $('#loading').hide();
+            }
+        });
+    }
+</script>

@@ -1,0 +1,652 @@
+﻿@{
+    Layout = null;
+}
+
+@functions {
+
+
+    public string GetActiveClass(string controller, string action)
+    {
+        string currentController = ViewContext.RouteData.Values["controller"].ToString();
+        string currentAction = ViewContext.RouteData.Values["action"].ToString();
+
+        return currentController.Equals(controller, StringComparison.OrdinalIgnoreCase) &&
+               currentAction.Equals(action, StringComparison.OrdinalIgnoreCase) ? "active" : string.Empty;
+
+
+    }
+}
+
+<style>
+
+    .nav-header {
+        padding: 10px;
+        background-color: white;
+        color: #1F305B;
+    }
+
+    /*.navbar {
+            background-color:#E3F3FE;
+            color:#1F305B
+            }*/
+
+    /*  .nav > li.active {
+                border-left: 4px solid #eee;
+                background-color: #FCFF7B;
+                color: #1F305B;
+            }*/
+
+    .nav-list > li.active {
+        /*  border-left: 4px solid #eee;  */
+        color: #fff;
+    }
+    /*
+            .nav > li > a {
+                color: #1F305B;
+            }*/
+
+    /*  .navbar-default .nav > li > a:focus, .navbar-default .nav > li > a:hover {
+                background-color: #FCFF7B;
+                color: #1F305B;
+            }*/
+
+    .sidebar-content .nav-list > li > a:focus, .sidebar-content .nav-list > li:hover {
+        background-color: #68AAEA;
+        color: #fff;
+        /*width: 100%;
+                display: block;
+                padding: 10px;*/
+    }
+
+
+    .sidebar-content .nav-list > li > a:focus, .sidebar-content .nav-list > li a:hover {
+        color: #fff;
+    }
+
+    .nav-label {
+        color: #1F305B;
+    }
+
+    .nav-list > li > a {
+        color: #1F305B;
+    }
+
+    .nav > li.active > a {
+        color: #1F305B;
+    }
+
+    .nav-list > li.active > a {
+        color: #fff;
+        /*            background-color: #fff;
+    */
+    }
+
+
+    .nav-list {
+        display: flex;
+        min-height: 710px;
+        width: 97%;
+        flex-direction: column;
+        justify-content: start;
+        padding-left: 2px;
+    }
+
+
+
+
+
+
+    .nav-item {
+        border-radius: 6px;
+        display: flex;
+        width: 86%;
+        align-items: center;
+        /* gap: 9px; */
+        /* padding: 12px 14px; */
+        /* font-family: 'open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;'; */
+        margin-bottom: 10px;
+        background: #fff;
+        margin-left: 15px;
+    }
+
+
+
+        .nav-item a {
+            width: 100%;
+            display: block;
+            padding: 10px;
+            border-radius: 6px;
+            margin-left: 15px;
+        }
+
+    a {
+        font-size: 14px;
+    }
+
+
+    .sign-out-btn {
+        border-radius: 6px;
+        background-color: #f6f6f8;
+        z-index: 10;
+        /*display: flex;*/
+        margin-top: -64px;
+        align-items: center;
+        gap: 9px;
+        justify-content: center;
+        padding: 12px;
+        display: block;
+        margin: auto;
+        width: 112%;
+    }
+
+    .nav-item.active {
+        background-color: #68aaea;
+        color: #fff;
+        width: 86%;
+    }
+
+
+
+
+    .nav-icon {
+        aspect-ratio: 1;
+        object-fit: contain;
+        width: 22px;
+        margin-top: -4px;
+    }
+
+
+
+    .sign-out-btn {
+        border-radius: 6px;
+        background-color: #F6F6F8;
+        z-index: 10;
+        display: flex;
+        margin-top: -64px;
+        align-items: center;
+        gap: 9px;
+        justify-content: center;
+        padding: 12px;
+        position: fixed;
+        bottom: 2px;
+        width: 12%;
+        margin-left: 10px;
+        border: white;
+    }
+
+
+
+
+    .main-section {
+        width: 82%;
+        margin-left: 20px;
+    }
+
+    .user-actions {
+        display: flex;
+        gap: 15px;
+        margin: auto;
+        /* width: 26%; */
+        position: absolute;
+        right: 28px;
+        top: 15px;
+    }
+
+    .top-bar {
+        background-color: #fff;
+        box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.05);
+        display: flex;
+        width: 100%;
+        gap: 20px;
+        /* gap: 20px; */
+        /* flex-wrap: wrap; */
+        /* justify-content: space-between; */
+        /* padding: 11px 38px; */
+        position: fixed;
+        /* width: 119%; */
+        z-index: 10;
+    }
+
+
+
+    .sidebar {
+        /* height: 100vh;
+            position: relative;
+            overflow-y: auto;
+            overflow-x: hidden;*/
+
+        height: 85vh;
+        /*position: fixed;*/
+        overflow-y: auto;
+        overflow-x: hidden;
+        margin-top: 74px;
+        width: 205px;
+    }
+
+        .sidebar::-webkit-scrollbar {
+            width: 5px;
+
+            height: 85vh;
+            position: fixed;
+            overflow-y: auto;
+            overflow-x: hidden;
+            margin-top: 74px;
+              width:15%
+
+        }
+
+        /* Track */
+        .sidebar::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px grey;
+            border-radius: 10px;
+            position: absolute;
+        }
+
+        /* Handle */
+        .sidebar::-webkit-scrollbar-thumb {
+            background: #68AAEA;
+            border-radius: 10px;
+            position: absolute;
+        }
+
+            /* Handle on hover */
+            .sidebar::-webkit-scrollbar-thumb:hover {
+                background: #68AAEA;
+
+            /* Handle */
+            .sidebar::-webkit-scrollbar-thumb {
+                /*background: #68AAEA;*/
+                  background: #efefef;    
+                border-radius: 10px;
+
+                position: absolute;
+            }
+</style>
+
+<aside class="sidebar">
+    <nav class="sidebar-content">
+        <ul class="nav-list">
+            @if (ViewContext.Controller.HasRoles("Admin") || ViewContext.Controller.HasRoles("Scheduler") || ViewContext.Controller.IsSysAdmin() || ViewContext.Controller.HasRoles("OrgSuperAdmin"))
+            {
+                <li class="nav-item @(GetActiveClass("chart", "Index"))" id="listItems">
+                    <a href="@Url.Action("Index", "Chart")">
+                        <img src="~/Content/LeftMenuLogo/dashboard.svg" alt="~/Content/LeftMenuLogo/dashboard-alt-Icon.svg" class="nav-icon" />
+                        <span style="margin-left:6px">Dashboard</span>
+                    </a>
+                </li>
+            }
+
+            @if (ViewContext.Controller.HasRoles("Admin") || ViewContext.Controller.HasRoles("Scheduler") || ViewContext.Controller.IsSysAdmin() && Session["role"].ToString() != "SuperAdminPatientApp" || ViewContext.Controller.HasRoles("OrgSuperAdmin"))
+            {
+                <li class="nav-item @(GetActiveClass("Patients", "Patients"))">
+                    <a href="@Url.Action("Patients", "Patients")">
+                        <img src="~/Content/LeftMenuLogo/patientMenu.svg" alt="~/Content/LeftMenuLogo/patient-alt-Icon.svg" class="nav-icon" />
+                        <span style="margin-left:6px">Patients</span>
+                    </a>
+                </li>
+            }
+
+            @if (!ViewContext.Controller.HasRoles("NurseCoordinator") && !ViewContext.Controller.HasRoles("Nurse") && Session["role"].ToString() != "SuperAdminPatientApp" && !ViewContext.Controller.HasRoles("MarketingSuperAdmin"))
+            {
+                <li class="nav-item @(GetActiveClass("PatientRequest", "PatientRequest"))">
+                    <a href="@Url.Action("PatientRequest", "PatientRequest")">
+                        <img src="~/Content/LeftMenuLogo/ScheduleAppointment.svg" alt="~/Content/LeftMenuLogo/Appointment-alt-Icon.svg" class="nav-icon" />
+                        <span style="margin-left:6px">Appointments</span>
+                    </a>
+                </li>
+            }
+
+
+            @if (ViewContext.Controller.HasRoles("Admin"))
+            {
+                <li class="nav-item @(GetActiveClass("PatientRequest", "PatientRequestManualEntry"))">
+                    <a href="@Url.Action("PatientRequestManualEntry", "PatientRequest")">
+                        <img src="~/Content/LeftMenuLogo/ScheduleAppointment.svg" alt="~/Content/LeftMenuLogo/Appointment-alt-Icon.svg" class="nav-icon" />
+                        <span style="margin-left:6px;">Pending Approvals</span>
+                    </a>
+                </li>
+            }
+
+
+            @*@if (ViewContext.Controller.HasRoles("Admin") || ViewContext.Controller.HasRoles("SuperAdmin"))
+        {
+            <li class="nav-item @(GetActiveClass("PatientRequest", "PatientRequestManualEntry"))">
+                <a href="@Url.Action("PatientRequestManualEntry", "PatientRequest")">
+                    <img src="~/Content/LeftMenuLogo/ScheduleAppointment.svg" alt="" class="nav-icon" />
+                    <span>Pending Approvals</span>
+                </a>
+            </li>
+        }*@
+
+
+            @if (!ViewContext.Controller.HasRoles("NurseCoordinator") && !ViewContext.Controller.HasRoles("Nurse") && Session["role"].ToString() != "SuperAdminPatientApp" && !ViewContext.Controller.HasRoles("MarketingSuperAdmin"))
+            {
+                <li class="nav-item @(GetActiveClass("CareGiver", "CareGiver"))">
+                    <a href="@Url.Action("CareGiver", "CareGiver")">
+                        <img src="~/Content/LeftMenuLogo/Caregiver.svg" alt="~/Content/LeftMenuLogo/Caregiver-alt-Icon.svg" class="nav-icon" />
+                        <span style="margin-left:6px">Caregiver</span>
+                    </a>
+                </li>
+            }
+
+
+            @if (ViewContext.Controller.HasRoles("SuperAdmin") || ViewContext.Controller.IsSysAdmin() && Session["role"].ToString() != "SuperAdminPatientApp" || ViewContext.Controller.HasRoles("OrgSuperAdmin"))
+            {
+                <li class="nav-item @(GetActiveClass("Admin", "Admin"))">
+                    <a href="@Url.Action("Admin", "Admin")">
+                        <img src="~/Content/LeftMenuLogo/OfficeManager.svg" alt="~/Content/LeftMenuLogo/OfficeManager-alt-Icon.svg" class="nav-icon" />
+                        <span style="margin-left:6px">Office Manager</span>
+                    </a>
+                </li>
+            }
+
+
+            @if (ViewContext.Controller.HasRoles("SuperAdmin") || ViewContext.Controller.HasRoles("Admin") || ViewContext.Controller.IsSysAdmin() || ViewContext.Controller.HasRoles("Scheduler") && Session["role"].ToString() != "SuperAdminPatientApp" || ViewContext.Controller.HasRoles("OrgSuperAdmin"))
+            {
+                <li class="nav-item @(GetActiveClass("Schedulers", "Schedulers"))">
+                    <a href="@Url.Action("Schedulers", "Schedulers")">
+                        <img src="~/Content/LeftMenuLogo/Scheduler.svg" alt="~/Content/LeftMenuLogo/Scheduler-alt-Icon.svg" class="nav-icon" />
+                        <span style="margin-left:6px">Schedulers</span>
+                    </a>
+                </li>
+            }
+
+
+            @if (ViewContext.Controller.HasRoles("SuperAdmin") && Session["role"].ToString() != "SuperAdminPatientApp")
+            {
+                <li class="nav-item @(GetActiveClass("Services", "Services"))">
+                    <a href="@Url.Action("Services", "Services")">
+                        <img src="~/Content/LeftMenuLogo/ServiceType.svg" alt="~/Content/LeftMenuLogo/ServiceType-alt-Icon.svg" class="nav-icon" />
+                        <span style="margin-left:6px">Speciality Types</span>
+                    </a>
+                </li>
+                <li class="nav-item @(GetActiveClass("VisitType", "VisitList"))">
+                    <a href="@Url.Action("VisitList", "VisitType")">
+                        <img src="~/Content/LeftMenuLogo/ServiceType.svg" alt="~/Content/LeftMenuLogo/ServiceType-alt-Icon.svg" class="nav-icon" />
+                        <span style="margin-left:6px">Visit Types</span>
+                    </a>
+                </li>
+            }
+
+            @if (Session["role"].ToString() != "SuperAdminPatientApp" && !ViewContext.Controller.HasRoles("MarketingSuperAdmin") && ViewContext.Controller.HasRoles("OrgSuperAdmin") || ViewContext.Controller.HasRoles("SuperAdmin"))
+            {
+                <li class="nav-item @(GetActiveClass("AttendanceManagement", "AttendanceList"))">
+                    <a href="@Url.Action("AttendanceList", "AttendanceManagement")">
+                        <img src="~/Content/LeftMenuLogo/AttendanceList.svg" alt="~/Content/LeftMenuLogo/AttendanceList-alt-Icon.svg" class="nav-icon" />
+                        <span>Attendance List</span>
+                    </a>
+                </li>
+            }
+
+            @if (Session["UserId"].ToString() != "d2c622b6-4b85-491b-a7d3-6cab91fd4dba")
+            {
+                if (Session["IsOfficePermission"].ToString() == "True" && Session["IsAllowOneToOneChat"].ToString() == "True" || ViewContext.Controller.HasRoles("OrgSuperAdmin") || ViewContext.Controller.HasRoles("SuperAdmin"))
+                {
+                    <li class="nav-item @(GetActiveClass("Chatting", "OneToOneChat"))">
+                        <a href="@Url.Action("OneToOneChat", "Chatting")">
+                            <img src="~/Content/LeftMenuLogo/PersonalChat.svg" alt="~/Content/LeftMenuLogo/OnetoOnechat-alt-Icon.svg" class="nav-icon" />
+                            <span style="margin-left:6px">Personal Chat</span>
+                        </a>
+                    </li>
+                }
+            }
+
+            @if (Session["IsOfficePermission"].ToString() == "True" && Session["IsAllowForPatientChatRoom"].ToString() == "True" && Session["role"].ToString() != "SuperAdminPatientApp")
+            {
+                <li class="nav-item @(GetActiveClass("Chatting", "PatientChatRoom"))">
+                    <a href="@Url.Action("PatientChatRoom", "Chatting")">
+                        <img src="~/Content/LeftMenuLogo/PatientChat.svg" alt="~/Content/LeftMenuLogo/PatientChat-alt-Icon.svg" class="nav-icon" />
+                        <span style="margin-left:6px">Patient Chat</span>
+                    </a>
+                </li>
+            }
+
+            @if (Session["IsOfficePermission"].ToString() == "True" && Session["IsAllowGroupChat"].ToString() == "True" && Session["role"].ToString() != "SuperAdminPatientApp" && ViewContext.Controller.HasRoles("OrgSuperAdmin"))
+            {
+                <li class="nav-item @(GetActiveClass("Chatting", "GroupChat"))">
+                    <a href="@Url.Action("GroupChat", "Chatting")">
+                        <img src="~/Content/LeftMenuLogo/GroupChat.svg" alt="~/Content/LeftMenuLogo/GroupChat-alt-Icon.svg" class="nav-icon" />
+                        <span style="margin-left:6px">Group Chat</span>
+                    </a>
+                </li>
+            }
+
+            @if ((ViewContext.Controller.IsSysAdmin() || ViewContext.Controller.HasRoles("Admin") || ViewContext.Controller.HasRoles("OrgSuperAdmin")) && Session["role"].ToString() != "SuperAdminPatientApp")
+            {
+                <li class="nav-item @(GetActiveClass("NurseCoordinator", "NurseCoordinator"))">
+                    <a href="@Url.Action("NurseCoordinator", "NurseCoordinator")">
+                        <img src="~/Content/LeftMenuLogo/OfficeStaff.svg" alt="~/Content/LeftMenuLogo/OfficeManager-alt-Icon.svg" class="nav-icon" />
+                        <span style="margin-left:6px">Office Staff</span>
+                    </a>
+                </li>
+            }
+
+            @if (ViewContext.Controller.IsSysAdmin() && Session["role"].ToString() != "SuperAdminPatientApp" || ViewContext.Controller.HasRoles("OrgSuperAdmin"))
+            {
+                <li class="nav-item @(GetActiveClass("Office", "Office"))">
+                    <a href="@Url.Action("Office", "Office")">
+                        <img src="~/Content/LeftMenuLogo/Office.svg" alt="~/Content/LeftMenuLogo/Office-alt-Icon.svg" class="nav-icon" />
+                        <span style="margin-left:6px">Manage Office</span>
+                    </a>
+                </li>
+            }
+
+            @if (ViewContext.Controller.IsSysAdmin() && ViewContext.Controller.HasPermission("Organisation-Module"))
+            {
+                <li class="nav-item @(GetActiveClass("Organisation", "Organisation"))">
+                    <a href="@Url.Action("Organisation", "Organisation")">
+                        <img src="~/Content/LeftMenuLogo/Office.svg" alt="~/Content/LeftMenuLogo/Office-alt-Icon.svg" class="nav-icon" />
+                        <span style="margin-left:6px">Manage Organisation</span>
+                    </a>
+                </li>
+            }
+
+
+
+
+            @if (ViewContext.Controller.HasRoles("MarketingSuperAdmin"))
+            {
+                <li class="nav-item @(GetActiveClass("Client", "Index"))">
+                    <a href="@Url.Action("Index", "Client")">
+                        <img src="~/Content/LeftMenuLogo/patientMenu.svg" alt="" class="nav-icon" />
+                        <span style="margin-left:6px">Client</span>
+                    </a>
+                </li>
+
+
+                <li class="nav-item @(GetActiveClass("Marketings", "Marketings"))">
+                    <a href="@Url.Action("Marketings", "Marketings")">
+                        <img src="~/Content/LeftMenuLogo/Caregiver.svg" alt="" class="nav-icon" />
+                        <span style="margin-left:6px">Marketers</span>
+                    </a>
+                </li>
+
+                <li class="nav-item @(GetActiveClass("ClientRequest", "ClientRequest"))">
+                    <a href="@Url.Action("ClientRequest", "ClientRequest")">
+                        <img src="~/Content/LeftMenuLogo/ScheduleAppointment.svg" alt="" class="nav-icon" />
+                        <span style="margin-left:6px">Schedule Appointment List</span>
+                    </a>
+                </li>
+
+                <li class="nav-item @(GetActiveClass("MarketingClientAttendance", "MarketingAttendanceList"))">
+                    <a href="@Url.Action("MarketingAttendanceList", "MarketingClientAttendance")">
+                        <img src="~/Content/LeftMenuLogo/AttendanceList.svg" alt="" class="nav-icon" />
+                        <span>Attendance List</span>
+                    </a>
+                </li>
+            }
+
+
+            @*<a href="@Url.Action("Logout", "Account")" style="margin-left: 5px;">*@
+            <button class="sign-out-btn">
+                <img src="~/Content/LeftMenuLogo/SignOut.svg" alt="" class="nav-icon" />
+                <span>Sign Out</span>
+            </button>
+            @*</a>*@
+
+        </ul>
+
+    </nav>
+
+
+    @*<div class="row">
+            <div class="col-lg-12">
+                <a href="@Url.Action("Logout", "Account")">
+                    <button class="sign-out-btn">
+                        <img src="~/Content/LeftMenuLogo/SignOut.svg" alt="" class="nav-icon" />
+                        <span>Sign Out</span>
+                    </button>
+                    </a>
+            </div>
+        </div>*@
+
+
+</aside>
+
+
+
+@*<div id="deleteModal" style="display:none;">*@
+<div class="modal fade" id="LogoutModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" id="modalAddPopup">
+        <div class="modal-content" style="width: 366px; height: 159px; border-radius: 8px; bottom: -151px;">         
+            <p style="padding: 35px; margin-left:-22px; font-style: normal; font-size: 15px;"><strong style="font-weight: 800; color: #1B4066;">Are you sure you want sign out?.</strong></p>
+            <button class="btn-Cancel" style="padding-bottom: 0px; margin-left: 111px; display: flex; width: 111px; padding: 10px 12px; justify-content: center; align-items: center; gap: 10px; border-radius: 6px; border: 1px solid #1B4066; background-color: #FFF; color:#1B4066 ">No, Go Back</button>
+            <button class="btn-Logout" style="margin-left: 242px; display: flex; width: 111px; padding: 11px 12px; justify-content: center; align-items: center; gap: 12px; margin-top: -44px; background-color: #092C44; color: white; border-radius: 6px;">Yes</button>
+
+        </div>
+    </div>
+</div>
+@*</div>*@
+
+
+<script>
+
+
+
+
+
+
+
+    $(document).ready(function () {
+
+
+
+        //function OpenAssignGroupModal(userid, FirstName, LastName, quickbloxid, email) {
+        //    $("#loading").show();
+        //    debugger;
+        //    var name = FirstName + ' ' + LastName;
+        //    var url = INITURL + 'Admin/AssignGroup?UserId=' + userid + '&Name=' + name + '&QuickBloxId=' + quickbloxid + '&Email=' + email;
+        //    $('#AssignGroupToAdmin').load(encodeURI(url), function () {
+        //        sessionStorage.setItem("PartialView", "1");
+        //        $('#modalGroupAssignment').modal('show');
+        //        $("#loading").hide();
+        //    });
+        //}
+
+
+        $(".sign-out-btn").click(function () {
+
+            sessionStorage.setItem("PartialView", "1");
+            $('#LogoutModel').modal('show');
+           /* $("#loading").hide();*/
+
+        });
+
+
+        $('.btn-Logout').click(function () {
+            debugger;
+            window.location.href = '/Account/Logout';
+        });
+
+
+      
+        $('.btn-Cancel').click(function () {
+            debugger;
+            $('#LogoutModel').modal('hide'); // Close pop-up without action
+        });
+
+
+        // Bind hover event for list items
+        $('.sidebar-content .nav-list > li').hover(
+            function () {
+                // On hover in: Change the src to the one in the alt attribute if not active
+                if (!$(this).hasClass('active')) {
+                    var imgElement = $(this).find('img'); // Find the child img element
+                    var newSrc = INITURL + imgElement.attr('alt'); // Get new src from alt
+
+                    // Store the original src in a data attribute for future use
+                    $(this).data('original-src', imgElement.attr('src')); // Save original src
+
+                    // Change the img src to the new src
+                    imgElement.attr('src', newSrc);
+                }
+            },
+            function () {
+                // On hover out: Revert back to the original src if not active
+                if (!$(this).hasClass('active')) {
+                    var imgElement = $(this).find('img'); // Find the child img element
+                    var originalSrc = $(this).data('original-src'); // Retrieve original src from data attribute
+
+                    // Change the img src back to the original
+                    imgElement.attr('src', originalSrc);
+                }
+            }
+        );
+
+        $('.sign-out-btn').hover(
+            function () {
+                // On hover in: Change the src to the one in the alt attribute if not active
+                if (!$(this).hasClass('active')) {
+                    var imgElement = $(this).find('img'); // Find the child img element
+                    var newSrc = INITURL + imgElement.attr('alt'); // Get new src from alt
+
+                    // Store the original src in a data attribute for future use
+                    $(this).data('original-src', imgElement.attr('src')); // Save original src
+
+                    // Change the img src to the new src
+                    imgElement.attr('src', newSrc);
+                }
+            },
+            function () {
+                // On hover out: Revert back to the original src if not active
+                if (!$(this).hasClass('active')) {
+                    var imgElement = $(this).find('img'); // Find the child img element
+                    var originalSrc = $(this).data('original-src'); // Retrieve original src from data attribute
+
+                    // Change the img src back to the original
+                    imgElement.attr('src', originalSrc);
+                }
+            }
+        );
+
+
+        $('.sidebar-content .nav-list > li').click(function () {
+            debugger;
+            var originalSrc = $(this).data('original-src');
+            var imgElement = $(this).find('img');
+
+            //$('.sidebar-content .nav-list > li').removeClass();
+
+            //$('.sidebar-content .nav-list > li').addClass('active');
+
+
+            var newSrc = INITURL + imgElement.attr('alt');
+            //$(this).attr('alt');
+
+            // Toggle active class
+            if ($(this).hasClass('active')) {
+                $(this).attr('src', originalSrc).removeClass('active'); // Revert to original
+            } else {
+                $(this).attr('src', newSrc).addClass('active'); // Keep the alt image
+            }
+        });
+
+
+    });
+
+
+
+
+
+</script>
+

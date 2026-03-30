@@ -1,0 +1,390 @@
+﻿@model CaregiverLite.Models.AttendanceManagementDetail
+
+
+<style>
+    #ui-datepicker-div {
+        z-index: 10000 !important;
+    }
+
+    .form-calender {
+        padding: 0 15px;
+    }
+
+    .formtopmargin {
+        margin-top: 6px;
+        border-radius: 5px;
+    }
+</style>
+
+
+<script>
+    $(function () {
+        var dateFormat = "mm/dd/yy",
+          from = $("#FromDatePayroll")
+            .datepicker({
+                defaultDate: "+1w",
+                changeMonth: true,
+                numberOfMonths: 1,
+                maxDate: new Date()
+
+            })
+            .on("change", function () {
+                //toMinDate.setDate(toMinDate.getDate() - 365);
+                to.datepicker("option", "minDate", getDate(this));
+            }),
+          to = $("#ToDatePayroll").datepicker({
+              defaultDate: "+1w",
+              changeMonth: true,
+              numberOfMonths: 1,
+              maxDate: new Date(),
+              minDate: $("#FromDatePayroll").val()
+
+          })
+          .on("change", function () {
+              // var fromMaxDate = $("#FromDate").val();
+              //fromMaxDate.setDate(fromMaxDate.getDate() - 1);
+              to.datepicker("option", "minDate", getDate(this));
+          });
+
+        function getDate(element) {
+            var date;
+            try {
+                date = $.datepicker.parseDate(dateFormat, element.value);
+            } catch (error) {
+                date = null;
+            }
+
+            return date;
+        }
+
+        //$(function () {
+        //var ddlCustomers = $("#ddlOffices");
+        //ddlCustomers.empty().append('<option selected="selected" value="0" disabled = "disabled">Loading.....</option>');
+        var optionsContainer = $("#optionsContainerPayroll");
+        optionsContainer.append(`<label><input type="checkbox" value="0" /> All </label>`);
+        $.ajax({
+            type: "POST",
+            url: "/AttendanceManagement/ListOffices",
+            data: '{}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                optionsContainer.empty(); // Clear loading
+
+                // ✅ Append "All" checkbox first
+                optionsContainer.append(`
+            <label>
+                <input type="checkbox" value="0" onchange="toggleAll(this)" /> All
+            </label>
+        `);
+
+                $.each(response, function () {
+                    var value = this['Value'];
+                    var text = this['Text'];
+
+                    var checkbox = `
+                <label>
+                    <input type="checkbox" value="${value}" onchange="updateHeader()"> ${text}
+                </label>
+            `;
+                    optionsContainer.append(checkbox);
+                });
+                //ddlCustomers.empty().append('<option selected="selected" value="0">All</option>');
+                //$.each(response, function () {
+                //    ddlCustomers.append($("<option></option>").val(this['Value']).html(this['Text']));
+                //});
+
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        });
+    //});
+
+
+
+
+
+    });
+
+
+</script>
+
+@using (Html.BeginForm("GeneratePayrollExport", "AttendanceManagement", FormMethod.Post, new { @id = "fmPayrollGenerateReport", @class = "horizontal-form", @enctype = "multipart/form-data" }))
+{
+    <div id="main_div" class="Edit_div">
+        <div class="alert alert-danger alert-dismissable" style="display:none" id="dvError3">
+            <button onclick="divClose();" class="close" type="button">×</button>
+            <label id="lblError3"></label>
+        </div>
+        <div class="row form-calender">
+            <div class="col-md-6">
+                @*Date*@
+                <div class="form-group">
+                    <label>From Date</label>
+                    <span style="color:red;">*</span>
+                    @*@Html.ValidationMessageFor(model => model.Date)*@
+                    @Html.TextBoxFor(model => model.FromDate, new { @id = "FromDatePayroll", @class = "form-control clsDatePicker formtopmargin", @data_toggle = "dropdown", @placeholder = "DD-MM-YYYY", onkeydown = "return false", autocomplete = "off", @tabindex = "8" })
+                    <label id="lblFromDate"></label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label>To Date</label>
+                <span style="color:red;">*</span>
+                @Html.TextBoxFor(model => model.ToDate, new { @id = "ToDatePayroll", @class = "form-control clsDatePicker formtopmargin", @data_toggle = "dropdown", @placeholder = "DD-MM-YYYY", onkeydown = "return false", autocomplete = "off", @tabindex = "8" })
+                <label id="lblToDate"></label>
+            </div>
+        </div>
+        <div class="col-md-6">
+
+            <div>
+                <label>Offices :</label>
+                <div class="multi-select-dropdown" id="multiDropdownPayroll">
+                    <div class="dropdown-header" id="dropdownHeaderPayroll" onclick="toggleDropdown()">
+                        Select Options
+                    </div>
+
+                    <div class="dropdown-list" id="dropdownListPayroll">
+                        <div id="optionsContainerPayroll">
+
+                        </div>
+
+                        @*<div class="apply-button">
+                    <button onclick="applySelection()">Apply</button>
+                </div>*@
+                    </div>
+                </div>
+                 @*<select id="ddlOffices" class="form-control customdropDown formtopmargin" style="border-radius:5px"></select>*@
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group" style="margin-top: 34px;margin-left: 26px;">
+                @*<label>
+                        @Html.CheckBox("chkDrivetime", false, new { @id = "chkDrivetime" })
+                        Include Total Drive Time, Mileage
+                    </label>
+                    <input type="hidden" id="chkDrivetimeValue" name="chkDrivetimeValue" value="false">*@
+
+                <div class="form-group">
+                    <label>
+                        @Html.CheckBox("chkDrivetime", false, new { @id = "chkDrivetime" })
+                        Include Total Drive Time, Mileage
+                    </label>
+                    <p id="chkDriveTimeError"></p>
+                    <input type="hidden" id="chkDrivetimeValue" name="chkDrivetimeValue" value="false">
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <button type="button" href="javascript:void(0)" onclick="PayrollExportPdf();" class="btn btn-sm btn-primary pull-right" tabindex="10">Export</button>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+
+
+    <div class="col-md-12">
+        <div class="clearfix"></div>
+    </div>
+}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#chkDrivetime').change(function () {
+            if ($(this).is(':checked')) {
+                $('#chkDrivetimeValue').val('true'); // Set hidden field to true
+                console.log('Checkbox checked: TRUE');
+            } else {
+                $('#chkDrivetimeValue').val('false'); // Set hidden field to false
+                console.log('Checkbox unchecked: FALSE');
+            }
+        });
+    });
+
+        $(".loading").show();
+
+
+
+    debugger;
+    //alert($('#chkDrivetime:checked').val());
+
+    //if ($('chkDrivetime:checked').val() != 1) {
+    //    $('#chkDriveTimeError').html('PLease select group.');
+    //}
+    //else {
+    //    alert($('#chkDrivetime:checked').val());
+    //    $('#chkDriveTimeError').text('');
+    //}
+
+    function PayrollExportPdf() {
+     
+        var FromDate = $("#FromDatePayroll").val();
+        var ToDate = $("#ToDatePayroll").val();
+        //var OfficeId = $("#ddlOffices").val();
+        var officeId = GetSelectedOfficeValue();
+        if (officeId == 'None') {
+            toastr.error("Please select  Office.");
+            $("#loading").hide();
+            return false;
+        }
+        var checkboxdata = $("#chkDrivetimeValue").val();
+
+        debugger;
+        if (FromDate == "" && ToDate == "") {
+            toastr.error("Please select required field.");
+            $("#loading").hide();
+            return false;
+        }
+        else if (FromDate == "") {
+            toastr.error("Please select from date.");
+            $("#loading").hide();
+            return false;
+        }
+        else if (ToDate=="") {
+            toastr.error("Please select to date.");
+            $("#loading").hide();
+            return false;
+        }
+
+
+
+
+
+        //$(".loading").show();
+       // debugger;
+       // var url = '@Url.Action("GeneratePayrollExport", "AttendanceManagement")';
+        var url = '@Url.Action("GeneratePayrollExportOfOffices", "AttendanceManagement")';
+
+        $('#loading').show();
+
+       // var url = "http://localhost:15177/AttendanceManagement/GenerateReportAction";
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: { FromDate: FromDate, ToDate: ToDate, OfficeId: officeId, checkboxdata: checkboxdata },
+            success: function (res) {
+                $(".loading").hide();
+                if (res) {
+                    debugger
+                    var filename = res;
+                    var iframe = document.createElement("iframe");
+                    iframe.src = filename;
+                    iframe.style.display = 'none';
+                    document.body.appendChild(iframe);
+                    toastr.success("successfully export.");
+
+                }
+                else {
+                    toastr.warning("No File Exported!");
+                }
+               // $('#myModal3').modal('hide');
+
+			   window.location.reload();
+            },
+            error: function (reponse) {
+                alert("error : " + JSON.stringify(reponse));
+                $(".loading").hide();
+            }
+        });
+
+
+        $('#fmPayrollGenerateReport').submit(function () {
+            debugger;
+            var isChecked = $('#chkDrivetime').is(':checked');
+            $('#chkDrivetimeValue').val(isChecked); // Ensure hidden field has the correct value
+        });
+
+        //if($("#fmGenerateReport").valid())
+        //{
+        //    $("#fmGenerateReport").submit();
+        //}
+
+
+        }
+
+
+
+</script>
+<script>
+  function toggleDropdown() {
+    document.getElementById("dropdownListPayroll").classList.toggle("show");
+  }
+
+  function updateHeader() {
+    const checkboxes = document.querySelectorAll('#dropdownListPayroll input[type="checkbox"]');
+    const selected = Array.from(checkboxes)
+      .filter(cb => cb.checked)
+      .map(cb => cb.parentElement.textContent.trim());
+
+    const header = document.getElementById("dropdownHeaderPayroll");
+
+    if (selected.length === 0) {
+      header.textContent = "Select Options";
+    } else if (selected.length <= 5) {
+      header.textContent = selected.join(', ');
+    } else {
+      const shown = selected.slice(0, 5).join(', ');
+      const moreCount = selected.length - 5;
+      header.textContent = `${shown}, +${moreCount}`;
+    }
+  }
+
+  function GetSelectedOfficeValue() {
+    const allCheckbox = document.querySelector('#optionsContainerPayroll input[type="checkbox"][value="0"]');
+    if (allCheckbox && allCheckbox.checked) {
+      return '0'; // Return only '0' if "All" is selected
+    }
+
+    const checkboxes = document.querySelectorAll('#dropdownListPayroll input[type="checkbox"]:not([value="0"])');
+    const selected = Array.from(checkboxes)
+      .filter(cb => cb.checked)
+      .map(cb => cb.value);
+
+    return selected.length > 0 ? selected.join(',') : 'None';
+  }
+
+  function toggleAll(allCheckbox) {
+    const isChecked = allCheckbox.checked;
+
+    // Toggle all other checkboxes
+    document.querySelectorAll('#optionsContainerPayroll input[type="checkbox"]:not([value="0"])')
+      .forEach(cb => cb.checked = isChecked);
+
+    updateHeader();
+  }
+
+  // Uncheck "All" if any individual checkbox is unchecked
+  document.addEventListener('change', function (e) {
+    if (e.target.matches('#optionsContainerPayroll input[type="checkbox"]:not([value="0"])')) {
+      const allCheckbox = document.querySelector('#optionsContainerPayroll input[type="checkbox"][value="0"]');
+
+      if (!e.target.checked && allCheckbox.checked) {
+        allCheckbox.checked = false;
+      }
+
+      // Optionally re-check "All" if all individual checkboxes are now selected
+      const otherCheckboxes = document.querySelectorAll('#optionsContainerPayroll input[type="checkbox"]:not([value="0"])');
+      const allChecked = Array.from(otherCheckboxes).every(cb => cb.checked);
+      if (allChecked) {
+        allCheckbox.checked = true;
+      }
+
+      updateHeader();
+    }
+  });
+
+  // Close dropdown if clicking outside
+  window.addEventListener("click", function (e) {
+    const dropdown = document.getElementById("multiDropdownPayroll");
+    if (!dropdown.contains(e.target)) {
+      document.getElementById("dropdownListPayroll").classList.remove("show");
+    }
+  });
+</script>

@@ -1,0 +1,712 @@
+﻿@model CaregiverLite.Models.CareGiverModel
+<style>
+    .clsDatePicker {
+        z-index: 100000;
+    }
+
+    #ui-datepicker-div {
+        z-index: 1003;
+    }
+
+    .field-validation-error {
+        color: red;
+        float: right;
+    }
+
+    #main_div .form-group .form-control {
+        margin-top: 5px;
+    }
+
+    #main_div .form-control {
+        border-radius: 5px;
+    }
+</style>
+
+<div id="main_div">
+    @using (Html.BeginForm("AddCareGiver", "CareGiver", FormMethod.Post, new { @id = "fmAddCareGiver", @class = "horizontal-form", @enctype = "multipart/form-data", @autocomplete = "off" }))
+    {
+        <div class="alert alert-danger alert-dismissable" style="display:none" id="dvError3">
+            <button onclick="divClose();" class="close" type="button">×</button>
+            <label id="lblError3"></label>
+        </div>
+        <div class="col-md-6">
+            @Html.HiddenFor(model => model.HoursRate, new { @id = "hdnHoursRate" })
+            @Html.HiddenFor(model => model.ChargeToPatient, new { @id = "hdnChargeToPatient" })
+            @Html.HiddenFor(model => model.ServiceNames, new { @id = "hdnServices" })
+
+
+            @Html.HiddenFor(model => model.Address, new { @id = "hdnAddress" })
+
+            @Html.HiddenFor(model => model.QuickBloxId)
+            @Html.HiddenFor(model => model.Password, new { @id = "Password" })
+            <div class="form-group">
+                <label>First Name</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.FirstName)
+                @Html.TextBoxFor(model => model.FirstName, new
+           {
+               @type = "text",
+               @maxlength = "100",
+               @placeholder = "Enter First Name",
+               @class = "form-control",
+               @onkeypress = "javascript:return isCharacter(event)"
+           })
+            </div>
+
+            <div class="form-group">
+                <label>Last Name</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.LastName)
+                @Html.TextBoxFor(model => model.LastName, new
+           {
+               @type = "text",
+               @maxlength = "100",
+               @placeholder = "Enter Last Name",
+               @class = "form-control",
+               @onkeypress = "javascript:return isCharacter(event)"
+           })
+            </div>
+            <div class="form-group">
+                <label style="margin-bottom: 5px;">@CaregiverLite.Views.Resources.CareGiver.LabelHeaderServices</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.ServiceNames)
+                <div class="form-group">
+                    @Html.DropDownList("ddlService", new MultiSelectList(@ViewBag.ServiceList, "ServiceId", "ServiceName"), new { @multiple = "multiple", @class = "chosen-select" })
+                    @Html.HiddenFor(model => model.ServiceNames, new { @id = "hdnServices" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label>@CaregiverLite.Views.Resources.CareGiver.TableHeaderEmail</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.Email)
+                @Html.TextBoxFor(model => model.Email, new { @type = "email", @maxlength = "100", @placeholder = @CaregiverLite.Views.Resources.CareGiver.PlaceHolderEmail, @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>@CaregiverLite.Views.Resources.CareGiver.TableHeaderUserName</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.Username)
+                @Html.TextBoxFor(model => model.Username, new { @type = "text", @maxlength = "256", @placeholder = @CaregiverLite.Views.Resources.CareGiver.PlaceHolderUserName, @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>@CaregiverLite.Views.Resources.CareGiver.TableHeaderStreet</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.Street)
+                @Html.TextBoxFor(model => model.Street, new { @type = "text", @placeholder = @CaregiverLite.Views.Resources.CareGiver.PlaceHolderStreet, @class = "form-control", @onkeypress = "javascript:return isSpecialChar(event)", @onchange = "GetLanLat()" })
+            </div>
+            <div class="form-group">
+                <label>@CaregiverLite.Views.Resources.CareGiver.TableHeaderCity</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.City)
+                @Html.TextBoxFor(model => model.City, new { @type = "text", @placeholder = @CaregiverLite.Views.Resources.CareGiver.PlaceHolderCity, @class = "form-control", @onchange = "GetLanLat()" })
+            </div>
+            <div class="form-group">
+                <label>@CaregiverLite.Views.Resources.CareGiver.TableHeaderState</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.State)
+                @Html.TextBoxFor(model => model.State, new { @type = "text", @placeholder = @CaregiverLite.Views.Resources.CareGiver.PlaceHolderState, @class = "form-control", @onchange = "GetLanLat()" })
+            </div>
+            <div class="form-group">
+                <label>@CaregiverLite.Views.Resources.CareGiver.TableHeaderZipCode</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.ZipCode)
+                @Html.TextBoxFor(model => model.ZipCode, new { @type = "text", @maxlength = "10", @placeholder = @CaregiverLite.Views.Resources.CareGiver.PlaceHolderZipCode, @class = "form-control", @onchange = "GetLanLat()" })
+            </div>
+            <div class="form-group">
+                <label>@CaregiverLite.Views.Resources.CareGiver.TableHeaderEducation</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.Education)
+                @Html.TextBoxFor(model => model.Education, new { @type = "text", @placeholder = @CaregiverLite.Views.Resources.CareGiver.PlaceHolderEducation, @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="exampleInputFile"> Upload Profile Image</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.ProfileImage)
+                @Html.HiddenFor(model => model.ProfileImage, new { @id = "hdnProfileImage" })
+                @Html.TextBoxFor(model => model.ProfileImageFile, new { @type = "file", @class = "form-control", @accept = "image/*" })
+                @*<input type="file" name="ProfileImageFile" id="ProfileImageFile" /><br><br>*@
+            </div>
+            <div class="form-group">
+                <label for="exampleInputFile"> Upload video</label>
+                @Html.ValidationMessageFor(model => model.ProfileVideo)
+                @Html.HiddenFor(model => model.ProfileVideo)
+                @Html.TextBoxFor(model => model.ProfileVideoFile, new { @type = "file", @class = "form-control file_div", @accept = "video/*", @id = "EditProfileImageFile" })
+            </div>
+            @*<div class="form-group">
+                    <label>@CaregiverLite.Views.Resources.CareGiver.TableHeaderHourRate</label>
+                    @Html.ValidationMessageFor(model => model.HoursRate)
+                    <div class="input-group" style="width:100%">
+                        <span class="input-group-addon">$</span>
+                        @Html.TextBoxFor(model => model.HoursRate, new { @type = "text", @maxlength = "6", @onkeypress = "return isNumberAndDot(event)", @placeholder = @CaregiverLite.Views.Resources.CareGiver.PlaceHolderHourRate, @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>To be charged to patient</label>
+                    @Html.ValidationMessageFor(model => model.ChargeToPatient)
+                    <div class="input-group" style="width:100%">
+                        <span class="input-group-addon">$</span>
+                        @Html.TextBoxFor(model => model.ChargeToPatient, new { @type = "text", @maxlength = "6", @onkeypress = "return isNumberAndDot(event)", @placeholder = "Enter To be charged to patient", @class = "form-control" })
+                    </div>
+                </div>*@
+            <div class="form-group">
+                <label>@CaregiverLite.Views.Resources.CareGiver.TableHeaderPhone</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.Phone)
+                <input type="text" style="display:none" />
+                @Html.TextBoxFor(model => model.Phone, new { @type = "text", @class = "form-control", autocomplete = "off", @maxlength = "100", @Style = "margin-top: -1px;", @onkeypress = "return isNumber(event)", @placeholder = @CaregiverLite.Views.Resources.CareGiver.PlaceHolderPhone })
+
+            </div>
+            @*<div class="form-group">
+                    <label>@CaregiverLite.Views.Resources.CareGiver.TableHeaderPassword</label>
+                    <span style="color:red;">*</span>
+                    @Html.ValidationMessageFor(model => model.Password)
+                    <input type="password" style="display:none" />
+                    @Html.TextBoxFor(model => model.Password, new { @type = "password", @class = "form-control", autocomplete = "off", @maxlength = "256", @placeholder = @CaregiverLite.Views.Resources.CareGiver.PlaceHolderPassword })
+                    <span style="position: absolute; right: 16px;height: 40px;">
+                        <i class="fa fa-eye btn btn-link" id="HidePassword" style="position: relative; top: -30px;display:none" aria-hidden="true"></i>
+                        <i class="fa fa-eye-slash btn btn-link" id="showPassword" style="position: relative; top: -30px;" aria-hidden="true"></i>
+                    </span>
+                </div>*@
+            <div class="form-group">
+                <label class="control-label">Service Radius</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.ServiceRadius)
+                @Html.HiddenFor(model => model.Latitude)
+                @Html.HiddenFor(model => model.Longitude)
+                <div style="padding:7px 0;" id="radiobutton">
+                    @*<label class="radio-inline">
+                            @Html.RadioButtonFor(model => model.ServiceRadius, "15", new { @value = "15", @type = "radio", @class = "radio-inline", @name = "inlineCheckbox" }) 15 Miles
+                        </label>
+                        <label class="radio-inline">
+                            @Html.RadioButtonFor(model => model.ServiceRadius, "30", new { @value = "30", @type = "radio", @class = "radio-inline", @name = "inlineCheckbox" }) 30 Miles
+                        </label>
+                        <label class="radio-inline">
+                            @Html.RadioButtonFor(model => model.ServiceRadius, "70", new { @value = "70", @type = "radio", @class = "radio-inline", @name = "inlineCheckbox" }) 70 Miles
+                        </label>*@
+
+                    @Html.DropDownListFor(model => model.ServiceRadius, ViewData["Radious"] as List<SelectListItem>, "Select service radius", new { @class = "form-control customdropDown", @Style = "margin-top: -3px;" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Office</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => Model.OfficeId)
+                @*@Html.DropDownList("OfficeId", (SelectList)ViewBag.OfficeDropDownList, "Select Office", new { @class = "form-control" })*@
+                @Html.DropDownList("OfficeId", (System.Web.Mvc.SelectList)ViewBag.lstOffice, "Select Office", new { @class = "form-control customdropDown", @Style = "margin-top: -1px;" })
+            </div>
+            <div class="form-group">
+                <label>Allow For One to One Chat</label>
+                <br>
+                @Html.CheckBoxFor(model => model.IsAllowOneToOneChat, new { @style = "transform: scale(1.5); margin-left: 10px;" })
+            </div>
+            <div class="form-group">
+                <label>Allow For Patient Chat Room </label>
+                <br>
+                @Html.CheckBoxFor(model => model.IsAllowPatientChatRoom, new { @style = "transform: scale(1.5); margin-left: 10px;" })
+            </div>
+            <div class="form-group">
+                <label>Allow For Group Chat </label>
+                <br>
+                @Html.CheckBoxFor(model => model.IsAllowGroupChat, new { @style = "transform: scale(1.5); margin-left: 10px;" })
+            </div>
+            <div class="form-group">
+                <label>Allow To Create Group Chat </label>
+                <br>
+                @Html.CheckBoxFor(model => model.IsAllowToCreateGroupChat, new { @style = "transform: scale(1.5); margin-left: 10px;", @disabled = "disabled" })
+            </div>
+            <div>
+                @Html.HiddenFor(model => model.TimezoneOffset, new { @id = "hdnTimezoneOffset" })
+                @Html.HiddenFor(model => model.TimezoneId, new { @id = "hdntimeZoneId" })
+                @Html.HiddenFor(model => model.TimezonePostfix, new { @id = "hdnTimezonePostfix" })
+            </div>
+        </div>
+        <div class="col-md-12">
+            <button type="button" onclick="Addnew()" class="btn btn-sm btn-primary pull-right">Save</button>
+            <div class="clearfix"></div>
+        </div>
+    }
+
+    <input type="hidden" id="hdndstOffset" />
+    <input type="hidden" id="hdnrawOffset" />
+    <input type="hidden" id="hdntimeZoneFullName" />
+</div>
+@*<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>*@
+<script type="text/javascript">
+    var latitude;
+    var longitude;
+
+
+    $("#Phone").on("paste change", function () {
+
+        if ($('#Phone').val() != $('#Phone').val().replace(/[^\d]/g, "")) {
+            var number = $('#Phone').val().replace(/[^\d]/g, "");
+            $('#Phone').val(number);
+        }
+    });
+
+    $.validator.setDefaults({
+        ignore: [],
+    });
+    $(document).ready(function () {
+        $("#loading").show();
+
+     //   $("#hdnAddress").val('dumy');
+
+        var form = $("#fmAddCareGiver").closest("form");
+        form.removeData('validator');
+        form.removeData('unobtrusiveValidation');
+        $.validator.unobtrusive.parse(form);
+
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': { allow_single_deselect: true },
+            '.chosen-select-no-single': { disable_search_threshold: 10 },
+            '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+            '.chosen-select-width': { width: "95%" }
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+
+        }
+        $("#loading").hide();
+    });
+
+
+    $('#IsAllowGroupChat').change(function () {
+        if (this.checked) {
+            $("#IsAllowToCreateGroupChat").prop("disabled", false);
+        }
+        else {
+            $("#IsAllowToCreateGroupChat").prop("checked", false);
+            $("#IsAllowToCreateGroupChat").prop("disabled", true);
+        }
+
+    });
+    function Addnew() {
+        debugger;
+        var Email = $("#Email").val();
+        $("#Password").val("PSolt#24hidden");
+        debugger;
+        $('#loading').show();
+
+        $("#dvError3").hide();
+        var selectedValues = "";
+
+        $("#ddlService :selected").each(function () {
+            selectedValues += $(this).val() + ",";
+        });
+
+        $("#hdnServices").val(selectedValues);
+
+        $("#hdnHoursRate").val(20);
+        $("#hdnChargeToPatient").val(20);
+
+
+        if ($("#ProfileImageFile").val() != null && $("#ProfileImageFile").val() != "") {
+            $("#hdnProfileImage").val("Value");
+
+        }
+        //if (!GetLanLat())
+        //{
+        //    $('#loading').hide();
+        //    return false;
+        //}
+
+        var result = CheckUserName();
+        if (result == false) {
+            $("#dvError3").css("display", "");
+            $("#lblError3").html("User Name is already exists");
+            $('#loading').hide();
+            return false;
+        }
+
+        var result1 = CheckEmail();
+        if (result1 == false) {
+            $("#dvError3").css("display", "");
+            $("#lblError3").html("Email is already exists");
+            $('#loading').hide();
+            return false;
+        }
+        if ($(".radio-inline").find(":checked").val() == undefined) {
+            $("#radiobutton").css("padding", "20px 0px");
+        }
+        else {
+            $("#radiobutton").css("padding", "7px 0px");
+        }
+
+
+            if (!GetLanLat()) {
+                $('#loading').hide();
+                return false;
+            }
+
+
+            debugger;
+            var sss = $("#fmAddCareGiver").valid();
+
+            if ($("#fmAddCareGiver").valid()) {
+
+                debugger;
+
+          //  RegisterCareGiverQB(Email);
+        $("#fmAddCareGiver").submit();
+        }
+        else {
+            $('#loading').hide();
+        }
+    }
+
+    $(":radio").click(function (event) {
+        $("#radiobutton").css("padding", "7px 0px");
+    });
+
+    function isNumber(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            toastr.error("Please Enter Only Character.")
+            return false;
+
+        }
+        return true;
+    }
+
+    function isCharacter(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 48 && charCode < 57) {
+            toastr.error("Please Enter Only Character.")
+            return false;
+        }
+        return true;
+    }
+
+    function isSpecialChar(evt)
+    {
+        //var str = $('#Street').val();
+        //var regex = /[^\w\s]/gi;
+        //if (regex.test(str) == true) {
+        //    toastr.error("Your search string contains illegal characters.");
+        //    return false;
+        //}
+        //return true;
+
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 32 && charCode < 44) {
+            toastr.error("Any Special Character Not Allowed.")
+            return false;
+        }
+        else if (charCode == 64)
+        {
+            toastr.error("Any Special Character Not Allowed.")
+            return false;
+        }
+        return true;
+
+    }
+
+
+
+
+
+
+    function GetFullAddress()
+    {
+
+        var Street = $("#Street").val();
+
+        var City = $("#City").val();
+
+        var State = $("#State").val();
+
+        var FullAddress = Street + ',' + City + ',' + State;
+
+        $("#hdnAddress").val(FullAddress);
+    }
+
+    function GetLanLat() {
+
+        debugger;
+        //    var Address = $("#Address").val();
+        var Street = $("#Street").val().replace('&', '-');
+        Street = Street.replace(/,\s*$/, "");
+        //  var Address =$("#Address").val().replace('&','-');
+
+        var City = $("#City").val();
+        City = City.replace(/,\s*$/, "");
+
+        var State = $("#State").val();
+        State = State.replace(/,\s*$/, "");
+
+        var FullAddress = Street + ', ' + City + ', ' + State;
+
+        //FullAddress = FullAddress.replace(/[`~!#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
+
+        //alert(FullAddress);
+
+        $("#hdnAddress").val(FullAddress);
+
+        FullAddress = FullAddress.replace('&', '-');
+        debugger;
+
+        var Pincode = $("#ZipCode").val();
+        if (Street !== '') {
+            if (City !== '') {
+                if (State !== '') {
+        var flag = true;
+        $.ajax({
+            type: "GET",
+            url: "https://maps.google.com/maps/api/geocode/json",
+            data: "address=" + FullAddress + ",  zip code=" + Pincode + "&key=AIzaSyCqG0NdAH_5gP1_D8jGhmTGeqNR-9z_afw",
+            async: false,
+            contentType: "text/plain; charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                if (result["status"] == "OK") {
+                    $("#Latitude").val(result["results"][0]["geometry"]["location"]["lat"]);
+                    $("#Longitude").val(result["results"][0]["geometry"]["location"]["lng"]);
+                    var Latitude = result["results"][0]["geometry"]["location"]["lat"];
+                    var Longitude = result["results"][0]["geometry"]["location"]["lng"];
+                    var today = new Date();
+                    //var UTCDate = today.toUTCString();
+                    //var UtcNow = Math.floor(today.getTime() / 1000);
+                    var timestamp = today.getTime() / 1000 + today.getTimezoneOffset() * 60;
+                    $.ajax({
+                        type: "GET",
+                        url: "https://maps.googleapis.com/maps/api/timezone/json?location=" + Latitude + "," + Longitude + "&timestamp=" + timestamp + "&sensor=false&key=AIzaSyCqG0NdAH_5gP1_D8jGhmTGeqNR-9z_afw",
+                        async: false,
+                        contentType: "text/plain; charset=utf-8",
+                        dataType: "json",
+                        success: function (data, result) {
+                            if (data["status"] == "OK" && result == "success") {
+                                $("#hdndstOffset").val(data.dstOffset);
+                                $("#hdnrawOffset").val(data.rawOffset);
+                                $("#hdntimeZoneFullName").val(data.timeZoneName);
+                                $("#hdntimeZoneId").val(data.timeZoneId);
+
+                                var str = data.timeZoneName;
+                                var splitString = str.split(" ");
+                                var abbr = "";
+                                for (i = 0; i < splitString.length; i++) {
+                                    abbr += splitString[i].charAt(0);
+                                }
+                                $("#hdnTimezonePostfix").val(abbr);
+                                var TimeZoneOffset = data.dstOffset + data.rawOffset;
+                                TimeZoneOffset = TimeZoneOffset < 0 ? "-" + Math.abs(TimeZoneOffset) / 60 : "+" + Math.abs(TimeZoneOffset) / 60;
+                                $("#hdnTimezoneOffset").val(parseInt(TimeZoneOffset));
+                                return true;
+                            }
+                        }
+                    });
+                }
+                else if (result.status === "ZERO_RESULTS") {
+                    toastr.error('Please enter valid street/city/state with valid zip code');
+                    flag = false;
+                }
+            }
+        });
+                } else {
+                    toastr.error('Please Enter State');
+                }
+            }
+            else {
+                toastr.error('Please Enter City');
+            }
+        } else {
+            toastr.error('Please Enter Street');
+        }
+        //----------End Pincode+Address----------------
+        return flag;
+    }
+
+    $('#ddlService').val(2);
+    $('#ddlService').trigger("chosen:updated");
+
+    function CheckUserName() {
+        var url = INITURL + '/CareGiver/IsUserNameExists';
+        var result;
+        $.ajax({
+            url: url,
+            data: { Username: $("#Username").val(), UserId: $("#UserId").val() },
+            cache: false,
+            async: false,
+            type: 'POST',
+            success: function (data) {
+                result = data;
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+        return result;
+    }
+
+    function CheckEmail() {
+        var url = INITURL + '/CareGiver/IsEmailExists';
+        var result;
+        $.ajax({
+            url: url,
+            data: { Email: $("#Email").val(), UserId: $("#UserId").val() },
+            cache: false,
+            async: false,
+            type: 'POST',
+            success: function (data) {
+                result = data;
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+        return result;
+    }
+
+    function divClose() {
+        $("#dvError3").css("display", "none");
+    }
+
+    function isNumberAndDot(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode != 46) {
+            return false;
+        }
+        return true;
+    }
+
+
+    //function RegisterCareGiverQB(Email) {
+
+    //    var RegisterUser = { 'login': Email, 'password': "Welcome007!", 'tag': "differenzsystem", 'email': Email };
+
+    //    QB.users.create(RegisterUser, function (err, user1) {
+    //        if (user1) {
+    //            //Add new QuickBlox Id For Specific User
+
+    //            var QBId = user1.id;
+    //            $("#QuickBloxId").val(QBId);
+
+    //            // success
+    //        } else {
+    //            return;
+    //            // error
+    //        }
+    //        //   $("#fmOfficeAdmin").submit();
+
+    //        $("#fmAddCareGiver").submit();
+    //    });
+    //}
+
+
+    //function GetTime(val) {
+    //    if (val !== '') {
+    //        var Address = $("#Address").val();
+    //        var Pincode = $("#ZipCode").val();
+    //        //$('#drpFromTime option[value!="0"]').remove();
+    //        //$('#drpToTime option[value!="0"]').remove();
+
+    //        if (Address !== '') {
+    //            if (Pincode !== '') {
+    //                $('#loading').show();
+    //                var flag = true;
+    //                $.ajax({
+    //                    type: "GET",
+    //                    url: "//maps.google.com/maps/api/geocode/json",
+    //                    data: "address=" + Address + ", zip code=" + Pincode + "&sensor=false",
+    //                    async: false,
+    //                    contentType: "text/plain; charset=utf-8",
+    //                    dataType: "json",
+    //                    success: function (result) {
+    //                        if (result["status"] == "OK") {
+    //                            var Latitude = result["results"][0]["geometry"]["location"]["lat"];
+    //                            var Longitude = result["results"][0]["geometry"]["location"]["lng"];
+    //                            var today = new Date();
+    //                            var timestamp = today.getTime() / 1000 + today.getTimezoneOffset() * 60;
+    //                            $.ajax({
+    //                                type: "GET",
+    //                                url: "https://maps.googleapis.com/maps/api/timezone/json?location=" + Latitude + "," + Longitude + "&timestamp=" + timestamp + "&sensor=false",
+    //                                async: false,
+    //                                contentType: "text/plain; charset=utf-8",
+    //                                dataType: "json",
+    //                                success: function (data, result) {
+    //                                    if (data["status"] == "OK" && result == "success") {
+    //                                        var str = data.timeZoneName;
+    //                                        var splitString = str.split(" ");
+    //                                        var abbr = "";
+    //                                        for (i = 0; i < splitString.length; i++) {
+    //                                            abbr += splitString[i].charAt(0);
+    //                                        }
+    //                                        var TimeZoneOffset = data.rawOffset;
+    //                                        TimeZoneOffset = TimeZoneOffset < 0 ? "-" + Math.abs(TimeZoneOffset) / 60 : "+" + Math.abs(TimeZoneOffset) / 60;
+    //                                        var offset = TimeZoneOffset / 60;
+    //                                        var CurrentTimebasedonTimezone = new Date(new Date().getTime() + offset * 3600 * 1000).toUTCString().replace(/ GMT$/, "");
+    //                                        var localDate = new Date(CurrentTimebasedonTimezone).getDate();
+    //                                        var selectedDate = new Date($('#Date').val()).getDate();
+    //                                        debugger;
+    //                                        var CurrentHours = new Date(CurrentTimebasedonTimezone).getHours();
+
+    //                                        if (selectedDate != localDate) {
+    //                                            CurrentHours = 0;
+    //                                        }
+
+    //                                        for (var i = CurrentHours + 1; i <= 24; i++) {
+    //                                            var hours = i;
+    //                                            var minutes = 0;
+    //                                            var seconds = 0;
+    //                                            var ampm = hours >= 12 ? 'PM' : 'AM';
+    //                                            hours = hours % 12;
+    //                                            hours = hours ? (hours < 10) ? ("0" + hours) : hours : 12;
+    //                                            minutes = minutes < 10 ? '0' + minutes : minutes;
+    //                                            var strTime = hours + ':' + minutes + ' ' + ampm;
+    //                                            var id = i === 0 ? i + 1 : i + 1;
+    //                                            if (i < 24) {
+    //                                                var temphour = i < 10 ? '0' + i : i;
+    //                                                $("#drpFromTime").append($("<option>").attr("value", temphour + ":00:00").text(strTime + " (" + abbr + ") ").attr("id", id));
+    //                                                $("#drpToTime").append($("<option>").attr("value", temphour + ":00:00").text(strTime + " (" + abbr + ") ").attr("id", id));
+    //                                            } else {
+    //                                                $("#drpToTime").append($("<option>").attr("value", "23:59:59").text("11:59 PM" + " (" + abbr + ") ").attr("id", id));
+    //                                            }
+    //                                        }
+    //                                        $("#loading").hide();
+    //                                        return true;
+    //                                    }
+    //                                }
+    //                            });
+    //                        }
+    //                        else if (result.status === "ZERO_RESULTS") {
+    //                            $("#loading").hide();
+    //                            toastr.error('Please enter valid address with valid zip code');
+    //                            $('#drpFromTime option[value!="0"]').remove();
+    //                            $('#drpToTime option[value!="0"]').remove();
+    //                            flag = false;
+    //                        }
+    //                    }
+    //                });
+    //            }
+    //            else {
+    //                toastr.error('Please Enter Pincode');
+    //                $('#drpFromTime option[value!="0"]').remove();
+    //                $('#drpToTime option[value!="0"]').remove();
+    //            }
+    //        } else {
+    //            toastr.error('Please Enter Address');
+    //            $('#drpFromTime option[value!="0"]').remove();
+    //            $('#drpToTime option[value!="0"]').remove();
+    //        }
+    //    } else {
+    //        $('#drpFromTime option[value!="0"]').remove();
+    //        $('#drpToTime option[value!="0"]').remove();
+    //    }
+    //}
+    $("#showPassword").click(function () {
+        $("#showPassword").css("display", "none"); $("#HidePassword").css("display", "block");
+        $("#Password").get(0).type = 'text';
+    });
+    $("#HidePassword").click(function () {
+        $("#showPassword").css("display", "block"); $("#HidePassword").css("display", "none");
+        $("#Password").get(0).type = 'password';
+    });
+
+</script>

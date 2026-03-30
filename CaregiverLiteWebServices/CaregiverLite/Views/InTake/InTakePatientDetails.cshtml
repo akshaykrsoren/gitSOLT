@@ -1,0 +1,1577 @@
+﻿@model CaregiverLite.Models.ServiceVisitModel
+@{
+    ViewBag.Title = @CaregiverLite.Views.Resources.Services.TitleServices;
+    //Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+<!-- Before </body> -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/quickblox/quickblox.min.js"></script>*@
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="~/Scripts/js/InTake.js"></script>
+
+<style>
+    .labelMargin {
+        margin-top: 15px;
+    }
+
+    .DetailHDRR {
+        font-size: 14px;
+        margin-bottom: 2px;
+        font-family: Mulish;
+        font-weight: 600;
+        font-style: normal;
+    }
+
+    .selected-tags-area {
+        display: flex;
+        align-items: center;
+        justify-content: space-between; /* Pushes icon to the right */
+        padding: 8px 12px;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: #fff;
+    }
+
+    .selected-tags {
+        flex: 1; /* takes all space except the icon */
+    }
+
+    #dropdownArrow {
+        margin-left: 8px;
+        color: #333;
+    }
+
+    .search-wrapper {
+        position: relative;
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+        .search-wrapper input {
+            width: 100%;
+            padding: 6px 10px 6px 30px; /* left padding for icon */
+            box-sizing: border-box;
+        }
+
+    .search-icon {
+        position: fixed;
+        left: 205px;
+        transform: translateY(-50%);
+        color: #1B4066;
+        font-size: 12px;
+        pointer-events: none;
+        top: 79%;
+    }
+
+    .dropdown-container {
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        background: white;
+        padding: 6px;
+        min-height: 42px;
+        position: relative;
+        cursor: pointer;
+    }
+
+    .selected-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+
+    .tag {
+        background: #80bfff;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+    }
+
+        .tag .remove {
+            margin-left: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+    .tag-summary {
+        background: #80bfff;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 4px;
+    }
+
+    .dropdown-arrow {
+        position: absolute;
+        right: 10px;
+        top: 14px;
+        pointer-events: none;
+    }
+
+    .dropdown-menu {
+        position: absolute;
+        width: 55%;
+        top: 100%;
+        left: 0;
+        z-index: 999;
+        border: 1px solid #ccc;
+        background: white;
+        border-radius: 5px;
+        padding: 10px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        display: none;
+        border-radius: 10px;
+    }
+
+        .dropdown-menu input[type="text"] {
+            width: 100%;
+            padding: 6px;
+            margin-bottom: 5px;
+        }
+
+    .clear-filter {
+        text-align: right;
+        cursor: pointer;
+        margin-bottom: 9px;
+        margin-top: -27px;
+        color: #000;
+        font-family: Mulish;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+    }
+
+    .options-list {
+        max-height: 200px;
+        overflow-y: auto;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #EFF0F2;
+    }
+
+    .select2-container {
+        width: 100% !important;
+    }
+
+    .modal-footer {
+        border-top: 1px solid #e7e7e7;
+    }
+
+    .modal-content .modal-header {
+        background-color: white;
+        color: #1f305b;
+        border-bottom: 1px solid #e7e7e7;
+    }
+
+    .form-check {
+        margin-right: 26px;
+    }
+
+    .close {
+        float: right;
+        font-size: 30px;
+        font-weight: 700;
+        line-height: 1;
+        color: black;
+        opacity: inherit;
+    }
+
+    .modal-header {
+        border-bottom: none;
+    }
+
+    .patient-box {
+        background-color: #fdf6e3;
+        border-radius: 6px;
+        padding: 10px 15px;
+        margin-bottom: 15px;
+        color: #000;
+        font-family: Mulish;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 800;
+        line-height: normal;
+    }
+
+    .permissions-box {
+        background-color: #f5f8fa;
+        border-radius: 10px;
+        padding: 8px;
+        margin-top: 10px;
+    }
+
+    .options-list {
+        max-height: 200px;
+        overflow-y: auto;
+        margin-bottom: 10px;
+    }
+
+    .btn.focus, .btn:focus, .btn:hover {
+        color: white;
+        text-decoration: none;
+    }
+
+    .options-list label {
+        /*display: block;*/
+        margin: 15px 0px 0px 15px;
+        cursor: pointer;
+        display:block;
+    }
+    br{
+        display:none
+    }
+
+    input[type=checkbox], input[type=radio] {
+        margin: 6px;
+        line-height: normal;
+    }
+
+    .actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+    }
+
+    .btn {
+        padding: 6px 14px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .btn-cancel {
+        border: 1px solid #1F305B;
+        background-color: #ffff;
+        color: #1F305B;
+    }
+
+        .btn-cancel.focus, .btn-cancel:focus, .btn-cancel:hover {
+            color: #1F305B;
+            text-decoration: none;
+        }
+
+    .btn-save {
+        background: #004080;
+        color: white;
+    }
+
+    .btn-cancel {
+        border: 1px solid #ccc;
+    }
+
+    .btn-save:disabled {
+        opacity: 0.6;
+    }
+
+    .select2-container {
+        width: 100% !important;
+    }
+
+    .modal-footer {
+        border-top: 1px solid #e7e7e7;
+    }
+
+    .modal-content .modal-header {
+        background-color: white;
+        color: #1f305b;
+        border-bottom: 1px solid #e7e7e7;
+    }
+
+    .form-check {
+        margin-right: 26px;
+    }
+
+    .close {
+        float: right;
+        font-size: 30px;
+        font-weight: 700;
+        line-height: 1;
+        color: black;
+        opacity: inherit;
+    }
+
+    .modal-header {
+        border-bottom: none;
+    }
+
+    .patient-box {
+        background-color: #fdf6e3;
+        border-radius: 6px;
+        padding: 10px 15px;
+        margin-bottom: 15px;
+        color: #000;
+        font-family: Mulish;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 800;
+        line-height: normal;
+    }
+
+    .permissions-box {
+        background-color: #f5f8fa;
+        border-radius: 10px;
+        padding: 8px;
+        margin-top: 10px;
+    }
+
+
+
+    .btn-cancel {
+        border: 1px solid #ccc;
+    }
+
+    .btn-save:disabled {
+        opacity: 0.6;
+    }
+
+    tbody tr:nth-child(odd):hover {
+        background-color: #68AAEA4D !important;
+        color: black;
+    }
+
+    tbody tr:nth-child(add):hover {
+        background-color: #68AAEA4D !important;
+        color: black;
+    }
+
+    form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+        cursor: not-allowed;
+        background-color: #fff;
+        opacity: 1;
+    }
+
+    .flatpickr-current-month {
+        font-size: 118% !important;
+    }
+
+    .DetailDTL {
+        font-size: 14px !important;
+        margin-bottom: 2px !important;
+        font-family: "Mulish", serif !important;
+        font-weight: 800 !important;
+        font-style: normal !important;
+        color: #313234 !important;
+    }
+
+    .countbtn {
+        width: 25px;
+        height: 25px;
+        flex-shrink: 0;
+        fill: #39C871;
+        background-color: #39C871;
+        border-radius: 26px;
+        border: aqua;
+        color: #fff;
+    }
+
+    #appointmentsTable tbody tr:nth-child(odd):hover {
+        background-color: #68AAEA4D !important;
+    }
+
+    #appointmentsTable tbody tr:nth-child(even):hover {
+        background-color: #68AAEA4D !important;
+    }
+
+
+
+    table.dataTable tbody tr:hover {
+        background-color: #68AAEA4D !important;
+    }
+
+    table.dataTable tbody tr:hover {
+        background-color: #68AAEA4D !important;
+        cursor: pointer !important;
+    }
+
+    table.dataTable tbody tr:hover {
+        background-color: #68AAEA4D !important; /* Light gray on hover */
+    }
+
+    .table-hover > tbody > tr:hover {
+        background-color: #68AAEA4D !important;
+        cursor: pointer !important;
+    }
+
+    table.dataTable tbody tr td {
+        cursor: pointer !important;
+    }
+
+
+    label {
+        color: var(--nav-col, #464748) !important;
+        font-family: Mulish !important;
+        font-size: 14px !important;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+    }
+
+    .profile-card {
+        max-width: 923px;
+        margin: 62px 20px 13px 20px;
+        border: 1px solid #EFF0F2;
+        border-radius: 4px;
+        /*box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);*/
+        padding: 20px;
+        background-color: white;
+    }
+
+    .DetailHDR {
+        color: #757575 !important;
+        font-size: 14px !important;
+        font-weight: 400 !important;
+        margin-bottom: 0px !important;
+        margin-top: 10px !important;
+        font-family: Mulish !important;
+    }
+
+    .DetailHDRName {
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    #myDataTable td {
+        text-align: center;
+        vertical-align: middle;
+        cursor: pointer;
+    }
+
+    .navigator li {
+        display: inline-block;
+        padding: 0 5px;
+    }
+
+    .field-validation-error {
+        color: red;
+        /*float: right;*/
+    }
+
+    .carousel-control {
+        top: 43%;
+    }
+
+    .activeDiv {
+        border-bottom: 3px solid #1F305B;
+        color: #1F305B !important;
+        margin-bottom: -4px;
+    }
+
+    #tab1234 {
+        padding: 11px 0px 2px 5px;
+        border-bottom: 1px solid #efefef;
+    }
+
+        #tab1234 li a {
+            color: #9F9F9F;
+            font-family: mulish;
+            font-size: 15px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+        }
+
+    .liformat {
+        font-family: Mulish;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+    }
+
+    .tblpadding {
+        padding: 20px;
+    }
+
+    .tblMargin {
+        /*height: 500px;*/
+        overflow: auto;
+        position: relative;
+    }
+    /*th {
+        color:#1B4066;
+        font-family: Mulish;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    background-color:#f2faff  !important;
+
+
+        }*/
+    li {
+        cursor: pointer;
+    }
+
+    .table-container {
+        /*height: 300px;
+        overflow-y: auto;
+        border: 1px solid #ddd;*/
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse; /* Ensures proper border alignment */
+    }
+
+    th {
+        padding: 12px 0px 12px 12px;
+        border: 1px solid #D4E9FF; /* This adds a border between columns */
+        text-align: left;
+    }
+
+    td {
+        padding: 20px 0px 20px 12px !important;
+        border-left: 1px solid #D4E9FF; /* Left border */
+        border-right: 1px solid #D4E9FF; /* Right border */
+        text-align: left;
+        font-size: 14px;
+    }
+
+    thead th {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        color: #1B4066;
+        font-family: Mulish;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 700;
+        background-color: #f3f9ff !important;
+    }
+
+    tbody tr:nth-child(odd) {
+        background-color: #F8F8F8; /* Odd rows */
+        color: black; /* Text color for visibility */
+    }
+
+    tbody tr:nth-child(even) {
+        background-color: white; /* Even rows */
+        color: black; /* Text color for visibility */
+    }
+
+    .HDR {
+        color: #1B1B1C;
+        font-family: Mulish;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 800;
+        line-height: normal;
+    }
+
+    .BatchSchudelbtn {
+        background-color: white;
+        color: #092C44;
+        border: 1px solid #1F305B;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 25px;
+        right: 0px;
+    }
+
+    .popuplabel {
+        font-family: Mulish;
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+    }
+
+    input {
+        border-radius: 5px !important;
+    }
+
+    /*.modal-content {
+            width: 360px;
+            height: 328px;
+        }*/
+    .custompopupModal {
+        width: 360px !important;
+        height: 328px;
+    }
+
+    .confirmbtn {
+        background-color: #FFDEDE;
+        color: #E24B4B;
+        border: 1px solid;
+        border-radius: 4px;
+        height: 40px;
+        font-weight: bold;
+    }
+
+        .confirmbtn:hover {
+            background-color: #ebd2d2;
+        }
+
+    .cancelbtn {
+        background-color: #D4FFE8;
+        color: #239450;
+        border: 1px solid;
+        border-radius: 4px;
+        height: 40px;
+        font-weight: bold;
+    }
+
+        .cancelbtn:hover {
+            background-color: #d1ecd9;
+        }
+
+    tbody tr:nth-child(even):hover {
+        background-color: #68AAEA4D !important;
+    }
+       #AppointmentDetailModal .modal-dialog {
+    height: 90vh;
+}
+           #EditDetailModal .modal-dialog {
+    height: 90vh;
+}
+</style>
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<!-- In <head> -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+<!-- Before </body> -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<!--hidden fields-->
+
+<input type="hidden" id="intakepatientid" />
+
+@*<input type="hidden" id="InTake_QBID" name="UserId" value="@Session["QBID"]" />
+<input type="hidden" id="InTake_Email" name="UserId" value="@Session["Email"]" />
+<input type="hidden" id="InTake_LoginUserId" name="UserId" value="@Session["UserLoginID"]" />*@
+<input type="hidden" id="InTake_QBID" name="UserId" value="@ViewBag.QBID" />
+<input type="hidden" id="InTake_Email" name="UserId" value="@ViewBag.Email" />
+<input type="hidden" id="InTake_LoginUserId" name="UserId" value="@ViewBag.UserLoginID" />
+<input type="hidden" id="Latitude" name="" />
+<input type="hidden" id="Longitude" name="" />
+<input type="hidden" id="hdntimeZoneId" name="" />
+<input type="hidden" id="hdnTimezonePostfix" name="" />
+<input type="hidden" id="hdnTimezoneOffset" name="" />
+
+<div class="modal fade right" id="ServiceType_Add_Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" id="modalViewPopup" style="top:73px;overflow-y: hidden; height:90vh !important">
+        <div class="modal-content">
+            <div class="modal-header customheader" style="width: 100%;">
+                <button type="button" class="close" id="backbtn" aria-label="Close" style="color:#282572;float:left;margin-top: -9px;  margin-bottom: 4px;">
+                    <span class="modal-title" style="margin-left: 5px;font-size:14px;">
+                        <img src="https://scheduler.paseva.com/Content/image/LeftArrowIcon.svg" id="backbtn" style="margin-right: 12px;" onclick="CloseAddPatientModal();">
+                        <span id="ApoointmentDetailHeaderTExt"> Add New Patient </span>
+                    </span>
+                </button>
+            </div>
+            <div class="modal-body row" id="customMoodalrow1" style="background-color:#F9FBFF;position: relative;height: 100vh;    overflow: auto;    width: 100%;padding: 15px 0px 140px 15px;">
+
+                <div class="modal-body" style="margin-top:50px;">
+
+
+                    <div class="col-md-6">
+                        @*Medical Id*@
+                        <div class="form-group">
+                            <label>Patient First Name</label>
+                            <span style="color:red !important;">*</span>
+                            <input type="text" id="Fname" class="form-control " />
+                        </div>
+
+
+                        @*PrimaryMD*@
+                        <div class="form-group">
+                            <label>Patient Id</label>
+                            <span style="color:red !important;">*</span>
+                            <input type="text" id="PatientID" class="form-control " maxlength="10" placeholder="10 characters (2 letters + 8 digits)." />
+                        </div>
+                        @*PhoneNo*@
+                        <div class="form-group">
+                            <label>Mobile Number</label>
+                            <span style="color:red !important;">*</span>
+                            @*  @Html.ValidationMessageFor(model => model.PhoneNo)*@
+                            @*<input type="number" id="phoneNo" class="form-control " maxlength="10" oninput="limitLength(this)"/>*@
+                            <input class="form-control" data-val="true" data-val-required="Please Enter PhoneNo" id="phoneNo" maxlength="10" name="PhoneNo" oninput="validatePhone(this)"  tabindex="4" type="text" value="" />
+                        </div>
+
+                        @*Office*@
+
+                        <div class="form-group">
+                            <label>Referred By</label>
+                            @*<span style="color:red;">*</span>*@
+                            <input type="text" id="ReferredBy" class="form-control " maxlength="50" />
+                        </div>
+                        <div class="form-group">
+                            <label>@CaregiverLite.Views.Resources.Patients.TableHeaderState</label>
+                            <span style="color:red !important;">*</span>
+                            <input type="text" id="stateid" class="form-control " />
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Jurisdiction Code</label>
+                            @*<span style="color:red;">*</span>*@
+                            <input type="text" id="jurisdictioncode" class="form-control " />
+                        </div>
+                        <div class="form-group">
+                            <label>Payer Id</label>
+                            @*<span style="color:red;">*</span>*@
+                            <input type="text" id="PayerId" class="form-control " />
+                        </div>
+                        <div class="form-group">
+                            <label>Procedure Code</label>
+                            @*<span style="color:red;">*</span>*@
+                            <br />
+                            <input type="text" id="procedurecode" class="form-control " />
+
+
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Patient Last Name</label>
+                            <span style="color:red !important;">*</span>
+                            <input type="text" id="Lname" class="form-control " />
+                        </div>
+                        <div class="form-group">
+                            <label>Date Of Birth</label>
+                            <div class="input-group date" id="datetimepicker1">
+                                <input type="text" id="DateOfBirth" class="form-control" style="margin-top: 0px;border-radius: 5px 0 0 5px;">
+                                <span class="input-group-addon" style="padding: 6px 10px; cursor: pointer;">
+                                    <!-- SVG calendar icon -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                                        <path d="M18 5.25V6H0V5.25C0 3.17925 1.67925 1.5 3.75 1.5H4.5V0.75C4.5 0.336 4.836 0 5.25 0C5.664 0 6 0.336 6 0.75V1.5H12V0.75C12 0.336 12.336 0 12.75 0C13.164 0 13.5 0.336 13.5 0.75V1.5H14.25C16.3207 1.5 18 3.17925 18 5.25ZM18 12.75C18 15.645 15.6442 18 12.75 18C9.85575 18 7.5 15.645 7.5 12.75C7.5 9.855 9.85575 7.5 12.75 7.5C15.6442 7.5 18 9.855 18 12.75ZM14.25 13.1895L13.5 12.4395V11.25C13.5 10.836 13.164 10.5 12.75 10.5C12.336 10.5 12 10.836 12 11.25V12.75C12 12.9487 12.0787 13.14 12.2197 13.2803L13.1895 14.25C13.482 14.5425 13.9575 14.5425 14.25 14.25C14.5425 13.9575 14.5425 13.482 14.25 13.1895ZM6 12.75C6 10.6283 6.981 8.7375 8.51175 7.5H0V14.25C0 16.3207 1.67925 18 3.75 18H8.51175C6.981 16.7625 6 14.8717 6 12.75Z" fill="#1F305B" />
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Office</label>
+                            <span style="color:red !important;">*</span>
+                            @*<input type="text" id="officeId" class="form-control " />*@
+                            <select id="officeId" class="form-control"></select>
+                        </div>
+                        <div class="form-group">
+                            <label>Primary MD</label>
+                            <span style="color:red !important;">*</span>
+                            <input type="text" id="primaryMd" class="form-control " />
+                        </div>
+                        @*Street*@
+
+                        @*City*@
+                        <div class="form-group">
+                            <label>@CaregiverLite.Views.Resources.Patients.TableHeaderStreet</label>
+                            <span style="color:red !important;">*</span>
+                            <input type="text" id="streetid" class="form-control " maxlength="100" />
+                        </div>
+                        <div class="form-group">
+                            <label>@CaregiverLite.Views.Resources.Patients.TableHeaderCity</label>
+                            <span style="color:red !important;">*</span>
+                            <input type="text" id="cityid" class="form-control " />
+
+                        </div>
+                        @*State*@
+
+
+                        @*Zipcode*@
+                        <div class="form-group">
+                            <label>@CaregiverLite.Views.Resources.PatientRequest.TableHeaderZipCode</label>
+                            <span style="color:red !important;">*</span>
+                            @*<input type="text" id="zipcodeid" class="form-control " />*@
+                            <input class="form-control" data-val="true" data-val-required="Please Enter PhoneNo" id="zipcodeid" maxlength="6" name="PhoneNo" oninput="validatePhone(this)" &nbsp;tabindex="4" type="text" value="">
+                        </div>
+
+
+
+
+
+                        <div class="form-group">
+                            <label>Payer Program</label>
+                            @*<span style="color:red;">*</span>*@
+                            <input type="text" id="payerprogramid" class="form-control " />
+
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="row"
+                         style="text-align: right;display: block;position: fixed;z-index: 1097;bottom: 0px;right: 0px;width: 100%;background: white;border-top: 1px solid #e7e7e7;height: 65px;left:0px;padding-top: 4px;">
+
+                        <div class="d-flex gap-2" style="float:right;margin-top:6px">
+                            <button class="btn btn-outline-dark BatchSchudelbtn btn-cancel" style="margin-right: 10px;" onclick="Closepopup()">Cancel</button>
+                            <button type="button" onclick="AddInTakePatientDetails()" class="btn  btn-primary " style="border-radius:5px;padding: 6px 20px 6px 22px;">Save</button>
+                        </div>
+                    </div>
+
+
+
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="VisitType_Add_Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" style="margin-top: 10%;">
+        <div class="modal-content custompopupModal">
+
+
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="popuplabel">Visit Type Name</label>
+                    <span style="color:red;">*</span>
+                    @Html.ValidationMessageFor(model => model.VisitTypeName)
+                    @Html.TextBoxFor(model => model.VisitTypeName, new { @type = "text", @maxlength = "100", @placeholder = "Enter Visit Type", @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label class="popuplabel">Description (Optional)</label>
+                    @Html.TextBoxFor(model => model.Description, new { @id = "txtAddVisitTypeDescription", @type = "text", @maxlength = "200", @class = "form-control", style = "height: 60px;" })
+
+                </div>
+                <div class="d-flex gap-2" style="float:right;margin-top:30px">
+                    <button class="btn btn-outline-dark BatchSchudelbtn" style="margin-right: 10px;" onclick="Closepopup()">Cancel</button>
+                    <button type="button" onclick="AddVisitType('Add')" class="btn  btn-primary " style="border-radius:5px;padding: 6px 20px 6px 22px;">Save</button>
+                </div>
+                @*<button type="button" onclick="AddVisitType('Add')" class="btn btn-sm btn-primary pull-right" style="border-radius:5px">Add</button>*@
+                <div class="clearfix"></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="Delete_Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" id="modalAddPopup">
+        <div class="modal-content" id="deleteModal" style="width: 380px;height: 272px;border-radius: 8px;margin-top:80%">
+            <h3 style="color: var(--m, #1F305B);
+    font-family: Mulish;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 22px;
+    padding: 26px 34px 10px 18px;">
+                Are you sure you want to accept this Patient ?
+            </h3>
+            <p style="padding: 1px 59px 0px 40px;margin-left:-22px;font-style: normal;font-size: 17px;"><strong id="DeleteLabel" style="font-weight: 800; color: #1B4066;"></strong> <b>Note</b> - On acceptance, the patient moves to the Patient section and the intake chat shifts to Patient Chat.</p>
+            <button class="cancelbtn" style="margin-left: 37%;margin-top: 27px;padding: 0px 12px 0px 12px;color: #1B4066;font-family: Mulish;font-size: 14px;font-style: normal;font-weight: 700;line-height: normal;background-color: #fff;" onclick="CancalAcceptModal();">No, Go Back</button>
+            <button class="confirmbtn" style="margin-left: 14px;padding: 0px 12px 0px 12px;border-radius: 6px;background: #1B4066;color: #FFF;font-family: Mulish;font-size: 14px;font-style: normal;font-weight: 700;line-height: normal;" onclick="AcceptInTakePatient();">Yes, Accept</button>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="Delete_Modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" id="modalAddPopup">
+        <div class="modal-content" id="deleteModal1" style="width: 380px;height: 272px;border-radius: 8px;margin-top:80%">
+            <h3 style="color: var(--m, #1F305B);
+    font-family: Mulish;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 22px;
+    padding: 26px 34px 10px 18px;">
+                Are you sure you want to reject this Patient ?
+            </h3>
+            <p style="padding: 1px 59px 0px 40px;margin-left:-22px;font-style: normal;font-size: 17px;"><strong id="DeleteLabel" style="font-weight: 800; color: #1B4066;"></strong> <b>Note</b>-Rejecting this will permanently delete the patient record and any associated chats</p>
+            <button class="cancelbtn1 confirmbtn" style="margin-left: 37%;margin-top: 27px;padding: 0px 12px 0px 12px;color: #1B4066;font-family: Mulish;font-size: 14px;font-style: normal;font-weight: 700;line-height: normal;background-color: #fff;" onclick="CancelReject();">No, Go Back</button>
+            <button class="confirmbtn1 confirmbtn" style="margin-left: 14px;padding: 0px 12px 0px 12px;font-family: Mulish;font-size: 14px;font-style: normal;font-weight: 700;line-height: normal;border-radius: 6px;border: 1px solid #EB5757;background: #FEE6E6;color: #EB5757;" onclick="RejectInTakePatient();">Yes, Reject</button>
+        </div>
+    </div>
+</div>
+
+<!--start edit-->
+<div class="modal fade right" id="AppointmentDetailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" id="modalViewPopup" style="top:71px;overflow-y: hidden;">
+        <div class="modal-content">
+            <div class="modal-header customheader" style="width: 100%;">
+                <button type="button" class="close" id="backbtn" aria-label="Close" style="color:#282572;float:left;margin-top: -9px;  margin-bottom: 4px;">
+                    <span class="modal-title" style="margin-left: 5px;font-size:14px;">
+                        <img src="https://scheduler.paseva.com/Content/image/LeftArrowIcon.svg" id="backbtn1" onclick="ClosepopupEditDetails()" style="margin-right: 12px;">
+                        <span id="ApoointmentDetailHeaderTExt"> Patient Details </span>
+                    </span>
+
+
+                </button>
+
+            </div>
+
+
+            <div class="modal-body row" id="customMoodalrow2" style="background-color:#F9FBFF;position: relative;height: 94vh;    overflow: auto;    width: 100%;">
+
+                <div class="card profile-card " id="checkintimecart">
+
+
+                    <div class="RequestedAppintmentDetials">
+                        <div class="row">
+                            <div class="col-md-6 labelMargin">
+                                <p class="DetailHDRR">Patient Name</p>
+                                <p class="DetailDTL" id="EPName"></p>
+                            </div>
+                            <div class="col-md-4 labelMargin">
+                                <p class="DetailHDRR">Patient ID</p>
+                                <p class="DetailDTL" id="EPatID" style="color:blue"></p>
+                            </div>
+                            <button onclick="editdetais()" style="float: left; display: flex; width: 84px; padding: 7px 12px; justify-content: center; align-items: center; gap: 10px;border-radius: 6px;border: 1px solid var(--m, #1F305B);">Edit</button>
+
+                            <div class="col-md-6 labelMargin">
+                                <p class="DetailHDRR">Date of Birth</p>
+                                <p class="DetailDTL" id="EDOB"></p>
+                            </div>
+                            <div class="col-md-6 labelMargin">
+                                <p class="DetailHDRR">Mobile Number</p>
+                                <p class="DetailDTL" id="Epnone"></p>
+                            </div>
+                            <div class="col-md-6 labelMargin">
+                                <p class="DetailHDRR">Office</p>
+                                <p class="DetailDTL" id="Eoffice"></p>
+                            </div>
+                            <div class="col-md-6 labelMargin">
+                                <p class="DetailHDRR">Primary MD</p>
+                                <p class="DetailDTL" id="EPrimarymd"></p>
+                            </div>
+                            <div class="col-md-6 labelMargin">
+                                <p class="DetailHDRR">Referred By</p>
+                                <p class="DetailDTL" id="ERef"></p>
+                            </div>
+                            @*<div class="col-md-6 labelMargin">
+                                    <p class="DetailHDRR">Patient Address</p>
+                                    <p class="DetailDTL" id="EAddress"></p>
+                                </div>*@
+                            <div class="col-md-6 labelMargin">
+                                <p class="DetailHDRR">Street</p>
+                                <p class="DetailDTL" id="EStreet"></p>
+                            </div>
+                            <div class="col-md-6 labelMargin">
+                                <p class="DetailHDRR">State</p>
+                                <p class="DetailDTL" id="Estate" style="position: relative;    overflow: hidden;    word-wrap: break-word;"></p>
+                            </div>
+                            <div class="col-md-6 labelMargin">
+                                <p class="DetailHDRR">City</p>
+                                <p class="DetailDTL" id="Ecity"></p>
+                            </div>
+                            <div class="col-md-6 labelMargin">
+                                <p class="DetailHDRR">Zip Code</p>
+                                <p class="DetailDTL" id="Ezipcode"></p>
+                            </div>
+                            <div class="col-md-6 labelMargin">
+                                <p class="DetailHDRR">Payer Id</p>
+                                <p class="DetailDTL" id="Epayerid"></p>
+                            </div>
+                            <div class="col-md-6 labelMargin">
+                                <p class="DetailHDRR">Jurisdiction Code</p>
+                                <p class="DetailDTL" id="Ejuridiction"></p>
+                            </div>
+                            <div class="col-md-6 labelMargin">
+                                <p class="DetailHDRR">Payer Program</p>
+                                <p class="DetailDTL" id="EpayerProg"></p>
+                            </div>
+                            <div class="col-md-6 labelMargin">
+                                <p class="DetailHDRR">Procedure Code</p>
+                                <p class="DetailDTL" id="EProcCode"></p>
+                            </div>
+
+                        </div>
+
+
+
+
+                    </div>
+
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<div class="modal fade right" id="EditDetailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" id="modalViewPopup" style="top:71px;overflow-y: hidden;">
+        <div class="modal-content">
+            <div class="modal-header customheader" style="width: 100%;">
+                <button type="button" class="close" id="backbtn" aria-label="Close" style="color:#282572;float:left;margin-top: -9px;  margin-bottom: 4px;">
+                    <span class="modal-title" style="margin-left: 5px;font-size:14px;">
+                        <img src="https://scheduler.paseva.com/Content/image/LeftArrowIcon.svg" id="backbtn2" onclick="ClosepopupEditModal()" style="margin-right: 12px;">
+                        <span id="ApoointmentDetailHeaderTExt">Edit Patient Details </span>
+                    </span>
+                </button>
+            </div>
+            <div class="modal-body row" id="customMoodalrow3" style="background-color:#F9FBFF;position: relative;height: 100vh;    overflow: auto;    width: 100%;padding: 15px 0px 140px 15px;">
+
+                <div class="modal-body" style="margin-top:50px;">
+                    <div class="col-md-6">
+                        @*Medical Id*@
+                        <div class="form-group">
+                            <label>Patient First Name</label>
+                            <span style="color:red !important;">*</span>
+                            <input type="text" id="UFname" class="form-control " /> <!--here, U means update -->
+                        </div>
+
+
+                        @*PrimaryMD*@
+                        <div class="form-group">
+                            <label>Date Of Birth</label>
+                            <div class="input-group date" id="datetimepicker1">
+                                <input type="text" id="UDateOfBirth" class="form-control" style="margin-top: 0px;border-radius: 5px 0 0 5px;">
+                                <span class="input-group-addon" style="padding: 6px 10px; cursor: pointer;" id="dobCalendarIcon">
+                                    <!-- SVG calendar icon -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                                        <path d="M18 5.25V6H0V5.25C0 3.17925 1.67925 1.5 3.75 1.5H4.5V0.75C4.5 0.336 4.836 0 5.25 0C5.664 0 6 0.336 6 0.75V1.5H12V0.75C12 0.336 12.336 0 12.75 0C13.164 0 13.5 0.336 13.5 0.75V1.5H14.25C16.3207 1.5 18 3.17925 18 5.25ZM18 12.75C18 15.645 15.6442 18 12.75 18C9.85575 18 7.5 15.645 7.5 12.75C7.5 9.855 9.85575 7.5 12.75 7.5C15.6442 7.5 18 9.855 18 12.75ZM14.25 13.1895L13.5 12.4395V11.25C13.5 10.836 13.164 10.5 12.75 10.5C12.336 10.5 12 10.836 12 11.25V12.75C12 12.9487 12.0787 13.14 12.2197 13.2803L13.1895 14.25C13.482 14.5425 13.9575 14.5425 14.25 14.25C14.5425 13.9575 14.5425 13.482 14.25 13.1895ZM6 12.75C6 10.6283 6.981 8.7375 8.51175 7.5H0V14.25C0 16.3207 1.67925 18 3.75 18H8.51175C6.981 16.7625 6 14.8717 6 12.75Z" fill="#1F305B" />
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+
+                        @*PhoneNo*@
+                        <div class="form-group">
+                            <label>Mobile Number</label>
+                            <span style="color:red !important;">*</span>
+                            @*  @Html.ValidationMessageFor(model => model.PhoneNo)*@
+                            @*<input type="number" id="UPhone" class="form-control " maxlength="10" oninput="limitLength(this)"/>*@
+                            <input class="form-control" data-val="true" data-val-required="Please Enter PhoneNo" id="UPhone" maxlength="10" name="PhoneNo" oninput="validatePhone(this)"  tabindex="4" type="text" value="" />
+                        </div>
+
+                        @*Office*@
+
+                        <div class="form-group">
+                            <label>Referred By</label>
+                            @*<span style="color:red;">*</span>*@
+                            <input type="text" id="URef" class="form-control " />
+                        </div>
+                        <div class="form-group">
+                            <label>@CaregiverLite.Views.Resources.Patients.TableHeaderState</label>
+                            <span style="color:red !important;">*</span>
+                            <input type="text" id="UState" class="form-control " />
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Jurisdiction Code</label>
+                            @*<span style="color:red;">*</span>*@
+                            <input type="text" id="UJurisdiction" class="form-control " />
+                        </div>
+                        <div class="form-group">
+                            <label>Payer Id</label>
+                            @*<span style="color:red;">*</span>*@
+                            <input type="text" id="UPayerID" class="form-control " />
+                        </div>
+                        <div class="form-group">
+                            <label>Procedure Code</label>
+                            @*<span style="color:red;">*</span>*@
+                            <br />
+                            <input type="text" id="UProc" class="form-control " />
+
+
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Patient Last Name</label>
+                            <span style="color:red !important;">*</span>
+                            <input type="text" id="ULname" class="form-control " />
+                        </div>
+                        <div class="form-group">
+                            <label>Patient Id</label>
+                            <span style="color:red !important;">*</span>
+                            <input type="text" id="UPatID" class="form-control " maxlength="10" placeholder="10 characters (2 letters + 8 digits)." />
+                        </div>
+                        <div class="form-group">
+                            <label>Office</label>
+                            <span style="color:red !important;">*</span>
+                            @*<input type="text" id="Uofficeid" class="form-control " />*@
+                            <select id="Uofficeid" class="form-control"></select>
+                        </div>
+                        @*<div class="form-group">
+                                <label>Patient Address</label>
+                                <span style="color:red !important;">*</span>
+                                <input type="text" id="Uaddress" class="form-control " />
+                            </div>*@
+                        @*Street*@
+
+                        @*City*@
+                        <div class="form-group">
+                            <label>@CaregiverLite.Views.Resources.Patients.TableHeaderStreet</label>
+                            <span style="color:red !important;">*</span>
+                            <input type="text" id="UStreet" class="form-control " />
+                        </div>
+                        <div class="form-group">
+                            <label>@CaregiverLite.Views.Resources.Patients.TableHeaderCity</label>
+                            <span style="color:red !important;">*</span>
+                            <input type="text" id="UCity" class="form-control " />
+
+                        </div>
+                        @*State*@
+                        @*Zipcode*@
+                        <div class="form-group">
+                            <label>@CaregiverLite.Views.Resources.PatientRequest.TableHeaderZipCode</label>
+                            <span style="color:red !important;">*</span>
+                            @*<input type="text" id="UZipcode" class="form-control " />*@
+                            <input class="form-control" data-val="true" data-val-required="Please Enter PhoneNo" id="UZipcode" maxlength="6" name="PhoneNo" oninput="validatePhone(this)" &nbsp;tabindex="4" type="text" value="">
+                        </div>
+                        <div class="form-group">
+                            @*<label>@CaregiverLite.Views.Resources.PatientRequest.TableHeaderZipCode</label>*@
+                            <label>Primary MD</label>
+                            <span style="color:red !important;">*</span>
+                            <input type="text" id="UPrimaryMD" class="form-control " />
+                        </div>
+                        <div class="form-group">
+                            <label>Payer Program</label>
+                            @*<span style="color:red;">*</span>*@
+                            <input type="text" id="UPayerProg" class="form-control " />
+
+                        </div>
+                    </div>
+                    <div class="row"
+                         style="text-align: right;display: block;position: fixed;z-index: 1097;bottom: 0px;right: 0px;width: 100%;background: white;border-top: 1px solid #e7e7e7;height: 65px;left:0px;padding-top: 10px;">
+                        <div class="d-flex gap-2" style="float:right;margin-top:6px">
+                            <button class="btn btn-outline-dark BatchSchudelbtn btn-cancel" style="margin-right: 10px;" onclick="Closepopup()">Cancel</button>
+                            <button type="button" id="myButton" onclick="UpdateIntakePatDetails()" class="btn  btn-primary " style="border-radius:5px;padding: 6px 20px 6px 22px;">Save Changes</button>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>c
+
+<!--End Edit-->
+<!--Add members start -->
+<div class="modal fade" id="Save_Modal" tabindex="-1" aria-labelledby="assignModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="margin-top:120px">
+        <div class="modal-content p-3">
+            <div class="modal-header pb-0">
+                <span class="modal-title" style="margin-left: 5px;font-size:14px;">
+                    @*<img src="https://scheduler.paseva.com/Content/image/LeftArrowIcon.svg" id="backbtn" onclick="Closepopup()" style="margin-right: 12px;">*@
+                    <span id="ApoointmentDetailHeaderTExt" style="color: #000;font-family: &quot;Open Sans&quot;;font-size: 16px;font-style: normal;font-weight: 700;line-height: normal;cursor: pointer;"> Assign Member </span>
+                    <button onclick="HideAddMemberModal()" class="close" type="button">×</button>
+                </span>
+
+            </div>
+
+            <div class="modal-body pt-0">
+
+
+                <!-- Patient Info -->
+                <div class="patient-box" id="ChatGroupName">
+                    @*Patient Name : Sagar Kumar (NHG87587987)*@
+                </div>
+
+                <!-- Member Dropdown -->
+                <label for="memberSelect" class="form-label">Select Office Members</label>
+                <div>
+                    <select class="form-select" id="memberSelect" multiple></select>
+
+                </div>
+
+               
+                <!--Added by sumit jha----start----->
+                @*<div class="dropdown-container" id="dropdownContainer">
+                    <div class="selected-tags-area" id="toggleDropdown">
+                        <div class="selected-tags" id="selectedTags"></div>
+                        <i id="dropdownArrow" class="fas fa-chevron-down "></i>
+                    </div>
+
+                    <div class="dropdown-menu" id="dropdownMenu" style="display: none;">
+                        <div style="width:70%">
+                            <i class="fas fa-search search-icon"></i>
+                            <input type="text" id="searchBox" placeholder="Search caregiver">
+
+                        </div>
+                        <div class="clear-filter" id="clearFilter">Clear Filter</div>
+                        <div class="options-list">
+                            <div id="memberContainer"></div>
+                        </div>
+                        <div class="actions">
+                            <button class="btn btn-cancel" id="cancelBtn">Cancel</button>
+                            <button class="btn btn-save" id="saveBtn">Done</button>
+                        </div>
+                    </div>
+                </div>*@
+
+                <!---End---->
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" id="cancelBtn" class="btn-close btn btn-outline-dark BatchSchudelbtn btn-cancel" style="margin-right: 10px;" onclick="HideAddMemberModal()">Cancel</button>
+                <button type="submit" class="btn  btn-primary " style="border-radius:5px;padding: 6px 20px 6px 22px;" onclick="SaveSelectedMembers()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Add member Ends-->
+
+<div class="wrapper wrapper-content animated fadeInRight containerstyle">
+    <div class="row">
+        <div style="margin-left: 5px;">
+            <div class="ibox float-e-margins" style="margin-top: 51px;">
+                <ul id="tab1234" style="list-style: none;   display: flex; background: #fff;">
+                    <li id="Specilatily" class="liformat" style="margin-right: 23px;background: #fff;padding: 10px 20px 15px 20px;color: #9f9f9f;">Patient</li>
+
+                    <li id="visitType" class="liformat" style="margin-right: 23px;background: #fff;padding: 10px 20px 15px 20px;color: #9f9f9f;">Intake Patient Chat</li>
+                </ul>
+
+            </div>
+        </div>
+        <div class="col-md-12" style="margin-top: -7px;margin-left: 8px;">
+            <div class="container" style="background: white;  width:100%;  border: 1px solid #e7e7e7;    border-radius: 5px;" id="IntakeChatDiv1">
+
+                <div id="IntakePatientDiv_nodata">
+                    <div style="text-align:right;-top: 7px;max-width: fit-content;margin-left: auto;margin-right: auto;margin-top: 18%;">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" width="68" height="68" viewBox="0 0 68 68" fill="none" style="margin-right:126px">
+                            <circle cx="34" cy="34" r="33.5" fill="#F0F4FF" stroke="#E4F1FF" />
+                            <path d="M47.0766 49.8488V50.6252C47.0766 51.9109 46.0331 52.9544 44.7474 52.9544C43.4617 52.9544 42.4183 51.9109 42.4183 50.6252V49.8488C42.4183 45.5678 38.9354 42.0849 34.6543 42.0849C33.9618 42.0849 33.2894 42.1765 32.6497 42.3473C33.1807 44.5647 33.7071 46.7339 34.086 48.296H36.982C38.2677 48.296 39.3111 49.3395 39.3111 50.6252C39.3111 51.9109 38.2677 52.9544 36.982 52.9544H25.336C23.392 52.9544 22.2305 51.3752 22.2305 49.8488C22.2305 42.9995 27.8034 37.4265 34.6528 37.4265C41.5021 37.4265 47.0766 42.9995 47.0766 49.8488ZM25.3376 25.0042C25.3376 19.8583 29.5084 15.6875 34.6543 15.6875C40.0891 15.6875 43.971 19.7139 43.971 24.6797C43.971 29.4141 40.5767 33.6393 35.8795 34.2418C30.1978 34.97 25.3376 30.5446 25.3376 25.0042ZM29.996 25.0042C29.996 27.5725 32.086 29.6626 34.6543 29.6626C37.2226 29.6626 39.3127 27.5725 39.3127 25.0042H34.9757L38.4136 22.2589C37.7599 21.366 36.7972 20.7139 35.6838 20.4623L29.9944 25.0042H29.996Z" fill="#1F305B" />
+                        </svg>
+                        <h3 class="class=" HDR" style="color: var(--m, #1F305B);
+                                                     font-family: Mulish;
+                                                     font-size: 20px;
+                                                     font-style: normal;
+                                                     font-weight: 800;
+                                                     line-height: 21px;">
+                            No patient has been added yet
+                        </h3>
+                        <p style="margin-right:40px;color: #9F9F9F;font-family: Mulish;font-size: 18px;font-style: normal;font-weight: 600;line-height: 21px; /* 116.667% */">Please proceed to add one</p>
+                        <a class="btn btn-xs CutomButton" style="margin-top: 19px;float: right;margin-bottom:20%;background-color: #092C44;color: white;padding: 8px;height: 42px;font-size: 14px;margin-right: 91px;" href="javascript:;" onclick="OpenService_AddPopup()">
+                            <img src="https://scheduler.paseva.com/Content/image/AddIcon.svg" alt="Add New Speciality">
+                            <span style="margin-left: 3px;">Add Patient</span>
+                        </a>
+                    </div>
+
+                </div>
+
+                <div id="specialityTypeDiv">
+                    <div class="row tblpadding" style="margin-bottom:-22px">
+                        <div class="col-md-4" style="margin-top: 7px;">
+                            <h3 class="HDR" style="margin-left: -14px;" id="TotalPatientCount"></h3>
+
+                        </div>
+                        <div class="col-md-8" style="text-align:right;margin-top: 7px;">
+                            <a class="btn btn-xs CutomButton" style="margin-top: -10px;float: right;background-color: #092C44;color: white;padding: 8px;height: 42px;font-size: 14px;" href="javascript:;" onclick="OpenService_AddPopup()">
+                                <img src="https://scheduler.paseva.com/Content/image/AddIcon.svg" alt="Add New Speciality">
+                                <span style="margin-left: 3px;">New Patient</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row tblpadding">
+                        <div class="tblMargin InTakePatientDiv">
+
+
+                            <table id="appointmentsTable" class="table table-hover table-striped">
+
+                                <thead>
+                                    <tr class="theadtr">
+                                        <th>Patient Name</th>
+                                        <th>Patient ID</th>
+                                        <th>Mobile No</th>
+                                        <th>Office</th>
+                                        <th>Referred by</th>
+                                        <th>@CaregiverLite.Views.Resources.Services.TableHeaderActions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+
+                                    <tr>
+
+                                        <td>Ashish</td>
+                                        <td>1</td>
+                                        <td>1234567890</td>
+                                        <td>M1m2</td>
+                                        <td>Ashish</td>
+
+                                        <td>
+                                            <a href="javascript:;" title="Edit" style="padding: 10px 25px 10px 25px;justify-content: center;align-items: center;gap: 6px;flex-shrink: 0;border-radius: 20px;border: 1px solid #EB5757;background: #FEE6E6;color: red;">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="5" height="6" viewBox="0 0 5 6" fill="none">
+                                                    <circle cx="2.5" cy="3" r="2.5" fill="#EB5757" />
+                                                </svg>  Reject
+                                            </a>
+                                            <a href="javascript:;" title="Delete" style="padding: 10px 25px 10px 25px; margin-left:30px;justify-content: center;align-items: center;gap: 6px;flex-shrink: 0;color: #239450;border-radius: 20px;border: 1px solid #239450;background: #D4FFE8;">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="5" height="6" viewBox="0 0 5 6" fill="none">
+                                                    <circle cx="2.5" cy="3" r="2.5" fill="#239450" />
+                                                </svg>   Accept
+                                            </a>
+
+                                            <a style="float: inline-end;margin-right: 20px;">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="8" height="13" viewBox="0 0 8 13" fill="none">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M0.361154 0.339034C0.842693 -0.113011 1.62342 -0.113011 2.10496 0.339034L7.52772 5.42965C8.15743 6.02079 8.15742 6.97921 7.52772 7.57035L2.10496 12.661C1.62342 13.113 0.842693 13.113 0.361154 12.661C-0.120385 12.2089 -0.120385 11.476 0.361154 11.024L5.18029 6.5L0.361154 1.97603C-0.120385 1.52399 -0.120385 0.791079 0.361154 0.339034Z" fill="#999999" />
+                                                </svg>
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="Chat_ModlPage">
+                    <div style="text-align:right;top: 7px !important;max-width: fit-content;margin-left: auto;margin-right: auto;margin-top: 10%;margin-bottom: 30px;">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" width="68" height="68" viewBox="0 0 68 68" fill="none" style="margin-right:242px">
+                            <circle cx="34" cy="34" r="33.5" fill="#F0F4FF" stroke="#E4F1FF" />
+                            <path d="M47.0766 49.8488V50.6252C47.0766 51.9109 46.0331 52.9544 44.7474 52.9544C43.4617 52.9544 42.4183 51.9109 42.4183 50.6252V49.8488C42.4183 45.5678 38.9354 42.0849 34.6543 42.0849C33.9618 42.0849 33.2894 42.1765 32.6497 42.3473C33.1807 44.5647 33.7071 46.7339 34.086 48.296H36.982C38.2677 48.296 39.3111 49.3395 39.3111 50.6252C39.3111 51.9109 38.2677 52.9544 36.982 52.9544H25.336C23.392 52.9544 22.2305 51.3752 22.2305 49.8488C22.2305 42.9995 27.8034 37.4265 34.6528 37.4265C41.5021 37.4265 47.0766 42.9995 47.0766 49.8488ZM25.3376 25.0042C25.3376 19.8583 29.5084 15.6875 34.6543 15.6875C40.0891 15.6875 43.971 19.7139 43.971 24.6797C43.971 29.4141 40.5767 33.6393 35.8795 34.2418C30.1978 34.97 25.3376 30.5446 25.3376 25.0042ZM29.996 25.0042C29.996 27.5725 32.086 29.6626 34.6543 29.6626C37.2226 29.6626 39.3127 27.5725 39.3127 25.0042H34.9757L38.4136 22.2589C37.7599 21.366 36.7972 20.7139 35.6838 20.4623L29.9944 25.0042H29.996Z" fill="#1F305B" />
+                        </svg>
+                        <h3 class="class=" HDR" style="color: var(--m, #1F305B);
+                    font-family: Mulish;
+                    font-size: 20px;
+                    font-style: normal;
+                    font-weight: 800;
+                    line-height: 21px;">
+                            The intake chat will show up here<br /> after you add a patient.
+                        </h3>
+                        @*<a class="btn btn-xs CutomButton" style="margin-top: 19px;float: right;margin-bottom:20%;background-color: #092C44;color: white;padding: 8px;height: 42px;font-size: 14px;margin-right: 91px;" href="javascript:;" onclick="OpenService_AddPopup()">
+                                <img src="https://scheduler.paseva.com/Content/image/AddIcon.svg" alt="Add New Speciality">
+                                <span style="margin-left: 3px;">Add Patient</span>
+                            </a>*@
+                    </div>
+
+                </div>
+                <div id="visitTypeDiv">
+                    <div class="row tblpadding" style="margin-bottom:-22px">
+                        <div class="col-md-4" style="margin-top: 7px;">
+                            <h3 class="HDR" style="margin-left: -14px;" id="IntakeChtPatCount">Intake Patient Chat </h3>
+
+                        </div>
+                        @*<div class="col-md-8" style="text-align:right;margin-top: 7px;">
+                                <a class="btn btn-xs CutomButton" style="margin-top: -10px;float: right;background-color: #092C44;color: white;padding: 8px;height: 42px;font-size: 14px;" href="javascript:;" onclick="OpenVisitTypeAddPopup()">
+                                    <img src="https://scheduler.paseva.com/Content/image/AddIcon.svg" alt="Intake Patient Chat">
+                                    <span style="margin-left: 3px;">Intake Patient Chat</span>
+                                </a>
+                            </div>*@
+                    </div>
+                    <div class="row tblpadding">
+                        <div class="tblMargin">
+                            <table class="table-container" id="IntakePatientChatTbl">
+                                <thead></thead>
+                                <tbody></tbody>
+                                @*<thead>
+                                        <tr class="theadtr">
+                                            <th>Patient Name</th>
+                                            <th>Office</th>
+                                            <th>Chat </th>
+
+                                            <th></th>
+                                        </tr>
+                                    </thead>*@
+                                @*<tbody>
+
+
+                                        <tr role="row" class="odd" onclick="window.location = '/InTake/IntakePatientChatPage'" style="cursor: pointer;">
+
+                                            <td>Suraj</td>
+                                            <td>ca-ty</td>
+                                            <td><button class="countbtn">47</button>
+                                            </td>
+                                            <td>
+                                                <button style="color: #1B4066;font-family: &quot;Open Sans&quot;;font-size: 12px;font-style: normal;font-weight: 600;line-height: normal;border-radius: 6px; border: 1px solid #1B4066; background: #FFF;" id="gridSystemModalLabel">Add Member</button>
+                                                <a style="float: inline-end;margin-right: 20px;">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="8" height="13" viewBox="0 0 8 13" fill="none">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M0.361154 0.339034C0.842693 -0.113011 1.62342 -0.113011 2.10496 0.339034L7.52772 5.42965C8.15743 6.02079 8.15742 6.97921 7.52772 7.57035L2.10496 12.661C1.62342 13.113 0.842693 13.113 0.361154 12.661C-0.120385 12.2089 -0.120385 11.476 0.361154 11.024L5.18029 6.5L0.361154 1.97603C-0.120385 1.52399 -0.120385 0.791079 0.361154 0.339034Z" fill="#999999" />
+                                                    </svg>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>*@
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<script>
+    var ssFromQBId = '@Session["FromQBId"]';
+    var tmpDialogId = "@Session["chatDialogId"]";
+    var grpName =@Session.["GroupName"];
+    var OfficeName = @Session["OfficeName"];
+    var ChattingGroupId = @Session["ChattingGroupId"];
+
+
+        $('#myModal').on('shown.bs.modal', function () {
+
+            $("#Date").datepicker(
+            {
+                minDate: 0,
+                onSelect: function () {
+                    $(this).change();
+                }
+
+                //,dateFormat: 'dd-mm-yy'
+            });
+
+
+            $("#RepeatDate").datepicker(
+            {
+                minDate: 0,
+                onSelect: function () {
+                    $(this).change();
+                }
+
+                //,dateFormat: 'dd-mm-yy'
+            });
+
+        });
+
+
+
+        //$('#procId').on('keyup', function () {
+        //    const value = $(this).val().trim();
+        //    $('#myButton').prop('disabled', value === '');
+        //});
+
+        //$(document).ready(function () {
+        //    $('#procId444').on('keypress', function () {
+        //        console.log('jjj')
+        //        const value = $(this).val().trim();
+        //        $('#myButton').prop('disabled', !(value >= 0));
+        //    });
+        //});
+        $(document).ready(function () {
+            //if(dd==1&&dd2=22){
+
+            //}
+            //else{
+            //    this
+            //}
+            $('#specialityTypeDiv').css("display", "block");
+            $('#visitTypeDiv').css("display", "none");
+
+            $('#tab1234 li').click(function () {
+                $('#tab1234 li').removeClass("activeDiv");
+
+                var clickedId = $(this).attr("id");
+
+                debugger;
+                if (clickedId == "visitType") {
+                    $('#visitTypeDiv').css("display", "block");
+                    $('#specialityTypeDiv').css("display", "none")
+                } else {
+                    $('#visitTypeDiv').css("display", "none");
+                    $('#specialityTypeDiv').css("display", "block")
+                }
+                $(this).addClass("activeDiv")
+            })
+
+        });
+
+        $('.cancelbtn').click(function () {
+
+            debugger
+            $('#Delete_Modal').modal('hide');
+            // $('#ConfirmationModel').modal('hide');  // Hide the confirmation modal
+        });
+
+        $('.confirmbtn').click(function () {
+            $('#Delete_Modal').modal('hide');
+
+
+        });
+        $('.cancelbtn1').click(function () {
+
+            debugger
+            $('#Delete_Modal1').modal('hide');
+            // $('#ConfirmationModel').modal('hide');  // Hide the confirmation modal
+        });
+
+        $('.confirmbtn1').click(function () {
+            $('#Delete_Modal1').modal('hide');
+
+
+        });
+        $("#backbtn").click(function () {
+            $('#ServiceType_Add_Modal').modal('hide');
+            debugger
+
+
+        });
+
+        $("#backbtn1").click(function () {
+            debugger
+            $('#EditDetailModal').modal('hide');
+        });
+        $("#backbtn2").click(function () {
+            $('#AppointmentDetailModal').modal('hide');
+        });
+
+        $('#datetimepicker1').datetimepicker({
+            format: "MM-DD-YYYY",
+            maxDate: moment()
+        });
+        function OpenService_AddPopup(ServiceId, ServiceName) {
+            $('#loading').show();
+            $('#ServiceType_Add_Modal').modal('show');
+            $('#loading').hide();
+        }
+
+
+        function OpenVisitTypeAddPopup(ServiceId, ServiceName) {
+            $('#loading').show();
+            $('#VisitType_Add_Modal').modal('show');
+            $('#loading').hide();
+        }
+
+        function Closepopup() {
+            $('#ServiceType_Add_Modal').modal('hide');
+            $('#ServiceType_Edit_Modal').modal('hide');
+            $('#VisitType_Add_Modal').modal('hide');
+            $('#VisitType_Edit_Modal').modal('hide');
+            $('#AppointmentDetailModal').modal('hide');
+            $('#EditDetailModal').modal('hide');
+            $("#Save_Modal").modal('hide');
+
+        }
+
+        function Confirmaccept(id, ServiceName, ptype) {
+            debugger
+            tempServiceId = id;
+            tempServiceName = ServiceName;
+            ServiceType = ptype;
+
+            $('#Delete_Modal').modal('show');
+        }
+        //function ConfirmDelete() {
+
+
+        //    $('#Delete_Modal1').modal('show');
+        //}
+
+        $('#DOB').on("click", function () {
+
+            $('#datetimepicker1').data("DateTimePicker").show();
+
+        });
+</script>
+
+
+
+
+

@@ -1,0 +1,126 @@
+﻿
+
+<div id="CheckInCHART" style="height: 300px"></div>
+<script>
+
+    var ChechInHourDateList =[];
+    var CheckInMinutesList =[]; 
+
+    var AutoData=[];   
+    var DateList=[];
+    $(document).ready(function () {
+        
+        ChechInHourDateList = @Html.Raw(Json.Encode(ViewBag.CheckInDateList));
+        CheckInMinutesList = @Html.Raw(Json.Encode(ViewBag.CheckInCount));
+
+       
+        debugger;
+        for(var i=DateDifference;i>=0;i--)
+        {
+            var CurrentDate=new Date(endDate);
+            let tempCurrentDate=new Date(CurrentDate.setDate(CurrentDate.getDate() - i));
+
+            tempCurrentDate.setHours(0);
+            tempCurrentDate.setMinutes(0);
+            tempCurrentDate.setSeconds(0);
+
+
+            const formattedDate = tempCurrentDate.toLocaleDateString('en-GB', {
+                day: 'numeric', month: 'short', year: 'numeric'
+            }).replace(/ /g, '-');
+
+            DateList.push(formattedDate);
+
+
+            let CheckInDataFound = ChechInHourDateList.find(element => (new Date(element)).toString()==tempCurrentDate.toString() );
+
+            var ddd=CheckInMinutesList[ChechInHourDateList.indexOf(CheckInDataFound)];
+            
+            if(CheckInDataFound)
+            {debugger
+                
+                var val=Math.round(CheckInMinutesList[ChechInHourDateList.indexOf(CheckInDataFound)] / 60);;
+             
+                AutoData.push(val);
+            }
+            else{
+                AutoData.push(0);
+            }
+        }
+
+
+
+        var sssssss=AutoData.reduce((partialSum, a) => partialSum + a, 0);
+        debugger;
+        document.getElementById("TotalCheckInCountID").innerHTML = AutoData.reduce((partialSum, a) => partialSum + a, 0);
+       
+
+        console.log("datelis=",JSON.stringify(DateList))
+        console.log("Autooooo=",JSON.stringify(AutoData))
+      
+        Highcharts.chart('CheckInCHART', {
+            tooltip: {
+                useHTML: true,
+                formatter: function () {                  
+                    return '<div>  <b style=font-size:18px> ' + this.y + '</b></div>';
+                }
+            },
+
+            chart: {
+                type: 'spline'                
+            },
+            credits: {
+                enabled: false
+            },
+            plotOptions: {
+                series: {
+                    animation: {
+                        duration: 1000
+                    }
+                }
+            },
+            title: {
+                text: ''
+            },
+            xAxis: {
+                labels: {
+                    style: {
+                        fontWeight: 'bold',
+                        fontSize: "12px",
+                    }
+                },
+                categories:DateList
+            },
+            yAxis: {
+                labels: {
+                    style: {
+                        fontWeight: 'bold',
+                        fontSize: "10px",
+                    }
+                },
+                title: {
+                    text: ''
+                }
+            },
+            series: [
+                 {
+                name: 'CheckIn Hours',
+                data:AutoData
+            }]
+        }
+        
+         );
+
+    });
+
+    function dayDiff(d1,d2)
+    {
+        var diff = d2.getTime() - d1.getTime();
+        var daydiff = diff / (1000 * 60 * 60 * 24);
+        return  daydiff;
+    }
+
+</script>
+
+
+

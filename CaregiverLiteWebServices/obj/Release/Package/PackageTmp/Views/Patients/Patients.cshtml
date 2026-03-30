@@ -1,0 +1,444 @@
+﻿@*//@model CaregiverLite.Models.SchedulePatientRequestModel*@
+@{
+    ViewBag.Title = "Patients";
+    //Layout = "~/Views/_ViewStart.cshtml";
+}
+
+<!-- ADD PATIENT DETAILS POPUP START -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" id="modalAddPopup">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" id="btnClose" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Add Patient Details</h4>
+            </div>
+            <div class="modal-body row" id="AddNewPatient">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- EDIT PATIENT DETAILS POPUP START -->
+<div class="modal fade" id="myModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" id="modalEditPopup">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" id="btnClose" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Edit Patient Details</h4>
+            </div>
+            <div class="modal-body row" id="EditPatient">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- LIST OF PATIENT START-->
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>@CaregiverLite.Views.Resources.Patients.HeaderPatientList</h5>
+                    <div class="ibox-tools">
+                        <a class="btn btn-xs btn-primary" style="margin-top:-9px;" href="javascript:;" onclick="OpenAddNew()">@CaregiverLite.Views.Resources.Patients.ButtonAddPatients</a>
+
+                        <div class="clearfix"></div>
+                    </div>
+                    @using (Html.BeginForm("ImportExcelData", "Patients", FormMethod.Post, new { @id = "fmUploadDataFromExcel", enctype = "multipart/form-data" }))
+                    {
+                        
+
+                        <a class="btn btn-xs btn-primary pull-right" style="margin-top:-8px;" href="javascript:void(0)" onclick="ExportTable();" id="btnEXPORT" Value="Export">
+                            EXPORT
+                        </a>
+
+                       
+                        <div class="image-upload input-group pull-right" style="margin-top:-8px;margin-right: 5px;" id="selectFileIcon">
+                            <label class="btn btn-xs btn-primary" for="file" id="btnIMPORT">
+                                IMPORT
+                            </label>
+                            <label id="fileViewer"></label>
+                            <input class="btn btn-xs btn-primary" type="file" name="file" accept=".xlsx,application/vnd.ms-excel" id="file" />
+
+                        </div>
+                        <style>
+                            .image-upload > input {
+                                display: none;
+                            }
+
+                            .image-upload i {
+                                width: 40px;
+                                font-size: large;
+                                cursor: pointer;
+                            }
+
+                            input[id="fileCall"] {
+                                margin-left: -50px;
+                                height: 25px;
+                                width: 50px;
+                            }
+                        </style>
+                        <div class="input-group pull-right" style="margin-top:-8px;margin-right: 5px;">
+                            <input class="btn btn-xs btn-primary" style="display:none;background-color: #5ca53c;" id="btnUpload" type="submit" value="UPLOAD DATA" />
+                        </div>
+                            <div class="input-group pull-right" style="margin-top:-8px;margin-right: 5px;">
+                                <a class="btn btn-xs btn-primary" style="display:none" id="btnReset" href="javascript:void(0)" onclick="ResetUpload();">RESET</a>
+                            </div>
+                            <div class="input-group pull-right" style="margin-top:-4px;margin-right: 15px;">
+                                <a href="~/sample/Patient_Detail_Sample_File_Demo.xlsx">Download sample file</a>
+                            </div>
+
+                    }
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="form-group col-md-2 pull-right">
+                            <label>Office:</label>
+                            </br>
+                            
+                            @Html.DropDownList("ddFilterOffice", (System.Web.Mvc.SelectList)ViewBag.lstOffice, "All" ,new { @class="form-control", onchange = "Filtration();" })
+                        </div>
+                    </div>
+                    <input type="hidden" id="hdnPatientRequestId" />
+                    <table id="myDataTable" class="table table-striped table-bordered table-hover dataTables-example">
+                        <thead>
+                            <tr>
+
+                                <th><strong>Patient</strong></th>
+                                <th><strong>MRN</strong></th>
+                                @*<th><strong>@CaregiverLite.Views.Resources.Patients.TableHeaderAddress</strong></th>*@
+                                <th><strong>Street</strong></th>
+                                <th><strong>City</strong></th>
+                                <th><strong>State</strong></th>
+                                <th><strong>Zipcode</strong></th>
+                                <th><strong>Telephone</strong></th>
+                                <th><strong>PrimaryMD</strong></th>
+                                <th><strong>Office</strong></th>
+                                <th style="width: 100px;" class="noExl">@CaregiverLite.Views.Resources.CareGiver.TableHeaderAction</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+<!-- LIST OF PATIENT END-->
+<script src="~/Scripts/js/jquery-2.1.1.js"></script>
+<script src="~/Scripts/js/jquery.dataTables.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="~/Scripts/js/oms.min.js"></script>
+
+<script type="text/javascript">
+    
+    var tempMsg = '@TempData["Message"]';
+    var tempFlag = '@TempData["error"]';
+
+    if (tempFlag != "True") {
+        if (tempMsg != "")
+            toastr.success(tempMsg);
+    }
+    else {
+        if (tempMsg != "")
+            toastr.error(tempMsg);
+    }
+
+    var oTable;
+
+    $(document).ready(function () {
+
+        $("#loading").show();
+        var jquey = jQuery.noConflict();
+        oTable = $('#myDataTable').DataTable({
+
+            responsive: true,
+            "dom": 'lfrtip',
+
+            "bPaginate": true,
+            "bServerSide": true,
+
+            "bSortable": true,
+            "sPaginationType": "full_numbers",
+            "oLanguage": {
+                "sProcessing": "<div class=\"loading\" id=\"loading\" style=\"display: block;\"></div>"
+            },
+            "processing": true,
+
+            "sAjaxSource": "GetPatientDetailsList",
+            "fnServerData": function (sSource, aoData, fnCallback) {
+                $.getJSON(sSource, aoData, function (json) {
+                    fnCallback(json);
+                }).fail(function (jqxhr, textStatus, error) {
+                    window.location.reload();
+                });
+            },
+            "fnServerParams": function (aoData) {
+                aoData.push({ "name": "FilterOfficeId", "value": $('#ddFilterOffice option:selected').val() });
+            },
+            "fnDrawCallback": function (oSettings) {
+                //Navigation validation
+                var rowsPerPage = this.fnSettings()._iDisplayLength;
+                var rowsToShow = this.fnSettings().fnRecordsDisplay();
+                var table = $('#myDataTable').DataTable();
+                var info = table.page.info();
+                var currentPageNo = info.page + 1;
+                $("#loading").hide();
+            },
+            "responsive": {
+                "details": {
+                    "type": 'column'
+                }
+            },
+            "aoColumns": [
+
+                            {
+                                "sName": "Patient",
+                                "mRender": function (oObj) {
+                                    return '<span>' + oObj["PatientName"] + '</span>';
+                                }
+                            },
+                            {
+                                "sName": "MedicalId",
+                                "mRender": function (oObj) {
+                                    return oObj["MedicalId"];
+                                }
+                            },
+                            {
+                                "sName": "Street",
+                                "mRender": function (oObj) {
+                                    return oObj["Street"];
+                                }
+                            },
+                            {
+                                "sName": "City",
+                                "mRender": function (oObj) {
+                                    return oObj["City"];
+                                }
+                            },
+                            {
+                                "sName": "State",
+                                "mRender": function (oObj) {
+                                    return oObj["State"];
+                                }
+                            },
+                             {
+                                 "sName": "ZipCode",
+                                 "bSortable": false,
+                                 "mRender": function (oObj) {
+                                     return oObj["ZipCode"];
+                                 }
+                             }, {
+                                 "sName": "PhoneNo",
+                                 "bSortable": false,
+                                "mRender": function (oObj) {
+                                    return oObj["PhoneNo"];
+                                }
+                            },
+                              {
+                                  "sName": "PrimaryMD",
+                                  "bSortable": false,
+                                "mRender": function (oObj) {
+                                    return oObj["PrimaryMD"];
+                                }
+                              },
+                              {
+                                  "sName": "OfficeName",
+                                  "mRender": function (oObj) {
+                                      return oObj["OfficeName"];
+                                  }
+                              },
+                            {
+                                "sName": "PatientId",
+                                "bSortable": false,
+                                "mRender": function (oObj) {
+                                    var actionhtml = '';
+                                    actionhtml += '<a href="javascript:;" class="btn btn-xs btn-danger noExl" style="margin-top:5px; width:100%;" onclick="DeletePatientDetail(\'' + oObj["PatientId"] + '\');">@CaregiverLite.Views.Resources.CareGiver.ButtonDelete</a>'
+                                    actionhtml += '<a href="javascript:;" class="btn btn-xs btn-primary noExl" style="margin-top:5px; width:100%;" onclick="EditPatientDetail(\'' + oObj["PatientId"] + '\');">EDIT</a>'
+                                    return actionhtml;
+                                }
+                            },
+
+
+            ]
+        });
+
+        $('#myDataTable_filter input').unbind(); //Unbind direct search on each keypress
+        $('#myDataTable_filter input').bind('keyup', function (e) { //Bind Keyup event that filter data only on "Enter" key.
+            if (e.keyCode == 13) {
+                oTable.search(this.value).draw();
+            }
+        });
+        /* Init DataTables */
+        $('.carousel').carousel({
+            interval: false
+        });
+
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': { allow_single_deselect: true },
+            '.chosen-select-no-single': { disable_search_threshold: 10 },
+            '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+            '.chosen-select-width': { width: "95%" }
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+
+        $("#loading").hide();
+
+        ///Handle File Uploading start
+        jQuery("input#file").change(function () {
+            var input = this.files[0];
+            var ext = jQuery(this).val().split('.').pop();
+            var Filesize = (input.size / (1024 * 1024)).toFixed(2);
+            //alert(Filesize);//ppt ,pptx ,xls ,doc,docx,png,jpg,jpeg,mp4,pdf
+            if (input) {
+                if (Filesize < 95) {
+                    if (ext.toLowerCase() == "xls" || ext.toLowerCase() == "xlsx") {
+                        toastr.success("File Selected");
+
+                        $("#btnUpload").css({ 'display': "block" });
+                        $("#FileAlertContent").html("<b>1 File Selected.</b>");
+                        $("#btnResetFile").css({ 'display': "block" });
+                        $("#fileDiv").css({ 'display': "none" });
+                        $("#btnIMPORT").css({ 'display': "none" });
+                        $("#btnReset").css({ 'display': "block" });
+                        //Remove
+                        //$("#fileRemove").css({ 'display': "block" });
+                        //$("#selectFileIcon").css({ 'display': "none" });
+                        //
+
+                    }
+                    else {
+                        toastr.info("You Choose Wrong format file... Please Select File having following extension .xls, .xlsx");
+                        $("#file").val('');
+                        $("#fileCall").css({ 'color': "" });
+                        $("#FileAlert").css({ 'display': "none" });
+                    }
+
+                } else {
+                    if (Filesize > 95) {
+                        toastr.info("Please Select a file having size less then 95MB.");
+                        $("#file").val('');
+                        $("#fileCall").css({ 'color': "" });
+                        $("#FileAlert").css({ 'display': "none" });
+                    }
+
+                }
+            }
+            else {
+                toastr.info("No File Selected... Please Open again for select a file.");
+            }
+
+        });
+        $("#btnUpload").click(function () {
+            $("#loading").show();
+        });
+
+    });
+    function ResetUpload()
+    {
+        $("#btnUpload").css({ 'display': "none" });
+
+        $("#file").val('');
+        //$("#fileDiv").css({ 'display': "none" });
+        $("#btnIMPORT").css({ 'display': "block" });
+        $("#btnReset").css({ 'display': "none" });
+    }
+    function UploadData() {
+        if ($("#fmUploadDataFromExcel").valid()) {
+            $("#fmUploadDataFromExcel").submit();
+        }
+        else {
+            toastr.error("Please Select File From Import");
+            return;
+        }
+    }
+
+    function ExportTable() {
+            $(".loading").show();
+            var url = '@Url.Action("ExportDataSetToExcel", "Patients")';
+            
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: { strOfficeId: $("#ddFilterOffice").val() },
+                success: function (res) {
+                    $(".loading").hide();
+                    if (res) {
+                        var filename = res;
+                        var iframe = document.createElement("iframe");
+                        iframe.src = filename;
+                        iframe.style.display = 'none';
+                        document.body.appendChild(iframe);
+                        toastr.success("successfully export.");
+                        
+                    }
+                    else {
+                        toastr.warning("Not Exported Try again");
+                    }
+                },
+                error: function (reponse) {
+                    //alert("error : " + JSON.stringify(reponse));
+                    $(".loading").hide();
+                }
+            });
+      
+
+
+    }
+    function OpenAddNew() {
+        $("#loading").show();
+        $('#AddNewPatient').load(INITURL + 'Patients/AddPatient', function () {
+            sessionStorage.setItem("PartialView", "1");
+            $('#myModal').modal({ backdrop: 'static', keyboard: false })
+            $('#myModal').modal('show');
+        });
+    }
+    function EditPatientDetail(PatientDetailsId) {
+
+        $("#loading").show();
+        $('#EditPatient').load(INITURL + '/Patients/EditPatientDetail/' + PatientDetailsId, function () {
+            sessionStorage.setItem("PartialView", "1");
+            $('#myModalEdit').modal({ backdrop: 'static', keyboard: false })
+            $('#myModalEdit').modal('show');
+            $("#loading").hide();
+        });
+    }
+    //Delete One
+    function DeletePatientDetail(PatientDetailId1) {
+        if (confirm('Are you sure you want to delete Patient Details permanently ?')) {
+            $("#loading").show();
+            var url = INITURL + '/Patients/DeletePatientDetails';
+
+            $.ajax({
+                url: url,
+                data: { PatientDetailId: PatientDetailId1 },
+                cache: false,
+                type: 'POST',
+                async: false,
+                success: function (data) {
+                    if (data == "Success") {
+                        toastr.success("Patient deleted successfully");
+                        window.location = INITURL + '/Patients/Patients';
+                    }
+                    $("#loading").hide();
+                },
+                error: function (reponse) {
+                    //alert("error : " + reponse);
+                    $("#loading").hide();
+                }
+            });
+        }
+    }
+
+    function Filtration() {
+        
+        oTable.search($('#myDataTable').val()).draw();
+    }
+</script>

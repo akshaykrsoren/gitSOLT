@@ -1,0 +1,118 @@
+﻿@model CaregiverLiteWCF.Class.PatientAppointmentDetails
+
+
+<style>
+    .Edit_div span {
+        display: inline-block;
+        max-width: 100%;
+        margin-bottom: 5px;
+        font-weight: 700;
+    }
+</style>
+
+
+
+<div id="main_div" class="Edit_div">
+
+
+    <div class="alert alert-danger alert-dismissable" style="display:none" id="dvError3">
+        <button onclick="divClose();" class="close" type="button">×</button>
+        <span id="lblError3"></span>
+    </div>
+    <div class="col-md-1"> </div>
+    <div class="col-md-4">
+        @*Medical Id*@
+        <div class="form-group">
+            <span id="SPN">Medical Id</span></br>
+            <p> @Html.DisplayFor(model => model.MedicalId)</p>
+        </div>
+
+        <div class="form-group">
+            <span>Patient Name</span></br>
+            <p> @Html.DisplayFor(model => model.PatientName)</p>
+        </div>
+
+        <div class="form-group">
+            <span>Patient Phone No</span></br>
+            <p> @Html.DisplayFor(model => model.PhoneNo)</p>
+        </div>
+
+        <div class="form-group">
+            <span>Patient Address</span></br>
+            <p> @Html.DisplayFor(model => model.Address)</p>
+        </div>
+
+        <div class="form-group">
+            <span>Street</span></br>
+            <p> @Html.DisplayFor(model => model.Street)</p>
+        </div>
+
+        <div class="form-group">
+            <span>State</span></br>
+            <p> @Html.DisplayFor(model => model.State)</p>
+        </div>
+
+        <div class="form-group">
+            <span>City</span></br>
+            <p> @Html.DisplayFor(model => model.City)</p>
+        </div>
+    </div>
+    <div class="col-md-2"> </div>
+    <div class="col-md-4">
+        @*Medical Id*@
+        <div class="form-group">
+            <span class="lbl">PatientRequestId</span></br>
+            <p> @Html.DisplayFor(model => model.PatientRequestId)</p>
+        </div>
+
+        <div class="form-group">
+            <span>BookingDateTime</span></br>
+            <p> @Html.DisplayFor(model => model.BookingDateTime)</p>
+        </div>
+
+        <div class="form-group">
+            <span>Appointment Date</span></br>
+            <p> @Html.DisplayFor(model => model.AppointmentDateTime)</p>
+        </div>
+        <div class="form-group">
+            <span>Appointment Time</span></br>
+            <p> @Html.DisplayFor(model => model.AppointmentTime)</p>
+        </div>
+
+
+        <div class="form-group">
+            <span>Nurse Name</span></br>
+            <p> @Html.DisplayFor(model => model.NurseName)</p>
+        </div>
+
+        <div class="form-group">
+            <span>Nurse Id</span></br>
+            <p> @Html.DisplayFor(model => model.NurseId)</p>
+        </div>
+
+        <div class="form-group">
+            <span>Nurse Phone No</span></br>
+            <p> @Html.DisplayFor(model => model.NursePhoneNo)</p>
+        </div>
+
+
+
+
+
+
+    </div>
+    <div class="col-md-1"> </div>
+</div>
+
+
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+    debugger;
+
+    });
+</script>
+

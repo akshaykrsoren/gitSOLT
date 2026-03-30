@@ -1,0 +1,1327 @@
+﻿
+@*@model CaregiverLite.Models.AdminModel*@
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+<link href="../../Content/css/customdatetime.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/toastmaker/dist/toastmaker.min.css">
+
+    <script type="text/javascript" src="https://unpkg.com/toastmaker/dist/toastmaker.min.js"></script>*@
+
+
+
+
+
+<style>
+    .color {
+        color: #055175;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    td {
+        padding-top: .5em;
+        padding-bottom: .5em;
+    }
+
+    #ui-datepicker-div {
+        z-index: 10000 !important;
+    }
+
+    .form-calender {
+        padding: 0 15px;
+    }
+
+    .para {
+        color: white;
+    }
+
+    .container {
+        margin-top: 80px;
+        width: 800px;
+    }
+
+    .content {
+        position: relative;
+    }
+
+    .icon1 {
+        background-image: url(../../Content/css/img/schedule_black_24dp.png);
+        background-size: 20px;
+        background-repeat: no-repeat;
+        background-position: 135px;
+    }
+
+    .errordatetime {
+        border: 1px solid red;
+    }
+
+
+    /*.toast{
+        background-color:red;
+    }*/
+</style>
+
+
+
+
+<script>
+    $(function () {
+        debugger;
+        var dateFormat = "mm/dd/yy",
+          from = $("#id_1")
+            .datepicker({
+                defaultDate: "+1w",
+                changeMonth: true,
+                numberOfMonths: 1,
+                maxDate: new Date()
+
+            })
+            .on("change", function () {
+                //toMinDate.setDate(toMinDate.getDate() - 365);
+                to.datepicker("option", "minDate", getDate(this));
+            }),
+          to = $("#id_2").datepicker({
+              defaultDate: "+1w",
+              changeMonth: true,
+              numberOfMonths: 1,
+              maxDate: new Date(),
+             // minDate: $("#FromDate").val()
+
+          })
+          .on("change", function () {
+              // var fromMaxDate = $("#FromDate").val();
+              //fromMaxDate.setDate(fromMaxDate.getDate() - 1);
+              to.datepicker("option", "minDate", getDate(this));
+          });
+
+        from = $("#id_7")
+        .datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            numberOfMonths: 1,
+            maxDate: new Date()
+
+        })
+        .on("change", function () {
+            //toMinDate.setDate(toMinDate.getDate() - 365);
+            to.datepicker("option", "minDate", getDate(this));
+        }),
+      to = $("#id_8").datepicker({
+          defaultDate: "+1w",
+           changeMonth: true,
+          numberOfMonths: 1,
+          maxDate: new Date(),
+         //minDate: $("#FromDate").val()
+
+      })
+      .on("change", function () {
+          // var fromMaxDate = $("#FromDate").val();
+          fromMaxDate.setDate(fromMaxDate.getDate() - 1);
+          //to.datepicker("option", "minDate", getDate(this));
+      });
+debugger;
+        function getDate(element) {
+		debugger;
+            var date;
+            try {
+                date = $.datepicker.parseDate(dateFormat, element.value);
+            } catch (error) {
+                date = null;
+            }
+
+            return date;
+        }
+
+    })
+</script>
+
+
+<div id="main_div" class="Edit_div">
+    <div class="alert alert-danger alert-dismissable" style="display:none" id="dvError3">
+        <button onclick="divClose();" class="close" type="button">×</button>
+        <label id="lblError3"></label>
+    </div>
+    <div class="col-md-12">
+        @*@Html.HiddenFor(model => model.AdminId)
+            @Html.HiddenFor(model => model.Username)*@
+
+        @*@if (Model != null)
+            {*@
+        @if (ViewBag.AttendanceDetailList.Count > 0)
+            {
+            <div class="form-group">
+                <div class="input-group pull-right margin-25" style="margin-right: 10px;">
+                    <label>Appointment Date: @ViewBag.AppoitnmentDate</label>
+                </div>
+                <div class="input-group pull-left margin-25" style="margin-right: 10px;">
+                    <label>Staff Name: @ViewBag.CaregiverName </label>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+            <table class="table table-striped table-bordered table-hover dataTables-example dataTable no-footer dtr-column" role="grid" aria-describedby="myDataTable_info">
+                <thead>
+                    <tr>
+                        <th>Patient Name</th>
+                        <th>Address</th>
+                        <th style="width: 11%;">Start Time</th>
+                        <th style="width: 11%;">End Time</th>
+                        <th style="width: 12%;">Requested Service Time</th>
+                        <th style="width: 12%;">Travel Time</th>
+                        <th></th>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in ViewBag.AttendanceDetailList)
+                    {
+                        <tr>
+                            <td>@item.PatientName</td>
+                            <td>@item.Address</td>
+                            <td>@(Convert.ToDateTime(item.FromTime).ToString("hh:mm tt"))</td>
+                            <td>@(Convert.ToDateTime(item.ToTime).ToString("hh:mm tt"))</td>
+                            <td>@(Convert.ToDateTime((Convert.ToDateTime(item.ToTime) - Convert.ToDateTime(item.FromTime)).ToString()).ToString("hh")) hrs @(Convert.ToDateTime((Convert.ToDateTime(item.ToTime) - Convert.ToDateTime(item.FromTime)).ToString()).ToString("mm")) mins</td>
+                            <td>
+                                <!--(Convert.ToDateTime((Convert.ToDateTime(item.DrivingStopTime) - Convert.ToDateTime(item.DrivingStartTime)).ToString()).ToString("hh")) hrs (Convert.ToDateTime((Convert.ToDateTime(item.DrivingStopTime) - Convert.ToDateTime(item.DrivingStartTime)).ToString()).ToString("mm")) mins-->
+                                @*@if (item.DrivingStopTime != null && item.DrivingStartTime != null)
+                                    {
+                                        @((Convert.ToDateTime(item.DrivingStopTime) - Convert.ToDateTime(item.DrivingStartTime)).ToString("hh"))
+                                    }
+                                    else
+                                    {
+                                        <p>Request is not yet completed.</p>
+                                    }*@
+
+                                @*@item.TotalTravelTime*@
+
+
+                                @{
+                                    string TotalTravelTimeFinal = string.Empty;
+
+                                    if (item.TotalTravelTime != "")
+                                    {
+
+                                        //string[] TotalTravelTimeSplit = item.TotalTravelTime.Split(':');
+                                        //if (TotalTravelTimeSplit[0] != "00")
+                                        //{
+                                        //    TotalTravelTimeFinal = TotalTravelTimeFinal + TotalTravelTimeSplit[0] + " hrs ";
+                                        //}
+
+                                        //if (TotalTravelTimeSplit[1] != "")
+                                        //{
+                                        //    TotalTravelTimeFinal = TotalTravelTimeFinal + TotalTravelTimeSplit[1] + " mins";
+                                        //}
+
+
+                                        TotalTravelTimeFinal = item.TotalTravelTime;
+
+                                    }
+                                    else if (item.CheckInTotalTime == "")
+                                    {
+                                        TotalTravelTimeFinal = "Request is not yet completed.";
+                                    }
+
+                                    @(TotalTravelTimeFinal)
+                                }
+
+
+
+
+
+                            </td>
+
+                            <td>
+                                <span class="btn btn-xs btn-primary" style="border-radius: 11px;" onclick="LoadTrackLocationMap(@item.PatientRequestId)">Track Location</span>
+                            </td>
+
+
+                        </tr>
+                                    }
+
+                </tbody>
+            </table>
+                                    }
+                                    else
+                                    {
+                                        <b>No Details Found.</b>
+
+                                    }
+    </div>
+
+    <div class="col-md-12">
+        <div class="clearfix"></div>
+    </div>
+
+</div>
+
+
+
+<div class="col-md-12">
+    @if (ViewBag.startDrivingDate != null && ViewBag.startDrivingDate != "")
+    {
+
+        <label><b style="color:#055175; font:200">Other Details :</b></label>
+        <table class="table table-striped table-bordered table-hover dataTables-example dataTable no-footer dtr-column" role="grid" aria-describedby="myDataTable_info">
+            <tr>
+                <th style="width:auto">Driving <b style="color:#088bca">START</b> date</th>
+                <th style="width:auto">Driving <b style="color:#088bca">START</b> Time</th>
+                <th style="width:auto">Driving <b style="color:#088bca">STOP</b> date</th>
+                <th style="width:auto">Driving <b style="color:#088bca">STOP</b> Time</th>
+            </tr>
+            <tr>
+                <td style="width:auto"><input type="text" id="id_1" contenteditable="true" readonly="true" value="@ViewBag.startDrivingDate" /></td>
+                <td style="width:auto;position:relative">
+                    @*<input type="time" id="appt" name="appt" min="09:00" max="18:00" required>*@
+                    <input type="text" class="icon1" id="appt" min="09:00" max="18:00" onblur="validateData()" required>
+                </td>
+                <td style="width:auto"><input type="text" id="id_2" contenteditable="true" readonly="true" value="@ViewBag.StopDrivingDate" /></td>
+                <td style="width:auto;position:relative">
+                    @*<input type="time" id="appt1" name="appt"   value="00:00" required />*@
+                    <input type="text" class="icon1" id="appt1" min="09:00" max="18:00" onblur="validateData()" required>
+                </td>
+            </tr>
+            <tr>
+                <th style="width:auto">Driving Start <b style="color:#088bca;text-transform:uppercase">Lattitude</b></th>
+                <th style="width:auto">Driving Start <b style="color:#088bca;text-transform:uppercase">Longitude</b></th>
+                <th style="width:auto">Driving Stop <b style="color:#088bca;text-transform:uppercase">Lattitude</b></th>
+                <th style="width:auto">Driving Stop <b style="color:#088bca;text-transform:uppercase">Longitude</b></th>
+            </tr>
+            <tr>
+                @*<td style="width:auto"><label id="id_3" value="@ViewBag.startDrivingLattitude" /></td>
+                    <td style="width:auto"><label id="id_4" value="@ViewBag.startDrivingLongitude" /></td>
+                    <td style="width:auto"><label id="id_5" value="@ViewBag.stopDrivinglatittude" /></td>
+                    <td style="width:auto"><label id="id_6" value="@ViewBag.stopDrivingLongitude" /></td>*@
+                <td style="width:auto"><label id="id_3">@ViewBag.startDrivingLattitude</label></td>
+                <td style="width:auto"><label id="id_4">@ViewBag.startDrivingLongitude</label></td>
+                <td style="width:auto"><label id="id_5" contenteditable="true">@ViewBag.stopDrivinglatittude</label></td>
+                <td style="width:auto"><label id="id_6" contenteditable="true">@ViewBag.stopDrivingLongitude</label></td>
+            </tr>
+            <tr>
+                <th style="width:auto">CheckIn <b style="color:#088bca;text-transform:uppercase">date</b></th>
+                <th style="width:auto">CheckIn <b style="color:#088bca;text-transform:uppercase">time</b></th>
+                <th style="width:auto">CheckOut <b style="color:#088bca;text-transform:uppercase">date</b></th>
+                <th style="width:auto">CheckOut <b style="color:#088bca;text-transform:uppercase">time</b></th>
+            </tr>
+            <tr>
+                <td style="width:auto"><input type="text" id="id_7" contenteditable="true" value="@ViewBag.checkInDate" /></td>
+                <td style="width:auto;position:relative">
+                    @*<input type="time" id="appt2" name="appt" min="09:00" max="18:00" required>*@
+                    <input type="text" class="icon1" id="appt2" min="09:00" max="18:00" onblur="validateData()" required>
+                </td>
+                <td style="width:auto"><input type="text" id="id_8" contenteditable="true" value="@ViewBag.checkOutDate" /></td>
+                <td style="width:auto;position:relative">
+                    @*<input type="time" id="appt3" name="appt" min="09:00" max="18:00" required>*@
+                    <input type="text" class="icon1" id="appt3" min="09:00" max="18:00" onblur="validateData()" required>
+                </td>
+            </tr>
+            <tr>
+                <th style="width:auto">CheckIn <b style="color:#088bca;text-transform:uppercase">Lattitude</b></th>
+                <th style="width:auto">CheckIn <b style="color:#088bca;text-transform:uppercase">Longitude</b></th>
+                <th style="width:auto">CheckOut <b style="color:#088bca;text-transform:uppercase">Lattitude</b></th>
+                <th style="width:auto">CheckOut <b style="color:#088bca;text-transform:uppercase">Longitude</b></th>
+            </tr>
+            <tr>
+                <td style="width:auto"><label id="id_9" contenteditable="true">@ViewBag.checkinLatittude</label></td>
+                <td style="width:auto"><label id="id_10" contenteditable="true">@ViewBag.checkinLongitude</label></td>
+                <td style="width:auto"><label id="id_11" contenteditable="true">@ViewBag.checkoutLatittude</label></td>
+                <td style="width:auto"><label id="id_12" contenteditable="true">@ViewBag.checkoutLongitude</label></td>
+
+            </tr>
+            <tr>
+                <th></th>
+                <th></th>
+                <th><span class="btn btn-xs btn-primary" style="border-radius: 11px;" onclick="SaveEntryDetails()">Update Details</span>
+                <th></th>
+
+            </tr>
+
+        </table>
+    }
+</div>
+
+
+
+
+
+@* model for map view of track location *@
+<div class="wrapper modal fade " id="myModalTrackLocation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" id="closemap" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Track caregiver Location on Map :</h4>
+            </div>
+            <div class="modal-body row">
+                <img id="test" />
+                <div class="col-md-6">
+                    <div class="page-width">
+                        <div class="row">
+                            <div class="col-md-12 m-b-sm">
+                                <label class="text-primary">Miles : </label> <span id="tmiles" class="text-primary"></span>
+                            </div>
+                            <h5>
+                                <span id="nolocation" class="text-successs" style="display:none; float:right; color:red">
+                                </span>
+                            </h5>
+
+                            <div class="col-md-12">
+                                <div class="map mt30" id="divmap" style="height:468px;width:850px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<style type="text/css">
+    #map {
+        width: 800px;
+        height: 400px;
+    }
+</style>
+
+@*<script src="//maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCqG0NdAH_5gP1_D8jGhmTGeqNR-9z_afw" type="text/javascript"></script>*@
+
+
+@*<script src="~/Scripts/CustomGoogleMapMarker.js"></script>*@
+<script src="~/Scripts/js/oms.min.js"></script>
+<script src="~/Scripts/js/MapLibrary.js"></script>
+
+
+<script>
+    var MapPoints;
+
+    var MY_MAPTYPE_ID = 'custom_style';
+    var directionsDisplay;
+   // var directionsService = new google.maps.DirectionsService();
+    var map;
+    // Load Map Location Tracking by PatientRequestId By Vinod Verma
+
+    function LoadTrackLocationMap(PatientRequestId) {
+        $('#myModalTrackLocation').css('overflow', 'visible');
+        $('#myModalTrackLocation').modal({ backdrop: 'static', keyboard: false });
+       // $('#myModalTrackLocation').css('top', '-67%');
+
+        $("#loading").show();
+
+       // $('#myModalTrackLocation').modal({ backdrop: 'static', keyboard: false })
+        $('#myModalTrackLocation').modal('show');
+        //alert("lll");
+        $.ajax({
+            url: "@Url.Action("TrackLocationByPatientRequestId", "AttendanceManagement")",
+            data: { PatientRequestId: PatientRequestId },
+            cache: false,
+            dataType: 'json',
+            type: 'POST',
+            success: function (data, response) {
+
+                //   if(data == )
+                if (data.Result.length > 0) {
+                    //console.log(JSON.stringify(data));
+
+
+                    var TotalMiles = data.Result[0].TotalMiles;
+                    //  $('#tmiles').val(TotalMiles);
+                    $('#tmiles').html(TotalMiles).show();
+                    var trackedLocations = data.Result;
+                    for (var i = 0; i < trackedLocations.length; i++) {
+                        if (trackedLocations[i].Status == "PauseDriving" || trackedLocations[i].Status == "ResumeDriving") {
+                            TrackLocationMapWithWayPoint(trackedLocations);
+                        }
+                        else {
+                            TrackLocationMap(trackedLocations);
+                        }
+                    }
+                    //marker.setVisible(false);
+                }
+                else {
+
+                    $('#nolocation').html('No Location Available').show();
+                }
+
+            },
+
+            error: function (xhr, response) {
+                console.log(xhr, response);
+
+                $('#loading').hide();
+            }
+
+        });
+
+
+        $("#loading").hide();
+
+    }
+
+
+    //function TrackLocationMap(trackedLocations) {
+    //    MapPoints = trackedLocations;
+    //    directionsDisplay = new google.maps.DirectionsRenderer({
+    //        suppressMarkers: true
+    //    });
+
+    //    var myOptions = {
+    //        zoom: 4,
+    //        mapTypeId: google.maps.MapTypeId.ROADMAP,
+    //    }
+
+    //    map = new google.maps.Map(document.getElementById("divmap"), myOptions);
+    //    directionsDisplay.setMap(map);
+    //    calcRoute(trackedLocations);
+    //}
+
+    //function calcRoute(trackedLocations) {
+
+    //    var waypts = [];
+    //    var incrementalValue;
+    //    // debugger;
+    //    if (trackedLocations.length >= 20) {
+    //        var loopIncrement =Math.ceil((trackedLocations.length / 20));
+    //        for (var i = 0; i < trackedLocations.length; i = i + loopIncrement) {
+    //            waypts.push({
+    //                location: trackedLocations[i].LocationLatitude + ',' + trackedLocations[i].LocationLongitude,
+    //                stopover: true
+    //            });
+    //        }
+    //    }
+    //    else {
+    //        for (var i = 0; i < trackedLocations.length - 1; i++) {
+    //            waypts.push({
+    //                location: trackedLocations[i].LocationLatitude + ',' + trackedLocations[i].LocationLongitude,
+    //                stopover: true
+    //            });
+    //        }
+    //    }
+
+    //    ///alert(waypts.length);
+
+    //    start = new google.maps.LatLng(trackedLocations[0].LocationLatitude, trackedLocations[0].LocationLongitude);
+    //    end = new google.maps.LatLng(trackedLocations[trackedLocations.length - 1].LocationLatitude, trackedLocations[trackedLocations.length - 1].LocationLongitude);
+
+    //    startStatus = trackedLocations[0].Status;
+    //    stopStatus = trackedLocations[trackedLocations.length - 1].Status;
+
+    //    createMarker(start, startStatus);
+
+    //    for (var j = 0; j < trackedLocations.length; j++) {
+    //        if (trackedLocations[j].Status == "PauseDriving" || trackedLocations[j].Status == "ResumeDriving") {
+    //            pauseMarker = new google.maps.LatLng(trackedLocations[j].LocationLatitude, trackedLocations[j].LocationLongitude);
+    //            pauseStatus = trackedLocations[j].Status;
+    //            createMarker(pauseMarker, pauseStatus);
+    //        }
+    //    }
+
+    //    createMarker(end, stopStatus);
+    //    var request = {
+    //        origin: start,
+    //        destination: end,
+    //        waypoints: waypts,
+    //        optimizeWaypoints: true,
+    //        travelMode: google.maps.DirectionsTravelMode.WALKING
+    //    };
+
+    //    directionsService.route(request, function (response, status) {
+    //        if (status == google.maps.DirectionsStatus.OK) {
+    //            directionsDisplay.setDirections(response);
+    //            var route = response.routes[0];
+    //        }
+    //    });
+    //}
+    //function createMarker(latlng, status) {
+    //    var icon = 'https://scheduler.paseva.com/image/Red_50x50.png';
+
+    //    if (status == "StartDriving") {
+    //        var marker = new google.maps.Marker({
+    //            position: latlng,
+    //            label: { text: 'S', color: 'white' },
+    //            map: map
+    //        });
+    //    }
+    //    else if (status == "PauseDriving") {
+    //        var marker = new google.maps.Marker({
+    //            position: latlng,
+    //            label: { text: 'P', color: 'white' },
+    //            map: map
+    //        });
+    //    }
+    //    else if (status == "ResumeDriving") {
+    //        var marker = new google.maps.Marker({
+    //            position: latlng,
+    //            label: { text: 'R', color: 'white' },
+    //            map: map
+    //        });
+    //    }
+    //    else if (status == "StopDriving") {
+    //        var marker = new google.maps.Marker({
+    //            position: latlng,
+    //            //label: { text: 'E', color: 'white' },
+    //            map: map
+    //        });
+    //        marker.setIcon(icon)
+    //    }
+    //}
+
+
+    //function TrackLocationMapWithWayPoint(trackedLocations) {
+
+    //    setTimeout(function () {
+
+
+
+    //        var gm = google.maps;
+    //        var infowindow;
+    //        var iw = new gm.InfoWindow();
+
+    //        //console.log(trackedLocations);
+    //        if (trackedLocations != null && trackedLocations.length > 0) {
+
+    //            var icon = 'https://scheduler.paseva.com/image/Red_50x50.png';
+
+    //            var img = new Image();
+    //            //img.bluepin = "https://scheduler.paseva.com/CaregiverLiteMobileService/Images/CareGiverProfileImages/blue-dot.png";
+    //            //img.greenpin = "https://scheduler.paseva.com/CaregiverLiteMobileService/Images/CareGiverProfileImages/green-dot.png";
+    //            // img.redpin = "https://scheduler.paseva.com/CaregiverLiteMobileService/Images/CareGiverProfileImages/red-dot.png";
+    //            var bounds = new google.maps.LatLngBounds();
+    //            var mapCenter = {
+    //                lat: parseFloat(trackedLocations[0].LocationLatitude),
+    //                lng: parseFloat(trackedLocations[0].LocationLongitude)
+    //            }
+
+    //            var map = new google.maps.Map(document.getElementById('divmap'),
+    //             {
+    //                 center: mapCenter,
+    //                 zoom: 16,
+    //                 mapTypeId: google.maps.MapTypeId.ROADMAP
+    //             });
+
+    //            // when only one marker
+    //            if (trackedLocations.length == 1) {
+
+
+    //                var centerinfowindow = new google.maps.InfoWindow();
+    //                var centermarker = new google.maps.Marker({
+    //                    position: mapCenter,
+    //                    map: map
+
+    //                });
+    //                //centermarker.setIcon(img.redpin)
+
+
+    //                var centercontent =
+    //                    '<div><strong>Date: </strong>' +
+    //                        trackedLocations[0].LocationDateTime +
+    //                        '</div>' +
+    //                        '<div><strong>Latitude: </strong>' +
+    //                        trackedLocations[0].LocationLatitude.substr(0, trackedLocations[0].LocationLatitude.indexOf(".") + 7) +
+    //                        '</div>' +
+    //                        '<div><strong>Longitude: </strong>' +
+    //                        trackedLocations[0].LocationLongitude.substr(0, trackedLocations[0].LocationLongitude.indexOf(".") + 7) +
+    //                        '</div>' +
+    //                        '<div><strong>Status: </strong>' +
+    //                        trackedLocations[0].Status +
+    //                        '</div>' +
+    //                            '<div>' +
+    //                                '<a class="btn btn-xs btn-primary" style="margin-top:5px;" href="javascript:;" onclick="seeAddress(this,' + trackedLocations[0].LocationLatitude + ',' + trackedLocations[0].LocationLongitude + ')">See Address</a>'
+    //                '</div>';
+
+
+
+    //                google.maps.event.addListener(centermarker,
+    //                    'click',
+    //                    (function (centermarker, centercontent, centerinfowindow) {
+    //                        return function () {
+    //                            centerinfowindow.setContent(centercontent);
+    //                            centerinfowindow.open(map, centermarker);
+    //                            // centermarker.setVisible(false);
+
+    //                        }; centermarker.setVisible(false);
+    //                    })(centermarker, centercontent, centerinfowindow));
+    //                centermarker.setVisible(false);
+    //            }
+
+
+
+    //            for (var i = 0; i < trackedLocations.length; i++) {
+    //                if ((i + 1) < trackedLocations.length) {
+
+    //                    var service = new google.maps.DirectionsService();
+    //                    var directionsDisplay = new google.maps.DirectionsRenderer();
+
+    //                    //   var bounds = new google.maps.LatLngBounds();
+
+    //                    var src = new google.maps.LatLng(
+    //                        parseFloat(trackedLocations[i].LocationLatitude),
+    //                        parseFloat(trackedLocations[i].LocationLongitude)
+    //                    );
+    //                    var des = new google.maps.LatLng(
+    //                        parseFloat(trackedLocations[i + 1].LocationLatitude),
+    //                        parseFloat(trackedLocations[i + 1].LocationLongitude)
+    //                    );
+
+
+    //                    //if (trackedLocations[i].Status == 'ResumeDriving') {
+
+    //                    //    var src1 = new google.maps.LatLng(
+    //                    //    parseFloat(trackedLocations[i].LocationLatitude),
+    //                    //    parseFloat(trackedLocations[i].LocationLongitude)
+    //                    //);
+    //                    //    var des1 = new google.maps.LatLng(
+    //                    //        parseFloat(trackedLocations[i + 1].LocationLatitude),
+    //                    //        parseFloat(trackedLocations[i + 1].LocationLongitude)
+    //                    //    );
+    //                    //}
+
+    //                    //alert(src1.length);
+
+    //                    //if (trackedLocations[i].Status == 'PauseDriving') {
+
+    //                    //    var src2 = new google.maps.LatLng(
+    //                    //    parseFloat(trackedLocations[i].LocationLatitude),
+    //                    //    parseFloat(trackedLocations[i].LocationLongitude)
+    //                    //);
+    //                    //    var des2 = new google.maps.LatLng(
+    //                    //        parseFloat(trackedLocations[i + 1].LocationLatitude),
+    //                    //        parseFloat(trackedLocations[i + 1].LocationLongitude)
+    //                    //    );
+    //                    //}
+
+    //                    var colorCode;
+    //                    var opacityCode;
+
+    //                    if (trackedLocations[i].Status == 'PauseDriving') {
+    //                        colorCode = '#ffffff';
+    //                        opacityCode = 0.0;
+    //                    }
+    //                    else {
+    //                        colorCode = '#0000FF';
+    //                        opacityCode = 1.0;
+    //                        // alert('Nir');
+    //                    }
+
+    //                    //alert(trackedLocations[i].Status);
+    //                    //var line = [];
+    //                    //if (trackedLocations[i].Status== 'ResumeDriving') {
+    //                    // alert(trackedLocations[i].Status);
+
+
+    //                    var polyLine = new google.maps.Polyline({
+    //                        path: [src, des],
+    //                        strokeColor: colorCode,
+    //                        strokeOpacity: opacityCode,
+    //                        strokeWeight: 5,
+    //                        map: map
+    //                    });
+
+
+    //                    // }
+
+
+    //                    // line.push(polyline);
+
+    //                    // for (i = 0; i < line.length; i++) {
+    //                    //   //line[i].setMap(null); //or
+    //                    //  line[i].setVisible(false);
+    //                    // }
+
+
+
+    //                    var content =
+    //                        '<div><strong>Date: </strong>' +
+    //                            trackedLocations[i].LocationDateTime +
+    //                            '</div>' +
+    //                            '<div><strong>Latitude: </strong>' +
+    //                            trackedLocations[i].LocationLatitude.substr(0, trackedLocations[i].LocationLatitude.indexOf(".") + 7) +
+    //                            '</div>' +
+    //                            '<div><strong>Longitude: </strong>' +
+    //                            trackedLocations[i].LocationLongitude.substr(0, trackedLocations[i].LocationLongitude.indexOf(".") + 7) +
+    //                            '</div>' +
+    //                            '<div><strong>Status: </strong>' +
+    //                            trackedLocations[i].Status +
+    //                            '</div>' +
+    //                            '<div>' +
+    //                                '<a class="btn btn-xs btn-primary" style="margin-top:5px;" href="javascript:;" onclick="seeAddress(this,' + trackedLocations[i].LocationLatitude + ',' + trackedLocations[i].LocationLongitude + ')">See Address</a>'
+    //                    '</div>';
+
+    //                    var infowindow = new google.maps.InfoWindow();
+
+    //                    var marker = new google.maps.Marker({
+    //                        position: src,
+    //                        label: { text: 'S', color: 'white' },
+    //                        map: map
+    //                    });
+
+    //                    bounds.extend(marker.position);
+
+
+    //                    if (trackedLocations[i].Status == 'ResumeDriving') {
+    //                        var resumeMarker = new google.maps.Marker({
+    //                            position: src,
+    //                            label: { text: 'R', color: 'white' },
+    //                            map: map
+    //                        });
+    //                    }
+
+
+
+    //                    if (trackedLocations[i].Status == 'PauseDriving') {
+    //                        var pauseMarker = new google.maps.Marker({
+    //                            position: src,
+    //                            label: { text: 'P', color: 'white' },
+    //                            map: map
+    //                        });
+    //                    }
+
+
+    //                    google.maps.event.addListener(marker,
+    //                        'click',
+    //                        (function (marker, content, infowindow) {
+    //                            return function () {
+    //                                infowindow.setContent(content);
+    //                                infowindow.open(map, marker);
+    //                                //marker.setVisible(false);
+    //                            };
+    //                            marker.setVisible(false);
+    //                        })(marker, content, infowindow));
+
+    //                    // marker.setIcon(img.redpin)
+    //                    marker.setVisible(false);
+
+
+    //                    map.fitBounds(bounds);
+
+
+    //                    if (i === 0) {
+    //                        marker.setIcon(img.bluepin)
+    //                        // marker.setAnimation(google.maps.Animation.BOUNCE);
+    //                        marker.setVisible(true);
+    //                    }
+
+
+
+    //                    //set marker for last location
+    //                    if ((i + 2) === trackedLocations.length) {
+    //                        var infowindowDes = new google.maps.InfoWindow();
+
+    //                        var markerDes = new google.maps.Marker({
+    //                            position: des,
+    //                            //label: { text: 'E', color: 'white' },
+    //                            map: map,
+    //                            labelClass: "labels", // the CSS class for the label
+    //                            labelInBackground: false,
+
+
+    //                        });
+
+
+    //                        //markerDes.setAnimation(google.maps.Animation.BOUNCE);
+    //                        //markerDes.setIcon(img.greenpin)
+    //                        markerDes.setIcon(icon)
+
+    //                        // markerDes.setIcon(img.redpin)
+
+
+    //                        bounds.extend(markerDes.position);
+    //                        var contentDes =
+    //                            '<div><strong>Date: </strong>' +
+    //                                trackedLocations[i + 1].LocationDateTime +
+    //                                '</div>' +
+    //                                '<div><strong>Latitude: </strong>' +
+    //                                trackedLocations[i + 1].LocationLatitude.substr(0, trackedLocations[i + 1].LocationLatitude.indexOf(".") + 7) +
+    //                                '</div>' +
+    //                                '<div><strong>Longitude: </strong>' +
+    //                                trackedLocations[i + 1].LocationLongitude.substr(0, trackedLocations[i + 1].LocationLongitude.indexOf(".") + 7) +
+    //                                '</div>' +
+    //                                '<div><strong>Status: </strong>' +
+    //                                trackedLocations[i + 1].Status +
+    //                                '</div>' +
+    //                            '<div>' +
+    //                                '<a class="btn btn-xs btn-primary" style="margin-top:5px;" href="javascript:;" onclick="seeAddress(this,' + trackedLocations[i + 1].LocationLatitude + ',' + trackedLocations[i + 1].LocationLongitude + ')">See Address</a>'
+    //                        '</div>';
+
+    //                        google.maps.event.addListener(markerDes,
+    //                            'click',
+    //                            (function (markerDes, contentDes, infowindowDes) {
+    //                                return function () {
+    //                                    infowindowDes.setContent(contentDes);
+    //                                    infowindowDes.open(map, markerDes);
+    //                                    //markerDes.setVisible(false);
+    //                                }; //markerDes.setVisible(false);
+    //                            })(markerDes, contentDes, infowindowDes));
+    //                        // markerDes.setVisible(false);
+
+    //                        map.fitBounds(bounds);
+    //                    }
+
+
+
+    //                }
+    //            }
+
+    //        }
+    //    }, 500);
+    //}
+
+    //// See Address
+
+    //function seeAddress(that, lat, long) {
+    //    $.ajax({
+    //        url: "https://maps.googleapis.com/maps/api/geocode/json?latlng= " + lat + "," + long + "&sensor=true",
+    //        type: "GET",
+    //        async: false,
+    //        success: function (data) {
+    //            $(that).parent().html("<strong>Address: </strong>" + data.results[0].formatted_address);
+    //        },
+    //        error: function (xhr, ajaxOptions, thrownError) {
+    //            console.log(xhr.status);
+    //        }
+    //    });
+    //}
+
+
+    $('#closemap').click(function(){
+        debugger;
+        $('#myModal2').modal('hide');
+    })
+
+
+    function clearMap()
+    {
+        debugger;
+        $('#myModal2').modal('hide');
+
+        document.getElementById("divmap").innerHTML = ""; }
+
+
+    //function showpop(msg, title) {
+
+    //    if(title=='error'){
+
+    //        ToastMaker("Success", 5000, {
+    //            styles: {
+    //                backgroundColor: 'green'
+    //            }
+    //        }
+    //        )}
+
+    //        ToastMaker("Failure", 5000, {
+    //            styles: {
+    //                backgroundColor: 'red'
+    //            }
+    //        })
+
+    //    //if(title=='error'){
+    //    //    toastr.error(msg, title);
+    //    //    return false;
+    //    //}
+    //    //toastr.success(msg, title);
+    //    //return false;
+    //}
+
+
+
+    var StartTime=@Html.Raw(Json.Encode(@ViewBag.startDrivingTime));
+    var StopTime=@Html.Raw(Json.Encode(@ViewBag.stopDrivingTime));
+    var CheckInTime=@Html.Raw(Json.Encode(@ViewBag.checkInTime));
+    var CheckOutTime=@Html.Raw(Json.Encode(@ViewBag.checkOutTime));
+
+
+
+    debugger;
+
+    //alert(StartTime);
+    if(StartTime!=null){
+        var startsplit=StartTime.split(':');
+        var startsplit1=  StopTime==null?null:StopTime.split(':');
+        var startsplit2= CheckInTime==null? null: CheckInTime.split(':');
+        var startsplit3= CheckOutTime==null? null:CheckOutTime.split(':');
+
+        //alert(startsplit[0])
+        //alert(startsplit[1])
+
+        // var tempdate1= new Date().setHours(startsplit[0],startsplit[1]);
+        // var tempdate2= new Date().setHours(startsplit1[0],startsplit1[1]);
+        // var tempdate3= new Date().setHours(startsplit2[0],startsplit2[1]);
+        // var tempdate4= new Date().setHours(startsplit3[0],startsplit3[1]);
+
+         var tempdate1= new Date().setHours(startsplit[0],startsplit[1]);
+         var tempdate2= startsplit1==null? null: new Date().setHours(startsplit1[0],startsplit1[1]);
+         var tempdate3= startsplit2==null? null: new Date().setHours(startsplit2[0],startsplit2[1]);
+         var tempdate4= startsplit3==null? null: new Date().setHours(startsplit3[0],startsplit3[1]);
+        //alert(tempdate1);
+        $('#appt').datetimepicker({
+            useCurrent: true,
+            format: 'HH:mm',
+            defaultDate:tempdate1
+        });
+        $('#appt1').datetimepicker({
+            useCurrent: true,
+            format: 'HH:mm',
+            //  defaultDate:dateNow
+            defaultDate:tempdate2
+        });
+        $('#appt2').datetimepicker({
+            useCurrent: true,
+            format: 'HH:mm',
+            //  defaultDate:dateNow
+            defaultDate:tempdate3
+        });
+        $('#appt3').datetimepicker({
+            useCurrent: true,
+            format: 'HH:mm',
+            //  defaultDate:dateNow
+            defaultDate:tempdate3
+        });
+    }
+
+    debugger;
+    $("#appt").val(StartTime)
+    $("#appt1").val(StopTime)
+    $("#appt2").val(CheckInTime)
+    $("#appt3").val(CheckOutTime)
+
+
+
+    debugger;
+    var patientrequestid=@ViewBag.PatientRequestId;
+
+    // alert(patientrequestid);
+
+    function validateData()
+    {
+
+        var startDateTime = document.getElementById("id_1").value+' '+(document.getElementById("appt").value+':00');
+        var stopDateTime = document.getElementById("id_2").value+' '+(document.getElementById("appt1").value+':00');
+
+        var startDrivingLattitude = document.getElementById("id_3").value;
+        var startDrivingLongitude = document.getElementById("id_4").value;
+
+        var stopDrivingLattitude = document.getElementById("id_5").value;
+        var stopDrivingLongitude = document.getElementById("id_6").value;
+
+        var CheckInDateTime = document.getElementById("id_7").value+' '+(document.getElementById("appt2").value+':00');
+        var CheckOutDateTime = document.getElementById("id_8").value+' '+(document.getElementById("appt3").value+':00');
+
+        var CheckInLattitude = document.getElementById("id_9").value;
+        var CheckInLongitude = document.getElementById("id_10").value;
+
+        var CheckOutLattitude = document.getElementById("id_11").value;
+        var CheckOutLongitude = document.getElementById("id_12").value;
+
+        var startDateTimess=startDateTime.replace('/','-').replace('/','-');
+        var stopDateTimess=stopDateTime.replace('/','-').replace('/','-');
+
+        var CheckInDateTimess=CheckInDateTime.replace('/','-').replace('/','-');
+        var CheckOutDateTimess=CheckOutDateTime.replace('/','-').replace('/','-');
+
+        debugger;
+        if(!ValidateDate(startDateTimess))
+        {
+
+
+            toastr.error('Date Time Format is invalid');
+            $('#loading').hide();
+
+            $("#appt").addClass('errordatetime');
+            return false;
+        }
+
+        if(!ValidateDate(stopDateTimess))
+        {
+            toastr.error('Date Time Format is invalid');
+            $('#loading').hide();
+            $("#appt1").addClass('errordatetime');
+            return false;
+        }
+
+        if(!ValidateDate(CheckInDateTimess))
+        {
+            toastr.error('Date Time Format is invalid');
+            $("#appt2").addClass('errordatetime');
+            return false;
+        }
+
+        if(!ValidateDate(CheckOutDateTimess))
+        {
+            toastr.error('Date Time Format is invalid');
+            $("#appt3").addClass('errordatetime');
+            $('#loading').hide();
+            return false;
+        }
+
+        if (startDateTimess > stopDateTimess) {
+            debugger;
+
+            $(".toastr").css("background-color", "Red");
+            toastr.errors('Start Drving Date time Is greater Than StopDriving Datetime');
+
+
+            $("#appt").addClass('errordatetime');
+            $('#loading').hide();
+            return false;
+        }
+        if (stopDateTimess>CheckInDateTimess) {
+            debugger;
+            toastr.error('Checkin Time Should Be Greater Than Stop DrivingTime');
+            $("#appt2").addClass('errordatetime');
+
+            $('#loading').hide();
+            return false;
+        }
+        if (startDateTimess > CheckOutDateTimess) {
+            debugger;
+            toastr.error('Start Drving Date time Is greater Than CheckOut Datetime');
+            $("#appt").addClass('errordatetime');
+            $('#loading').hide();
+            return false;
+        }
+
+        if (CheckInDateTimess > CheckOutDateTimess) {
+            debugger;
+            toastr.error('CheckIn datetime is Greater Than Checkout Datetime');
+            $("#appt2").addClass('errordatetime');
+            $('#loading').hide();
+            return false;
+        }
+
+
+        $("#appt").removeClass('errordatetime');
+        $("#appt1").removeClass('errordatetime');
+        $("#appt2").removeClass('errordatetime');
+        $("#appt3").removeClass('errordatetime');
+    }
+
+
+
+    debugger;
+    function SaveEntryDetails()
+    {
+        $('#loading').show();
+        debugger;
+        var startDateTime = document.getElementById("id_1").value+' '+(document.getElementById("appt").value+':00');
+        var stopDateTime = document.getElementById("id_2").value+' '+(document.getElementById("appt1").value+':00');
+       
+      
+        var startDrivingLattitude = $("#id_3").text();
+            //document.getElementById("id_3").text;
+        var startDrivingLongitude =  $("#id_4").text();
+            //document.getElementById("id_4").text;
+
+        var stopDrivingLattitude = $("#id_5").text();
+            //document.getElementById("id_5").text;
+        var stopDrivingLongitude = $("#id_6").text();
+            //document.getElementById("id_6").text;
+
+        var CheckInDateTime = document.getElementById("id_7").value+' '+(document.getElementById("appt2").value+':00');
+        var CheckOutDateTime = document.getElementById("id_8").value+' '+(document.getElementById("appt3").value+':00');
+        debugger;
+        var CheckInLattitude = $("#id_9").text();
+            //document.getElementById("id_9").text;
+        var CheckInLongitude = $("#id_10").text();
+            //document.getElementById("id_10").text;
+
+        var CheckOutLattitude = $("#id_11").text();
+            //document.getElementById("id_11").text;
+        var CheckOutLongitude = $("#id_12").text();
+            //document.getElementById("id_12").text;
+
+        var startDateTimess=startDateTime.replace('/','-').replace('/','-');
+        var stopDateTimess=stopDateTime.replace('/','-').replace('/','-');
+
+        var CheckInDateTimess=CheckInDateTime.replace('/','-').replace('/','-');
+        var CheckOutDateTimess=CheckOutDateTime.replace('/','-').replace('/','-');
+
+        debugger;
+        if(!ValidateDate(startDateTimess))
+        {
+            toastr.errors('Date Time Format is invalid');
+            $('#loading').hide();
+            return false;
+        }
+
+        if(!ValidateDate(stopDateTimess))
+        {
+            toastr.errors('Date Time Format is invalid');
+            $('#loading').hide();
+            return false;
+        }
+
+        if(!ValidateDate(CheckInDateTimess))
+        {
+            toastr.errors('Date Time Format is invalid');
+            return false;
+        }
+
+        if(!ValidateDate(CheckOutDateTimess))
+        {
+            toastr.errors('Date Time Format is invalid');
+            $('#loading').hide();
+            return false;
+        }
+
+        if (startDateTimess > stopDateTimess) {
+            debugger;
+            toastr.errors('Start Drving Date time Is greater Than StopDriving Datetime');
+            $('#loading').hide();
+            return false;
+        }
+        if (stopDateTimess>CheckInDateTimess) {
+            debugger;
+            toastr.error('Checkin Time Should Be Greater Than Stop DrivingTime');
+            $('#loading').hide();
+            return false;
+        }
+        if (startDateTimess > CheckOutDateTimess) {
+            debugger;
+            toastr.error('Start Drving Date time Is greater Than CheckOut Datetime');
+            $('#loading').hide();
+            return false;
+        }
+
+        if (CheckInDateTimess > CheckOutDateTimess) {
+            debugger;
+            toastr.error('CheckIn datetime is Greater Than Checkout Datetime');
+            $('#loading').hide();
+            return false;
+        }
+
+        debugger;
+        var dataobject = {
+            "PatientRequestId":patientrequestid,
+            "StartDrivingDateTime": startDateTimess, "StopDrivingDateTime": stopDateTimess,
+            //"startDrivingLattitude": startDrivingLattitude, "startDrivingLongitude": startDrivingLongitude,
+            "stopDrivingLattitude": stopDrivingLattitude, "stopDrivingLongitude": stopDrivingLongitude,
+            "CheckInDateTime": CheckInDateTimess, "CheckOutDateTime": CheckOutDateTimess,
+             "CheckInLattitude": CheckInLattitude,
+             "CheckInLongitude": CheckInLongitude, "CheckOutLattitude": CheckOutLattitude, "CheckOutLongitude": CheckOutLongitude
+        }
+
+        //var json = JSON.stringify(dataobject);
+        //var SchedulePatientRequest = JSON.stringify({ 'SchedulePatientRequest': dataobject })
+
+        //alert(JSON.stringify(SchedulePatientRequest));
+        //console.log(SchedulePatientRequest);
+
+        //var data = new FormData();
+
+        //data.append("SchedulePatientRequest",JSON.stringify({ 'SchedulePatientRequest': json }));
+        debugger;
+        $.ajax({
+            url: "@Url.Action("SavePatientRequestStatusEntry", "AttendanceManagement")",
+            data: dataobject,
+            cache: false,
+            //dataType: 'json',
+            type: 'POST',
+            success: function (data, response) {
+                if (response) {
+                    $('#loading').hide();
+                    toastr.success("Record successfully Updated.");
+                    $('#myModal2').modal('hide');
+                }
+                else {
+                    toastr.warning("No File Exported!");
+                }
+
+            },
+            error: function (reponse) {
+                debugger;
+                alert("error : " + JSON.stringify(reponse));
+                $(".loading").hide();
+            }
+
+
+
+    }
+
+    )
+
+
+
+
+    }
+
+
+
+
+    function ValidateDate(dt) {
+        try {
+            var isValidDate = false;
+            var arr1 = dt.split('-');
+            var year=0;var month=0;var day=0;var hour=0;var minute=0;var sec=0;
+            if(arr1.length == 3)
+            {
+                var arr2 = arr1[2].split(' ');
+                if(arr2.length == 2)
+                {
+                    var arr3 = arr2[1].split(':');
+                    try{
+                        year = parseInt(arr2[0],10);
+                        month = parseInt(arr1[1],10);
+                        day = parseInt(arr1[0],10);
+                        hour = parseInt(arr3[0],10);
+                        minute = parseInt(arr3[1],10);
+                        //sec = parseInt(arr3[0],10);
+                        sec = 0;
+                        var isValidTime=false;
+                        // if(hour >=0 && hour <=23 && minute >=0 && minute<=59)
+                        if(hour >=0 && hour <=23 && minute >=0 && minute<=59 && sec >=0 && sec<=59)
+                            isValidTime=true;
+                        else if(hour ==24 && minute ==0 && sec==0)
+                            // else if(hour ==24 && minute ==0)
+                            isValidTime=true;
+
+                        if(isValidTime)
+                        {
+                            var isLeapYear = false;
+                            if(year % 4 == 0)
+                                isLeapYear = true;
+
+                            if((month==4 || month==6|| month==9|| month==11) && (day>=0 && day <= 30))
+                                isValidDate=true;
+                            else if((month!=2) && (day>=0 && day <= 31))
+                                isValidDate=true;
+
+                            if(!isValidDate){
+                                if(isLeapYear)
+                                {
+                                    if(month==2 && (day>=0 && day <= 29))
+                                        isValidDate=true;
+                                }
+                                else
+                                {
+                                    if(month==2 && (day>=0 && day <= 28))
+                                        isValidDate=true;
+                                }
+                            }
+                        }
+                    }
+                    catch(er){isValidDate = false;}
+                }
+
+            }
+
+            return isValidDate;
+        }
+        catch (err) { alert('ValidateDate: ' + err); }
+    }
+
+
+
+
+</script>

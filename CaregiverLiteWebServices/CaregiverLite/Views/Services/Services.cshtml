@@ -1,0 +1,724 @@
+﻿@model CaregiverLite.Models.ServiceVisitModel
+@{
+    ViewBag.Title = @CaregiverLite.Views.Resources.Services.TitleServices;
+    //Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+<style>
+    .navigator li {
+        display: inline-block;
+        padding: 0 5px;
+    }
+
+    .field-validation-error {
+        color: red;
+        float: right;
+    }
+
+    .carousel-control {
+        top: 43%;
+    }
+
+    .activeDiv {
+        border-bottom: 3px solid #1F305B;
+        color: #1F305B !important;
+        margin-bottom: -4px;
+    }
+
+    #tab1234 {
+        padding: 11px 0px 2px 5px;
+        border-bottom: 1px solid #efefef;
+    }
+
+        #tab1234 li a {
+            color: #9F9F9F;
+            font-family: mulish;
+            font-size: 15px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+        }
+
+    .liformat {
+        font-family: Mulish;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+    }
+
+    .tblpadding {
+        padding: 20px;
+    }
+
+    .tblMargin {
+        overflow: auto;
+        position: relative;
+        height: calc(100vh - 30vh);
+    }
+    /*th {
+        color:#1B4066;
+        font-family: Mulish;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    background-color:#f2faff  !important;
+
+
+        }*/
+    li {
+        cursor: pointer;
+    }
+
+    .table-container {
+        /*height: 300px;
+        overflow-y: auto;
+        border: 1px solid #ddd;*/
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse; /* Ensures proper border alignment */
+    }
+
+    th {
+        padding: 12px 0px 12px 12px;
+        border: 1px solid #D4E9FF; /* This adds a border between columns */
+        text-align: left;
+    }
+
+    td {
+        padding: 20px 0px 20px 30px !important;
+        border-left: 1px solid #D4E9FF; /* Left border */
+        border-right: 1px solid #D4E9FF; /* Right border */
+        text-align: left;
+        font-size: 14px;
+    }
+
+    thead th {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        color: #1B4066;
+        font-family: Mulish;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 700;
+        background-color: #f3f9ff !important;
+    }
+
+    tbody tr:nth-child(odd) {
+        background-color: #F8F8F8; /* Odd rows */
+        color: black; /* Text color for visibility */
+    }
+
+    tbody tr:nth-child(even) {
+        background-color: white; /* Even rows */
+        color: black; /* Text color for visibility */
+    }
+
+    .HDR {
+        color: #1B1B1C;
+        font-family: Mulish;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 800;
+        line-height: normal;
+    }
+
+    .BatchSchudelbtn {
+        background-color: white;
+        color: #092C44;
+        border: 1px solid #1F305B;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 25px;
+        right: 0px;
+    }
+
+    .popuplabel {
+        font-family: Mulish;
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+    }
+
+    input {
+        border-radius: 5px !important;
+    }
+
+    .custompopupModal {
+        width: 360px !important;
+        height: 328px;
+    }
+
+    .confirmbtn {
+        background-color: #FFDEDE;
+        color: #E24B4B;
+        border: 1px solid;
+        border-radius: 4px;
+        height: 40px;
+        font-weight: bold;
+    }
+
+        .confirmbtn:hover {
+            background-color: #ebd2d2;
+        }
+
+    .cancelbtn {
+        background-color: #D4FFE8;
+        color: #239450;
+        border: 1px solid;
+        border-radius: 4px;
+        height: 40px;
+        font-weight: bold;
+    }
+
+        .cancelbtn:hover {
+            background-color: #d1ecd9;
+        }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+
+<div class="modal fade" id="ServiceType_Add_Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" style="margin-top: 10%;">
+        <div class="modal-content custompopupModal">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Add New Service Type</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="popuplabel">Speciality Type Name</label>
+                    <span style="color:red;">*</span>
+                    @Html.TextBoxFor(model => model.ServiceName, new { @type = "text", @maxlength = "100", @placeholder = "Enter Speciality Type", @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ServiceName)
+                </div>
+                <div class="form-group">
+                    <label class="popuplabel">Description (Optional)</label>
+                    @Html.TextBoxFor(model => model.Description, new { @type = "text", @maxlength = "200", @class = "form-control", style = "height: 60px;border-radius:5px" })
+
+                </div>
+
+                <div class="d-flex gap-2" style="float:right;margin-top:30px">
+                    <button class="btn btn-outline-dark BatchSchudelbtn" style="margin-right: 10px;" onclick="Closepopup()">Cancel</button>
+                    <button type="button" onclick="AddServices('Add')" class="btn  btn-primary " style="border-radius:5px;padding: 6px 20px 6px 22px;">Save</button>
+                </div>
+                @*<button type="submit" class="btn btn-sm btn-primary pull-right" style="text-transform: capitalize">Save</button>*@
+
+                <div class="clearfix"></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ServiceType_Edit_Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" style="margin-top: 10%;">
+        <div class="modal-content custompopupModal">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">@CaregiverLite.Views.Resources.Services.HeaderEditService</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="popuplabel">@CaregiverLite.Views.Resources.Services.LabelService</label>
+                    <span style="color:red;">*</span>
+                    @Html.TextBoxFor(model => model.ServiceName, new { @id = "txtEditServiceName", @type = "text", @maxlength = "100", @placeholder = @CaregiverLite.Views.Resources.Services.PlaceHolderServiceName, @class = "form-control" })
+                    <input type="hidden" id="hdntxtServiceId" value="" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="popuplabel">Description (Optional)</label>
+                    @Html.TextBoxFor(model => model.Description, new { @id = "txtServiceDescription", @type = "text", @maxlength = "100", @class = "form-control", style = "height: 60px;" })
+
+                </div>
+                <div class="d-flex gap-2" style="float:right;margin-top:30px">
+                    <button class="btn btn-outline-dark BatchSchudelbtn" style="margin-right: 10px;" onclick="Closepopup()">Cancel</button>
+                    <button type="button" onclick="AddServices('Edit')" class="btn  btn-primary " style="border-radius:5px;padding: 6px 20px 6px 22px;">Save</button>
+                </div>
+                @* <a href="javascript:;" onclick="AddServices('Edit')" class="btn btn-sm btn-primary pull-right" style="border-radius:5px">@CaregiverLite.Views.Resources.Services.ButtonUpdate</a>*@
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" id="VisitType_Add_Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" style="margin-top: 10%;">
+        <div class="modal-content custompopupModal">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Add New Visit Type</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="popuplabel">Visit Type Name</label>
+                    <span style="color:red;">*</span>
+                    @Html.ValidationMessageFor(model => model.VisitTypeName)
+                    @Html.TextBoxFor(model => model.VisitTypeName, new { @type = "text", @maxlength = "100", @placeholder = "Enter Visit Type", @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label class="popuplabel">Description (Optional)</label>
+                    @Html.TextBoxFor(model => model.Description, new { @id = "txtAddVisitTypeDescription", @type = "text", @maxlength = "200", @class = "form-control", style = "height: 60px;" })
+
+                </div>
+                <div class="d-flex gap-2" style="float:right;margin-top:30px">
+                    <button class="btn btn-outline-dark BatchSchudelbtn" style="margin-right: 10px;" onclick="Closepopup()">Cancel</button>
+                    <button type="button" onclick="AddVisitType('Add')" class="btn  btn-primary " style="border-radius:5px;padding: 6px 20px 6px 22px;">Save</button>
+                </div>
+                @*<button type="button" onclick="AddVisitType('Add')" class="btn btn-sm btn-primary pull-right" style="border-radius:5px">Add</button>*@
+                <div class="clearfix"></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="VisitType_Edit_Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" style="margin-top: 10%;">
+        <div class="modal-content custompopupModal">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Edit Visit Type</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    @*<input type="text" id="ServiceName" value="" class="form-control">*@
+                    <label class="popuplabel">Visit Type Name</label>
+                    <span style="color:red;">*</span>
+                    @Html.ValidationMessageFor(model => model.VisitTypeName)
+                    @Html.TextBoxFor(model => model.VisitTypeName, new { @id = "txtVisitTypeName", @type = "text", @maxlength = "100", @placeholder = "Enter Visit Type", @class = "form-control" })
+                    <input type="hidden" id="hdntxtVisitTypeId" value="" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="popuplabel">Description (Optional)</label>
+                    @Html.TextBoxFor(model => model.Description, new { @id = "txtEditVisitDescription", @type = "text", @maxlength = "100", @class = "form-control", style = "height: 60px;" })
+
+                </div>
+                <div class="d-flex gap-2" style="float:right;margin-top:30px">
+                    <button class="btn btn-outline-dark BatchSchudelbtn" style="margin-right: 10px;" onclick="Closepopup()">Cancel</button>
+                    <button type="button" onclick="AddVisitType('Edit')" class="btn  btn-primary " style="border-radius:5px;padding: 6px 20px 6px 22px;">Save</button>
+                </div>
+                @*   <a href="javascript:;"  onclick="AddVisitType('Edit')" class="btn btn-sm btn-primary pull-right"  style="border-radius:5px">@CaregiverLite.Views.Resources.Services.ButtonUpdate</a>*@
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="Delete_Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" id="modalAddPopup">
+        <div class="modal-content" id="deleteModal" style="width: 380px;    height: 205px;    border-radius: 8px;    margin-top:80%">
+            <p style="padding:23px 59px 0px 40px; margin-left:-22px; font-style: normal; font-size: 17px;"><strong id="DeleteLabel" style="font-weight: 800; color: #1B4066;"></strong></p>
+            <button class="cancelbtn" style="margin-left: 37%;   margin-top: 64px;   padding: 0px 12px 0px 12px;">No, Go Back</button>
+            <button class="confirmbtn" style="margin-left: 14px;   padding: 0px 12px 0px 12px;">Yes, Delete</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@*@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+    {
+
+    }*@
+
+<div class="wrapper wrapper-content animated fadeInRight containerstyle" style="height:100vh">
+    <div class="row">
+        <div style="margin-left: 5px;">
+            <div class="ibox float-e-margins" style="margin-top: 51px;">
+                <ul id="tab1234" style="list-style: none;   display: flex; background: #fff;">
+                    <li id="Specilatily" class="activeDiv liformat" style="margin-right: 23px;background: #fff;padding: 10px 20px 15px 20px;color: #9f9f9f;">Speciality Type</li>
+
+                    <li id="visitType" class="liformat" style="margin-right: 23px;background: #fff;padding: 10px 20px 15px 20px;color: #9f9f9f;">Visit Type</li>
+                </ul>
+
+            </div>
+        </div>
+        <div class="col-md-12" style="margin-top: -7px;margin-left: 0px;">
+            <div class="container" style="background: white;  width:99%;  border: 1px solid #e7e7e7;    border-radius: 5px;">
+                <div id="specialityTypeDiv">
+                    <div class="row tblpadding" style="margin-bottom:-22px">
+                        <div class="col-md-4" style="margin-top: 7px;">
+                            <h3 class="HDR" style="margin-left: -14px;">Speciality Type (@(ViewBag.ServiceList != null ? ViewBag.ServiceList.Count : 0)) </h3>
+
+                        </div><div class="col-md-8" style="text-align:right;margin-top: 7px;">
+                            <a class="btn btn-xs CutomButton" style="margin-top: -10px;float: right;background-color: #092C44;color: white;padding: 8px;height: 42px;font-size: 14px;" href="javascript:;" onclick="OpenService_AddPopup()">
+                                <img src="https://scheduler.paseva.com/Content/image/AddIcon.svg" alt="Add New Speciality">
+                                <span style="margin-left: 3px;">New Speciality</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row tblpadding">
+                        <div class="tblMargin">
+                            @*  <table class="table table-bordered table-hover no-margins">*@
+                            <table class="table-container">
+
+                                <thead>
+                                    <tr class="theadtr">
+                                        <th style="width:25%;padding-left: 30px;">Speciality Type</th>
+                                        <th style="width:25%;padding-left: 30px;">Description</th>
+                                        <th style="width:50%;padding-left: 30px;">@CaregiverLite.Views.Resources.Services.TableHeaderActions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (CaregiverLiteWCF.Services item in ViewBag.ServiceList)
+                                    {
+                                        <tr>
+                                            <td>@item.ServiceName</td>
+                                            <td>@(string.IsNullOrWhiteSpace(item.Description) ? "--" : item.Description)</td>
+
+                                            <td>
+                                                <a href="javascript:;" title="Edit" style="margin-top:5px;margin-left:17px; width:100%;height: 15px;width: 15px;" onclick="OpenEdit_ServicePopup(@item.ServiceId, '@item.ServiceName','@item.Description')"><img src="https://scheduler.paseva.com/Content/image/EditIcon1.png" alt="Edir Icon" style="width:16px;cursor:pointer"></a>
+                                                <a href="javascript:;" title="Delete" style="margin-top:5px;margin-left:40px; width:100%;height: 15px;width: 15px;" onclick="ConfirmDelete(@item.ServiceId, '@item.ServiceName','Service')"><img src="https://scheduler.paseva.com/Content/image/DeleteIcon1.png" alt="Delete Icon" style="width:16px;cursor:pointer"> </a>
+
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="visitTypeDiv">
+                    <div class="row tblpadding" style="margin-bottom:-22px">
+                        <div class="col-md-4" style="margin-top: 7px;">
+                            <h3 class="HDR" style="margin-left: -14px;">Visit  Type  (@(ViewBag.VisitTypeList != null ? ViewBag.VisitTypeList.Count : 0))</h3>
+
+                        </div><div class="col-md-8" style="text-align:right;margin-top: 7px;">
+                            <a class="btn btn-xs CutomButton" style="margin-top: -10px;float: right;background-color: #092C44;color: white;padding: 8px;height: 42px;font-size: 14px;" href="javascript:;" onclick="OpenVisitTypeAddPopup()">
+                                <img src="https://scheduler.paseva.com/Content/image/AddIcon.svg" alt="Add New Visit Type">
+                                <span style="margin-left: 3px;">New Visit Type</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row tblpadding">
+                        <div class="tblMargin">
+                            <table class="table-container">
+                                <thead>
+                                    <tr class="theadtr">
+                                        <th style="width:25%;padding-left: 30px;">Visit Type</th>
+                                        <th style="width:25%;padding-left: 30px;">Description</th>
+                                        <th style="width:50%;padding-left: 30px;">@CaregiverLite.Views.Resources.Services.TableHeaderActions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+
+                                    @foreach (CaregiverLiteWCF.VisitType item in ViewBag.VisitTypeList)
+                                    {
+                                        <tr>
+                                            <td>@item.VisitTypeName</td>
+                                            <td>@(string.IsNullOrWhiteSpace(item.Description) ? "--" : item.Description)</td>
+                                            <td>
+                                                <a href="javascript:;" title="Edit" style="margin-top:5px;margin-left:17px; width:100%;height: 15px;width: 15px;" onclick="OpenEdit_VisitPopup(@item.VisitTypeId, '@item.VisitTypeName','@item.Description')"><img src="https://scheduler.paseva.com/Content/image/EditIcon1.png" alt="Edir Icon" style="width:16px;cursor:pointer"></a>
+                                                <a href="javascript:;" title="Delete" style="margin-top:5px;margin-left:40px; width:100%;height: 15px;width: 15px;" onclick="ConfirmDelete(@item.VisitTypeId, '@item.VisitTypeName','Visit')"><img src="https://scheduler.paseva.com/Content/image/DeleteIcon1.png" alt="Delete Icon" style="width:16px;cursor:pointer"> </a>
+
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+<script>
+    $(document).ready(function () {
+        $('#specialityTypeDiv').css("display", "block");
+        $('#visitTypeDiv').css("display", "none");
+
+        $('#tab1234 li').click(function () {
+            $('#tab1234 li').removeClass("activeDiv");
+
+            var clickedId = $(this).attr("id");
+
+            debugger;
+            if (clickedId == "visitType") {
+                $('#visitTypeDiv').css("display", "block");
+                $('#specialityTypeDiv').css("display", "none")
+            } else {
+                $('#visitTypeDiv').css("display", "none");
+                $('#specialityTypeDiv').css("display", "block")
+            }
+            $(this).addClass("activeDiv")
+        })
+    });
+
+
+    function OpenService_AddPopup(ServiceId, ServiceName) {
+        $('#loading').show();
+        $('#ServiceType_Add_Modal').modal('show');
+        $('#loading').hide();
+    }
+    function OpenEdit_ServicePopup(ServiceId, ServiceName,Description) {
+        debugger;
+        $('#loading').show();
+        $("#hdntxtServiceId").val(ServiceId);
+        $("#txtEditServiceName").val(ServiceName);
+        $("#ServiceName").val(ServiceName);
+        $("#txtServiceDescription").val(Description);
+
+        $('#ServiceType_Edit_Modal').modal('show');
+        $('#loading').hide();
+    }
+
+    function OpenVisitTypeAddPopup(ServiceId, ServiceName) {
+        $('#loading').show();
+        $('#VisitType_Add_Modal').modal('show');
+        $('#loading').hide();
+    }
+    function OpenEdit_VisitPopup(VisitTypeId, VisitTypeName,Description) {
+        $('#loading').show();
+        $("#hdntxtVisitTypeId").val(VisitTypeId);
+        $("#txtVisitTypeName").val(VisitTypeName);
+        $("#VisitTypeName").val(VisitTypeName);
+
+        $("#txtEditVisitDescription").val(Description);
+        $('#VisitType_Edit_Modal').modal('show');
+        $('#loading').hide();
+    }
+    function Closepopup()
+    {
+        $('#ServiceType_Add_Modal').modal('hide');
+        $('#ServiceType_Edit_Modal').modal('hide');
+        $('#VisitType_Add_Modal').modal('hide');
+        $('#VisitType_Edit_Modal').modal('hide');
+    }
+
+    function AddServices(txtlabel) {
+        debugger;
+
+        var ServiceNameValue = $("#ServiceName").val();
+        var ServiceDescription = $("#Description").val();
+        var ServiceId = $("#hdntxtServiceId").val();
+        if (ServiceId) {
+            ServiceNameValue = $("#txtEditServiceName").val();
+            ServiceDescription = $("#txtServiceDescription").val();
+
+        } else {
+            ServiceId = 0;
+        }
+        if (ServiceNameValue == "") {
+            toastr.error('Please enter service type');
+            $('#loading').hide();
+            return false;
+        } else {
+            $('#loading').show();
+            $.ajax({
+                url: INITURL + "/Services/UpdateService",
+                data: { ServiceId: ServiceId, ServiceName: ServiceNameValue, Description: ServiceDescription },
+                cache: false,
+                type: "POST",
+                success: function (data, result) {
+
+                    if (result === 'success') {
+
+                        if (txtlabel=="Add")
+                        {
+                            toastr.success(ServiceNameValue + " added successfully");
+                           // alert(ServiceNameValue + " added successfully");
+                        } else {
+                            toastr.success(ServiceNameValue + " updated successfully");
+                           // alert(ServiceNameValue + " updated successfully");
+                       }
+					     $('#ServiceType_Add_Modal').modal('hide');
+                          $('#ServiceType_Edit_Modal').modal('hide');
+                        setTimeout(function () {
+                            window.location = INITURL + "Services/Services"
+                        }, 2000);
+                        $('#loading').hide();
+                    } else {
+                        $('#loading').hide();
+                    }
+                },
+                error: function (reponse) {
+                    $('#loading').hide();
+                }
+            });
+        }
+    }
+
+
+
+    $('.cancelbtn').click(function () {
+
+        debugger
+        $('#Delete_Modal').modal('hide');
+        // $('#ConfirmationModel').modal('hide');  // Hide the confirmation modal
+    });
+
+    $('.confirmbtn').click(function () {
+        $('#Delete_Modal').modal('hide');
+        debugger
+        if (tempServiceId) {
+            if (ServiceType == "Service") {
+                DeleteService(tempServiceId, tempServiceName);
+            } else {
+                DeleteVisitService(tempServiceId, tempServiceName);
+
+            }
+        }
+
+    });
+
+    var tempServiceId = "";
+    var tempServiceName = "";
+    var ServiceType = "";
+
+    function ConfirmDelete(id, ServiceName, ptype) {
+        debugger
+        tempServiceId = id;
+        tempServiceName = ServiceName;
+        ServiceType = ptype;
+        if (ptype == "Service") {
+            $('#DeleteLabel').text('Are you sure you want to delete this Speciality Type ?');
+        } else {
+            $('#DeleteLabel').text('Are you sure you want to delete this Visit Type ?');
+        }
+
+        $('#Delete_Modal').modal('show');
+    }
+    function DeleteService(id, ServiceName) {
+        //if (confirm("Are you sure you want to delete " + ServiceName + "?"))
+        //{
+            $('#loading').show();
+            $.ajax({
+                url: INITURL + "/Services/DeleteService",
+                data: { ServiceId: id },
+                cache: false,
+                type: "POST",
+                success: function (data) {
+
+                    if (data == "1") {
+                        toastr.success(ServiceName + " deleted successfully");
+                       // alert(ServiceName + " deleted successfully");
+
+                        setTimeout(function () {
+                            window.location = INITURL + "Services/Services"
+                        }, 3000);
+                    }
+                    else {
+                        toastr.error(ServiceName + " is in other use. You can not delete it.")
+                    }
+                    $('#loading').hide();
+                },
+                error: function (reponse) {
+                    $('#loading').hide();
+                }
+            });
+       // }
+    }
+
+
+    function AddVisitType(txtlabel) {
+
+        debugger;
+        var VisitDescription = $("#txtAddVisitTypeDescription").val();
+        var VisitTypeNameValue = $("#VisitTypeName").val();
+        var VisitTypeId = $("#hdntxtVisitTypeId").val();
+        if (VisitTypeId) {
+
+            VisitTypeNameValue = $("#txtVisitTypeName").val();
+            VisitDescription = $("#txtEditVisitDescription").val();
+
+        } else {
+            VisitTypeId = 0;
+        }
+        if (VisitTypeNameValue == "") {
+            debugger;
+            toastr.error('Please enter Visit type');
+            $('#loading').hide();
+            return false;
+        } else {
+            $('#loading').show();
+            $.ajax({
+                url: INITURL + "/VisitType/UpdateVisitType",
+                data: { VisitTypeName: VisitTypeNameValue },
+                data: { VisitTypeId: VisitTypeId, VisitTypeName: VisitTypeNameValue, Description: VisitDescription },
+                cache: false,
+                type: "POST",
+                success: function (data, result) {
+
+                    debugger;
+                    if (result === 'success') {
+                        if (txtlabel == "Add") {
+                            toastr.success(VisitTypeNameValue + " added successfully");
+                           // alert(VisitTypeNameValue + " added successfully");
+                        } else {
+                            toastr.success(VisitTypeNameValue + " updated successfully");
+                           // alert(VisitTypeNameValue + " updated successfully");
+                        }
+						 $('#VisitType_Add_Modal').modal('hide');
+                        $('#VisitType_Edit_Modal').modal('hide');
+                        setTimeout(function () {
+                            window.location = INITURL + "Services/Services"
+                        }, 2000);
+
+                        $('#loading').hide();
+                    } else {
+                        $('#loading').hide();
+                    }
+                },
+                error: function (reponse) {
+                    $('#loading').hide();
+                }
+            });
+        }
+    }
+
+    function DeleteVisitService(id, VisitTypeName) {
+        //if (confirm("Are you sure you want to delete " + VisitTypeName + "?"))
+        //{
+            $('#loading').show();
+            $.ajax({
+                url: INITURL + "/VisitType/DeleteVisitType",
+                data: { VisitTypeId: id },
+                cache: false,
+                type: "POST",
+                success: function (data) {
+                    $('#loading').hide();
+                    if (data == "1") {
+                        toastr.success(VisitTypeName + " deleted successfully");
+                        setTimeout(function () {
+                            window.location = INITURL + "Services/Services"
+                        }, 3000);
+                    }
+                    else {
+                      //  alert(VisitTypeName + " is in other use with Caregiver Account. You can not delete it.");
+                        toastr.error(VisitTypeName + " is in other use with Caregiver Account. You can not delete it.");
+                    }
+                    $('#loading').hide();
+                },
+                error: function (reponse) {
+                    $('#loading').hide();
+                }
+            });
+      //  }
+    }
+
+    function divClose() {
+        $("#dvError1").css("display", "none");
+        $("#dvError2").css("display", "none");
+    }
+</script>
+

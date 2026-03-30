@@ -1,0 +1,676 @@
+﻿@model CaregiverLite.Controllers.Userprofile
+
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: "Lato", sans-serif;
+        }
+         .Cancelbtn {
+           
+            background-color: white;
+            color: #092C44;
+            border: 1px solid #1F305B;
+            border-radius: 6px;
+            font-size: 14px;
+               width: 20%;
+    height: 28px;
+    line-height: 22px;
+        }
+
+        #CancelbtnId:hover {
+            background-color: #092C44;
+            color: white;
+            font-size: 1vw;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .profile-card {
+            max-width: 832px;
+            margin: 65px 10px 13px 15px;
+            border: none;
+            border-radius: 4px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            background-color: white;
+        }
+
+        .profile-img {
+            width: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .info-title {
+            font-size: 0.85rem;
+            color: #6c757d;
+        }
+
+        .info-text {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .service-badge {
+            font-size: 0.8rem;
+            padding: 5px 10px;
+            margin: 0 3px;
+        }
+
+        .support-section {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+            .support-section a {
+                text-decoration: none;
+                color: #007bff;
+                font-size: 0.9rem;
+            }
+
+                .support-section a:hover {
+                    color: #0056b3;
+                }
+
+
+
+        .cutmoprofiledata p {
+            font-weight: 600;
+            color: #1F305B;
+        }
+
+        .cutmoprofiledata span {
+            color: #1F305B;
+            display: block;
+        }
+
+        #cartData1 {
+            margin-left: 2px;
+        }
+
+       
+        .profile-card:hover {
+            /*border: 1px solid #68AAEA;*/
+        }
+
+        label {
+            display: flex;
+        }
+
+        .cutmoprofiledata1 span {
+            color: red;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card profile-card cutmoprofiledata">
+        <div class="flex" style="display:flex">
+            <div>
+              @if (Session["role"].ToString() == "Nurse")
+              {
+                  var roleImagePath = Session["ProfileImage"].ToString();
+                <img src="@roleImagePath" alt="User Avatar" class="user-avatar" style="width:69px" />
+              }
+              else
+              {
+                <img src="/Content/image/DefaultProfile.png" alt="User Avatar" class="user-avatar userprofileimage"  />
+              } 
+               
+            </div>
+
+            <div style="margin: 15px 0px 0px 15px;width: 75%;">
+                <span style="margin-bottom: 2px;">Full Name</span>
+                <h5 style="color:#1F305B" class="mb-1">@ViewBag.ProfileName </h5>
+
+            </div>
+        </div>
+
+
+        <hr style="margin-top:15px">
+        
+            @using (Html.BeginForm("EditCareGiver", "CareGiver", FormMethod.Post, new { @id = "fmEditCareGiver", @class = "horizontal-form", @enctype = "multipart/form-data" }))
+            {
+            <div class="row cutmoprofiledata1" id="cartData1">
+                @Html.HiddenFor(model => model.ObjCaregiverModel.NurseId, new { @id = "NurseId" })
+                @Html.HiddenFor(model => model.ObjCaregiverModel.UserId, new { @id = "UserId" })
+                @Html.HiddenFor(model => model.ObjCaregiverModel.OldOfficeId, new { @id = "OldOfficeId" })
+                @Html.HiddenFor(model => model.ObjCaregiverModel.QuickBloxId, new { @id = "QuickBloxId" })
+                @Html.HiddenFor(model => model.ObjCaregiverModel.ChargeToPatient, new { @id = "ChargeToPatient" })
+                @Html.HiddenFor(model => model.ObjCaregiverModel.ServiceNames, new { @id = "ServiceNames" })
+                @Html.HiddenFor(model => model.ObjCaregiverModel.Latitude, new { @id = "hdnLatitude" })
+                @Html.HiddenFor(model => model.ObjCaregiverModel.Longitude, new { @id = "hdnLongitude" })
+                @Html.HiddenFor(model => model.ObjCaregiverModel.Address, new { @id = "hdnAddress" })
+                @Html.HiddenFor(model => model.ObjCaregiverModel.ProfileImage, new { @id = "ProfileImage" })
+                @Html.HiddenFor(model => model.ObjCaregiverModel.Username, new { @id = "txtUsername" })
+                @Html.HiddenFor(model=>model.ObjCaregiverModel.OldEmail,new { @id = "OldEmail" }) 
+
+
+                @Html.HiddenFor(model => model.ObjCaregiverModel.IsAllowOneToOneChat, new { @id = "IsAllowOneToOneChat" })
+                @Html.HiddenFor(model => model.ObjCaregiverModel.IsAllowPatientChatRoom, new { @id = "IsAllowPatientChatRoom" })
+                @Html.HiddenFor(model => model.ObjCaregiverModel.IsAllowGroupChat, new { @id = "IsAllowGroupChat" })
+                @Html.HiddenFor(model => model.ObjCaregiverModel.IsAllowToCreateGroupChat, new { @id = "IsAllowToCreateGroupChat" })
+                @Html.HiddenFor(model => model.ObjCaregiverModel.PayrollId, new { @id = "PayrollId" })
+                @Html.HiddenFor(model => model.ObjCaregiverModel.ServiceRadius, new { @id = "ServiceRadius" })
+                @Html.HiddenFor(model => model.ObjCaregiverModel.Services, new { @id = "Services" })
+                @Html.HiddenFor(model => model.ObjCaregiverModel.OfficeId, new { @id = "OfficeId" })
+                @Html.HiddenFor(model => model.ObjCaregiverModel.HoursRate, new { @id = "HoursRate" })
+
+                
+                
+
+                <div class="alert alert-danger alert-dismissable" style="display:none" id="dvError2">
+                    <button onclick="divClose();" class="close" type="button">×</button>
+                    <label id="lblError2"></label>
+                </div>
+                 
+
+              
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        <label>First Name <span> *</span></label>
+
+                        @Html.ValidationMessageFor(model => model.ObjCaregiverModel.FirstName)
+                        @Html.TextBoxFor(model => model.ObjCaregiverModel.FirstName, new { @id = "FirstName", @type = "text", @maxlength = "100", @placeholder = "Enter First Name", @class = "form-control formtopmargin" })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Last Name <span> *</span></label>
+
+                        @Html.ValidationMessageFor(model => model.ObjCaregiverModel.LastName)
+                        @Html.TextBoxFor(model => model.ObjCaregiverModel.LastName, new { @id = "LastName", @type = "text", @maxlength = "100", @placeholder = "Enter Last Name", @class = "form-control formtopmargin" })
+                    </div>
+                </div>
+
+                
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Role Assigned</label>                        
+                        <input class="form-control" readonly="readonly" type="text" value="@Session["role"].ToString()">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>@CaregiverLite.Views.Resources.CareGiver.TableHeaderEmail <span> *</span></label>
+                        @Html.ValidationMessageFor(model => model.ObjCaregiverModel.Email)
+                        @Html.TextBoxFor(model => model.ObjCaregiverModel.Email, new { @id = "Email", @type = "email", @maxlength = "100", @placeholder = @CaregiverLite.Views.Resources.CareGiver.PlaceHolderEmail, @class = "form-control formtopmargin" })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>@CaregiverLite.Views.Resources.CareGiver.TableHeaderPhone <span> *</span></label>
+
+                        @Html.ValidationMessageFor(model => model.ObjCaregiverModel.Phone)
+                        @Html.TextBoxFor(model => model.ObjCaregiverModel.Phone, new { @id = "Phone", @type = "text", @maxlength = "100", @onkeypress = "return isNumber(event)", @placeholder = @CaregiverLite.Views.Resources.CareGiver.PlaceHolderPhone, @class = "form-control formtopmargin" })
+                    </div>
+                </div>
+               
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>@CaregiverLite.Views.Resources.CareGiver.TableHeaderStreet <span> *</span></label>
+                        @Html.ValidationMessageFor(model => model.ObjCaregiverModel.Street)
+                        @Html.TextBoxFor(model => model.ObjCaregiverModel.Street, new { @id = "txtStreet", @type = "text", @placeholder = @CaregiverLite.Views.Resources.CareGiver.PlaceHolderStreet, @class = "form-control formtopmargin" })
+                    </div>
+                </div><div class="col-md-6">
+                    <div class="form-group">
+                        <label>@CaregiverLite.Views.Resources.CareGiver.TableHeaderCity <span> *</span></label>
+
+
+                        @Html.ValidationMessageFor(model => model.ObjCaregiverModel.City)
+                        @Html.TextBoxFor(model => model.ObjCaregiverModel.City, new { @id = "txtCity", @type = "text", @placeholder = @CaregiverLite.Views.Resources.CareGiver.PlaceHolderCity, @class = "form-control formtopmargin" })
+                    </div>
+                </div> 
+               
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>@CaregiverLite.Views.Resources.CareGiver.TableHeaderState <span> *</span></label>
+
+                        @Html.ValidationMessageFor(model => model.ObjCaregiverModel.State)
+                        @Html.TextBoxFor(model => model.ObjCaregiverModel.State, new { @id = "txtState", @type = "text", @placeholder = @CaregiverLite.Views.Resources.CareGiver.PlaceHolderState, @class = "form-control formtopmargin" })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>@CaregiverLite.Views.Resources.CareGiver.TableHeaderZipCode <span> *</span></label>
+
+                        @Html.ValidationMessageFor(model => model.ObjCaregiverModel.ZipCode)
+                        @Html.TextBoxFor(model => model.ObjCaregiverModel.ZipCode, new { @id = "txtZipCode", @type = "text", @maxlength = "10", @placeholder = @CaregiverLite.Views.Resources.CareGiver.PlaceHolderZipCode, @class = "form-control formtopmargin" })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>@CaregiverLite.Views.Resources.CareGiver.TableHeaderEducation <span> *</span></label>
+
+                        @Html.ValidationMessageFor(model => model.ObjCaregiverModel.Education)
+                        @Html.TextBoxFor(model => model.ObjCaregiverModel.Education, new { @id = "Education", @type = "text", @placeholder = @CaregiverLite.Views.Resources.CareGiver.PlaceHolderEducation, @class = "form-control formtopmargin" })
+                    </div>
+                </div>
+                
+
+
+             
+                <div class="col-md-12" style="margin-bottom: 5px;text-align:end" >
+                    <a href="javascript:;" class="btn btn-xs Cancelbtn"  data-dismiss="modal" id="CancelbtnId" style="margin-left:10px;border-radius: 4px;">Cancel</a>
+                    <a href="javascript:;" class="btn btn-xs btn-primary " style="border-radius: 4px;text-transform:none;width: 20%" onclick="EditNurse();">Save Changes</a>
+
+                </div>
+                 
+
+            </div>
+
+                }
+          
+
+
+
+    </div>
+    <div class="card profile-card" style="margin-top: 4px;">
+
+        <h5 class="mb-3" style="color:#1F305B;margin-bottom: 12px;font-size: 15px;">Contact Support</h5>
+        <div class="d-flex align-items-center mb-2">
+            <i class="fas fa-envelope me-2"></i>
+            <a href="mailto:support@paseva.com" style="color:#1F305B;text-decoration: underline;font-weight: bold;margin-left: 5px">support@paseva.com</a>
+        </div>
+        <div class="d-flex align-items-center">
+            <i class="fas fa-phone me-2"></i>
+            <span style="color:#1F305B;font-weight: bold;margin-left: 5px">844-682-1072</span>
+        </div>
+    </div>
+    <div class="card profile-card" style="margin-top: 4px;">
+        <div>
+            <a href="https://paseva.com/privacy-policy/" style="color:#1F305B;text-decoration: underline;font-weight: bold;">Privacy Policy</a>
+            <br>
+            @*<a href="#" style="color:#1F305B;text-decoration: underline;font-weight: bold;">Terms of Use</a>*@
+        </div>
+    </div>
+
+
+
+
+    <script>
+        $(document).ready(function () {
+
+            var form = $("#fmEditCareGiver").closest("form");
+            form.removeData('validator');
+            form.removeData('unobtrusiveValidation');
+            $.validator.unobtrusive.parse(form);
+
+            var selectedValues = new Array();
+            selectedValues = '@Model.ObjCaregiverModel.Services'.trim().split(',')
+            $("#ddlEditService").val(selectedValues);
+
+            
+            var config = {
+                '.chosen-select': {},
+                '.chosen-select-deselect': { allow_single_deselect: true },
+                '.chosen-select-no-single': { disable_search_threshold: 10 },
+                '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+                '.chosen-select-width': { width: "95%" }
+            }
+            for (var selector in config) {
+                $(selector).chosen(config[selector]);
+
+            }
+            $("#loading").hide();
+        });
+
+
+        function GetFullAddress() {
+
+            var Street = $("#Street").val();
+            Street = Street.replace(/,\s*$/, "");
+            // alert(Street);
+
+            var City = $("#City").val();
+
+            var State = $("#State").val();
+
+            var FullAddress = Street + ', ' + City + ', ' + State;
+
+            $("#hdnAddress").val(FullAddress);
+        }
+
+       
+      
+        function EditNurse() {
+           // $('#loading').show();
+            var selectedValues = "";
+
+            $("#ddlEditService :selected").each(function () {
+                selectedValues += $(this).val() + ",";
+            });
+
+            $("#hdnEditServices").val(selectedValues);
+           
+
+
+            if (!GetLanLat()) {
+                $('#loading').hide();
+                return false
+            }
+
+            var result = CheckUserName();
+            if (result == false) {
+                $("#dvError2").css("display", "");
+                $("#lblError2").html("User Name is already exists");
+                $('#loading').hide();
+                return false;
+            }
+
+            var result1 = CheckEmail();
+            if (result1 == false) {
+                debugger;
+                $("#dvError2").css("display", "");
+                $("#lblError2").html("Email is already exists");
+                $('#loading').hide();
+                return false;
+            }
+            if ($(".radio-inline").find(":checked").val() == undefined) {
+                $("#radiobutton").css("padding", "20px 0px");
+            }
+            else {
+                $("#radiobutton").css("padding", "7px 0px");
+            }
+            
+             
+
+            var Address = $("#hdnAddress").val();
+            var Pincode = $("#txtZipCode").val();
+
+            var Street = $("#txtStreet").val();
+            Street = Street.replace(/,\s*$/, "");
+
+            var City = $("#txtCity").val();
+            City = City.replace(/,\s*$/, "");
+
+            var State = $("#txtState").val();
+            State = State.replace(/,\s*$/, "");
+
+
+
+
+
+
+
+            if ($('#fmEditCareGiver').valid()) {
+
+                var data = new FormData();
+                debugger;
+
+                
+                    var objCareGiverModel = {
+                        UserId: $("#UserId").val(),
+                        NurseId: $("#NurseId").val(),
+                        Username: $("#txtUsername").val(),
+                        Name: $("#FirstName").val() + ' ' + $("#LastName").val(),
+                        FirstName: $("#FirstName").val(),
+                        LastName: $("#LastName").val(),
+                        //NurseFullName: $("#NurseFullName").val(),
+                        Email: $("#Email").val(),
+                        OldEmail: $("#OldEmail").val(),
+                        ServiceNames: $("#ServiceNames").val(),
+                        Services: $("#Services").val(),                        
+                        HoursRate: $("#HoursRate").val(),
+                        ServiceRadius: $("#ServiceRadius").val(),
+                        Phone: $("#Phone").val(),
+                        PayrollId: $("#PayrollId").val(),
+                        Address: Address,
+                        Street: Street,
+                        City: City,
+                        State: State,
+                        ZipCode: Pincode,
+                        ProfileImage: $("#ProfileImage").val(),
+                        Latitude: $("#hdnLatitude").val(),
+                        Longitude: $("#hdnLongitude").val(),
+                        /*Password: $("#Password").val(),*/
+                        ChargeToPatient: $("#ChargeToPatient").val(),
+                        Education: $("#Education").val(),
+                        OfficeId: $("#OfficeId").val(),
+                        OldOfficeId: $("#OldOfficeId").val(),
+                        QuickBloxId: $("#QuickBloxId").val(),
+                        IsAllowOneToOneChat: $("#IsAllowOneToOneChat").prop('checked'),
+                        IsAllowPatientChatRoom: $("#IsAllowPatientChatRoom").prop('checked'),
+                        IsAllowGroupChat: $("#IsAllowGroupChat").prop('checked'),
+                        IsAllowToCreateGroupChat: $("#IsAllowToCreateGroupChat").prop('checked')
+
+                   
+
+
+                }
+                debugger;
+                data.append("ObjCareGiver", JSON.stringify({ 'CareGiverModelDetail': objCareGiverModel }));
+                var url = INITURL + 'UserManagement/UpdateCareGiverProfile';
+                $('#loading').show();
+               
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    processData: false,
+                    contentType: false,
+                    data: data,                    
+                    success: function (data) {
+                        if (data.Result == "Success") {                          
+                          //  $('#ProfilemOdeal').modal('show');
+                            $('#EditProfilemOdeal').modal('hide');
+                            toastr.success('Changes you have made have been applied successfully');
+                            window.location.reload();
+                        }
+                        else {
+                            toastr.error('Data Save Failed');
+                        }
+                        $('#loading').hide();
+                    },
+                    error: function (reponse) {
+                        $('#loading').hide();
+                        toastr.error('Data Save Failed');
+                    }
+                });
+
+            }
+            else {
+                $('#loading').hide();
+            }
+
+        }
+
+
+        function GetFullAddress() {
+
+            var Street = $("#Street").val();
+            Street = Street.replace(/,\s*$/, "");
+            // alert(Street);
+
+            var City = $("#City").val();
+
+            var State = $("#State").val();
+
+            var FullAddress = Street + ', ' + City + ', ' + State;
+
+            $("#hdnAddress").val(FullAddress);
+        }
+
+        function GetLanLat() {
+            //  var Address = $("#txtAddress").val();
+
+            //debugger;
+            //    var Address = $("#Address").val();
+            var Street = $("#txtStreet").val();
+            Street = Street.replace(/,\s*$/, "");
+            //  alert(Street);
+
+            //  var Address =$("#Address").val().replace('&','-');
+
+            var City = $("#txtCity").val();
+            City = City.replace(/,\s*$/, "");
+
+            var State = $("#txtState").val();
+            State = State.replace(/,\s*$/, "");
+
+            var FullAddress = Street + ', ' + City + ', ' + State;
+
+            $("#hdnAddress").val(FullAddress);
+
+            FullAddress = FullAddress.replace('&', '-');
+
+            var Pincode = $("#txtZipCode").val();
+            if (Street !== '') {
+                if (City !== '') {
+                    if (State !== '') {
+                        var flag = true;
+                        $.ajax({
+                            type: "GET",
+                            url: "https://maps.google.com/maps/api/geocode/json",
+                            data: "address=" + FullAddress + "&key=AIzaSyCqG0NdAH_5gP1_D8jGhmTGeqNR-9z_afw",
+                            async: false,
+                            contentType: "text/plain; charset=utf-8",
+                            dataType: "json",
+                            success: function (result) {
+                                if (result["status"] == "OK") {
+
+                                    $("#hdnLatitude").val(result["results"][0]["geometry"]["location"]["lat"]);
+                                    $("#hdnLongitude").val(result["results"][0]["geometry"]["location"]["lng"]);
+                                    //alert(result["results"][0]["geometry"]["location"]["lat"]);
+                                    //alert(result["results"][0]["geometry"]["location"]["lng"]);
+
+
+                                    //$("#fmEditCareGiver").submit();
+                                }
+                                else if (result.status === "ZERO_RESULTS") {
+                                    Pincode = $("#txtZipCode").val();
+                                    //-------------------Only Pincode--------------------
+                                    $.ajax({
+                                        type: "GET",
+                                        url: "https://maps.google.com/maps/api/geocode/json",
+                                        data: "address=" + Pincode + "&key=AIzaSyCqG0NdAH_5gP1_D8jGhmTGeqNR-9z_afw",
+                                        async: false,
+                                        contentType: "text/plain; charset=utf-8",
+                                        dataType: "json",
+                                        success: function (result) {
+                                            if (result["status"] == "OK") {
+                                                $("#hdnLatitude").val(result["results"][0]["geometry"]["location"]["lat"]);
+                                                $("#hdnLongitude").val(result["results"][0]["geometry"]["location"]["lng"]);
+
+                                                //alert(result["results"][0]["geometry"]["location"]["lat"]);
+                                                //alert(result["results"][0]["geometry"]["location"]["lng"]);
+                                            }
+                                            else {
+                                                alert('Address is invalid');
+                                                toastr.error('Please enter valid street/city/state with valid zip code');
+                                                flag = false;
+                                            }
+
+                                            //$("#fmEditCareGiver").submit();
+                                        }
+                                    });
+                                    //----------End Only Pincode-----------------------------
+                                }
+                            }
+                        });
+
+                    } else {
+                        toastr.error('Please Enter State');
+                    }
+                }
+                else {
+                    toastr.error('Please Enter City');
+                }
+            } else {
+                toastr.error('Please Enter Street');
+            }
+            //----------End Pincode+Address----------------
+            return flag;
+        }
+
+
+        function divClose() {
+            $("#dvError2").css("display", "none");
+        }
+
+        function CheckUserName() {
+            var url = INITURL + '/CareGiver/IsUserNameExists';
+            var result;
+            $.ajax({
+                url: url,
+                data: { Username: $("#Username").val(), UserId: $("#UserId").val() },
+                cache: false,
+                async: false,
+                type: 'POST',
+                success: function (data) {
+                    result = data;
+                },
+                error: function (reponse) {
+                    alert("error : " + reponse);
+                }
+            });
+            return result;
+        }
+
+        function CheckEmail() {
+            var url = INITURL + '/CareGiver/IsEmailExists';
+            var result;
+            $.ajax({
+                url: url,
+                data: { Email: $("#Email").val(), UserId: $("#UserId").val() },
+                cache: false,
+                async: false,
+                type: 'POST',
+                success: function (data) {
+                    result = data;
+                   
+                },
+                error: function (reponse) {
+                    alert("error : " + reponse);
+                }
+            });
+            return result;
+        }
+
+        function readURL5(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#divImg').html("<img id='editImg' src='" + e.target.result + "'>");
+
+                    $("#ImgProfileImage").attr("src", e.target.result);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function dataURItoBlob(dataURI) {
+            // convert base64/URLEncoded data component to raw binary data held in a string
+            var byteString;
+            if (dataURI.split(',')[0].indexOf('base64') >= 0)
+                byteString = atob(dataURI.split(',')[1]);
+            else
+                byteString = unescape(dataURI.split(',')[1]);
+
+            // separate out the mime component
+            var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+            // write the bytes of the string to a typed array
+            var ia = new Uint8Array(byteString.length);
+            for (var i = 0; i < byteString.length; i++) {
+                ia[i] = byteString.charCodeAt(i);
+            }
+
+            return new Blob([ia], { type: mimeString });
+        }
+
+    </script>
+
+</body>
+</html>

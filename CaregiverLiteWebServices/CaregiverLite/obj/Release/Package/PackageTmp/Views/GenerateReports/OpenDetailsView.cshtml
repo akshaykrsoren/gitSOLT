@@ -1,0 +1,76 @@
+﻿@model CaregiverLite.Models.ReportsManagementDetailss
+
+
+<div id="main_div" class="Edit_div">
+    <div class="alert alert-danger alert-dismissable" style="display:none" id="dvError3">
+        <button onclick="divClose();" class="close" type="button">×</button>
+        <label id="lblError3"></label>
+    </div>
+    <div class="col-md-12">
+        @*@Html.HiddenFor(model => model.AdminId)
+            @Html.HiddenFor(model => model.Username)*@
+
+        @*@if (Model != null)
+            {*@
+        @if (ViewBag.GetallCareGiverPatientVisitList.Count > 0)
+            {
+            <div class="form-group">
+                @*<div class="input-group pull-right margin-25" style="margin-right: 10px;">
+                        <label>Attendance for: 1-11-2018</label>
+                    </div>*@
+                <div class="input-group pull-left margin-25" style="margin-right: 10px;">
+                    <label>Report Details</label>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+            <table class="table table-striped table-bordered table-hover dataTables-example dataTable no-footer dtr-column" role="grid" aria-describedby="myDataTable_info">
+                <thead>
+                    <tr>
+                        <th>Nurse</th>
+                        <th>Patient</th>
+                        <th>Date</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        @*<th>Requested Duration</th>*@
+                        <th>CheckIn Duration</th>
+                        <th>Travel Time</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in ViewBag.GetallCareGiverPatientVisitList)
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>@item.PatientName</td>
+                            <td>@item.Date</td>
+                            <td>@item.FromTime</td>
+                            <td>@item.ToTime</td>
+                            @*<td>@(Convert.ToDateTime((Convert.ToDateTime(item.ToTime) - Convert.ToDateTime(item.FromTime)).ToString()).ToString("hh")) hrs @(Convert.ToDateTime((Convert.ToDateTime(item.ToTime) - Convert.ToDateTime(item.FromTime)).ToString()).ToString("mm")) mins</td>*@
+
+                            @*<td>@item.RequestedDuration</td>*@
+                            <td>@item.CheckInTotalTime</td>
+                            <td>@item.TotalTravelTime</td>
+
+                            
+
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+            @* }
+                else
+                {
+                    <b>No Details Found.</b>
+                }*@
+        }
+    </div>
+
+    <div class="col-md-12">
+        <div class="clearfix"></div>
+    </div>
+
+</div>

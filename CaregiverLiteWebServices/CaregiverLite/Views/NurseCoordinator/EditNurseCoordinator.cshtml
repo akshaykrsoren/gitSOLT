@@ -1,0 +1,372 @@
+﻿@model CaregiverLite.Models.NurseCoordinatorModel
+
+<style>
+    .form-control {
+        margin-top: 4px;
+        border-radius: 5px;
+    }
+</style>
+
+
+<div id="main_div" class="Edit_div">
+    @using (Html.BeginForm("EditNurseCoordinator", "NurseCoordinator", FormMethod.Post, new { @id = "fmEditNurseCoordinator", @class = "horizontal-form", @enctype = "multipart/form-data" }))
+    {
+
+        <div class="alert alert-danger alert-dismissable" style="display:none" id="dvError3">
+            <button onclick="divClose();" class="close" type="button">×</button>
+            <label id="lblError3"></label>
+        </div>
+        <div class="col-md-12">
+            @Html.HiddenFor(model => model.NurseCoordinatorId)
+            @Html.HiddenFor(model => model.Username)
+            @Html.HiddenFor(model => model.UserId)
+            @Html.HiddenFor(model => model.OldOfficeId)
+            @Html.HiddenFor(model => model.QuickBloxId)
+            @Html.HiddenFor(model => model.OfficeId, new { @id = "hdnOfficeId" })
+            @Html.HiddenFor(model=>model.OldEmail)
+            <div class="form-group">
+                <label>First Name</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.FirstName)
+                @Html.TextBoxFor(model => model.FirstName, new { @id = "fn", @type = "text", @maxlength = "100", @placeholder = "Enter First name", @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                <label>Last Name</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.LastName)
+                @Html.TextBoxFor(model => model.LastName, new { @id = "ln", @type = "text", @maxlength = "100", @placeholder = "Enter Last name", @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.Email)
+                @Html.TextBoxFor(model => model.Email, new { @id = "emailid", @type = "email", @maxlength = "100", @placeholder = "Enter Email", @class = "form-control", @readonly = "readonly" })
+            </div>
+
+            @*<div class="form-group">
+                    <label>Password</label>
+                    <span style="color:red;">*</span>
+                    @Html.ValidationMessageFor(model => model.Password)
+                    @Html.TextBoxFor(model => model.Password, new { @id = "pas", @type = "password", @maxlength = "256", @placeholder = "Enter Password", @class = "form-control", @attr = "txtpassword" })
+                </div>*@
+            @*<span style="position: absolute; right: 16px;height: 40px;">
+                    <i class="fa fa-eye btn btn-link" id="HidePasswordEdit" style="position: relative; top: -42px;display:none" aria-hidden="true"></i>
+                    <i class="fa fa-eye-slash btn btn-link" id="showPasswordEdit" style="position: relative; top: -42px;" aria-hidden="true"></i>
+                </span>*@
+
+            @*Office*@
+            <div class="form-group">
+                <label>Office</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.OfficeId)
+                @Html.DropDownListFor(model => model.OfficeId, Model.OfficeSelectList, "Select...", new { @class = "form-control customdropDown", @style = "background-position-x: 97%" })
+            </div>
+            @*IsAllowForPatientChatRoom*@
+
+            <div class="form-group">
+                <label>Allow For One to One Chat</label>
+                <br>
+                @Html.CheckBoxFor(model => model.IsAllowOneToOneChat, new { @style = "transform: scale(1.5); margin-left: 10px;" })
+            </div>
+            <div class="form-group">
+                <label>Allow For Patient Chat Room</label>
+                <br>
+
+                @Html.CheckBoxFor(model => model.IsAllowForPatientChatRoom, new
+           {
+               @style = "transform: scale(1.5); margin-left: 10px;"
+           })
+            </div>
+
+            <div class="form-group">
+                <label>Allow For Group Chat</label>
+                <br>
+                @Html.CheckBoxFor(model => model.IsAllowGroupChat, new { @style = "transform: scale(1.5); margin-left: 10px;" })
+            </div>
+
+            <div class="form-group">
+                <label>Allow For Create Group Chat</label>
+                <br>
+                @Html.CheckBoxFor(model => model.IsAllowToCreateGroupChat, new { @style = "transform: scale(1.5); margin-left: 10px;" })
+            </div>
+            <div class="form-group">
+                <label>Job Title</label>
+                @Html.ValidationMessageFor(model => model.JobTitle)
+                @Html.TextBoxFor(model => model.JobTitle, new { @type = "text", @maxlength = "100", @placeholder = "Enter Job title", @class = "form-control" })
+            </div>
+            @*<div class="form-group">
+                    <label>Password</label>
+                    @Html.ValidationMessageFor(model => model.Password)
+                    @Html.PasswordFor(model => model.Password, new { @type = "password", @maxlength = "256", @placeholder = "", @class = "form-control" })
+                </div>*@
+        </div>
+        <div class="col-md-12">
+            <button type="button" onclick="Update()" class="btn btn-sm btn-primary pull-right">Update</button>
+            <div class="clearfix"></div>
+        </div>
+    }
+</div>
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script type="text/javascript">
+    @*var tempMsg = '@TempData["Message"]';*@
+    //$(document).ready(function () {
+
+    //});
+
+    var FirstName1 = $(".Edit_div #FirstName").val();
+    var LastName1 = $(".Edit_div #LastName").val();
+
+    debugger;
+    var VarActive = '@Model.IsActive';
+
+    /*var ischedked = VarActive.toLowerCase();*/
+    if (VarActive == "True") {
+        $('#toggleSwitch').prop('checked', true);
+    }
+    else {
+        $('#toggleSwitch').prop('checked', false);
+    }
+
+
+    $('#IsAllowGroupChat').change(function () {
+        if (this.checked) {
+            $("#IsAllowToCreateGroupChat").prop("disabled", false);
+        }
+        else {
+            $("#IsAllowToCreateGroupChat").prop("checked", false);
+            $("#IsAllowToCreateGroupChat").prop("disabled", true);
+        }
+
+    });
+    function Update() {
+        $('#loading').show();
+        debugger;
+       // var Name = $("#Name").val();
+        var FirstName = $(".Edit_div #FirstName").val();
+        var LastName = $(".Edit_div #LastName").val();
+        var Email = $(".Edit_div #Email").val();
+        var OfficeId = $(".Edit_div #OfficeId").val();
+
+
+        if (FirstName == "" && LastName == "" && Email == "" ) {
+            toastr.error('Please fill all required fields');
+            $('#loading').hide();
+            return false;
+        }
+        else if (FirstName == "") {
+            toastr.error('Please Enter Office Staff First Name');
+            $('#loading').hide();
+            return false;
+        }
+        else if (LastName == "") {
+            toastr.error('Please Enter Office Staff Last Name');
+            $('#loading').hide();
+            return false;
+        }
+        else if (Email == "") {
+            toastr.error('Please Enter Email');
+            $('#loading').hide();
+            return false;
+        }
+        else if (OfficeId == "") {
+            toastr.error('Please Select Office');
+            $('#OfficeId').focus();
+            $('#loading').hide();
+            return false;
+        }
+
+
+
+
+        $("#dvError3").hide();
+
+        if ($("#fmEditNurseCoordinator").valid()) {
+
+            $("#fmEditNurseCoordinator").submit();
+        }
+        else {
+            $('#loading').hide();
+        }
+    }
+
+
+
+
+    function CheckEmail() {
+        var url = INITURL + '/NurseCoordinator/IsEmailExists';
+        var result;
+        $.ajax({
+            url: url,
+            data: { Email: $("#Email").val(), UserId: $("#UserId").val() },
+            cache: false,
+            async: false,
+            type: 'POST',
+            success: function (data) {
+                result = data;
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+        return result;
+    }
+    //$("#showPasswordEdit").click(function () {
+    //    $("#showPasswordEdit").css("display", "none"); $("#HidePasswordEdit").css("display", "block");
+    //    $("[attr='txtpassword']").get(0).type = 'text';
+    //});
+    //$("#HidePasswordEdit").click(function () {
+    //    $("#showPasswordEdit").css("display", "block"); $("#HidePasswordEdit").css("display", "none");
+    //    $("[attr='txtpassword']").get(0).type = 'password';
+    //});
+
+
+    // Function to debounce the API call
+    function debounce(func, delay) {
+        let debounceTimer;
+        return function () {
+            const context = this;
+            const args = arguments;
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => func.apply(context, args), delay);
+        };
+    }
+
+    // Function to handle the API call (debounced version)
+    const debouncedActiveDeactiveCustomer = debounce(ActiveDeactiveCustomer, 300); // 300ms delay
+
+    // Function to handle the API call for activation/deactivation
+    function handleToggleSwitchChange() {
+        debugger;
+        if (toggleSwitch.checked) {
+            /*if (VarActive) {*/
+            //toggleText.innerText = "Active";
+            //debouncedActiveDeactiveCustomer(true);
+            $('#ConfirmationModelActive').modal('show');
+            // Activate the patient, debounced
+        } else {
+            $('#ConfirmationModel').modal('show');  // Show confirmation for Inactive
+        }
+    }
+
+    // Attach the event listener for toggle switch
+    function attachToggleListener() {
+        debugger;
+        // First, detach any previous listeners to avoid duplication
+        $(toggleSwitch).off('change');
+
+        // Now, re-attach the listener
+        $(toggleSwitch).on('change', handleToggleSwitchChange);
+    }
+
+    // Initial event listener attachment
+    attachToggleListener();
+
+    // Confirmation modal actions
+    $('.confirmbtn').off('click').on('click', function () {
+        debugger;
+
+        // If "Yes, Inactive" is clicked
+        toggleSwitch.checked = false; // Set the toggle to inactive
+        toggleText.innerText = "Inactive";  // Update the label text
+        debouncedActiveDeactiveCustomer(false); // Deactivate the patient, debounced
+        $('#ConfirmationModel').modal('hide');  // Hide the confirmation modal
+    });
+
+
+    $('.confirmbtnActive').off('click').on('click', function () {
+        debugger;
+
+        // If "Yes, Inactive" is clicked
+        toggleSwitch.checked = true; // Set the toggle to inactive
+        toggleText.innerText = "active";  // Update the label text
+        debouncedActiveDeactiveCustomer(true); // Deactivate the patient, debounced
+        $('#ConfirmationModelActive').modal('hide');  // Hide the confirmation modal
+    });
+
+    // Cancel button inside the confirmation modal
+    $('.cancelbtn').click(function () {
+        debugger;
+
+        // If "No, Go Back" is clicked
+        toggleSwitch.checked = true; // Keep the toggle as active
+        toggleText.innerText = "Active";  // Keep the label as "Active"
+        $('#ConfirmationModel').modal('hide');  // Hide the confirmation modal
+    });
+
+    $('.cancelbtnActive').click(function () {
+        debugger;
+
+        // If "No, Go Back" is clicked
+        toggleSwitch.checked = true; // Keep the toggle as active
+        toggleText.innerText = "Active";  // Keep the label as "Active"
+        $('#ConfirmationModelActive').modal('hide');  // Hide the confirmation modal
+    });
+
+    // Detach and re-attach the listener when the modal is hidden or shown
+    $('#ConfirmationModel').on('hidden.bs.modal', function () {
+        attachToggleListener(); // Re-attach the listener when modal is hidden
+    });
+
+    // AJAX call to activate or deactivate the customer (unchanged)
+    function ActiveDeactiveCustomer(IsActive) {
+        debugger;
+        // $("#loading").show();
+        var url = INITURL + '/Patients/ActiveDeactiveCustomer';
+        //debugger;
+        //alert('fsdfds');
+        /*   return;*/
+        $.ajax({
+            url: url,
+            data: { id: '@Model.NurseCoordinatorId', PageName: "NurseCoordinator", IsActive: IsActive },
+            cache: false,
+            type: 'POST',
+            async: true,    //Allow non-blocking behavior
+            success: function (data) {
+                debugger;
+                if (data == "Success") {
+                    if (IsActive) {
+                        toastr.success(FirstName1 + '' + LastName1 + " has been successfully Activated");
+                    } else {
+                        toastr.success(FirstName1 + '' + LastName1 + " has been successfully Inactive");
+                    }
+                } else {
+                    toastr.error("Process denied");
+
+                }
+                $("#loading").hide();
+            },
+            error: function (response) {
+                toastr.error("Error occurred: " + response);
+                $("#loading").hide();
+            }
+        });
+    }
+    var newValue = "";
+    var previouasOfficeValue = $("#hdnOfficeId").val();
+
+    $("#OfficeId").change(function () {
+        debugger;
+        $('#DeleteLabel').text('Are you sure you want to switch the Office Staffs office ?');
+        $('#Delete_Modal').modal('show');
+        newValue = $(this).val();
+    });
+
+    $('.cancel_BTN').click(function () {
+        $("#OfficeId").val(previouasOfficeValue);
+        $('#Delete_Modal').modal('hide');
+        $('#myModal2').css("overflow", "auto");
+        $('body').css("overflow-y", "hidden");
+    });
+
+    $('.confirm_BTN').click(function () {
+        $("#OfficeId").val(newValue);
+        previouasOfficeValue = newValue;
+        $('#Delete_Modal').modal('hide');
+        $('#myModal2').css("overflow", "auto");
+        $('body').css("overflow-y", "hidden");
+        // enableDisablePayerInfo();
+    });
+</script>

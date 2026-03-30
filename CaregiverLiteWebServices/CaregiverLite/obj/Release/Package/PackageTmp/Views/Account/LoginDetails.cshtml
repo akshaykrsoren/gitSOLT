@@ -1,0 +1,156 @@
+﻿
+@{
+    Layout = null;
+}
+
+<head>
+    <title>PaSeva</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Content/image/Title_icon.png">
+</head>
+<style>
+    .form-outline {
+        margin-top: 12px;
+        padding-bottom: 9px;
+    }
+
+    .form-check {
+        padding-bottom: 9px;
+    }
+
+    .leftdiv {
+        text-align: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        width: 100%;
+    }
+
+    .rightdiv {
+        padding: 60px 98px 0px 98px;
+        margin: 40px 0px 0px 66px;
+    }
+
+    .leftImage {
+        height: 100vh;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-image: url('http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Content/image/Group427318954.png');
+    }
+</style>
+
+
+<div class="container-fluid" style="padding-left:0px">
+    <div class="row">
+        @*<div class="col-md-7 ">
+                <img src="http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Content/image/Login_Left_IMG.png" style="width: 100%;height: 100vh;" />
+
+                <div class="leftdiv">
+                    <h2 class="block m-t-xs text-center nav-label" style="font-size: 18px;font-weight: 700">
+                        <img src="http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Content/image/Logo.png" style="height: 100px;" />
+                        <span style="color: white;text-align: center; font-size: 50px;">paseva</span>
+                        <p style="color: white;text-align: center;font-size: 22px ;padding-top: 20px ">Simplifying Home Healthcare Operations</p>
+                    </h2>
+                </div>
+
+                <div style="position: absolute;  bottom: 25px;right: -36px;;transform: translate(-50%, 10px);">
+                    <p style="color: white;text-align: center;"> Copyright © 2024 Care Giver</p>
+                </div>
+            </div>*@
+        <div class="col-md-7 " style="width: 55.333333%;background-color:#1F305B;height: 100%;">
+
+            <img src="http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Content/image/LoginIconPattern.png" style="width: 90%;height: 85vh;" />
+            <div class="leftdiv">
+                <img id="pasevalogo" src="http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Content/image/pasevalogowhite.png" style="height: 120px;" />
+
+            </div>
+            <div style="margin-top: 17px;margin-left:3%">
+                <p style="color: white;font-size: 13px ;padding-top: 20px;text-align: center ">Simplifying Home Healthcare Operations</p>
+
+            </div>
+        </div>
+
+
+
+        <div class="col-md-5 text-black">
+            <div class="rightdiv">
+                @using (Html.BeginForm("LoginDetails", "Account", FormMethod.Post, new { @id = "fmMarketDetails", @class = "horizontal-form", @enctype = "multipart/form-data" }))
+                {
+                <div>
+
+
+                    @if (Session["OrganisationId"].ToString() == "0")
+                    {
+                        <img style="text-align: left;height: 65px;" src="http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Content/image/Paseva_CompleteLogo.png" />
+                    }
+                    else
+                    {
+                    if (Session["OrganisationId"].ToString() == "3")
+                    {
+
+                    }
+                        <img style="text-align: left;height: 65px;" src="http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Content/image/Harmony.jpg" />
+                  }
+
+
+                </div>
+                <div style="padding-top: 15px">
+                    <div class="form-outline mb-4">
+                        <p class="form-label" style="color: #1F305B; margin: 0px 0 1px ">Organisation</p>
+                        <label class="form-label" style="color: #1F305B;">@ViewBag.Organtisation</label>
+                    </div>
+
+                    @if (@ViewBag.RoleName == "Admin")
+                    {
+                        <div class="form-outline mb-4">
+                            <p class="form-label" style="color: #1F305B;margin: 0px 0 1px ">Role</p>
+                            <label class="form-label" style="color: #1F305B;">Office Manager</label>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-outline mb-4">
+                            <p class="form-label" style="color: #1F305B;margin: 0px 0 1px ">Role</p>
+                            <label class="form-label" style="color: #1F305B;">@ViewBag.RoleName</label>
+                        </div>
+                    }
+                    <div class="form-outline mb-4">
+                        <p class="form-label" style="color: #1F305B;margin: 0px 0 1px ">Name</p>
+                        <label class="form-label" style="color: #1F305B;">@ViewBag.Name</label>
+
+                    </div>
+                    <div class="form-outline mb-4">
+                        <p class="form-label" style="color: #1F305B;margin: 0px 0 1px ">Email</p>
+                        <label class="form-label" style="color: #1F305B;">@ViewBag.Email</label>
+
+                    </div>
+                    <div class="form-outline mb-4">
+                        <button class="btn btn-primary btn-lg btn-block" type="submit" style="width: 100%;background-color: #1F305B;border: none;font-size: 15px;">Continue</button>
+
+                    </div>
+
+                </div>
+
+
+
+
+                }
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+
+
+
+
+
+</div>

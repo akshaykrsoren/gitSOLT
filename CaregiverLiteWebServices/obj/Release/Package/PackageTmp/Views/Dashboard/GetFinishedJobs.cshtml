@@ -1,0 +1,99 @@
+﻿<style>
+    .css-digits {
+        float : right;
+    }
+    </style>
+<div class="ibox-title">
+    <h5>@CaregiverLite.Views.Resources.Dashboard.TableHeaderFinishedJobs</h5>
+    <div class="ibox-tools">
+        <a class="collapse-link">
+            <i class="fa fa-chevron-up"></i>
+        </a>
+        <a class="close-link">
+            <i class="fa fa-times"></i>
+        </a>
+    </div>
+</div>
+<div class="ibox-content">
+    <table id="myDataTableForFinishedJobs" class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th style="width: 110px;">@CaregiverLite.Views.Resources.Patient.TableHeaderPatientName</th>
+                <th>@CaregiverLite.Views.Resources.Patient.TableHeaderHoursRate</th>
+                <th>@CaregiverLite.Views.Resources.Patient.TableHeaderTotalHours</th>
+                <th>@CaregiverLite.Views.Resources.Patient.TableHeaderTotalPayment</th>
+                <th>@CaregiverLite.Views.Resources.Patient.TableHeaderAction</th>
+
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var oTable1 = $('#myDataTableForFinishedJobs').dataTable({           
+            responsive: true,
+            "dom": 'lfrtip',
+            "bServerSide": true,
+            "sAjaxSource": "GetCompleteAppointmentsByNurseId",
+            "aoColumns": [
+                            {
+                                "sName": "PatientName",
+                                "mRender": function (oObj) {
+                                    return '<span >' + oObj["PatientName"] + '</span>';
+                                }
+                            },
+                            {
+                                "sName": "HourRate",
+                                "mRender": function (oObj) {
+                                    return '<span class="css-digits">' + oObj["HourRate"] + '</span>';
+                                }
+                            },
+                            {
+                                "sName": "TotalHours",
+                                "mRender": function (oObj) {
+                                    var hours = Math.floor(oObj["TotalHours"] / 60);
+                                    var minutes = oObj["TotalHours"] % 60;
+                                    minutes = (minutes == 0 ? 0 : (minutes / 60));
+                                    var TotalHourHtml = hours + minutes;
+                                    TotalHourHtml = TotalHourHtml.toFixed(2);
+                                    return '<span class="css-digits">' + TotalHourHtml + '</span>';
+                                }
+                            },
+                            {
+                                "sName": "TotalAmount",
+                                "mRender": function (oObj) {
+                                    return '<span class="css-digits">' + oObj["TotalAmount"] + '</span>';
+                                }
+                            },
+                            {
+                                "sortable" : false,
+                                "sName": "IsApprove",
+                                "mRender": function (oObj) {
+                                return '<span>' + 'Finished' + '</span>';
+                                }
+                            }
+            ]
+        });
+       
+
+        $('#myDataTable_filter input').unbind(); //Unbind direct search on each keypress
+        $('#myDataTable_filter input').bind('keyup', function (e) { //Bind Keyup event that filter data only on "Enter" key.
+            if (e.keyCode == 13) {
+                oTable1.fnFilter(this.value);
+            }
+        });
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': { allow_single_deselect: true },
+            '.chosen-select-no-single': { disable_search_threshold: 10 },
+            '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+            '.chosen-select-width': { width: "95%" }
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+    });
+    sessionStorage.setItem("PartialView", "1");
+</script>

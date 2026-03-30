@@ -1,0 +1,115 @@
+﻿
+
+<div id="Chart2" style="height: 300px"></div>
+<script>
+
+
+    $(document).ready(function () {
+
+        var NurseList = @Html.Raw(Json.Encode(ViewBag.TypeOfVisitByPatientList_VisitChart));
+        var OfficeCountList = @Html.Raw(Json.Encode(ViewBag.TypeOfVisitByPatientCount_VisitChart));
+
+        const sum = OfficeCountList.reduce((partialSum, a) => partialSum + a, 0);
+
+
+        document.getElementById("TypeofVisitIdID").innerHTML = sum;
+
+
+        Highcharts.chart('Chart2', {
+            tooltip: {
+                useHTML: true,
+                formatter: function () {
+                    //  return '<div> <b style=font-size:18px;>' + this.x +  '</b> <b style=font-size:18px> : ' + this.y + '</b></div>';
+                    return '<div>  <b style=font-size:18px> ' + this.y + '</b></div>';
+                }
+            },
+
+               
+                chart: {
+
+                    type: 'column',
+                    events: {
+                        load() {
+                            const chart = this;
+                            chart.showLoading('Fetching data ...');
+                            setTimeout(function() {
+                                chart.hideLoading();
+                                chart.series[0].setData(OfficeCountList)
+                            }, 200);
+                        }
+                    }
+                },
+                credits: {
+                    enabled: false
+                },
+                title: {
+                    text: ''
+                },
+                plotOptions: {
+                    column: {
+                        minPointLength: 5,
+                        pointPadding: 0.2,
+                        borderWidth: 03,
+
+                    },
+                    series: {
+                        animation: {
+
+                            duration: 1000
+                        },
+                        borderRadius: {
+                            radius: 50,
+
+                        }
+                    }
+                },
+                xAxis: {
+                    labels: {
+                        style: {
+                            fontWeight: 'bold',
+                            fontSize: "12px",
+                        }
+                    },
+                    categories:NurseList
+                },
+                yAxis: {
+                    labels: {
+                        style: {
+                            fontWeight: 'bold',
+                            fontSize: "10px",
+                        }
+                    },
+                    title: {
+                        text: ''
+                    }
+                },
+                series: [{
+                    color: {
+                        linearGradient: { x1: 1, y1: 1, x2: 1, y2: 0 },
+
+                        stops: [
+                            [0,'rgba(40, 168, 88, 0.70)'],
+                            [1,'#28A858' ]
+                        ]
+                    },
+                    showInLegend: false,
+                    name: 'Patient',
+                    maxPointWidth: 20,
+                    data: []
+                }],
+            },
+        function(chart) { // on complete
+            if(NurseList.length==0)
+            {
+                chart.renderer.text('No Data Available', 200, 120)
+                   .css({
+                       color: '#4572A7',
+                       fontSize: '16px'
+                   })
+                   .add();
+            }
+        });
+    });
+</script>
+
+

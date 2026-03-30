@@ -1,0 +1,295 @@
+﻿@*//@model CaregiverLite.Models.SchedulePatientRequestModel*@
+@{
+
+    //Layout = "~/Views/_ViewStart.cshtml";
+    Layout = "~/Views/Shared/_LayoutPasevaCustomer.cshtml";
+
+}
+
+
+
+
+<style>
+    .bg-success {
+        background-color: #19bb8c;
+    }
+
+    b, strong {
+        font-weight: 700;
+        color: white;
+    }
+
+    /*label {
+        color: blue;
+    }*/
+    element.style {
+        width: 79px;
+    }
+
+    .btn-danger {
+       background-color:#f5ba42;
+        color: black;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        line-height: 25px;
+        cursor: none;
+    }
+
+    .btn-primary {
+        background-color: #3cb371;
+        /*color: #fff;*/
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        line-height: 25px;
+        cursor: none;
+    }
+
+        .btn-primary.active, .btn-primary:active, .btn-primary:focus, .btn-primary:hover, .open .dropdown-toggle.btn-primary {
+            background-color: #3cb371;
+            border-color: #3cb371;
+            color: #fff;
+        }
+
+                  .btn-danger.active, .btn-danger:active, .btn-danger:focus, .btn-danger:hover, .open .dropdown-toggle.btn-danger {
+    background-color: #f5ba42;
+    border-color: #f5ba42;
+    color: black;
+}
+
+</style>
+<link href="~/Content/css/dataTables.bootstrap.css" rel="stylesheet">
+<link href="~/Content/css/dataTables.responsive.css" rel="stylesheet">
+<link href="~/Content/css/dataTables.tableTools.min.css" rel="stylesheet">
+
+<!-- LIST OF PATIENT START-->
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                @*<div class="ibox-title">
+
+
+                    </div>*@
+                <div class="ibox-content">
+                    <input type="hidden" id="hdnPatientRequestId" />
+                    <table id="myDataTable" class="table table-striped table-bordered table-hover dataTables-example">
+                        <thead>
+                            <tr>
+                                <th>Patient ID</th>
+                                <th>Patient Name</th>
+                                <th style="width: 105px;">Nuese Name</th>
+                                <th style="width: 92px;">Date</th>
+                                <th>Transaction ID</th>
+                                <th style="width: 59px;">Transaction Amount</th>
+                                <th>Payment Mode</th>
+                                @*<th>medicalid</th>*@
+                                <th>PaymentType</th>
+                                <th>Payment Status</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+<!-- LIST OF PATIENT END-->
+<script src="~/Scripts/js/jquery.dataTables.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="~/Scripts/js/oms.min.js"></script>
+
+<script type="text/javascript">
+
+    @*var tempMsg = '@TempData["Message"]';
+    var tempFlag = '@TempData["error"]';
+
+    if (tempFlag != "True") {
+        if (tempMsg != "")
+            toastr.success(tempMsg);
+    }
+    else {
+        if (tempMsg != "")
+            toastr.error(tempMsg);
+    }*@
+
+    var oTable;
+
+    $(document).ready(function () {
+
+        $("#loading").show();
+        var jquey = jQuery.noConflict();
+        oTable = $('#myDataTable').DataTable({
+
+            responsive: true,
+            "dom": 'lfrtip',
+
+            "bPaginate": true,
+            "bServerSide": true,
+
+            "bSortable": true,
+            "sPaginationType": "full_numbers",
+            "oLanguage": {
+                "sProcessing": "<div class=\"loading\" id=\"loading\" style=\"display: block;\"></div>"
+            },
+            "processing": true,
+
+            "sAjaxSource": "getAppointmentDetailslist",
+            "fnServerData": function (sSource, aoData, fnCallback) {
+                $.getJSON(sSource, aoData, function (json) {
+                    fnCallback(json);
+                }).fail(function (jqxhr, textStatus, error) {
+                    window.location.reload();
+                });
+            },
+            "fnServerParams": function (aoData) {
+                //aoData.push({ "name": "FilterOfficeId", "value": $('#ddFilterOffice option:selected').val() });
+            },
+            "fnDrawCallback": function (oSettings) {
+                //Navigation validation
+                var rowsPerPage = this.fnSettings()._iDisplayLength;
+                var rowsToShow = this.fnSettings().fnRecordsDisplay();
+                var table = $('#myDataTable').DataTable();
+                var info = table.page.info();
+                var currentPageNo = info.page + 1;
+                $("#loading").hide();
+            },
+            "responsive": {
+                "details": {
+                    "type": 'column'
+                }
+            },
+           "aoColumns": [
+
+                           {
+                               "sName": "PatientRequestId",
+                               "mRender": function (oObj) {
+                                   return '<span>' + oObj["PatientID"] + '</span>';
+                               }
+                           },
+                            {
+                                "sName": "Patient Name",
+                                "mRender": function (oObj) {
+                                    return '<span>' + oObj["Patientname"] + '</span>';
+                                }
+                            },
+                             {
+                                 "sName": "NueseName",
+                                 "mRender": function (oObj) {
+                                     return '<span>' + oObj["Name"] + '</span>';
+                                 }
+                             },
+                           {
+                               "sName": "Date",
+                               "mRender": function (oObj) {
+                                   return oObj["Date"];
+                               }
+                           },
+                            {
+                                "sName": "TransactionID",
+                                "mRender": function (oObj) {
+                                    return oObj["TransactionID"];
+                                }
+                            },
+
+                             {
+                                 "sName": "TransactionAmount",
+                                 "bSortable": false,
+                                 "mRender": function (oObj) {
+                                     return oObj["TransactionAmount"];
+                                 }
+                             }, {
+                                 "sName": "PaymentMode",
+                                 "bSortable": false,
+                                 "mRender": function (oObj) {
+                                     return oObj["PaymentMode"];
+                                 }
+                             },
+                              //{
+                              //    "sName": "Commission",
+                              //    "bSortable": false,
+                              //    "mRender": function (oObj) {
+                              //        return oObj["Commission"];
+                              //    }
+                              //},
+                              {
+                                  "sName": "NetAmount",
+                                  "mRender": function (oObj) {
+                                      return oObj["paymentType"];
+                                  }
+                              },
+
+               {
+                                   "sName": "Payment Status",
+                                   "mRender": function (oObj) {
+
+                                       debugger;
+
+
+                                       //if (oObj.PaymentStatus == "Approved") {
+                                       //    return '<span style="color:#3cb371;">' + oObj["PaymentStatus"] + '</span>'
+                                       //} else {
+                                       //    return '<span style="color:#ff0047;">' + oObj["PaymentStatus"] + '</span>'
+                                       //}
+                                       var actionhtml = '';
+
+                                       if (oObj["PaymentStatus"] == "SUBMITTED_FOR_SETTLEMENT") {
+                                           actionhtml += '<a href="javascript:;" class="btn btn-xs btn-primary"  style="margin-top:5px; width:100%;" ">Approved</a>'
+                                       }
+                                       else {
+                                           debugger;
+
+                                           actionhtml += '<a href="javascript:;" class="btn btn-xs btn-danger" style="margin-top:5px; width:100%;" ">Pending</a>'
+                                       }
+
+                                       return actionhtml;
+
+                                   }
+                               },
+
+
+
+            ]
+        });
+
+        $('#myDataTable_filter input').unbind(); //Unbind direct search on each keypress
+        $('#myDataTable_filter input').bind('keyup', function (e) { //Bind Keyup event that filter data only on "Enter" key.
+            if (e.keyCode == 13) {
+                oTable.search(this.value).draw();
+            }
+        });
+        /* Init DataTables */
+        $('.carousel').carousel({
+            interval: false
+        });
+
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': { allow_single_deselect: true },
+            '.chosen-select-no-single': { disable_search_threshold: 10 },
+            '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+            '.chosen-select-width': { width: "95%" }
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+
+        $("#loading").hide();
+
+        ///Handle File Uploading start
+
+
+
+    });
+
+
+
+    function Filtration() {
+
+        oTable.search($('#myDataTable').val()).draw();
+    }
+</script>

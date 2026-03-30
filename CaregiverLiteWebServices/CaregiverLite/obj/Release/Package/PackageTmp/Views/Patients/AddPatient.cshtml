@@ -1,0 +1,1058 @@
+﻿
+
+@model CaregiverLite.Models.PatientDetailsModel
+
+
+<style>
+    .clsDatePicker {
+        z-index: 100000;
+    }
+
+    #ui-datepicker-div {
+        z-index: 1003;
+    }
+
+    .field-validation-error {
+        color: red;
+        float: right;
+    }
+
+    .table td {
+        text-align: center;
+    }
+
+    .form-control {
+        margin-top: 4px;
+        border-radius: 5px;
+    }
+
+    .customdropDown {
+        background-position-x: 95% !important;
+    }
+</style>
+
+
+
+
+@using (Html.BeginForm("AddPatientDetails", "Patients", FormMethod.Post, new { @id = "fmAddPatientDetails", @class = "horizontal-form", @enctype = "multipart/form-data" }))
+{
+    <div id="main_div">
+
+        @Html.HiddenFor(model => model.OrganisationId, new { @id = "OrganisationId" })
+
+        <div class="alert alert-danger alert-dismissable" style="display:none" id="dvError3">
+            <button onclick="divClose();" class="close" type="button">×</button>
+            <label id="lblError3"></label>
+        </div>
+        <div class="col-md-6">
+            @*Medical Id*@
+            <div class="form-group">
+                <label>Patient ID</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.MedicalId)
+                @Html.TextBoxFor(model => model.MedicalId, new { @type = "text", @maxlength = "25", @placeholder = @CaregiverLite.Views.Resources.PatientRequest.PlaceHolderMedicalId, @class = "form-control", @tabindex = "1", @onblur = "javascript:IsMedicalIdExist();" })
+            </div>
+            @*Patient Name*@
+            <div class="form-group">
+                <label>First Name</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.PatientName)
+                @Html.TextBoxFor(model => model.PatientName, new { @id = "FirstName", @type = "text", @maxlength = "100", @placeholder = @CaregiverLite.Views.Resources.PatientRequest.PlaceHolderPatientName, @class = "form-control", @tabindex = "2" })
+            </div>
+
+            <div class="form-group">
+                <label>Last Name</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.PatientName)
+                @Html.TextBoxFor(model => model.PatientName, new { @id = "LastName", @type = "text", @maxlength = "100", @placeholder = @CaregiverLite.Views.Resources.PatientRequest.PlaceHolderPatientName, @class = "form-control", @tabindex = "2" })
+            </div>
+
+            @*PrimaryMD*@
+            <div class="form-group">
+                <label>Primary MD</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.PrimaryMD)
+                @Html.TextBoxFor(model => model.PrimaryMD, new { @type = "text", @placeholder = "Enter PrimaryMD", @class = "form-control", @tabindex = "3" })
+            </div>
+            @*PhoneNo*@
+            <div class="form-group">
+                <label>Phone No</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.PhoneNo)
+                @Html.TextBoxFor(model => model.PhoneNo, new
+                {
+                    @type = "text",
+                    @maxlength = "20",
+                    @placeholder = "Enter Phone Number",
+                    @class = "form-control",
+                    @tabindex = "4"@*, @onkeypress = "return isNumber(event);"*@})
+            </div>
+
+            @*Office*@
+            <div class="form-group">
+                <label>Office</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.OfficeId)
+                @Html.DropDownListFor(model => model.OfficeId, Model.OfficeSelectList, "Select...", new { @class = "form-control customdropDown", @tabindex = "5" })
+            </div>
+
+            <div class="form-group">
+                <label>Payer Id</label>
+                @*<span style="color:red;">*</span>*@
+                @Html.ValidationMessageFor(model => model.PayerId)
+
+
+                @Html.DropDownListFor(model => model.PayerId, Model.PayerIDSelectList, "Select...", new { @class = "form-control customdropDown", @tabindex = "7" })
+
+
+
+
+            </div>
+
+            @if (Model.OrganisationId != 3)
+            {
+                <div class="form-group">
+                    <label>Jurisdiction Code</label>
+                    @*<span style="color:red;">*</span>*@
+                    @Html.ValidationMessageFor(model => model.JurisdictionCode)
+
+                    @Html.DropDownListFor(model => model.JurisdictionCode, new SelectList(Model.JurisdictionEntitiesSelectList, "Value", "Text"), htmlAttributes: new { @class = "form-control customdropDown", @id = "JurisdictionCode", @disabled = "true" })
+
+
+                </div>
+            }
+
+        </div>
+        <div class="col-md-6">
+            @*Street*@
+            <div class="form-group">
+                <label>@CaregiverLite.Views.Resources.Patients.TableHeaderStreet</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.Street)
+                @Html.TextBoxFor(model => model.Street, new { @type = "text", @placeholder = "Enter Street", @class = "form-control", @tabindex = "6", @onblur = "" })
+            </div>
+            @*City*@
+            <div class="form-group">
+                <label>@CaregiverLite.Views.Resources.Patients.TableHeaderCity</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.City)
+                @Html.TextBoxFor(model => model.City, new { @type = "text", @maxlength = "20", @placeholder = "Enter City", @class = "form-control", @tabindex = "7", @onblur = "" })
+            </div>
+            @*State*@
+            <div class="form-group">
+                <label>@CaregiverLite.Views.Resources.Patients.TableHeaderState</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.State)
+                @Html.TextBoxFor(model => model.State, new { @type = "text", @maxlength = "20", @placeholder = "Enter State", @class = "form-control", @tabindex = "8", @onblur = "" })
+            </div>
+
+            @*Zipcode*@
+            <div class="form-group">
+                <label>@CaregiverLite.Views.Resources.PatientRequest.TableHeaderZipCode</label>
+                <span style="color:red;">*</span>
+                @Html.ValidationMessageFor(model => model.ZipCode)
+                @Html.TextBoxFor(model => model.ZipCode, new
+                {
+                    @type = "text",
+                    @maxlength = "10",
+                    @placeholder = @CaregiverLite.Views.Resources.PatientRequest.PlaceHolderZipCode,
+                    @class = "form-control",@*@onchange = "javascript:GetTime(this.value);",*@ @tabindex = "9"
+                })
+            </div>
+
+            <div>
+                @Html.HiddenFor(model => model.TimezoneOffset, new { @id = "hdnTimezoneOffset" })
+                @Html.HiddenFor(model => model.TimezoneId, new { @id = "hdntimeZoneId" })
+                @Html.HiddenFor(model => model.TimezonePostfix, new { @id = "hdnTimezonePostfix" })
+                @Html.HiddenFor(model => model.Latitude)
+                @Html.HiddenFor(model => model.Longitude)
+            </div>
+
+
+            <div class="form-group">
+                <label>Date Of Birth</label>
+                <div class="input-group date" id="datetimepicker1">
+                    <input type="text" id="DateOfBirth" class="form-control" style="margin-top: 0px;border-radius: 5px 0 0 5px;">
+                    <span class="input-group-addon">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Payer Program</label>
+                @*<span style="color:red;">*</span>*@
+                @Html.ValidationMessageFor(model => model.PayerProgram)
+
+                @Html.DropDownListFor(model => model.PayerProgram, new SelectList(Model.PayerProgramSelectList, "Value", "Text"), htmlAttributes: new { @class = "form-control customdropDown", @id = "PayerProgram", @disabled = "true" })
+
+            </div>
+
+            <div class="form-group">
+                <label>Procedure Code</label>
+                @*<span style="color:red;">*</span>*@
+                <br />
+                <input type="text" id="procId" class="form-control " />
+                @Html.ValidationMessageFor(model => model.ProcedureCode)
+
+
+                @Html.DropDownListFor(model => model.ProcedureCode, new MultiSelectList(Model.ProcedureCodeSelectList, "Value", "Text"), htmlAttributes: new { @class = "form-control customdropDown", @id = "ProcedureCode", @disabled = "true" })
+
+
+            </div>
+
+        </div>
+
+
+
+        <div class="col-md-12">
+            <button type="button" onclick="Addnew()" class="btn btn-sm btn-primary pull-right" tabindex="10">Save</button>
+            <div class="clearfix"></div>
+        </div>
+
+        <input type="hidden" id="hdndstOffset" />
+        <input type="hidden" id="hdnrawOffset" />
+        <input type="hidden" id="hdntimeZoneFullName" />
+    </div>
+}
+
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script type="text/javascript">
+    //$("#Date").datepicker();
+    var latitude;
+    var longitude;
+    var MaxCaregiver = 0;
+    var MaxDistance = 0;
+    var add = "";
+    var IsMedicalExist = 0;
+    $("#loading").hide();
+
+
+debugger;
+    var lstofficesSandData= @Html.Raw(Json.Encode(@ViewBag.lstOfOfficesSandData));
+
+var OrganisationId = '@Model.OrganisationId';
+
+    var OfficeIdss = $("#OfficeId").val();
+
+    if (OrganisationId ==0) {
+
+        if (OfficeIdss == 5 || OfficeIdss == 12) {
+
+            $("#PayerId").prop("disabled", false);
+        }
+        else {
+            $("#PayerId").prop("disabled", true);
+        }
+    }
+    else
+    {
+        if (OrganisationId==3) {
+
+            $("#PayerId").prop("disabled", false);
+        }
+        else {
+            $("#PayerId").prop("disabled", true);
+        }
+
+    }
+
+
+
+    $.validator.setDefaults({
+        ignore: [],
+    });
+    $(document).ready(function () {
+
+        $('#Street').keypress(function (event) {
+            if ($('#Street').val().length > 99) {
+                toastr.error("Description will not allow greater then 150 characters.");
+                $('#Street').focus()
+                return false;
+            }
+        });
+
+
+        $('#datetimepicker1').datetimepicker({
+            format: "MM-DD-YYYY"
+        });
+
+
+        // $("#dvweek-select").hide();
+        $('#ZipCode').blur(function (event) {
+
+            if ($('#ZipCode').val().length > 3 && ($("#Street").val() + $("#City").val() + $("#State").val()).length > 3) {
+
+                $("#loading").show();
+                GetLanLat()
+                $("#loading").hide();
+                return false;
+            }
+        });
+
+
+
+        $("#loading").show();
+
+
+        var form = $("#fmAddPatientDetails").closest("form");
+        form.removeData('validator');
+        form.removeData('unobtrusiveValidation');
+        $.validator.unobtrusive.parse(form);
+
+        $('#myModal').on('shown.bs.modal', function () {
+
+            $("#Date").datepicker(
+            {
+                minDate: 0,
+                onSelect: function () {
+                    $(this).change();
+                }
+
+                //,dateFormat: 'dd-mm-yy'
+            });
+
+
+            $("#RepeatDate").datepicker(
+            {
+                minDate: 0,
+                onSelect: function () {
+                    $(this).change();
+                }
+
+                //,dateFormat: 'dd-mm-yy'
+            });
+
+        });
+
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': { allow_single_deselect: true },
+            '.chosen-select-no-single': { disable_search_threshold: 10 },
+            '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+            '.chosen-select-width': { width: "95%" }
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+
+        }
+        $("#loading").hide();
+    });
+
+    //Fetch Filtered Caregiver End
+
+
+    function Addnew() {
+        $('#loading').show();
+
+
+
+        var PatientName= $("#LastName").val() + ',' + $("#FirstName").val();
+        var FirstName= $("#FirstName").val();
+        var LastName= $("#LastName").val();
+
+		//$("#PatientName").val();
+
+		//$("#FirstName").val() + ',' + $("#LastName").val();
+
+		//$("#PatientName").val();
+        var PrimaryMD = $("#PrimaryMD").val();
+        var ZipCode = $("#ZipCode").val();
+        var MedicalId = $("#MedicalId").val();
+        //var Date = $("#Date").val();
+        var Street = $("#Street").val();
+        var City = $("#City").val();
+        var State = $("#State").val();
+        var PhoneNo = $("#PhoneNo").val();
+        var OfficeId = $("#OfficeId").val();
+		var DateOfBirth=$("#DateOfBirth").val();
+
+        if (PatientName == "" && PrimaryMD == "" && ZipCode == "" && MedicalId == "" && Street == "" && City == "" && State == "" && PhoneNo == "" && OfficeId == "") {
+            toastr.error('Please fill all required fields');
+            $('#loading').hide();
+            return false;
+        }
+        else if (MedicalId == "") {
+            toastr.error('Please Enter Medical Id');
+            $('#loading').hide();
+            return false;
+        }
+        else if (PatientName == "") {
+            toastr.error('Please Enter Patient Name');
+            $('#loading').hide();
+            return false;
+        }
+        else if (PrimaryMD == "") {
+            toastr.error('Please Enter PrimaryMD');
+            $('#loading').hide();
+            return false;
+        }
+        else if (PhoneNo == "") {
+            toastr.error('Please Enter PhoneNo');
+            $('#loading').hide();
+            return false;
+        }
+        else if (OfficeId == "") {
+            toastr.error('Please Select OfficeId');
+            $('#loading').hide();
+            return false;
+        }
+
+        else if (Street == "") {
+            toastr.error('Please Enter Street Information');
+            $('#loading').hide();
+            return false;
+        }
+        else if (City == "") {
+            toastr.error('Please Enter City Information');
+            $('#loading').hide();
+            return false;
+        }
+        else if (State == "") {
+            toastr.error('Please Enter State Id');
+            $('#loading').hide();
+            return false;
+        }
+        else if (ZipCode == "") {
+            toastr.error('Please Enter ZipCode');
+            $('#loading').hide();
+            return false;
+        }
+        $("#dvError3").hide();
+        var selectedValues = "";
+
+//var valueCheck = $("#PayerId option:selected");;
+//var payerIds = valueCheck .text();
+//if((OfficeId == 5 || OfficeId == 12) && payerIds =='Select...')
+//{
+//toastr.error('Please Enter PayerId');
+ //           $('#loading').hide();
+ //           return false;
+//}
+
+        var payerId = "";
+        var PayerProgram = "";
+        var ProcedureCode = "";
+        var JurisdictionCode = "";
+
+        debugger;
+
+      var  lstofficesSandData= @Html.Raw(Json.Encode(@ViewBag.lstOfOfficesSandData));
+
+	    if (OrganisationId == 0) {
+        if(OfficeId == 5 || OfficeId == 12)
+            {
+                var value1 = $("#PayerId option:selected");
+                var value2 = $("#PayerProgram option:selected");
+                var value3 = $("#ProcedureCode option:selected");
+                var value4 = $("#JurisdictionCode option:selected");
+
+                payerId = value1.text();
+                PayerProgram = value2.text();
+                ProcedureCode = $("#procId").val();
+               // ProcedureCode = value3.text();
+                JurisdictionCode = value4.text().split('-')[0];
+
+                $("#PayerId").val(payerId);
+                $("#PayerProgram").val(PayerProgram);
+                $("#ProcedureCode").val(ProcedureCode);
+                $("#JurisdictionCode").val(JurisdictionCode);
+
+}
+
+}
+else{
+
+if (OrganisationId == 3) {
+
+var value1 = $("#PayerId option:selected");
+                var value2 = $("#PayerProgram option:selected");
+                var value3 = $("#ProcedureCode option:selected");
+                var value4 = $("#JurisdictionCode option:selected");
+
+                payerId = value1.text();
+                PayerProgram = value2.text();
+                ProcedureCode = $("#procId").val();
+               // ProcedureCode = value3.text();
+                JurisdictionCode = value4.text().split('-')[0];
+
+                $("#PayerId").val(payerId);
+                $("#PayerProgram").val(PayerProgram);
+                $("#ProcedureCode").val(ProcedureCode);
+                $("#JurisdictionCode").val(JurisdictionCode);
+
+}
+else{
+var value1 = $("#PayerId option:selected");
+                var value2 = $("#PayerProgram option:selected");
+                var value3 = $("#ProcedureCode option:selected");
+                var value4 = $("#JurisdictionCode option:selected");
+
+                payerId = value1.text();
+                PayerProgram = value2.text();
+                ProcedureCode = $("#procId").val();
+               // ProcedureCode = value3.text();
+                JurisdictionCode = value4.text().split('-')[0];
+
+                $("#PayerId").val(payerId);
+                $("#PayerProgram").val(PayerProgram);
+                $("#ProcedureCode").val(ProcedureCode);
+                $("#JurisdictionCode").val(JurisdictionCode);
+
+}
+}
+
+
+        if (!GetLanLat()) {
+            $('#loading').hide();
+            return false;
+        }
+        var lat = $("#Latitude").val();
+        var long = $("#Longitude").val();
+
+        //var dstOffset = $("#hdndstOffset").val();
+        //var rawOffset = $("#hdnrawOffset").val();
+        //var timeZoneFullName = $("#hdntimeZoneFullName").val();
+        var TimezoneOffset = $("#hdnTimezoneOffset").val();
+        var timeZoneId = $("#hdntimeZoneId").val();
+        var TimezonePostfix = $("#hdnTimezonePostfix").val();
+
+        if (lat === null || lat === '' || lat === 'undefined' || lat === 'undefined' || long === null || long === '') {
+            toastr.error('Please enter valid address');
+            $('#loading').hide();
+            return false;
+        }
+        //debugger;
+        //console.log($("#PatientName").val());
+
+        //console.log($("#ZipCode").val());
+        //console.log($("#MedicalId").val());
+        //console.log($("#Latitude").val());
+        //console.log($("#Longitude").val());
+        //console.log($("#hdnTimezoneOffset").val());
+        //console.log($("#hdntimeZoneId").val());
+        //console.log($("#hdnTimezonePostfix").val());
+        //debugger;
+
+        if(ProcedureCode.slice(-1)==',')
+        {
+            ProcedureCode=ProcedureCode.slice(0,ProcedureCode.length-1);
+
+        }
+
+        if ($("#fmAddPatientDetails").valid()) {
+            if (IsMedicalExist == 0) {
+              //  $("#fmAddPatientDetails").submit();
+
+
+
+          var data = new FormData();
+
+                //var files = $("#EditProfileImageFile").get(0).files;
+
+                //// Add the uploaded image content to the form data collection
+                //if (files.length > 0) {
+                //    data.append("UploadedImage", files[0]);
+                //}
+
+                //data.append("NurseFullName", $("#NurseFullName").val());
+
+
+
+                var objCarePatientModel = {
+
+                   // var PatientId=
+                    PatientName: $("#LastName").val() + ',' + $("#FirstName").val(),
+                    FirstName: $("#FirstName").val(),
+                    LastName: $("#LastName").val(),
+				//$("#PatientName").val(),
+                 MedicalId:$("#MedicalId").val(),
+                Email:$("#Email").val(),
+                 PhoneNo:$("#PhoneNo").val(),
+                //PatientDetail.Address = objPatientDetails.Address;
+                 Street:$("#Street").val(),
+                City:$("#City").val(),
+                State:$("#State").val(),
+                Latitude:$("#Latitude").val(),
+                Longitude:$("#Longitude").val(),
+                ZipCode:$("#ZipCode").val(),
+              //PatientDetail.InsertUserId = Membership.GetUser().ProviderUserKey.ToString();
+                TimezoneId:$("#hdntimeZoneId").val(),
+                TimezoneOffset:$("#hdnTimezoneOffset").val(),
+                TimezonePostfix:$("#hdnTimezonePostfix").val(),
+                PrimaryMD:$("#PrimaryMD").val(),
+                OfficeId:$("#OfficeId").val(),
+				DateOfBirth:$("#DateOfBirth").val(),
+
+                PayerId:payerId,
+                PayerProgram:PayerProgram,
+                ClientPayerId:$("#MedicalId").val(),
+                 ProcedureCode:ProcedureCode,
+                JurisdictionCode:JurisdictionCode.trim()
+
+                }
+                data.append("ObjPatient", JSON.stringify({ 'PatientModelDetail': objCarePatientModel }));
+                debugger;
+                var url = INITURL + '/Patients/AddPatientDetails';
+
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    processData: false,
+                    contentType: false,
+                    data: data,
+                    //data: JSON.stringify({ 'objCareGiverModel': objCareGiverModel }),
+                    //cache: false,
+                    //contentType: 'application/json; charset=utf-8; multipart/form-data;',
+                    //dataType: 'json',
+                    //type: 'POST',
+                    success: function (data) {
+                        debugger;
+                        if (data == "Success") {
+                            toastr.success("Patient Details is Added successfully.");
+                            window.location = INITURL + "/Patients/Patients";
+                        }
+                        else {
+                            $("#dvError2").css("display", "");
+                            $("#lblError2").html(data.Result);
+                        }
+                        $('#loading').hide();
+                    },
+                    error: function (reponse) {
+                        $('#loading').hide();
+                        alert("error : " + JSON.stringify(reponse));
+                    }
+                });
+
+
+
+
+
+            }
+            else {
+                toastr.error("MedicalId already exist.");
+                $('#loading').hide();
+            }
+        }
+        else {
+            $('#loading').hide();
+        }
+    }
+
+    function isNumber(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+            toastr.error("Enter Number Only")
+        }
+        return true;
+    }
+
+    function GetLanLat() {
+        var Address = $("#Street").val() + $("#City").val() + $("#State").val();//$("#Address").val();
+        var Pincode = $("#ZipCode").val();
+        var flag = true;
+        $.ajax({
+            type: "GET",
+            url: "https://maps.google.com/maps/api/geocode/json",
+            data: "address=" + Address + ",  zip code=" + Pincode + "&key=AIzaSyCqG0NdAH_5gP1_D8jGhmTGeqNR-9z_afw",
+            async: false,
+            contentType: "text/plain; charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                if (result["status"] == "OK") {
+                    //add = result;
+                    $("#Latitude").val(result["results"][0]["geometry"]["location"]["lat"]);
+                    $("#Longitude").val(result["results"][0]["geometry"]["location"]["lng"]);
+                    var Latitude = result["results"][0]["geometry"]["location"]["lat"];
+                    var Longitude = result["results"][0]["geometry"]["location"]["lng"];
+
+                    //$("#City").val(result.results[0].address_components[2].long_name);
+                    //$("#State").val(result.results[0].address_components[3].long_name);
+
+                    var today = new Date();
+                    //var UTCDate = today.toUTCString();
+                    //var UtcNow = Math.floor(today.getTime() / 1000);
+
+                    var timestamp = today.getTime() / 1000 + today.getTimezoneOffset() * 60;
+                    $.ajax({
+                        type: "GET",
+                        url: "https://maps.googleapis.com/maps/api/timezone/json?location=" + Latitude + "," + Longitude + "&timestamp=" + timestamp + "&sensor=false&key=AIzaSyCqG0NdAH_5gP1_D8jGhmTGeqNR-9z_afw",
+                        async: false,
+                        contentType: "text/plain; charset=utf-8",
+                        dataType: "json",
+                        success: function (data, result) {
+
+
+                            if (data["status"] == "OK" && result == "success") {
+                                $("#hdndstOffset").val(data.dstOffset);
+                                $("#hdnrawOffset").val(data.rawOffset);
+                                $("#hdntimeZoneFullName").val(data.timeZoneName);
+                                $("#hdntimeZoneId").val(data.timeZoneId);
+
+                                var str = data.timeZoneName;
+                                var splitString = str.split(" ");
+                                var abbr = "";
+                                for (i = 0; i < splitString.length; i++) {
+                                    abbr += splitString[i].charAt(0);
+                                }
+                                $("#hdnTimezonePostfix").val(abbr);
+                                //var TimeZoneOffset = data.rawOffset;
+                                var TimeZoneOffset = data.dstOffset + data.rawOffset
+                                // console.log(TimeZoneOffset);
+
+                                TimeZoneOffset = TimeZoneOffset < 0 ? "-" + Math.abs(TimeZoneOffset) / 60 : "+" + Math.abs(TimeZoneOffset) / 60;
+                                $("#hdnTimezoneOffset").val(parseInt(TimeZoneOffset));
+                                return true;
+                            }
+                        }
+                    });
+                }
+                else if (result.status === "ZERO_RESULTS") {
+                    toastr.error('Please enter valid address');
+                    flag = false;
+                }
+            }
+        });
+        //----------End Pincode+Address----------------
+        return flag;
+    }
+
+    function divClose() {
+        $("#dvError3").css("display", "none");
+    }
+
+    function isNumberAndDot(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode != 46) {
+            return false;
+        }
+        return true;
+    }
+
+    function GetTime(val) {
+        if (val !== '') {
+            var Address = $("#Street").val() + $("#City").val() + $("#State").val();//$("#Address").val();
+            var Pincode = $("#ZipCode").val();
+            $('#drpFromTime option[value!="0"]').remove();
+            $('#drpToTime option[value!="0"]').remove();
+
+            if (Address !== '') {
+                if (Pincode !== '') {
+                    $('#loading').show();
+                    var flag = true;
+                    $.ajax({
+                        type: "GET",
+                        url: "https://maps.google.com/maps/api/geocode/json",
+                        data: "address=" + Address + ", zip code=" + Pincode + "&key=AIzaSyCqG0NdAH_5gP1_D8jGhmTGeqNR-9z_afw",
+                        async: false,
+                        contentType: "text/plain; charset=utf-8",
+                        dataType: "json",
+                        success: function (result) {
+                            if (result["status"] == "OK") {
+                                var Latitude = result["results"][0]["geometry"]["location"]["lat"];
+                                var Longitude = result["results"][0]["geometry"]["location"]["lng"];
+                                var today = new Date();
+                                var timestamp = today.getTime() / 1000 + today.getTimezoneOffset() * 60;
+                                $.ajax({
+                                    type: "GET",
+                                    url: "https://maps.googleapis.com/maps/api/timezone/json?location=" + Latitude + "," + Longitude + "&timestamp=" + timestamp + "&sensor=false&key=AIzaSyCqG0NdAH_5gP1_D8jGhmTGeqNR-9z_afw",
+                                    async: false,
+                                    contentType: "text/plain; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (data, result) {
+                                        if (data["status"] == "OK" && result == "success") {
+                                            var str = data.timeZoneName;
+                                            var splitString = str.split(" ");
+                                            var abbr = "";
+                                            for (i = 0; i < splitString.length; i++) {
+                                                abbr += splitString[i].charAt(0);
+                                            }
+                                            var TimeZoneOffset = data.dstOffset * 1000 + data.rawOffset * 1000;
+                                            //TimeZoneOffset = TimeZoneOffset < 0 ? "-" + Math.abs(TimeZoneOffset) / 60 : "+" + Math.abs(TimeZoneOffset) / 60;
+                                            //var offset = TimeZoneOffset / 60;
+                                            //debugger
+                                            var localDate = new Date(timestamp * 1000 + TimeZoneOffset)
+                                            //console.log(localDate);
+                                            //var CurrentTimebasedonTimezone = new Date(new Date().getTime() + offset * 1000).toUTCString().replace(/ GMT$/, "");
+                                            //var localDate = new Date(CurrentTimebasedonTimezone).getDate();
+                                            //localDate = localDate.toLocaleDateString()
+
+                                            var selectedDate = $('#Date').val();
+                                            var Sdate = new Date(selectedDate);
+
+                                            //var CurrentHours = new Date(CurrentTimebasedonTimezone).getHours();
+                                            var CurrentHours = new Date(localDate).getHours();
+                                            //  console.log(CurrentHours);
+                                            //debugger
+
+                                            if (Sdate.setHours(0, 0, 0, 0) != localDate.setHours(0, 0, 0, 0)) {
+                                                CurrentHours = 0;
+                                            }
+
+                                            //if (selectedDate != localDate) {
+                                            //    CurrentHours = 0;
+                                            //}
+
+                                            for (var i = CurrentHours + 1; i <= 24; i++) {
+                                                var hours = i;
+                                                var minutes = 0;
+                                                var seconds = 0;
+                                                var ampm = hours >= 12 ? 'PM' : 'AM';
+                                                hours = hours % 12;
+                                                hours = hours ? (hours < 10) ? ("0" + hours) : hours : 12;
+                                                minutes = minutes < 10 ? '0' + minutes : minutes;
+                                                var strTime = hours + ':' + minutes + ' ' + ampm;
+                                                var id = i === 0 ? i + 1 : i + 1;
+                                                if (i < 24) {
+                                                    var temphour = i < 10 ? '0' + i : i;
+                                                    $("#drpFromTime").append($("<option>").attr("value", temphour + ":00:00").text(strTime + " (" + abbr + ") ").attr("id", id));
+                                                    $("#drpToTime").append($("<option>").attr("value", temphour + ":00:00").text(strTime + " (" + abbr + ") ").attr("id", id));
+                                                } else {
+                                                    $("#drpToTime").append($("<option>").attr("value", "23:59:59").text("11:59 PM" + " (" + abbr + ") ").attr("id", id));
+                                                }
+                                            }
+                                            $("#loading").hide();
+                                            return true;
+                                        }
+                                    }
+                                });
+                            }
+                            else if (result.status === "ZERO_RESULTS") {
+                                $("#loading").hide();
+                                toastr.error('Please enter valid address with valid zip code');
+                                $('#drpFromTime option[value!="0"]').remove();
+                                $('#drpToTime option[value!="0"]').remove();
+                                flag = false;
+                            }
+                        }
+                    });
+                }
+                else {
+                    toastr.error('Please Enter ZipCode');
+                    $('#drpFromTime option[value!="0"]').remove();
+                    $('#drpToTime option[value!="0"]').remove();
+                }
+            } else {
+                toastr.error('Please Enter Address');
+                $('#drpFromTime option[value!="0"]').remove();
+                $('#drpToTime option[value!="0"]').remove();
+            }
+        } else {
+            $('#drpFromTime option[value!="0"]').remove();
+            $('#drpToTime option[value!="0"]').remove();
+        }
+    }
+
+
+	 function validateMedicalId(MedicalId) {
+
+        // Regex Explanation:
+        // ^[a-zA-Z]{2} ensures the first two characters are alphabets.
+        // \d{8,} ensures the remaining characters are at least 8 digits.
+
+        const regex = /^[a-zA-Z]{2}\d{8,}$/;
+
+        // Check if the password matches the regex
+        if (!regex.test(MedicalId)) {
+            toastr.error("MedicalId must start with two alphabets followed by at least 8 digits.");
+        }
+
+        toastr.error("MedicalId is valid.");
+    }
+
+
+    function IsMedicalIdExist()
+    {
+
+        var MedicalId1 =  $("#MedicalId").val();
+        $(".loading").show();
+        var url = INITURL + '/Patients/IsMedicalIdExist';
+            $.ajax({
+                url: url,
+                data: { MedicalID: MedicalId1 },
+                type: "POST",
+                success: function (data) {
+
+                    $(".loading").hide();
+                    if (data == true) {
+                        toastr.error("MedicalId already exist.");
+                        IsMedicalExist = 1;
+                        //$("#MedicalId").focus();
+                    }
+                  //   else {
+					//if (MedicalId1.length <= 9) {
+					//;
+                     //   toastr.error("MedicalId must contain a minimum of 9 characters.");
+                   // }
+                   // else {
+					//debugger;
+                   //     validateMedicalId(MedicalId1);
+                   // }
+
+					IsMedicalExist = 0;
+                    //}
+
+                },
+                error: function (reponse) {
+                    //alert("error : " + JSON.stringify(reponse));
+                    $(".loading").hide();
+                }
+            });
+    }
+
+
+
+
+
+
+
+    $('#OfficeId').change(function () {
+debugger;
+        var chkOfficeId = $("#OfficeId").val();
+
+        lstofficesSandData= "5,12";
+//@Html.Raw(Json.Encode(@ViewBag.lstOfOfficesSandData));
+        if (chkOfficeId == '5' || chkOfficeId == '12' || OrganisationId==3) {
+            $("#PayerId").prop("disabled", false);
+        }
+        else {
+            $("#PayerId").prop("disabled", true);
+            $("#PayerProgram").prop("disabled", true);
+            $("#ProcedureCode").prop("disabled", true);
+            $("#JurisdictionCode").prop("disabled", true);
+
+             $("#PayerId").val('');
+            $("#PayerProgram").val('');
+            $("#ProcedureCodeId").val('');
+            $("#ProcedureCode").val('');
+            $("#ClientPayerId").val('');
+        }
+
+    })
+
+
+    $('#PayerId').change(function () {
+
+        debugger;
+
+        var value = $("#PayerId option:selected");
+       // alert(value.text());
+
+               $("#PayerProgram").prop("disabled", false);
+                var selectedPayerId = $("#PayerId").val();
+                var regionsSelect = $('#PayerProgram');
+                regionsSelect.empty();
+                if (selectedPayerId != null && selectedPayerId != '') {
+                    $.getJSON('@Url.Action("GetAllAvailablePayerProgram")', { PayerId: selectedPayerId }
+                        , function (regions) {
+
+                            debugger;
+                        if (regions != null && !jQuery.isEmptyObject(regions))
+                        {
+                            regionsSelect.append($('<option/>', {
+                                value: null,
+                                text: "Select"
+                            }));
+                            $.each(regions, function (index, region) {
+                                regionsSelect.append($('<option/>', {
+                                    value: region.Value,
+                                    text: region.Text
+                                }));
+                            });
+                        };
+                    });
+                }
+            });
+
+
+
+    $('#PayerProgram').change(function () {
+
+        debugger;
+
+        var value = $("#PayerId option:selected");
+      var PayerId=  value.text();
+
+        var value1 = $("#PayerProgram option:selected");
+        var PayerProgram = value1.text();
+
+
+        $("#ProcedureCode").prop("disabled", false);
+       // var selectedPayerId = $("#PayerId").val();
+        var regionsSelect = $('#ProcedureCode');
+        regionsSelect.empty();
+        if (PayerId != null && PayerId != '') {
+            $.getJSON('@Url.Action("GetAllAvailableProcedureCode")', { PayerId: PayerId,PayerProgram:PayerProgram }
+                , function (regions) {
+
+                    debugger;
+                    if (regions != null && !jQuery.isEmptyObject(regions)) {
+                        regionsSelect.append($('<option/>', {
+                            value: null,
+                            text: "Select"
+                        }));
+                        $.each(regions, function (index, region) {
+                            regionsSelect.append($('<option/>', {
+                                value: region.Value,
+                                text: region.Text
+                            }));
+                        });
+                    };
+                });
+        }
+    });
+
+
+    var selectedValues="";
+
+    $('#ProcedureCode').change(function () {
+
+        debugger;
+
+   $("#ProcedureCode :selected").each(function () {
+            selectedValues += $(this).text() + ",";
+        });
+
+        var value = $("#PayerId option:selected");
+     //   alert(value.text());
+
+        $("#JurisdictionCode").prop("disabled", false);
+        var selectedPayerId = value.text();
+            //$("#PayerId").val();
+        var regionsSelect = $('#JurisdictionCode');
+        regionsSelect.empty();
+        if (selectedPayerId != null && selectedPayerId != '') {
+            $.getJSON('@Url.Action("GetAllAvailableJurisdictionEntities")', { PayerId: selectedPayerId }
+                , function (regions) {
+
+                    debugger;
+                    if (regions != null && !jQuery.isEmptyObject(regions)) {
+                        regionsSelect.append($('<option/>', {
+                            value: null,
+                            text: "Select"
+                        }));
+                        $.each(regions, function (index, region) {
+                            regionsSelect.append($('<option/>', {
+                                value: region.Value,
+                                text: region.Text
+                            }));
+                        });
+                    };
+                });
+        }
+
+        debugger;
+        var emailTextBox = document.getElementById("procId");
+        // assign the email address here based on your need.
+        emailTextBox.value = selectedValues;
+
+
+    });
+
+
+</script>
+

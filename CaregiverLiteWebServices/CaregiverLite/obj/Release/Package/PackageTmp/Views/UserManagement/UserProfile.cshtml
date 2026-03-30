@@ -1,0 +1,422 @@
+﻿@model CaregiverLite.Controllers.Userprofile
+
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: "Lato", sans-serif;
+        }
+
+        .profile-card {
+            max-width: 832px;
+            margin: 65px 10px 13px 15px;
+            border: none;
+            border-radius: 4px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            background-color: white;
+        }
+
+        .profile-img {
+            width: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .info-title {
+            font-size: 0.85rem;
+            color: #6c757d;
+        }
+
+        .info-text {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .service-badge {
+            font-size: 0.8rem;
+            padding: 5px 10px;
+            margin: 0 3px;
+        }
+
+        .support-section {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+            .support-section a {
+                text-decoration: none;
+                color: #007bff;
+                font-size: 0.9rem;
+            }
+
+                .support-section a:hover {
+                    color: #0056b3;
+                }
+
+
+
+        .cutmoprofiledata p {
+            font-weight: 600;
+            color: #1F305B;
+            font-size: 14px;
+        }
+
+        .cutmoprofiledata span {
+            color: #444444;
+            display: block;
+            font-weight: 400;
+            font-size: 13px;
+        }
+
+        #cartData1 {
+            margin-left: 2px;
+        }
+
+        .ProfileEditbtn {
+            display: block;
+            background-color: white;
+            color: #092C44;
+            border: 1px solid #1F305B;
+            border-radius: 6px;
+            font-size: 14px;
+            width: 82px;
+            padding: 6px 0px 3px 0px;
+        }
+
+        #ProfileEditbtnId:hover {
+            background-color: #092C44;
+            color: white;
+            font-size: 1vw;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .profile-card:hover {
+            /*pointer-events: none;*/
+        }
+
+        .Cancelbtn {
+            background-color: white;
+            color: #092C44;
+            border: 1px solid #1F305B;
+            border-radius: 6px;
+            font-size: 14px;
+            width: 20%;
+            height: 28px;
+            line-height: 22px;
+            padding-top: 4px;
+        }
+
+        .userprofileimage {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+        }
+
+        .formtopmargin {
+    margin-top: 6px;
+    border-radius:5px;
+    }
+    </style>
+</head>
+<body>
+
+    <div class="card profile-card cutmoprofiledata">
+        <div class="flex" style="display:flex">
+            <div>
+
+
+                @{
+                    if (Session["role"].ToString() == "Nurse")
+                    {
+                        <img src="@Model.ObjCaregiverModel.ProfileImage" alt="Profile Picture" class="profile-img mr-3 userprofileimage" />
+                    }
+                    else
+                    {
+                        <img src="/Content/image/DefaultProfile.png" alt="Profile Picture" class="profile-img mr-3 userprofileimage">
+                    }
+                }
+
+
+            </div>
+
+            <div style="margin: 15px 0px 0px 15px;width: 75%;">
+                <span style="margin-bottom: 2px;">Full Name</span>
+                <h5 style="color:#1F305B" class="mb-1">@Session["Name"].ToString()</h5>
+
+            </div>
+            <div>
+                @if (Session["role"].ToString() != "OrgSuperAdmin" || Session["role"].ToString() != "SuperAdmin")
+                {
+                    <a class="btn btn-xs ProfileEditbtn popup-act" id="ProfileEditbtnId" href="javascript:;" onclick="OpenEditPanel('@Session["UserId"].ToString()')">Edit</a>
+                }
+            </div>
+        </div>
+
+
+        <hr style="margin-top:15px">
+
+
+
+        @if (Session["role"].ToString() == "Nurse")
+        {
+            <div class="row cutmoprofiledata" id="cartData1">
+
+                @Html.HiddenFor(model => model.ObjCaregiverModel.NurseId)
+                @Html.HiddenFor(model => model.ObjCaregiverModel.UserId)
+                @Html.HiddenFor(model => model.ObjCaregiverModel.OldOfficeId)
+                @Html.HiddenFor(model => model.ObjCaregiverModel.QuickBloxId)
+                @Html.HiddenFor(model => model.ObjCaregiverModel.ChargeToPatient, new { @id = "hdnChargeToPatient" })
+                @Html.HiddenFor(model => model.ObjCaregiverModel.ServiceNames, new { @id = "hdnServices" })
+                @Html.HiddenFor(model => model.ObjCaregiverModel.NurseId)
+                @Html.HiddenFor(model => model.ObjCaregiverModel.UserId)
+                @Html.HiddenFor(model => model.ObjCaregiverModel.OldOfficeId)
+                @Html.HiddenFor(model => model.ObjCaregiverModel.QuickBloxId)
+                @Html.HiddenFor(model => model.ObjCaregiverModel.ChargeToPatient, new { @id = "hdnChargeToPatient" })
+                @Html.HiddenFor(model => model.ObjCaregiverModel.ServiceNames, new { @id = "hdnServices" })
+
+                <div class="row cutmoprofiledata" id="cartData">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <span>Email Address</span>
+                            <p>@Model.ObjCaregiverModel.Email</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <span>Mobile Number</span>
+                            <p>@Model.ObjCaregiverModel.Phone</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <span>Role Assigned</span>
+                            <p>@Session["role"].ToString()</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <span>Office Assigned</span>
+                            @{
+                                if (Model.ObjCaregiverModel.Office == null || Model.ObjCaregiverModel.Office == "")
+                                {
+                            <p>Not Assigned</p>
+                                }
+                                else
+                                {
+                            <p>@Model.ObjCaregiverModel.Office</p>
+                                }
+                            }
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <span>Address</span>
+                            <p>@Model.ObjCaregiverModel.Address</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <span>Zip Code</span>
+                            <p>@Model.ObjCaregiverModel.ZipCode</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <span>Education</span>
+                            <p>@Model.ObjCaregiverModel.Education</p>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <span>Service Type</span>
+                            <div class="d-flex flex-wrap gap-1">
+                                @if (!string.IsNullOrEmpty(Model.ObjCaregiverModel.ServiceNames))
+                                {
+                                    // Split the string by commas and trim any whitespace
+                                    var serviceTypes = Model.ObjCaregiverModel.ServiceNames.Split(',')
+                                                        .Select(s => s.Trim())
+                                                        .Where(s => !string.IsNullOrEmpty(s))
+                                                        .ToList();
+
+                                    foreach (var serviceType in serviceTypes)
+                                    {
+                                <p class="badge badge-primary service-badge" style="font-size: 12px;    background-color: #F6F6F6;    padding: 8px 15px 8px 15px;  margin-bottom: 6px;  border-radius: 8px;"><i class="fa fa-circle" aria-hidden="true" style="font-size:6px;margin-right:6px"></i>@serviceType</p>
+                                    }
+
+                                }
+                            </div>
+
+                            @*<p class="badge badge-primary service-badge">@Model.ObjCaregiverModel.ServiceNames</p>*@
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+                                }
+
+        @if (Session["role"].ToString() == "Admin")
+        {
+            <div class="row cutmoprofiledata" id="cartData1">
+                <div class="row cutmoprofiledata" id="cartData">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <span>Email Address</span>
+                            <p>@Model.ObjAdminModelModel.Email</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <span>Role Assigned</span>
+                            <p>@Session["role"].ToString()</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+        @if (Session["role"].ToString() == "NurseCoordinator")
+        {
+            <div class="row cutmoprofiledata" id="cartData1">
+                <div class="row cutmoprofiledata" id="cartData">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <span>Email Address</span>
+                            <p>@Model.ObjNurseCoordinatorModel.Email</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <span>Role Assigned</span>
+                            <p>@Session["role"].ToString()</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+        @if (Session["role"].ToString() == "Scheduler")
+        {
+            <div class="row cutmoprofiledata" id="cartData1">
+                <div class="row cutmoprofiledata" id="cartData">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <span>Email Address</span>
+                            <p>@Model.ObjSchedulerModel.Email</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <span>Role Assigned</span>
+                            <p>@Session["role"].ToString()</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+        @if (Session["role"].ToString() == "SuperAdmin")
+        {
+            <div class="row cutmoprofiledata" id="cartData1">
+                <div class="row cutmoprofiledata" id="cartData">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <span>Email Address</span>
+                            <p>@Model.ObjSchedulerModel.Email</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <span>Role Assigned</span>
+                            <p>@Session["role"].ToString()</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+        @if (Session["role"].ToString() == "OrgSuperAdmin")
+        {
+            <div class="row cutmoprofiledata" id="cartData1">
+                <div class="row cutmoprofiledata" id="cartData">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <span>Email Address</span>
+                            <p>@Model.ObjAdminModelModel.Email</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <span>Role Assigned</span>
+                            <p>@Session["role"].ToString()</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+
+    </div>
+    <div class="card profile-card" style="margin-top: 4px;">
+
+        <h5 class="mb-3" style="color:#727475;margin-bottom: 12px;font-size: 15px;">contact support</h5>
+        <div class="d-flex align-items-center mb-2">
+            <i class="fas fa-envelope me-2"></i>
+            <a href="mailto:support@paseva.com" style="color:#1F305B;text-decoration: underline;font-weight: bold;margin-left: 5px">support@paseva.com</a>
+        </div>
+        <div class="d-flex align-items-center">
+            <i class="fas fa-phone me-2"></i>
+            <span style="color:#1F305B;font-weight: bold;margin-left: 5px">844-682-1072</span>
+        </div>
+    </div>
+    <div class="card profile-card" style="margin-top: 4px;">
+        <div>
+            <a href="https://paseva.com/privacy-policy/" target="_blank" style="color:#1F305B;text-decoration: underline;font-weight: bold;">Privacy Policy</a>
+            <br>
+            @*<a href="#" style="color:#1F305B;text-decoration: underline;font-weight: bold;">Terms of Use</a>*@
+        </div>
+    </div>
+
+
+
+    <script>
+
+        function OpenEditPanel(id) {
+            $('#ProfilemOdeal').modal('hide');
+            $('#loading').show();
+            debugger;
+            $('#UserEditProfileView').load(INITURL + '/UserManagement/OpenEditProfile/' + id, function () {
+                debugger;
+                sessionStorage.setItem("PartialView", "1");
+                $('#EditProfilemOdeal').modal({
+                    backdrop: 'static',
+                    keyboard: false
+                });
+
+                $('#EditProfilemOdeal').modal('show');
+                $("#loading").hide();
+            });
+        }
+
+    </script>
+
+</body>
+</html>

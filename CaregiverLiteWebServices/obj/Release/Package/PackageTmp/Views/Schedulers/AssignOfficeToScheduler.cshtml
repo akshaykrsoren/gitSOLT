@@ -1,0 +1,161 @@
+﻿<div id="main_div">
+    <div class="alert alert-danger alert-dismissable" style="display:none" id="dvError3">
+        <button onclick="divClose();" class="close" type="button">×</button>
+        <label id="lblError3"></label>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label>Scheduler : @ViewBag.Name </label>
+        </div>
+        <div class="form-group">
+            <label>Office(s)</label>
+            <div class="form-group">
+                @Html.DropDownList("ddlOffice", new MultiSelectList(@ViewBag.UnassignedOfficeList, "OfficeId", "OfficeName"), new { @multiple = "multiple", @class = "chosen-select" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <button type="button" onclick="AssignMultipleOfficesToScheduler('@ViewBag.UserId')" class="btn btn-sm btn-primary pull-right">ASSIGN</button>
+        <div class="clearfix"></div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label>Office List</label>
+            <div class="col-md-06" style="overflow-y:auto;scroll:auto;max-height:300px">
+                <table class="table table-striped table-bordered table-hover dataTables-example">
+                    <thead>
+                        <tr>
+                            <td>
+                                <b>Office(s)</b>
+                            </td>
+                            <td style="width:10%;">
+                                <b>Action</b>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (ViewBag.AssignedOfficeList != null)
+                        {
+                            foreach (var item in ViewBag.AssignedOfficeList)
+                            {
+                                <tr id="@item.OfficeId">
+                                    <td>@item.OfficeName</td>
+                                    <td>
+                                        <center>
+                                            <button class="btn btn-xs btn-danger" style="margin:5px; width:auto;" onclick="RemoveSchedulerFromOffice('@item.OfficeId','@ViewBag.UserId')"><span class="fa fa-remove"></span></button>
+                                        </center>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script type="text/javascript">
+    $(document).ready(function () {
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': { allow_single_deselect: true },
+            '.chosen-select-no-single': { disable_search_threshold: 10 },
+            '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+            '.chosen-select-width': { width: "95%" }
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+    });
+
+
+    function AssignMultipleOfficesToScheduler(SchedulerUserId) {
+
+        var selectedOfficeIds = '';
+
+        $('#ddlOffice :selected').each(function () {
+            selectedOfficeIds += $(this).val() + ',';
+        });
+
+        selectedOfficeIds = selectedOfficeIds.replace(/,\s*$/, "");
+
+        if (selectedOfficeIds == "") {
+            toastr.info("Please select atleast one office");
+            $('#ddlOffice').focus();
+            return;
+        }
+
+        $('#loading').show();
+        var url = INITURL + '/Schedulers/AssignOfficeIdToSchedulers';
+        $.ajax({
+            url: url,
+            cache: false,
+            type: 'POST',
+            data: {
+                OfficeIds: selectedOfficeIds,
+                UserId: SchedulerUserId,
+            },
+            async: true,
+            success: function (data) {
+                $('#loading').hide();
+                if (data == "Success") {
+                    $('#modalOfficeAssignment').modal('hide');
+                    toastr.success('Office(s) have been assigned successfully.');
+                    oTable.fnFilter('');
+                }
+            },
+            error: function (reponse) {
+                $('#loading').hide();
+            }
+        });
+    }
+
+
+    function RemoveSchedulerFromOffice(OfficeId, UserId) {
+        if (!confirm('Are you sure you want remove scheduler from this office ?'))
+            return false;
+        if (OfficeId && UserId) {
+            $('#loading').show();
+            var url = INITURL + '/Schedulers/RemoveSchedulerFromOffice';
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                data: {
+                    OfficeId: OfficeId,
+                    UserId: UserId
+                },
+                async: true,
+                success: function (data) {
+                    if (data.result == "Success") {
+                        $('#' + OfficeId).remove();
+                        LoadOfficeSelectList(data.lstOffice);
+                        $('#loading').hide();
+                        toastr.success('Scheduler has been removed successfully from office.');
+                        oTable.fnFilter('');
+                    }
+                    else {
+                        toastr.error('Something went wrong!');
+                        $('#loading').hide();
+                    }
+                },
+                error: function (reponse) {
+                    $('#loading').hide();
+                }
+            });
+        }
+    }
+
+    function LoadOfficeSelectList(lstOffice) {
+        $('#ddlOffice').empty();
+        if (lstOffice.length > 0) {
+            $.each(lstOffice, function (key, value) {
+                $('#ddlOffice').append("<option value=" + value.OfficeId + ">" + value.OfficeName + "</option>");
+            });
+        }
+        $('#ddlOffice').trigger("chosen:updated");
+        $('#loading').hide();
+    }
+</script>

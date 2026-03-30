@@ -1,0 +1,202 @@
+﻿ 
+ 
+@model CaregiverLite.Models.EmployeeClientModel
+
+
+<style>
+    #ui-datepicker-div {
+        z-index: 10000 !important;
+    }
+
+    .form-calender {
+        padding: 0 15px;
+    }
+</style>
+
+
+<script>
+    $(function () {
+        debugger;
+        var dateFormat = "mm/dd/yy",
+          from = $("#FromDate")
+            .datepicker({
+                defaultDate: "+1w",
+                changeMonth: true,
+                numberOfMonths: 1,
+                maxDate: new Date()
+
+            })
+            .on("change", function () {
+                //toMinDate.setDate(toMinDate.getDate() - 365);
+                to.datepicker("option", "minDate", getDate(this));
+            }),
+          to = $("#ToDate").datepicker({
+              defaultDate: "+1w",
+              changeMonth: true,
+              numberOfMonths: 1,
+              maxDate: new Date(),
+              minDate: $("#FromDate").val()
+
+          })
+          .on("change", function () {
+              // var fromMaxDate = $("#FromDate").val();
+              //fromMaxDate.setDate(fromMaxDate.getDate() - 1);
+              to.datepicker("option", "minDate", getDate(this));
+          });
+
+        function getDate(element) {
+            var date;
+            try {
+                date = $.datepicker.parseDate(dateFormat, element.value);
+            } catch (error) {
+                date = null;
+            }
+
+            return date;
+        }
+
+        //$(function () {
+        var ddlCustomers = $("#ddlOffices");
+     //   ddlCustomers.empty().append('<option selected="selected" value="0" disabled = "disabled">Loading.....</option>');
+        $.ajax({
+            type: "POST",
+            url: "/AttendanceManagement/ListOffices",
+            data: '{}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+           
+
+                $.each(response, function (i) {
+
+                    if (response[i].Value == '5' || response[i].Value == '12') {
+                        response[i].Disabled = true;
+                        ddlCustomers.append($("<option></option>").val(this['Value']).html(this['Text']));
+                    }
+                
+                })
+                
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        });
+    //});
+
+    });
+
+
+</script>
+
+@using (Html.BeginForm("GetAndPostClientDataByDateRange", "Patients", FormMethod.Post, new { @class = "horizontal-form", @enctype = "multipart/form-data" }))
+{
+    <div id="main_div" class="Edit_div">
+        <div class="alert alert-danger alert-dismissable" style="display:none" id="dvError3">
+            <button onclick="divClose();" class="close" type="button">×</button>
+            <label id="lblError3"></label>
+        </div>
+        <div class="row form-calender">
+            <div class="col-md-6">
+                @*Date*@
+                <div class="form-group">
+                    <label>From Date</label>
+                    <span style="color:red;">*</span>
+                    @*@Html.ValidationMessageFor(model => model.Date)*@
+                    @Html.TextBoxFor(model => model.FromDate, new { @class = "form-control clsDatePicker", @data_toggle = "dropdown", @placeholder = "DD-MM-YYYY", onkeydown = "return false", autocomplete = "off", @tabindex = "8" })
+                    <label id="lblFromDate"></label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label>To Date</label>
+                <span style="color:red;">*</span>
+                @Html.TextBoxFor(model => model.ToDate, new { @class = "form-control clsDatePicker", @data_toggle = "dropdown", @placeholder = "DD-MM-YYYY", onkeydown = "return false", autocomplete = "off", @tabindex = "8" })
+                <label id="lblToDate"></label>
+            </div>
+        </div>
+        <div class="col-md-2">
+
+            <div>
+                <label>Offices :</label>
+                <select id="ddlOffices"></select>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <button type="button" onclick="SendData();" class="btn btn-sm btn-primary pull-right" tabindex="10">Export Data</button>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+
+
+    <div class="col-md-12">
+        <div class="clearfix"></div>
+    </div>
+}
+
+<script type="text/javascript">
+
+    function SendData() {
+        var tempFromDate = $("#FromDate").val();
+        var FromDate1 = new Date(tempFromDate);
+        var tempToDate = $("#ToDate").val();
+        var ToDate1 = new Date(tempToDate);
+        if (tempFromDate == "") {
+            toastr.error("Please select from date.");
+            $("#loading").hide();
+            return false;
+        }
+        else if (tempToDate == "") {
+            toastr.error("Please select to date.");
+            $("#loading").hide();
+            return false;
+        }
+        if (FromDate1 > ToDate1) {
+            toastr.error("From Date can not be greater than To date.");
+            $("#loading").hide();
+            return false;
+        }
+        ToDate1.setHours(23);
+        ToDate1.setMinutes(59);
+
+        var FromDate = FromDate1.getFullYear() + "-" + (FromDate1.getMonth() + 1) + "-" + FromDate1.getDate() + " " + FromDate1.getHours() + ":" + FromDate1.getMinutes() + ":" + FromDate1.getSeconds();
+        var ToDate = ToDate1.getFullYear() + "-" + (ToDate1.getMonth() + 1) + "-" + ToDate1.getDate() + " " + ToDate1.getHours() + ":" + ToDate1.getMinutes() + ":" + ToDate1.getSeconds();
+
+
+        var OfficeId=$("#ddlOffices").val();
+        if (OfficeId == 0 || OfficeId == "" || OfficeId == "undefined") {
+            toastr.error("Please select Office");
+            $("#loading").hide();
+            return false;
+        }
+        
+
+        $('#loading').show();
+        var url = '@Url.Action("GetAndPostClientDataByDateRange", "Patients")';
+
+        // var url = "http://localhost:15177/AttendanceManagement/GetAndPostEmployeeVisitData";
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: { FromDate: FromDate, ToDate: ToDate, OfficeId: OfficeId},
+            success: function (res) {
+                debugger;
+                $(".loading").hide();
+                if (res.Success) {
+                    toastr.success("Data sent successfully.");
+                }
+                else {
+                    toastr.success("Data not Sent.");
+                }
+                $(".loading").hide();
+
+            },
+            error: function (reponse) {
+                alert("error : " + JSON.stringify(reponse));
+                $(".loading").hide();
+            }
+        });
+    }
+</script>

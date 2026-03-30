@@ -1,0 +1,168 @@
+﻿
+
+<div id="Chart4" style="height: 300px"></div>
+<script>
+   
+    var AutoScheduleDateList =[];
+    var AutoScheduleCount =[]; 
+
+    var ManualDateList =[];
+    var ManualScheduleCount  =[];
+
+    var AutoData=[];
+    var ManualData=[];
+    var DateList=[];
+    $(document).ready(function () {
+        
+        AutoScheduleDateList = @Html.Raw(Json.Encode(ViewBag.AutoDateList));
+        AutoScheduleCount = @Html.Raw(Json.Encode(ViewBag.AutoScheduleCount));
+         
+        ManualDateList = @Html.Raw(Json.Encode(ViewBag.ManualDateList));
+        ManualScheduleCount = @Html.Raw(Json.Encode(ViewBag.ManualScheduleCount));
+        debugger;
+        for(var i=DateDifference;i>=0;i--)
+        { 
+            var CurrentDate=new Date(endDate);
+            let tempCurrentDate=new Date(CurrentDate.setDate(CurrentDate.getDate() - i));
+          
+            tempCurrentDate.setHours(0);
+            tempCurrentDate.setMinutes(0);
+            tempCurrentDate.setSeconds(0);
+
+          
+            const formattedDate = tempCurrentDate.toLocaleDateString('en-GB', {
+                day: 'numeric', month: 'short', year: 'numeric'
+            }).replace(/ /g, '-');
+
+            DateList.push(formattedDate);
+             
+    
+            let AutoSchedulefound = AutoScheduleDateList.find(element => (new Date(element)).toString()==tempCurrentDate.toString() );
+           
+            var ddd=AutoScheduleCount[AutoScheduleDateList.indexOf(AutoSchedulefound)];
+        
+            if(AutoSchedulefound)
+            {
+               
+               
+              
+                AutoData.push(AutoScheduleCount[AutoScheduleDateList.indexOf(AutoSchedulefound)]);
+                
+            }
+            else{
+                AutoData.push(0);
+            }
+
+            let ManualSchedulefound = ManualDateList.find(element => (new Date(element)).toString()==tempCurrentDate.toString() );
+            if(ManualSchedulefound)
+            {
+                ManualData.push(ManualScheduleCount[ManualDateList.indexOf(ManualSchedulefound)]);
+            }
+            else{
+                ManualData.push(0);
+            } 
+
+        }
+        
+
+        
+        var sssssss=AutoData.reduce((partialSum, a) => partialSum + a, 0);
+        debugger;
+        document.getElementById("AutometicTotalID").innerHTML = AutoData.reduce((partialSum, a) => partialSum + a, 0);
+        document.getElementById("ManualTotalID").innerHTML = ManualData.reduce((partialSum, a) => partialSum + a, 0);
+
+   
+        console.log("datelis=",JSON.stringify(DateList))
+        console.log("Autooooo=",JSON.stringify(AutoData))
+        console.log("Manuallll=",JSON.stringify(ManualData))
+        Highcharts.chart('Chart4', {
+            tooltip: {
+                useHTML: true,
+                formatter: function () {
+                    //  return '<div> <b style=font-size:18px;>' + this.x +  '</b> <b style=font-size:18px> : ' + this.y + '</b></div>';
+                    return '<div>  <b style=font-size:18px> ' + this.y + '</b></div>';
+                }
+            },
+               
+            chart: {
+                type: 'spline'
+                //events: {
+                //    load() {
+                //        const chart = this;
+                //        chart.showLoading('Fetching data ...');
+                //        setTimeout(function() {
+                //            chart.hideLoading();
+                //            chart.series[0].setData(AutoScheduleCount)
+                //        }, 200);
+                //    }
+                //}
+            },
+            credits: {
+                enabled: false
+            },
+            plotOptions: {
+                series: {
+                    animation: {
+                        duration: 1000
+                    }
+                }
+            },
+            title: {
+                text: ''
+            },
+            xAxis: {
+                labels: {
+                    style: {
+                        fontWeight: 'bold',
+                        fontSize: "12px",
+                    }
+                },
+                categories:DateList
+            },
+            yAxis: {
+                labels: {
+                    style: {
+                        fontWeight: 'bold',
+                        fontSize: "10px",
+                    }
+                },
+                title: {
+                    text: ''
+                }
+            },
+            series: [{
+                name: 'Manual Schedule',
+                data:ManualData
+                
+            }, {
+                name: 'Auto Schedule',
+                data:AutoData
+            }]
+        }
+        //,
+        // function(chart) { // on complete
+        //     if(AutoDateList.length==0)
+        //     {
+        //         chart.renderer.text('No Data Available', 200, 120)
+        //            .css({
+        //                color: '#4572A7',
+        //                fontSize: '16px'
+        //            })
+        //            .add();
+        //     }
+        // }
+         );
+
+    });
+
+    function dayDiff(d1,d2)
+    {
+        var diff = d2.getTime() - d1.getTime();
+        var daydiff = diff / (1000 * 60 * 60 * 24);
+        return  daydiff;
+    }
+
+</script>
+
+
+

@@ -1,0 +1,255 @@
+﻿@*//@model CaregiverLite.Models.SchedulePatientRequestModel*@
+@{
+
+    //Layout = "~/Views/_ViewStart.cshtml";
+    Layout = "~/Views/Shared/_LayoutPasevaCustomer.cshtml";
+
+}
+
+
+
+
+
+<link href="~/Content/css/dataTables.bootstrap.css" rel="stylesheet">
+<link href="~/Content/css/dataTables.responsive.css" rel="stylesheet">
+<link href="~/Content/css/dataTables.tableTools.min.css" rel="stylesheet">
+
+<!-- LIST OF PATIENT START-->
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                @*<div class="ibox-title">
+
+
+                    </div>*@
+                <div class="ibox-content">
+                    <input type="hidden" id="hdnPatientRequestId" />
+                    <table id="myDataTable" class="table table-striped table-bordered table-hover dataTables-example">
+                        <thead>
+                            <tr>
+                                <th><strong>Patient</strong></th>
+                                <th><strong>MRN</strong></th>
+                                <th><strong>Street</strong></th>
+                                <th><strong>City</strong></th>
+                                <th><strong>State</strong></th>
+                                <th><strong>Zipcode</strong></th>
+                                <th><strong>Telephone</strong></th>
+                                <th><strong>PrimaryMD</strong></th>
+                                @*   <th><strong>Office</strong></th>*@
+
+                                @*<th style="width: 100px;" class="noExl">@CaregiverLite.Views.Resources.CareGiver.TableHeaderAction</th>*@
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-Vd" id="modalEditPopup">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel"> Details</h4>
+            </div>
+            <div class="modal-body row" id="EditPanel">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- LIST OF PATIENT END-->
+<script src="~/Scripts/js/jquery.dataTables.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="~/Scripts/js/oms.min.js"></script>
+
+<script type="text/javascript">
+
+    @*var tempMsg = '@TempData["Message"]';
+    var tempFlag = '@TempData["error"]';
+
+    if (tempFlag != "True") {
+        if (tempMsg != "")
+            toastr.success(tempMsg);
+    }
+    else {
+        if (tempMsg != "")
+            toastr.error(tempMsg);
+    }*@
+    function EditAdmin(ID, Patient) {
+        debugger;
+
+        $("#loading").show();
+        //var gh = (NurseId)
+        $('#EditPanel').load(INITURL + '/Appointment/Details/?ID=' + ID + '&Patient=' + Patient, function () {
+            sessionStorage.setItem("PartialView", "1");
+            $('#myModal2').modal({ backdrop: 'static', keyboard: false });
+            $('#myModal2').modal('show');
+            $("#loading").hide();
+        });
+    }
+    var oTable;
+
+    $(document).ready(function () {
+
+        $("#loading").show();
+        var jquey = jQuery.noConflict();
+        oTable = $('#myDataTable').DataTable({
+
+            responsive: true,
+            "dom": 'lfrtip',
+
+            "bPaginate": true,
+            "bServerSide": true,
+
+            "bSortable": true,
+            "sPaginationType": "full_numbers",
+            "oLanguage": {
+                "sProcessing": "<div class=\"loading\" id=\"loading\" style=\"display: block;\"></div>"
+            },
+            "processing": true,
+
+            "sAjaxSource": "GetPatientDetails",
+            "fnServerData": function (sSource, aoData, fnCallback) {
+                $.getJSON(sSource, aoData, function (json) {
+                    fnCallback(json);
+                }).fail(function (jqxhr, textStatus, error) {
+                    window.location.reload();
+                });
+            },
+            "fnServerParams": function (aoData) {
+                //aoData.push({ "name": "FilterOfficeId", "value": $('#ddFilterOffice option:selected').val() });
+            },
+            "fnDrawCallback": function (oSettings) {
+                //Navigation validation
+                var rowsPerPage = this.fnSettings()._iDisplayLength;
+                var rowsToShow = this.fnSettings().fnRecordsDisplay();
+                var table = $('#myDataTable').DataTable();
+                var info = table.page.info();
+                var currentPageNo = info.page + 1;
+                $("#loading").hide();
+            },
+            "responsive": {
+                "details": {
+                    "type": 'column'
+                }
+            },
+           "aoColumns": [
+
+                            {
+                                "sName": "Patient",
+                                "mRender": function (oObj) {
+                                    return '<span>' + oObj["PatientName"] + '</span>';
+                                }
+                            },
+                            {
+                                "sName": "MedicalId",
+                                "mRender": function (oObj) {
+                                    return oObj["MedicalId"];
+                                }
+                            },
+                            {
+                                "sName": "Street",
+                                "mRender": function (oObj) {
+                                    return oObj["Street"];
+                                }
+                            },
+                            {
+                                "sName": "City",
+                                "mRender": function (oObj) {
+                                    return oObj["City"];
+                                }
+                            },
+                            {
+                                "sName": "State",
+                                "mRender": function (oObj) {
+                                    return oObj["State"];
+                                }
+                            },
+                             {
+                                 "sName": "ZipCode",
+                                 "bSortable": false,
+                                 "mRender": function (oObj) {
+                                     return oObj["ZipCode"];
+                                 }
+                             }, {
+                                 "sName": "PhoneNo",
+                                 "bSortable": false,
+                                "mRender": function (oObj) {
+                                    return oObj["PhoneNo"];
+                                }
+                            },
+                              {
+                                  "sName": "PrimaryMD",
+                                  "bSortable": false,
+                                "mRender": function (oObj) {
+                                    return oObj["PrimaryMD"];
+                                }
+                              },
+                              //{
+                              //    "sName": "OfficeName",
+                              //    "mRender": function (oObj) {
+                              //        return oObj["OfficeName"];
+                              //    }
+                              //},
+                            @*{
+                                "sName": "PatientId",
+                                "bSortable": false,
+                                "mRender": function (oObj) {
+                                    var actionhtml = '';
+                                    actionhtml += '<a href="javascript:;" class="btn btn-xs btn-danger noExl" style="margin-top:5px; width:100%;" onclick="DeletePatientDetail(\'' + oObj["PatientId"] + '\');">@CaregiverLite.Views.Resources.CareGiver.ButtonDelete</a>'
+                                    actionhtml += '<a href="javascript:;" class="btn btn-xs btn-primary noExl" style="margin-top:5px; width:100%;" onclick="EditPatientDetail(\'' + oObj["PatientId"] + '\');">EDIT</a>'
+                                    return actionhtml;
+                                }
+                            },*@
+
+
+            ]
+        });
+
+        $('#myDataTable_filter input').unbind(); //Unbind direct search on each keypress
+        $('#myDataTable_filter input').bind('keyup', function (e) { //Bind Keyup event that filter data only on "Enter" key.
+            if (e.keyCode == 13) {
+                oTable.search(this.value).draw();
+            }
+        });
+        /* Init DataTables */
+        $('.carousel').carousel({
+            interval: false
+        });
+
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': { allow_single_deselect: true },
+            '.chosen-select-no-single': { disable_search_threshold: 10 },
+            '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+            '.chosen-select-width': { width: "95%" }
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+
+        $("#loading").hide();
+
+        ///Handle File Uploading start
+
+
+
+    });
+
+
+
+    function Filtration() {
+
+        oTable.search($('#myDataTable').val()).draw();
+    }
+</script>

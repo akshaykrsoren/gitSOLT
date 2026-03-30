@@ -1,0 +1,321 @@
+﻿
+@model CaregiverLite.Models.ReportsManagementDetails
+
+@{
+    ViewBag.Title = "Rescheduled Appointments";
+
+    //Layout = "~/Views/_ViewStart.cshtml";
+}
+
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-Vd" id="modalEditPopup">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel"> Details</h4>
+            </div>
+            <div class="modal-body row" id="EditPanel">
+
+            </div>
+        </div>
+    </div>
+</div>
+@*<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    @*<h5>Select Date</h5>*@
+@*<div class="ibox-tools">
+    @*<div class="ibox-tools">
+        <a class="btn btn-xs btn-primary popup-act" style="margin-top:-9px;" href="javascript:;" onclick="OpenAddNew()">MILAGE REPORT</a>
+        <div class="clearfix"></div>
+    </div>*@
+@*</div>*@
+@*</div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+
+
+
+
+<style>
+    .bg-success {
+        background-color: #19bb8c;
+    }
+
+    b, strong {
+        font-weight: 700;
+        color: white;
+    }
+
+    label {
+        color: blue;
+    }
+</style>
+
+
+
+
+
+<div class="ibox-content">
+    <div id="myDataTable_wrapper" class="dataTables_wrapper form-inline no-footer">
+        <div id="myDataTable_processing" class="dataTables_processing" style="display: none;">
+            <div class="loading" id="loading" style="display: block;">
+            </div>
+        </div>
+
+        <div class="ibox-content">
+
+
+            <br />
+            <table id="myDataTable" class="table table-striped table-bordered table-hover dataTables-example">
+
+                <thead>
+                    <tr role="row">
+                        <th>Patient</th>
+                        <th>NurseName</th>
+                        <th>Date</th>
+                        <th>ID</th>
+                        <th>Appointment Address</th>
+                        <th>Pin Code</th>
+                        <th>Appointment Status</th>
+                        <th>Office</th>
+                        <th>Rescheduled Details</th>
+
+                    </tr>
+                </thead>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+
+
+</div>
+<script src="~/Scripts/js/jquery.dataTables.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="~/Scripts/js/oms.min.js"></script>
+
+
+
+<script src="//maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCqG0NdAH_5gP1_D8jGhmTGeqNR-9z_afw" type="text/javascript"></script>
+
+
+
+<script>
+
+    var attendanceTable;
+    var oTable;
+    $(document).ready(function () {
+        debugger;
+        oTable = $('#myDataTable').DataTable({
+
+            responsive: true,
+            "dom": 'lfrtip',
+
+            "bPaginate": true,
+            "bServerSide": true,
+
+            "bSortable": true,
+            "sPaginationType": "full_numbers",
+            "oLanguage": {
+                "sProcessing": "<div class=\"loading\" id=\"loading\" style=\"display: block;\"></div>"
+            },
+            "processing": true,
+
+            "sAjaxSource": "getAppointmentDetailslist",
+            "fnServerData": function (sSource, aoData, fnCallback) {
+                $.getJSON(sSource, aoData, function (json) {
+                    fnCallback(json);
+                }).fail(function (jqxhr, textStatus, error) {
+                    window.location.reload();
+                });
+                debugger;
+            },
+            "fnServerParams": function (aoData) {
+                debugger;
+                aoData.push({ "name": "FilterNurseId", "value": $('#ddlcaregiver1 option:selected').val() });
+
+                debugger;
+            },
+            "fnDrawCallback": function (oSettings) {
+                //Navigation validation
+                debugger;
+                //var rowsPerPage =1;
+
+                var rowsPerPage = this.fnSettings()._iDisplayLength;
+                var rowsToShow = this.fnSettings().fnRecordsDisplay();
+                var table = $('#myDataTable').DataTable();
+                var info = table.page.info();
+                var currentPageNo = info.page + 1;
+                $("#loading").hide();
+                debugger;
+            },
+            "responsive": {
+                "details": {
+                    "type": 'column'
+                }
+            },
+            "aoColumns": [
+                             {
+                                 "sName": "Patient",
+                                 "mRender": function (oObj) {
+                                     return oObj["Patientname"];
+                                 }
+                             },
+                             {
+                                 "sName": "NurseName",
+                                 "mRender": function (oObj) {
+                                     return oObj["Nmae"];
+                                 }
+                             },
+                           {
+                               "sName": "Date",
+                               "mRender": function (oObj) {
+                                   return '<span>' + oObj["Date"] + '</span>';
+                               }
+                           },
+
+                            {
+                                "sName": "ID",
+                                "mRender": function (oObj) {
+                                    return oObj["ID"];
+                                }
+                            },
+
+                             {
+                                 "sName": "AppointmentAddress",
+                                 "bSortable": false,
+                                 "mRender": function (oObj) {
+                                     return oObj["AppointmentAddress"];
+                                 }
+                             }, {
+                                 "sName": "PinCode",
+                                 "bSortable": false,
+                                 "mRender": function (oObj) {
+                                     return oObj["PinCode"];
+                                 }
+                             },
+                              {
+                                  "sName": "AppointmentStatus",
+                                  "bSortable": false,
+                                  "mRender": function (oObj) {
+                                      return oObj["AppointmentStatus"];
+                                  }
+                              },
+                              {
+                                  "sName": "OfficeName",
+                                  "mRender": function (oObj) {
+                                      return oObj["Office"];
+                                  }
+                              },
+                            {
+                                "sName": "Rescheduled Details",
+                                "bSortable": false,
+                                "mRender": function (oObj) {
+                                    var actionhtml = '';
+                                    actionhtml += '<a href="javascript:;" class="btn btn-xs btn-primary" style="margin-top:5px; width:100%;" onclick="EditAdmin(\'' + oObj["ID"] + '\',\'' + oObj["Patient"] + '\');">Click Here</a>'
+                                    return actionhtml;
+
+                                }
+                            },
+
+
+            ]
+        });
+        debugger;
+        $('#myDataTable_filter input').unbind(); //Unbind direct search on each keypress
+        $('#myDataTable_filter input').bind('keyup', function (e) { //Bind Keyup event that filter data only on "Enter" key.
+            if (e.keyCode == 13) {
+                oTable.search(this.value).draw();
+            }
+        });
+        /* Init DataTables */
+        $('.carousel').carousel({
+            interval: false
+        });
+
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': { allow_single_deselect: true },
+            '.chosen-select-no-single': { disable_search_threshold: 10 },
+            '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+            '.chosen-select-width': { width: "95%" }
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+
+        $("#loading").hide(); $('#myDataTable_filter input').unbind(); //Unbind direct search on each keypress
+        $('#myDataTable_filter input').bind('keyup', function (e) { //Bind Keyup event that filter data only on "Enter" key.
+
+            if (e.keyCode == 13) {
+                oTable.search(this.value).draw();
+            }
+
+        });
+        /* Init DataTables */
+        $('.carousel').carousel({
+            interval: false
+        });
+
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': { allow_single_deselect: true },
+            '.chosen-select-no-single': { disable_search_threshold: 10 },
+            '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+            '.chosen-select-width': { width: "95%" }
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+
+        $("#loading").hide();
+
+    });
+
+    //Neer ending with pagination
+
+
+
+
+    function EditAdmin(ID, Patient) {
+        debugger;
+        $("#loading").show();
+        var gh = (NurseId)
+        $('#EditPanel').load(INITURL + '/AppointmentDetails/Details/?ID=' + ID + '&Patient=' + Patient, function () {
+            sessionStorage.setItem("PartialView", "1");
+            $('#myModal2').modal({ backdrop: 'static', keyboard: false });
+            $('#myModal2').modal('show');
+            $("#loading").hide();
+        });
+    }
+
+
+
+
+</script>
+
+<script>
+
+
+function Filtration() {
+
+    oTable.search($('#myDataTable').val()).draw();
+
+    alert("ccccccccc");
+    debugger;
+}
+
+
+
+</script>
+

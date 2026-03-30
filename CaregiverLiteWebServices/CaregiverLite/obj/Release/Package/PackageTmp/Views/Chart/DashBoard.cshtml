@@ -1,0 +1,503 @@
+﻿
+@{
+    ViewBag.Title = "DashBoard";
+
+}
+
+<head>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>*@
+
+    <style>
+        .Topmargin {
+            margin-top: 30px;
+        }
+
+        #myDIV1, #myDIV2, #myDIV3, #myDIV4, #myDIV5 {
+            position: absolute;
+            right: 0px;
+            width: 69%;
+        }
+
+        .containerDemo {
+            background: white;
+            padding: 20px;
+        }
+
+
+        .classMainChart {
+            margin-top: 57px;
+        }
+
+
+        /* Style the visit */
+        .Visit_btn1, .TypeOfVisit_btn1, .WeeklySchedule_btn1, .PatientOfficeWise_btn1, .Manual_Auto_Schedule_btn1, .SchedulingType_btn1 {
+            border: none;
+            outline: none;
+            padding: 5px 5px 5px 5px;
+            background-color: #ede7e7ad;
+            cursor: pointer;
+            font-size: 18px;
+            margin: -1px;
+        }
+
+            /* Style the active class, and buttons on mouse-over */
+            .active, .Visit_btn1:hover {
+                background-color: #666;
+                color: white;
+            }
+            /* Style the active class, and buttons on mouse-over */
+            .active, .TypeOfVisit_btn1:hover {
+                background-color: #666;
+                color: white;
+            }
+
+
+            .active, .WeeklySchedule_btn1:hover {
+                background-color: #666;
+                color: white;
+            }
+
+            .active, .SchedulingType_btn1:hover {
+                background-color: #666;
+                color: white;
+            }
+
+            .active, .Manual_Auto_Schedule_btn1:hover {
+                background-color: #666;
+                color: white;
+            }
+
+            .active, .PatientOfficeWise_btn1:hover {
+                background-color: #666;
+                color: white;
+            }
+
+        .HDR {
+            border-radius: 10px;
+            background-color: white;
+            padding: 10px;
+            margin-top: 50px;
+        }
+         .containerstyle {
+         width: 1266px;
+       background-color:#E3F3FE;
+        }
+    </style>
+</head>
+
+
+
+
+<script>
+
+    var NurseCount =  "";
+    var PatientCount =   "";
+    var AppointmentCount =  "";
+    var TimeSlice = [];
+    var DateDifference = 0;
+    $(document).ready(function () {
+ $("#loading").show();
+        localFromDate = "";
+        localToDate = "";
+        currentLocalFormatedDate = formatDate(new Date());
+
+           Get_DashboardRecord_ChartData();
+           Get_PatientListOfficeWise_ChartData(null, "7");
+           Get_TypeOfVisitPatinetWise_ChartData(null, "7");
+          Get_ManualAutoSchedule_ChartData(null, "7");
+           Get_WeeklySchedule_ChartData(null, "30");
+
+
+
+
+
+        // Get_NurseVisitData_ChartData(null,"365");
+        //  Get_PatientAppointment_ChartData(null, "0");
+
+
+
+
+
+
+
+    });
+    function formatDate(date) {
+
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2)
+            month = '0' + month;
+        if (day.length < 2)
+            day = '0' + day;
+
+        return [year, month, day].join('-');
+    }
+    function enableDisable(element, divId) {
+        var header = document.getElementById(divId);
+        var btns = header.getElementsByTagName("button");
+        for (var i = 0; i < btns.length; i++) {
+            if (btns[i].className.includes("active")) {
+                btns[i].classList.remove("active");
+            }
+        }
+        debugger;
+        element.className += " active";
+
+    }
+
+
+    function Get_DashboardRecord_ChartData() {
+
+
+        var url = INITURL + '/Chart/DashBoardRecords_ForChart';
+        var result;
+        $.ajax({
+            url: url,
+            type: 'GET',
+            success: function (data) {
+                debugger;
+                result = data;
+                nfObject = new Intl.NumberFormat('en-US');
+
+                NurseCount = nfObject.format(result[0].Count);// result[0].Count;
+                PatientCount = nfObject.format(result[1].Count); //result[1].Count;
+                AppointmentCount = nfObject.format(result[2].Count);// result[2].Count;
+                TotalDrivingCount = nfObject.format(result[3].Count);// result[2].Count;
+
+
+                
+                PatientAdded = result[4].Count;
+                NurseAdded = result[5].Count;
+                AppointmentAdded = result[6].Count;
+                totaldrivingAddedd = result[7].Count;
+
+                debugger;
+
+
+                //  output = nfObject.format(AppointmentCount);
+
+
+
+                document.getElementById("PatientRecordId").innerHTML = PatientCount;
+                if (parseInt(PatientAdded) == 0) {
+                    document.getElementById("TotalPatientRecordStatusId").innerHTML = "No Patient added today";
+                } else {
+                    document.getElementById("TotalPatientRecordStatusId").innerHTML = `+${PatientAdded} Patient added today`;
+                }
+
+
+
+
+                document.getElementById("NurseRecordId").innerHTML = NurseCount;
+                if (parseInt(NurseAdded) == 0) {
+                    document.getElementById("TotalCaregiverRecordStatusId").innerHTML = "No Caregiver added today";
+                } else {
+                    document.getElementById("TotalCaregiverRecordStatusId").innerHTML = `+${NurseAdded} Caregiver added`;
+                }
+
+
+
+                document.getElementById("TotalAppointmentId").innerHTML = AppointmentCount;
+
+                if (parseInt(AppointmentAdded) == 0) {
+                    document.getElementById("TotalAppointmenStatustId").innerHTML = "No Appointment today";
+                } else {
+                    document.getElementById("TotalAppointmenStatustId").innerHTML = `+${AppointmentAdded} Appointment added`;
+                }
+
+                document.getElementById("TotalDistanceId").innerHTML = TotalDrivingCount;
+
+                debugger;
+                var ssss = parseInt(totaldrivingAddedd);
+
+                if (parseInt(totaldrivingAddedd) == 0 || totaldrivingAddedd == "") {
+                    document.getElementById("TotalDistanceStatusId").innerHTML = "No Driving today added";
+                } else {
+                    let gg = TotalDrivingCount;
+
+                    document.getElementById("TotalDistanceStatusId").innerHTML = `+${totaldrivingAddedd}  Miles driven added`;
+                }
+
+
+
+
+
+
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+
+
+
+    }
+    function Get_PatientListOfficeWise_ChartData(element, Interval) {
+        if (element != null) {
+            enableDisable(element, "myDIV5");
+        }
+        let currentDate = new Date();
+        localFromDate = "";
+        localToDate = "";
+        let FromDate = currentDate.setDate(currentDate.getDate() - parseInt(Interval));
+        localFromDate = formatDate(FromDate);
+        localToDate = currentLocalFormatedDate;
+$("#loading").show();
+        $('#PatientOfficeWiseChart').load('/Chart/PatientOfficewise_ChartData?FromDate=' + localFromDate + '&ToDate=' + localToDate);
+
+    }
+    function Get_TypeOfVisitPatinetWise_ChartData(element, Interval) {
+        if (element != null) {
+            enableDisable(element, "myDIV2");
+        }
+        let currentDate = new Date();
+        localFromDate = "";
+        localToDate = "";
+        let FromDate = currentDate.setDate(currentDate.getDate() - parseInt(Interval));
+        localFromDate = formatDate(FromDate);
+        localToDate = currentLocalFormatedDate;
+$("#loading").show();
+        $('#TypeOfVisitPatientChart').load('/Chart/TypeOfVisitByPatient_ChartData?FromDate=' + localFromDate + '&ToDate=' + localToDate);
+
+    }
+    function Get_ManualAutoSchedule_ChartData(element, Interval) {
+debugger;
+        if (element != null) {
+            enableDisable(element, "myDIV6");
+        }
+        let currentDate = new Date();
+        localFromDate = "";
+        localToDate = "";
+        let FromDate = currentDate.setDate(currentDate.getDate() - parseInt(Interval));
+        localFromDate = formatDate(FromDate);
+        localToDate = currentLocalFormatedDate;
+        DateDifference = parseInt(Interval);
+        debugger;
+$("#loading").show();
+        $('#AutoSchedulingChart').load('/Chart/ManualAutoScheduling_ChartData?FromDate=' + localFromDate + '&ToDate=' + localToDate);
+
+    }
+
+    function Get_WeeklySchedule_ChartData(element, Interval) {
+        if (element != null) {
+            enableDisable(element, "myDIV3");
+        }
+        let currentDate = new Date();
+        localFromDate = "";
+        localToDate = "";
+        let FromDate = currentDate.setDate(currentDate.getDate() - parseInt(Interval));
+        localFromDate = formatDate(FromDate);
+        localToDate = currentLocalFormatedDate;
+$("#loading").show();
+        $('#WeeklySchedule_Chart').load('/Chart/WeeklyScheduleActivity_ChartData?FromDate=' + localFromDate + '&ToDate=' + localToDate);
+
+    }
+
+
+
+    function Get_PatientAppointment_ChartData(element, Interval) {
+        if (element != null) {
+            enableDisable(element, "myDIV2");
+        }
+
+        let currentDate = new Date();
+        localFromDate = "";
+        localToDate = "";
+        let FromDate = currentDate.setDate(currentDate.getDate() - parseInt(Interval));
+        localFromDate = formatDate(FromDate);
+        localToDate = currentLocalFormatedDate;
+
+        $('#PatientAppointmentChart').load('/Chart/PatientAppointment_ChartData?FromDate=' + localFromDate + '&ToDate=' + localToDate);
+
+    }
+
+
+
+
+
+
+
+
+
+
+</script>
+
+@*header count row*@
+<div class="container containerstyle classMainChart" >
+    <div class="row">
+
+        <div class="col-md-3">
+            <div class="HDR">
+                <p style="margin-bottom:2px">Total Patients</p>
+                <b style="font-size:25px" id="PatientRecordId"></b>
+                @*<p style="margin-bottom:2px"><span style="color:springgreen" id="PatientRecordTotal">+2</span>PatientAdded</p>*@
+
+                <div style="margin-top: 20px;">
+                    <img src="~/Content/ic-trending-up-24px.svg" />
+                    <span style="color:#0D886B" id="TotalPatientRecordStatusId">  </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="HDR">
+                <p style="margin-bottom:2px">Total Caregiver</p>
+                <b style="font-size:25px" id="NurseRecordId"></b>
+                <div style="margin-top: 20px;">
+                    <img src="~/Content/ic-trending-up-24px.svg" />
+                    <span style="color:#0D886B" id="TotalCaregiverRecordStatusId">  </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="HDR">
+                <p style="margin-bottom:2px">Total Appointment Requested</p>
+                <b style="font-size:25px" id="TotalAppointmentId"></b>
+                <div style="margin-top: 20px;">
+                    <img src="~/Content/ic-trending-up-24px.svg" />
+                    <span style="color:#0D886B" id="TotalAppointmenStatustId">  </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="HDR">
+                <p style="margin-bottom:2px">Total Distance Driven (Miles)</p>
+                <b style="font-size:25px" id="TotalDistanceId"></b>
+                <div style="margin-top: 20px;">
+                    <img src="~/Content/ic-trending-up-24px.svg" />
+                    <span style="color:#0D886B" id="TotalDistanceStatusId">  </span>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+
+
+@*DashBoard row*@
+<div class="container containerstyle classMainChart" style="padding-top: 30px">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="containerDemo">
+                <div class="row">
+                    <div class="col-md-6">
+                        <b style="font-size:18px">No of Patients office wise</b>
+                        <b style="color:#08a0ff">Total Patients: <span id="TotalPatientId"></span></b>
+                    </div>
+                    <div class="col-md-6">
+                        <div id="myDIV5">
+                            <button class="PatientOfficeWise_btn1" onclick="Get_PatientListOfficeWise_ChartData(this,'0')">Today</button>
+                            <button class="PatientOfficeWise_btn1 active" onclick="Get_PatientListOfficeWise_ChartData(this, '7')">7 Days</button>
+                            <button class="PatientOfficeWise_btn1" onclick="Get_PatientListOfficeWise_ChartData(this, '365')">Other</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="PatientOfficeWiseChart" class="Topmargin">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="containerDemo">
+                <div class="row">
+                    <div class="col-md-6">
+                        <b style="font-size:18px">Visit Type Requests </b></br>
+                        <b style="color:#28A858">Total Patients : <span id="TypeofVisitIdID"></span></b>
+                    </div>
+                    <div class="col-md-6">
+
+                        <div id="myDIV2">
+                            <button class="TypeOfVisit_btn1" onclick="Get_TypeOfVisitPatinetWise_ChartData(this, '0')">Today</button>
+                            <button class="TypeOfVisit_btn1 active" onclick="Get_TypeOfVisitPatinetWise_ChartData(this, '7')">7 Days</button>
+                            <button class="TypeOfVisit_btn1" onclick="Get_TypeOfVisitPatinetWise_ChartData(this, '2555')">Other</button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div id="TypeOfVisitPatientChart" class="Topmargin">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row" style="margin-top:80px">
+
+        <div class="col-md-6">
+            <div class="containerDemo">
+                <div class="row">
+                    <div class="col-md-6">
+                        <b style="font-size:18px">Weekly Schedules Activity </b><br>
+                    </div>
+                    @*<div class="col-md-6">
+                            <div id="myDIV3">
+                                <button class="WeeklySchedule_btn1 active" onclick="Get_WeeklySchedule_ChartData(this, '0')">Today</button>
+                                <button class="WeeklySchedule_btn1" onclick="Get_WeeklySchedule_ChartData(this, '7')">7 Days</button>
+                                <button class="WeeklySchedule_btn1" onclick="Get_WeeklySchedule_ChartData(this, '30')">Other</button>
+
+                            </div>
+                        </div>*@
+
+                </div>
+                <div id="WeeklySchedule_Chart" class="Topmargin">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="containerDemo">
+                <div class="row">
+                    <div class="col-md-6">
+                        <b style="font-size:20px">Manual & Automatically Schedule</b></br>
+                        <b style="color:#08a0ff">Total Manual: <span id="ManualTotalID"></span></b></br>
+                        <b style="color:#7A14DC">Total Autometic: <span id="AutometicTotalID"></span></b>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div id="myDIV6">
+                            <button class="Manual_Auto_Schedule_btn1" onclick="Get_ManualAutoSchedule_ChartData(this, '0')">Today</button>
+                            <button class="Manual_Auto_Schedule_btn1 active" onclick="Get_ManualAutoSchedule_ChartData(this, '7')">7 Days</button>
+                            <button class="Manual_Auto_Schedule_btn1" onclick="Get_ManualAutoSchedule_ChartData(this, '365')">Other</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="AutoSchedulingChart" class="Topmargin">
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+

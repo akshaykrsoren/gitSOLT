@@ -1,0 +1,163 @@
+﻿@model CaregiverLite.Models.CareGiverModel
+<style>
+    .table > tbody > tr > td, .table > tfoot > tr > td {
+        border-top: 1px solid #FFF;
+        text-align: left;
+    }
+
+    .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+        border: 1px solid #FFF;
+        text-align: left;
+    }
+
+    .video-container {
+        position: relative;
+        padding-bottom: 55%;
+        padding-top: 0;
+        height: 0;
+        overflow: hidden;
+    }
+
+        .video-container iframe, .video-container object, .video-container embed {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+</style>
+<div class="modal fade" id="HoursRateDetails" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                @*<h4 class="modal-title" id="myModalLabel">Hour rates for other timeslots</h4>*@
+                <h4 class="modal-title" id="myModalLabel">Reimbursement charge for other timeslots</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-sm-12  ibox-title">
+                    Day (@(System.Configuration.ConfigurationManager.AppSettings["MorningShiftStartTime"] + " to " + System.Configuration.ConfigurationManager.AppSettings["MorningShiftEndTime"]))
+                </div>
+                <div class=" col-sm-12">
+                    <h5>
+                        $@Model.HoursRateList.WeekDayRate
+                    </h5>
+                </div>
+                <div class="col-sm-12  ibox-title">
+                    Night (@(System.Configuration.ConfigurationManager.AppSettings["NightShiftStartTime"] + " to " + System.Configuration.ConfigurationManager.AppSettings["NightShiftEndTime"]))
+                </div>
+                <div class=" col-sm-12 ">
+                    <h5>
+                        $@Model.HoursRateList.WeekNightRate
+                    </h5>
+                </div>
+                <div class="col-sm-12  ibox-title">
+                    Weekend Day (@(System.Configuration.ConfigurationManager.AppSettings["MorningShiftStartTime"] + " to " + System.Configuration.ConfigurationManager.AppSettings["MorningShiftEndTime"]))
+                </div>
+                <div class=" col-sm-12">
+                    <h5>
+                        $@Model.HoursRateList.WeekEndDayRate
+                    </h5>
+                </div>
+                <div class="col-sm-12  ibox-title">
+                    Weekend Night (@(System.Configuration.ConfigurationManager.AppSettings["NightShiftStartTime"] + " to " + System.Configuration.ConfigurationManager.AppSettings["NightShiftEndTime"]))
+                </div>
+                <div class=" col-sm-12">
+                    <h5>
+                        $@Model.HoursRateList.WeekEndNightRate
+                    </h5>
+                </div>
+                <div class="col-sm-12  ibox-title">
+                    Holiday
+                </div>
+                <div class=" col-sm-12">
+                    <h5>
+                        $@Model.HoursRateList.HolidayRate
+                    </h5>
+                </div>
+                <div class="row"></div>
+            </div>
+            <div class="modal-footer">
+                <a href="" class="btn btn-primary mt20 pull-right" style="width:100px;" data-dismiss="modal">OK</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModalVideo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <div class="video-container">
+                    <iframe src="" id="popupvideoid" height="100%" width="100%" frameborder="0" scrolling="yes"></iframe>
+                </div>
+                
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<form name="f1">
+    <div class="ibox-content">
+        <div class="row">
+            <div class="col-md-12">
+                <img src="@Model.ProfileImage" class="img-responsive" style="margin: 0 auto; height: 250px;  width: 250px; border-radius: 50%; background-color: #FFF; padding: 5px; box-shadow: 1px 1px 1px #B6B6B6;">
+            </div>
+            <div class="col-md-12" style="padding-top:10px; text-align:center;">
+                <h2 style="font-weight:bold; text-transform:uppercase; color:#000; margin-bottom:0;">  @Model.Name</h2>
+                <input type="hidden" id="hdnNuseId" value="@Model.NurseId" />
+                <h5 style="font-weight:normal; font-size:15px; color:#999;">@Model.ServiceNames</h5>
+                <div class="col-md-6 col-md-offset-3" style="padding-top:10px;">
+                    <table class="table table-bordered table-hover" style="font-size:15px; border:none;">
+                        <tbody>
+                            <tr>
+                                <td style="width: 240px;vertical-align:top">@CaregiverLite.Views.Resources.CareGiver.TableHeaderHourRate</td>
+                                <td>
+                                    $ @Model.HoursRate<br />
+                                    <a href="javascript:void(0);" style="color:#337AB7;text-decoration:underline" data-toggle="modal" data-target="#HoursRateDetails">Click here to see reimbursement charge for other timeslots</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>@CaregiverLite.Views.Resources.CareGiver.TableHeaderEmail</td>
+                                <td>@Model.Email</td>
+                            </tr>
+                            <tr>
+                                <td>@CaregiverLite.Views.Resources.CareGiver.TableHeaderPhone</td>
+                                <td>@Model.Phone</td>
+                            </tr>
+                            <tr>
+                                <td>@CaregiverLite.Views.Resources.CareGiver.TableHeaderAddress</td>
+                                <td>@Model.Address</td>
+                            </tr>
+                            <tr>
+                                <td>@CaregiverLite.Views.Resources.CareGiver.TableHeaderServiceRadius</td>
+                                <td>@Model.ServiceRadius - @Model.DistanceUnit</td>
+                            </tr>
+                            <tr>
+                                <td>@CaregiverLite.Views.Resources.CareGiver.TableHeaderEducation</td>
+                                <td>@Model.Education</td>
+                            </tr>
+                            @if (Model.ProfileVideo != "")
+                            {
+                                <tr>
+                                    <td>Profile Video</td>
+                                    <td><a href="javascript:void(0);" onclick="OpenVideoPopup();">Click to see profile video</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <a href="#" style="margin-top:10px;" class="btn btn-xs btn-primary pull-right" data-toggle="modal" data-target="#myModal">Edit Profile</a>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        @Html.Partial("_FeedBackReview")
+    </div>
+</form>
+<script type="text/javascript">
+    function OpenVideoPopup() {
+        $('.loading').show();
+        $("#popupvideoid").attr("src", '@Model.ProfileVideo');
+        $("#myModalVideo").modal('show');
+        $('.loading').hide();
+    }
+</script>

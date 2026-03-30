@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = @CaregiverLite.Views.Resources.Account.TitleError;
+    Layout = "~/Views/shared/_LoginLayout.cshtml";
+}
+<style>
+    .btn-primary {
+        background-color: #088BCA;
+        color: #FFFFFF;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        line-height: 25px;
+        width: 70px;
+        border-radius: 5px;
+    }
+</style>
+<div style="background:rgba(0,0,0,0.5); height:100vh;">
+    <div>
+        <div class="middle-box text-center loginscreen  animated fadeInDown">
+            <div style="background:#f5f5f5;padding:0 10px;border-radius:10px;">
+                <h1 class="logo-name">@CaregiverLite.Views.Resources.Account.TitleLogin</h1>
+                <div>
+                    <h3>Server error</h3>
+                    <p>
+                        Some error has occurred.
+                        Please, click OK and sign in again.
+
+                    </p>
+                    <a href="~/Account/Login" class="btn btn-xs btn-primary">OK</a>
+                    <p class="m-t" style="padding-bottom:10px;">@CaregiverLite.Views.Resources.Layout.FooterCopyright</p>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>

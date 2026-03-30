@@ -1,0 +1,94 @@
+﻿<style>
+    .css-digits {
+        float: right;
+    }
+</style>
+
+<a href="" id="btnFilter3" class="btn btn-xs pull-right btn-primary">@CaregiverLite.Views.Resources.Dashboard.ButtonFilter</a>
+
+<div class="clearfix"></div>
+<div class="hr-line-dashed"></div>
+<div class="row">
+    <div class="col-md-12">
+        <table id="myDataTable3" class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>@CaregiverLite.Views.Resources.Dashboard.TableHeaderPatientName</th>                   
+                    <th>@CaregiverLite.Views.Resources.Dashboard.TableHeaderDateTime</th>
+                    <th>@CaregiverLite.Views.Resources.Dashboard.TableHeaderTotalPayment</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (CaregiverLite.CaregiverLiteService.PatientRequests item in @ViewBag.PaymentReceiveList)
+                {
+                    <tr>
+                        <td>@item.PatientName</td>                     
+                        <td>@item.Date @item.FromTime</td>
+                        <td style="text-align:right">@item.DuePayment</td>
+                    </tr>
+                }
+          </tbody>
+        </table>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#loading").show();
+        $('#datetimepicker11').datetimepicker({
+            format: "MM/DD/YYYY"
+        });
+        $('#datetimepicker12').datetimepicker({
+            format: "MM/DD/YYYY"
+        });
+        $('#myDataTable3').dataTable({
+            responsive: true,
+            "dom": 'lfrtip'
+        });
+        $("#loading").hide();
+    });
+
+    $("#ToTime3").val(format(getLastWeek(), "MM/dd/yyyy"))
+    $("#FromTime3").val(format(new Date(), "MM/dd/yyyy"))
+
+    function getLastWeek() {
+        var today = new Date();
+        var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 7);
+        return lastWeek;
+    }
+    
+
+
+    $("#btnFilter3").click(function () {
+        $("#loading").show();
+        var patient = $("#ddlPatient3").val();
+        var fromdate = $("#FromTime3").val() == "" ? "1000-01-01" : $("#FromTime3").val();
+        var todate = $("#ToTime3").val() == "" ? "1000-01-01" : $("#ToTime3").val();
+        patient = patient.replace(/ /g, "$");
+        if ($('#FromTime3').val() == "") {
+            alert('@CaregiverLite.Views.Resources.Dashboard.RequiredMsgDate7');
+            $("#loading").hide();
+            return false;
+            
+        }
+        if ($('#ToTime3').val() == "") {
+            alert('@CaregiverLite.Views.Resources.Dashboard.RequiredMsgDate8');
+            $("#loading").hide();
+            return false;
+           
+        }
+        else {
+            $("#ProjectedPayment").load('@(Url.Action("GetProjectedPayment", "Dashboard", null, Request.Url.Scheme))?FromDate=' + fromdate + "&ToDate=" + todate + "&PatientId=" + patient, function () {
+                $("#FromTime3").val(fromdate == "1000-01-01" ? "" : fromdate);
+                $("#ToTime3").val(todate == "1000-01-01" ? "" : todate);
+                $("#ddlPatient3").val(patient.replace(/\$/g, " "))
+            });
+            return false;
+        }
+       
+    });
+    sessionStorage.setItem("PartialView", "1");
+</script>  

@@ -1,0 +1,158 @@
+﻿@model CaregiverLite.Models.CareGiverModel
+
+<div class="modal fade" id="myModalCaregiverProfileVideo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="z-index: 10001;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" onclick="CloseProfileVideoModal()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <iframe src="" id="popupCaregiverProfilevideoid" height="360" width="100%" frameborder="0" scrolling="yes" allowfullscreen></iframe>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<div class="col-md-6">
+    <img src="@Model.ProfileImage" id="imgProfileImage" class="img-responsive" style="width: 270px; height: 210px;">
+    @if (!string.IsNullOrEmpty(Model.ProfileVideo))
+    {
+        <br />
+        <a href="javascript:void(0);" onclick="OpenVideoCaregiverProfilePopup()">Click here to see video</a>
+    }
+
+</div>
+
+<div class="col-md-6" style="z-index: 1001;">
+    <table class="table table-bordered table-hover">
+        <tbody>
+            <tr>
+                <td style="width:120px;font-weight:bold;">@CaregiverLite.Views.Resources.CareGiver.TableHeaderName</td>
+                <td style="word-break: break-all;">
+                    @Model.Name
+                    <input type="hidden" id="hdnNuseId" value=@Model.NurseId />
+                </td>
+            </tr>
+            <tr>
+                <td style="font-weight:bold;">@CaregiverLite.Views.Resources.CareGiver.TableHeaderEmail</td>
+                <td style="word-break: break-all;">
+                    @Model.Email
+                </td>
+            </tr>
+            <tr>
+                <td style="font-weight:bold;">@CaregiverLite.Views.Resources.CareGiver.TableHeaderPhone</td>
+                <td>@Model.Phone</td>
+            </tr>
+            <tr>
+                <td style="font-weight:bold;">@CaregiverLite.Views.Resources.CareGiver.TableHeaderAddress</td>
+                <td style="word-break: break-all;">@Model.Address</td>
+            </tr>
+            <tr>
+                <td style="font-weight:bold;">@CaregiverLite.Views.Resources.CareGiver.TableHeaderZipCode</td>
+                <td>@Model.ZipCode</td>
+            </tr>
+            <tr>
+                <td style="font-weight:bold;">@CaregiverLite.Views.Resources.CareGiver.TableHeaderEducation</td>
+                <td>@Model.Education</td>
+            </tr>
+            <tr>
+                <td style="font-weight:bold;">@CaregiverLite.Views.Resources.CareGiver.TableHeaderServices</td>
+                <td>@Model.ServiceNames</td>
+            </tr>
+            <tr>
+                <td style="font-weight:bold;">@CaregiverLite.Views.Resources.CareGiver.TableHeaderUserName</td>
+                <td>@Model.Username</td>
+            </tr>
+            <tr>
+                <td style="font-weight:bold;">@CaregiverLite.Views.Resources.CareGiver.TableHeaderPassword</td>
+                <td style="display:none;" id="ShowPass">
+                    <span>@Model.Password</span>
+                    <span style="position: absolute; right: 16px;height: 40px;">
+                        <button class="btn btn-link" style="position: relative; top: -7px;"><i class="fa fa-eye" aria-hidden="true" onclick="hidePassword()"></i></button>
+                    </span>
+                </td>
+                <td style="display:block;" id="hidePass">
+                    <span>**********</span>
+                    <span style="position: absolute; right: 16px;height: 40px;">
+                        <button class="btn btn-link" style="position: relative; top: -7px;"><i class="fa fa-eye-slash" aria-hidden="true" onclick="showPassword()"></i></button>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td style="font-weight:bold;">@CaregiverLite.Views.Resources.CareGiver.TableHeaderTimezone</td>
+                <td>@Model.Timezone</td>
+            </tr>
+            <tr>
+                <td style="font-weight:bold;">@CaregiverLite.Views.Resources.CareGiver.TableHeaderOffice</td>
+                <td>@Model.Office</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="clearfix"></div>
+@if (ViewContext.Controller.HasRoles("SuperAdmin") || ViewContext.Controller.HasRoles("Admin") || ViewContext.Controller.IsSysAdmin())
+{
+    <div class="col-md-12" style="margin-bottom: 5px;" id="dvedit">
+        <a href="javascript:;" class="btn btn-xs btn-primary pull-right" onclick="OpenEditPopup(@Model.NurseId);">@CaregiverLite.Views.Resources.CareGiver.ButtonEditProfile</a>
+    </div>
+}
+
+<div class="clearfix"></div>
+<div class="col-md-12">
+    <div style="background: #1DCA75;color:#fff; padding: 6px 12px 0;">
+        <label for="Certificates" style="font-size: 18px;">Certificates</label>
+    </div>
+    @foreach (var item in Model.Certificate)
+    {
+        if (@item != null)
+        {
+            <div class="col-md-3" style="margin-top:10px;">
+                <img src='@item' id="imgCertificateImage" class="img-responsive" style="width: 200px; height: 120px;">
+            </div>
+        }
+    }
+</div>
+
+<script type="text/javascript">
+    function OpenEditPopup(id) {
+        $("#loading").show();
+        $('#EditPanel').load(INITURL +'/CareGiver/EditCareGiver/' + id, function () {
+            sessionStorage.setItem("PartialView", "1");
+            $('#modalEditCareGiver').modal('show');
+        });
+    }
+
+    $(document).ready(function () {
+        $("#loading").hide();
+
+        //var IsEdit = localStorage.getItem("IsEdit");
+
+        var pathname = window.location.pathname; 
+
+        //if(IsEdit == 0)
+        //{
+        if(pathname == "/PatientRequest/PatientRequest")
+            {
+            $('#dvedit').hide();
+
+        }
+    });
+
+    function OpenVideoCaregiverProfilePopup() {
+        $('.loading').show();
+        $("#popupCaregiverProfilevideoid").attr("src", '@Model.ProfileVideo');
+        $("#myModalCaregiverProfileVideo").modal('show');
+        $('.loading').hide();
+    }
+
+    function CloseProfileVideoModal() {
+        $('#myModalCaregiverProfileVideo').modal('hide');
+    }
+
+    function showPassword() {
+        $("#hidePass").hide();
+        $("#ShowPass").show();
+    }
+    function hidePassword() {
+        $("#ShowPass").hide();
+        $("#hidePass").show();
+    }
+
+</script>

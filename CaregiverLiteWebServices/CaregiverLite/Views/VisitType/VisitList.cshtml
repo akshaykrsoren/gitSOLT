@@ -1,0 +1,233 @@
+﻿@model CaregiverLite.Models.VisitTypeModel
+@{
+    ViewBag.Title ="Visits";
+    //Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+
+<style>
+    .navigator li {
+        display: inline-block;
+        padding: 0 5px;
+    }
+
+    .field-validation-error {
+        color: red;
+        float: right;
+    }
+
+    .carousel-control {
+        top: 43%;
+    }
+</style>
+
+@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+{
+    <!-- EDIT POPUP START -->
+
+    <!-- EDIT POPUP END -->
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "fmAddVisitRequest", @class = "horizontal-form", @enctype = "multipart/form-data" }))
+{
+    <div class="wrapper wrapper-content animated fadeInRight containerstyle">
+        <div class="row">
+            <div class="col-md-4">
+                @*<div class="alert alert-danger alert-dismissable" style="display:none" id="dvError1">
+                        <button onclick="divClose();" class="close" type="button">×</button>
+                        <label id="lblError1"></label>
+                    </div>*@
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Add visit Types</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Visit Type</label>
+                                    <span style="color:red;">*</span>
+                                    @Html.ValidationMessageFor(model => model.VisitTypeName)
+                                    @Html.TextBoxFor(model => model.VisitTypeName, new { @type = "text", @maxlength = "100", @placeholder = "Enter Visit Type", @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @*<button type="submit" class="btn btn-xs btn-success pull-right">@CaregiverLite.Views.Resources.Services.ButtonAdd</button>*@
+                            <button type="button" onclick="AddVisitType()" class="btn btn-sm btn-primary pull-right" style="border-radius:4px">Add</button>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Visit Types List</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <table class="table table-bordered table-hover no-margins">
+                            <thead>
+                                <tr>
+                                    <th style="width: 70%;">Visit Types </th>
+                                    <th style="width: 30%;">@CaregiverLite.Views.Resources.Services.TableHeaderActions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (CaregiverLiteWCF.VisitType item in ViewBag.VisitTypeList)
+                                {
+                                    <tr>
+                                        <td>@item.VisitTypeName</td>
+                                        <td>
+                                            @*<a href="javascript:;" class="btn btn-xs btn-primary" onclick="OpenEditPopup(@item.ServiceId, '@item.ServiceName')">@CaregiverLite.Views.Resources.Services.ButtonEdit</a>
+                                                <a href="javascript:;" class="btn btn-sm btn-danger" onclick="DeleteService(@item.ServiceId, '@item.ServiceName')">@CaregiverLite.Views.Resources.Services.ButtonDelete</a>*@
+                                            <a href="javascript:;" title="Edit" style="margin-top:5px;margin-left:17px; width:100%;height: 15px;width: 15px;" onclick="OpenEditPopup(@item.VisitTypeId, '@item.VisitTypeName')"><img src="http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Content/image/EditIcon.png" alt="Edir Icon"></a>
+                                            <a href="javascript:;" title="Delete" style="margin-top:5px;margin-left:28px; width:100%;height: 15px;width: 15px;" onclick="DeleteService(@item.VisitTypeId, '@item.VisitTypeName')"><img src="http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Content/image/DeleteIcon.png" alt="Delete Icon"> </a>
+
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">Edit Visit Types</h4>
+                </div>
+                <div class="modal-body">
+                    @*<div class="alert alert-danger alert-dismissable" style="display:none" id="dvError2">
+                            <button onclick="divClose();" class="close" type="button">×</button>
+                            <label id="lblError2"></label>
+                        </div>*@
+                    <div class="form-group">
+                        @*<input type="text" id="txtServiceName" value="" class="form-control">*@
+                        <label>Visit Type</label>
+                        <span style="color:red;">*</span>
+                        @Html.ValidationMessageFor(model => model.VisitTypeName)
+                        @Html.TextBoxFor(model => model.VisitTypeId, new { @id = "txtVisitTypeName", @type = "text", @maxlength = "100", @placeholder = "Enter Visit Type", @class = "form-control" })
+                        <input type="hidden" id="txtVisitTypeId" value="" class="form-control">
+                    </div>
+                    <a href="javascript:;" onclick="UpdateService()" class="btn btn-sm btn-primary pull-right">@CaregiverLite.Views.Resources.Services.ButtonUpdate</a>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    function AddVisitType() {
+        debugger;
+        var VisitTypeNameValue = $("#VisitTypeName").val();
+
+        if (VisitTypeNameValue == "") {
+            debugger;
+            toastr.error('Please enter Visit type');
+            $('#loading').hide();
+            return false;
+        } else {
+            $('#loading').show();
+            $.ajax({
+                url: INITURL + "/VisitType/UpdateVisitType",
+                data: { VisitTypeName: VisitTypeNameValue },
+                cache: false,
+                type: "POST",
+                success: function (data, result) {
+                    $('#loading').hide();
+                    debugger;
+                    if (result === 'success') {
+                        alert(VisitTypeNameValue + " added successfully");
+                        window.location = INITURL + "/VisitType/VisitList"
+                    } else {
+                        $('#loading').hide();
+                    }
+                },
+                error: function (reponse) {
+                    $('#loading').hide();
+                }
+            });
+        }
+    }
+
+    function OpenEditPopup(VisitTypeId, VisitTypeName) {
+        debugger;
+        $('#loading').show();
+        $("#txtVisitTypeId").val(VisitTypeId);
+        $("#txtVisitTypeName").val(VisitTypeName);
+        $('#myModal').modal('show');
+        $('#loading').hide();
+    }
+
+    function UpdateService() {
+        debugger;
+
+        
+        var EditVisitTypeName = $("#txtVisitTypeName").val();
+
+        if (EditVisitTypeName == "") {
+            toastr.error('Please enter Visit type');
+            $('#loading').hide();
+            return false;
+        } else {
+            $('#loading').show();
+            $.ajax({
+                url: INITURL + "/VisitType/UpdateVisitType",
+                data: { VisitTypeId: $("#txtVisitTypeId").val(), VisitTypeName: $("#txtVisitTypeName").val() },
+                cache: false,
+                type: "POST",
+                success: function (data, result) {
+                    $('#loading').hide();
+                    debugger;
+                    if (result === 'success') {
+                        alert(EditVisitTypeName + " updated successfully");
+                        window.location = INITURL + "/VisitType/VisitList"
+                    } else {
+                        $('#loading').hide();
+                    }
+                },
+                error: function (reponse) {
+                    $('#loading').hide();
+                }
+            });
+        }
+    }
+
+    function DeleteService(id, VisitTypeName) {
+        if (confirm("Are you sure you want to delete " + VisitTypeName + "?")) {
+            $('#loading').show();
+            $.ajax({
+                url: INITURL + "/VisitType/DeleteVisitType",
+                data: { VisitTypeId: id },
+                cache: false,
+                type: "POST",
+                success: function (data) {
+                    $('#loading').hide();
+                    if (data == "1") {
+                        alert(VisitTypeName + " deleted successfully");
+                        window.location = INITURL + "/VisitType/VisitList"
+                    }
+                    else {
+                        alert(VisitTypeName + " is in other use with Caregiver Account. You can not delete it.");
+                        $('#loading').hide();
+                    }
+                },
+                error: function (reponse) {
+                    $('#loading').hide();
+                }
+            });
+        }
+    }
+
+    function divClose() {
+        $("#dvError1").css("display", "none");
+        $("#dvError2").css("display", "none");
+    }
+</script>

@@ -1,0 +1,384 @@
+﻿@model CaregiverLite.Models.AttendanceManagementDetail
+
+
+<style>
+    #ui-datepicker-div {
+        z-index: 10000 !important;
+    }
+
+    .form-calender {
+        padding: 0 15px;
+    }
+
+    .formtopmargin {
+        margin-top: 4px;
+        border-radius: 5px;
+    }
+
+    .customdropDown {
+        background-position-x: 96% !important;
+    }
+</style>
+
+<script>
+    $(function () {
+
+
+        //$('#Reportdatetimepicker1').datetimepicker({
+        //    format: 'MM/DD/YYYY',
+        //    maxDate: moment()
+        //});
+
+        //$('#FromDate').on('click', function () {
+        //    $('#Reportdatetimepicker1').data('DateTimePicker').show();
+        //});
+        //$('#Reportdatetimepicker2').datetimepicker({
+        //    format: 'MM/DD/YYYY',
+        //    maxDate: moment()
+        //});
+
+        //$('#ToDate').on('click', function () {
+        //    $('#Reportdatetimepicker2').data('DateTimePicker').show();
+        //});
+
+
+        var dateFormat = "mm/dd/yy",
+          from = $("#FromDateMilage")
+            .datepicker({
+                defaultDate: "+1w",
+                changeMonth: true,
+                numberOfMonths: 1,
+                maxDate: new Date()
+
+            })
+            .on("change", function () {
+                //toMinDate.setDate(toMinDate.getDate() - 365);
+                to.datepicker("option", "minDate", getDate(this));
+            }),
+          to = $("#ToDateMilage").datepicker({
+              defaultDate: "+1w",
+              changeMonth: true,
+              numberOfMonths: 1,
+              maxDate: new Date(),
+              minDate: $("#FromDateMilage").val()
+
+          })
+          .on("change", function () {
+              // var fromMaxDate = $("#FromDate").val();
+              //fromMaxDate.setDate(fromMaxDate.getDate() - 1);
+              to.datepicker("option", "minDate", getDate(this));
+          });
+
+        function getDate(element) {
+            var date;
+            try {
+                date = $.datepicker.parseDate(dateFormat, element.value);
+            } catch (error) {
+                date = null;
+            }
+
+            return date;
+        }
+
+        
+        //var ddlCustomers = $("#ddlOffices");
+        //ddlCustomers.empty().append('<option selected="selected" value="0" disabled = "disabled">Loading.....</option>');
+        var optionsContainer = $("#optionsContainerMilage");       
+        optionsContainer.append(`<label><input type="checkbox" value="0" /> All </label>`);
+        $.ajax({
+            type: "POST",
+            url: "/AttendanceManagement/ListOffices",
+            data: '{}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                optionsContainer.empty(); // Clear loading
+
+                // ✅ Append "All" checkbox first
+                optionsContainer.append(`
+            <label>
+                <input type="checkbox" value="0" onchange="toggleAll(this)" /> All
+            </label>
+        `);
+
+                $.each(response, function () {
+                    var value = this['Value'];
+                    var text = this['Text'];
+
+                    var checkbox = `
+                <label>
+                    <input type="checkbox" value="${value}" onchange="updateHeader()"> ${text}
+                </label>
+            `;
+                    optionsContainer.append(checkbox);
+                });
+
+                //ddlCustomers.empty().append('<option selected="selected" value="0">All</option>');
+                //$.each(response, function () {
+                //    ddlCustomers.append($("<option></option>").val(this['Value']).html(this['Text']));
+                //});
+            },
+            failure: function (response) {
+                alert(response.responseText);
+                
+            },
+            error: function (response) {
+                alert(response.responseText);
+                optionsContainer.html('<div style="padding: 10px;">Failed to load options</div>');
+            }
+        });
+    //});
+
+
+
+
+
+    });
+
+
+</script>
+
+@using (Html.BeginForm("GenerateReportAction", "AttendanceManagement", FormMethod.Post, new { @id = "fmGenerateReport", @class = "horizontal-form", @enctype = "multipart/form-data" }))
+{
+    <div id="main_div" class="Edit_div">
+        <div class="alert alert-danger alert-dismissable" style="display:none" id="dvError3">
+            <button onclick="divClose();" class="close" type="button">×</button>
+            <label id="lblError3"></label>
+        </div>
+        <div class="row form-calender">
+            <div class="col-md-6">
+                @*Date*@
+                <div class="form-group">
+                    <label>From Date</label>
+                    <span style="color:red;">*</span>
+                    @*@Html.ValidationMessageFor(model => model.Date)*@
+                    @Html.TextBoxFor(model => model.FromDate, new { @id = "FromDateMilage", @class = "form-control clsDatePicker formtopmargin", @data_toggle = "dropdown", @placeholder = "DD-MM-YYYY", onkeydown = "return false", autocomplete = "off", @tabindex = "8" })
+                    
+                    @*<div class="input-group date" id="Reportdatetimepicker1">
+                        <input type="text" id="FromDate" class="form-control">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-calendar"></i>
+                        </span>
+                    </div>*@
+
+                    <label id="lblFromDate"></label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label>To Date</label>
+                <span style="color:red;">*</span>
+                @Html.TextBoxFor(model => model.ToDate, new { @id = "ToDateMilage", @class = "form-control clsDatePicker formtopmargin", @data_toggle = "dropdown", @placeholder = "DD-MM-YYYY", onkeydown = "return false", autocomplete = "off", @tabindex = "8" })
+               
+                @*<div class="input-group date" id="Reportdatetimepicker2">
+                    <input type="text" id="ToDate" class="form-control">
+                    <span class="input-group-addon">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                    </span>
+                </div>*@
+                 <label id="lblToDate"></label>
+            </div>
+        </div>
+        <div class="col-md-6">
+
+            <div>
+                <label>Offices :</label>
+                <div class="multi-select-dropdown" id="multiDropdownMilage">
+                    <div class="dropdown-header" id="dropdownHeader" onclick="toggleDropdown()">
+                        Select Options
+                    </div>
+
+                    <div class="dropdown-list" id="dropdownListMilage">
+                        <div id="optionsContainerMilage">
+
+                        </div>
+
+                        @*<div class="apply-button">
+                    <button onclick="applySelection()">Apply</button>
+                </div>*@
+                    </div>
+                </div>
+              @*  <select id="ddlOffices" class="form-control customdropDown formtopmargin" style="border-radius:5px"></select>*@
+            </div>
+        </div>
+        <div class="col-md-12">
+            <button type="button" href="javascript:void(0)" onclick="Addnew();" class="btn btn-sm btn-primary pull-right" tabindex="10">GENERATE REPORT</button>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+
+
+    <div class="col-md-12">
+        <div class="clearfix"></div>
+    </div>
+}
+
+<script type="text/javascript">
+    $(".loading").show();
+    function Addnew() {
+
+        debugger;
+        var FromDate = $("#FromDateMilage").val();
+        var ToDate = $("#ToDateMilage").val();
+       // var OfficeId = $("#ddlOffices").val();
+
+        var officeId = GetSelectedOfficeValue();
+        if (officeId == 'None') {
+            toastr.error("Please select  Office.");
+            $("#loading").hide();
+            return false;
+        }
+
+		var OrganisationId = '@Session["OrganisationId"]';
+
+		const date1 = new Date(FromDate);
+const date2 = new Date(ToDate);
+const diffTime = Math.abs(date2 - date1);
+const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+console.log(diffTime + " milliseconds");
+console.log(diffDays + " days");
+//alert(diffDays)
+
+        if (FromDate == "" && ToDate == "") {
+            toastr.error("Please select required field.");
+            $("#loading").hide();
+            return false;
+        }
+        else if (FromDate == "") {
+            toastr.error("Please select from date.");
+            $("#loading").hide();
+            return false;
+        }
+        else if (ToDate=="") {
+            toastr.error("Please select to date.");
+            $("#loading").hide();
+            return false;
+        }
+else if(diffDays>7 && OrganisationId==0)
+{
+       toastr.error("Date Range Should be Less Than 7 Days");
+            $("#loading").hide();
+           return false;
+}
+     
+      
+        //var url = '@Url.Action("GenerateReportAction", "AttendanceManagement")';
+        var url = '@Url.Action("GenerateReportActionOfOffices", "AttendanceManagement")';
+
+        $('#loading').show();
+       // alert(officeIds);
+      //  return;
+       // var url = "http://localhost:15177/AttendanceManagement/GenerateReportAction";
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: { FromDate: FromDate, ToDate: ToDate, OfficeIds: officeId },
+            success: function (res) {
+                $(".loading").hide();
+                if (res) {
+                    debugger
+                    var filename = res;
+                    var iframe = document.createElement("iframe");
+                    iframe.src = filename;
+                    iframe.style.display = 'none';
+                    document.body.appendChild(iframe);
+                    toastr.success("successfully export.");
+
+                }
+                else {
+                    toastr.warning("No File Exported!");
+                }
+                //$('#myModal3').modal('hide');
+
+				window.location.reload();
+            },
+            error: function (reponse) {
+                alert("error : " + JSON.stringify(reponse));
+                $(".loading").hide();
+            }
+        });
+
+        //if($("#fmGenerateReport").valid())
+        //{
+        //    $("#fmGenerateReport").submit();
+        //}
+
+
+    }
+</script>
+<script>
+  function toggleDropdown() {
+    document.getElementById("dropdownListMilage").classList.toggle("show");
+  }
+
+  function updateHeader() {
+    const checkboxes = document.querySelectorAll('#dropdownListMilage input[type="checkbox"]');
+    const selected = Array.from(checkboxes)
+      .filter(cb => cb.checked)
+      .map(cb => cb.parentElement.textContent.trim());
+
+    const header = document.getElementById("dropdownHeader");
+
+    if (selected.length === 0) {
+      header.textContent = "Select Options";
+    } else if (selected.length <= 5) {
+      header.textContent = selected.join(', ');
+    } else {
+      const shown = selected.slice(0, 5).join(', ');
+      const moreCount = selected.length - 5;
+      header.textContent = `${shown}, +${moreCount}`;
+    }
+  }
+
+  function GetSelectedOfficeValue() {
+    const allCheckbox = document.querySelector('#optionsContainerMilage input[type="checkbox"][value="0"]');
+    if (allCheckbox && allCheckbox.checked) {
+      return '0'; // Return only '0' if "All" is selected
+    }
+
+    const checkboxes = document.querySelectorAll('#dropdownListMilage input[type="checkbox"]:not([value="0"])');
+    const selected = Array.from(checkboxes)
+      .filter(cb => cb.checked)
+      .map(cb => cb.value);
+
+    return selected.length > 0 ? selected.join(',') : 'None';
+  }
+
+  function toggleAll(allCheckbox) {
+    const isChecked = allCheckbox.checked;
+
+    // Toggle all other checkboxes
+    document.querySelectorAll('#optionsContainerMilage input[type="checkbox"]:not([value="0"])')
+      .forEach(cb => cb.checked = isChecked);
+
+    updateHeader();
+  }
+
+  // Uncheck "All" if any individual checkbox is unchecked
+  document.addEventListener('change', function (e) {
+    if (e.target.matches('#optionsContainerMilage input[type="checkbox"]:not([value="0"])')) {
+      const allCheckbox = document.querySelector('#optionsContainerMilage input[type="checkbox"][value="0"]');
+
+      if (!e.target.checked && allCheckbox.checked) {
+        allCheckbox.checked = false;
+      }
+
+      // Optionally re-check "All" if all individual checkboxes are now selected
+      const otherCheckboxes = document.querySelectorAll('#optionsContainerMilage input[type="checkbox"]:not([value="0"])');
+      const allChecked = Array.from(otherCheckboxes).every(cb => cb.checked);
+      if (allChecked) {
+        allCheckbox.checked = true;
+      }
+
+      updateHeader();
+    }
+  });
+
+  // Close dropdown if clicking outside
+  window.addEventListener("click", function (e) {
+    const dropdown = document.getElementById("multiDropdownMilage");
+    if (!dropdown.contains(e.target)) {
+      document.getElementById("dropdownListMilage").classList.remove("show");
+    }
+  });
+</script>

@@ -1,0 +1,374 @@
+﻿
+@{
+    // ViewBag.Title = "Paseva Dashboard";
+    // Layout = "~/Views/Shared/_LeftMenu.cshtml";
+    Layout = "~/Views/Shared/_LayoutPasevaCustomer.cshtml";
+}
+
+
+
+<style>
+    .common {
+        position: relative;
+        margin-top: -10px;
+        left: -12px;
+        width: fit-content;
+        padding: 10px;
+        border-radius: 5px;
+        font-size: 15px;
+    }
+
+    .card a {
+        padding-left: 13px;
+    }
+
+    .card p {
+        font-weight: 500;
+        margin-bottom: 0px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 16px;
+        padding-top: 20px;
+        color: #1c1c1c;
+        padding-left: 13px;
+    }
+
+    .bg-1 {
+        /*background-color: yellow;*/
+        background-color: #007A56;
+        color: #FFFFFF;
+        height: 45px;
+    }
+
+    .bg-2 {
+        /*background-color: yellowgreen;*/
+        background-color: #FC6301;
+        color: #FFFFFF;
+        height: 45px;
+    }
+
+    .bg-3 {
+        /*background-color: violet;*/
+        background-color: #FF2E7E;
+        color: #FFFFFF;
+        height: 45px;
+    }
+
+    .bg-4 {
+        /*background-color: turquoise;*/
+        background-color: #5073FE;
+        color: #FFFFFF;
+        height: 45px;
+    }
+
+
+    .bg-5 {
+        /*background-color: violet;*/
+        background-color: #FF2C2C;
+        color: #FFFFFF;
+        height: 45px;
+    }
+
+    .bg-6 {
+        /*background-color: turquoise;*/
+        background-color: #FF2CF0;
+        color: #FFFFFF;
+        height: 45px;
+    }
+
+    .card {
+        box-shadow: 0 2px 10px 0 rgb(0 0 0 / 20%);
+        transition: 0.3s;
+        border: none;
+        /*padding: 10px;*/
+        padding: 10px 10px 10px 10px;
+        /*margin-bottom: 30px;*/
+        margin: 0px -13px 30px 0px;
+        background-color: #FFFFFF;
+        border-radius: 10px;
+        font-size: 15px;
+    }
+
+
+    .card2 {
+        box-shadow: 0 2px 10px 0 rgb(0 0 0 / 20%);
+        transition: 0.3s;
+        border: none;
+        padding-bottom: 10px;
+        height: 158px;
+        width: 260px;
+        border-radius: 10px;
+        background-color: #FFFFFF;
+    }
+
+    .viewbtn {
+        border: none;
+        background: #fff;
+        text-align: left;
+    }
+
+    .mycommon {
+        text-align: center;
+        padding: 5px;
+        border-radius: 10px 10px 0px 0px;
+    }
+
+    .bg-11 {
+        /*background-color: yellow;*/
+        background-color: #007A56;
+        color: #FFFFFF;
+        height: 50px;
+        padding: 10px;
+        font-size: 18px;
+    }
+
+    .bg-12 {
+        /*background-color: yellowgreen;*/
+        background-color: #FC6301;
+        color: #FFFFFF;
+        height: 50px;
+        padding: 10px;
+    }
+
+    .card2 p {
+        /*font-weight: 700;
+         margin-bottom: 0px;
+         padding: 10px 2px 15px 10px;*/
+        font-weight: 500;
+        margin-bottom: 0px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 16px;
+        padding: 15px 0px 0px 13px;
+        color: #1c1c1c;
+        /*padding-left: 13px;*/
+    }
+
+    .card2 a {
+        padding-left: 13px;
+        padding-bottom: 10px;
+    }
+
+    .card2 h4 {
+        padding-left: 20px;
+        /*text-align:center;*/
+    }
+
+    #a1 {
+        color: #1c1c1c;
+        font-family: Arial, Helvetica, sans-serif;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 18px;
+    }
+
+    #a2 {
+        color: #1c1c1c;
+        font-family: Arial, Helvetica, sans-serif;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 18px;
+    }
+
+    #a3 {
+        color: #1c1c1c;
+        font-family: Arial, Helvetica, sans-serif;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 18px;
+    }
+
+    #a4 {
+        color: #0d0b0b;
+        font-family: Arial, Helvetica, sans-serif;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 18px;
+    }
+
+    #a5 {
+        color: #0d0b0b;
+        font-family: Arial, Helvetica, sans-serif;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 18px;
+    }
+
+    #a6 {
+        color: #0d0b0b;
+        font-family: Arial, Helvetica, sans-serif;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 18px;
+    }
+</style>
+
+
+<div class="fluid-fluid">
+
+    <div class="row mt-5">
+        <div class="col-md-3">
+            <div class="card">
+                <span class="common bg-1">@ViewBag.CountRequestedAppointment</span>
+
+                <div class="row" style="padding-top:16px;">
+                    <div class="col-md-2">
+                        <img src="~/Content/image/bookAppointmentIcon.svg" alt="bottle" class="thumbnails" />
+                    </div>
+                    <div class="col-md-10" style="margin-top:-15px;">
+                        <p class="pcls">Book Appointment</p>
+                        <a class="count-info" id="a1"  href="~/Appointment/BookAppointment">  View All <img src="~/Content/image/arrow_right_green.svg" alt="bottle" class="thumbnails" /></a>
+                    </div>
+                </div>
+
+
+                @*<p class="pcls">Book Appointment</p>
+
+                    <a class="count-info"  id="a1" href="~/Appointment/BookAppointment">View All <img src="~/Content/image/arrow_right_green.svg" alt="bottle" class="thumbnails" /></a>*@
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <span class="common bg-12">@ViewBag.CountAwaitingAppointment</span>
+                <div class="row" style="padding-top:16px;">
+                    <div class="col-md-2">
+                        <img src="~/Content/image/AwaitingIcon.svg" alt="bottle" class="thumbnails" />
+                    </div>
+                    <div class="col-md-10" style="margin-top:-15px;">
+                        <p class="pcls">Awaiting Appointment</p>
+                        <a class="count-info" id="a2" href="~/Appointment/PendingAppointment">View All <img src="~/Content/image/arrow_right_orange.svg" alt="bottle" class="thumbnails" /></a>
+                    </div>
+                </div>
+
+                @*<p class="pcls">Awaiting Appointment</p>
+                    <a class="count-info"  id="a2" href="~/Appointment/PendingAppointment">View All <img src="~/Content/image/arrow_right_orange.svg" alt="bottle" class="thumbnails" /></a>*@
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <span class="common bg-3">@ViewBag.CountConfirmAppointment</span>
+
+                <div class="row" style="padding-top:16px;">
+                    <div class="col-md-2">
+                        <img src="~/Content/image/ConfirmIcon.svg" alt="bottle" class="thumbnails" />
+                    </div>
+                    <div class="col-md-10" style="margin-top:-15px;">
+                        <p class="pcls">Confirm Appointment</p>
+                        <a class="count-info" id="a3" href="~/Appointment/ConfirmAppointment">View All <img src="~/Content/image/arrow_right_darkpink.svg" alt="bottle" class="thumbnails" /></a>
+                    </div>
+                </div>
+
+                @*<p class="pcls">Confirm Appointment</p>
+                    <a class="count-info" id="a3" href="~/Appointment/ConfirmAppointment">View All <img src="~/Content/image/arrow_right_darkpink.svg" alt="bottle" class="thumbnails" /></a>*@
+
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <span class="common bg-4">@ViewBag.CountCompletedAppointment</span>
+
+
+
+                <div class="row" style="padding-top:16px;">
+                    <div class="col-md-2">
+                        <img src="~/Content/image/CompleteAppointmentIcon.svg" alt="bottle" class="thumbnails" />
+                    </div>
+                    <div class="col-md-10" style="margin-top:-15px; margin-left:-10px;">
+                        <p class="pcls">Complete Appointment</p>
+                        <a class="count-info" id="a4" href="~/Appointment/CompleteAppointment">View All <img src="~/Content/image/arrow_right_blue.svg" alt="bottle" class="thumbnails" /></a>
+                    </div>
+                </div>
+
+
+                @*<p class="pcls">Complete Appointment</p>
+                    <a class="count-info"  id="a4" href="~/Appointment/CompleteAppointment">View All <img src="~/Content/image/arrow_right_blue.svg" alt="bottle" class="thumbnails" /></a>*@
+
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <span class="common bg-5">@ViewBag.CountCancelledAppointment</span>
+
+                <div class="row" style="padding-top:16px;">
+                    <div class="col-md-2">
+                        <img src="~/Content/image/CancelledIcon.svg" alt="bottle" class="thumbnails" />
+                    </div>
+                    <div class="col-md-10" style="margin-top:-15px;">
+                        <p class="pcls"> Cancel Appointment</p>
+                        <a class="count-info" id="a5" href="~/Appointment/CancelAppointment">View All <img src="~/Content/image/arrow_right_alt_Dark_orange.svg" alt="bottle" class="thumbnails" /></a>
+                    </div>
+                </div>
+
+
+                @*<p class="pcls"> Cancel Appointment</p>
+                    <a class="count-info" id="a5" href="~/Appointment/CancelAppointment">View All <img src="~/Content/image/arrow_right_alt_Dark_orange.svg" alt="bottle" class="thumbnails" /></a>*@
+
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <span class="common bg-6">@ViewBag.CountReschedulledAppointment</span>
+
+                <div class="row" style="padding-top:16px;">
+                    <div class="col-md-2">
+                        <img src="~/Content/image/RescheduleIcon.svg" alt="bottle" class="thumbnails" />
+                    </div>
+                    <div class="col-md-10" style="margin-top:-15px;">
+                        <p class="pcls"> Reschedule Appointment</p>
+                        <a class="count-info" id="a6" href="~/Appointment/RescheduledAppointment">View All <img src="~/Content/image/arrow_right_pink.svg" alt="bottle" class="thumbnails" /></a>
+                    </div>
+                </div>
+
+                @*<p class="pcls"> Reschedule Appointment</p>
+    <a class="count-info" id="a6" href="~/Appointment/RescheduledAppointment">View All <img src="~/Content/image/arrow_right_pink.svg" alt="bottle" class="thumbnails" /></a>*@
+
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <h1 style="font-size:50px;color: #222222">Payment Details</h1>
+
+        </div>
+        <div class="col-md-3">
+            <div class="card2">
+                <div class="mycommon bg-11"> $ @ViewBag.CountTotalPaymentTransactionsFees</div>
+                <p>Total Received Payment</p>
+                <h4>@ViewBag.CountTotalPaymentTransactions Transactions</h4>
+
+                <a class="count-info" id="a1" href="~/Appointment/PaymentDetails">View All Transaction <img src="~/Content/image/arrow_right_green.svg" alt="bottle" class="thumbnails" /></a>
+            </div>
+        </div>
+        @*<div class="col-md-3">
+                <div class="card2">
+                    <div class="mycommon bg-2">123455</div>
+                    <p>Total Refund Payment</p>
+                    <p style="color:#948b8bd1;">100 Trasaction</p>
+                    <a class="count-info" href="">View All -></a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card2">
+                    <div class="mycommon bg-3">123455</div>
+                    <p>Failed Payment</p>
+                    <p style="color:#948b8bd1;">20 Trasaction</p>
+                    <a class="count-info" href="">View All -></a>
+                </div>
+            </div>*@
+
+    </div>
+
+</div>
+
+@*<!-- Optional JavaScript; choose one of the two! -->
+        <!-- Option 1: Bootstrap Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+        <!-- Option 2: Separate Popper and Bootstrap JS -->
+        <!--
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+        -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">*@
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

@@ -1,0 +1,170 @@
+﻿@*@model CaregiverLite.Models.NurseCoordinatorModel*@
+
+
+<div id="main_div">
+    <div class="alert alert-danger alert-dismissable" style="display:none" id="dvError3">
+        <button onclick="divClose();" class="close" type="button">×</button>
+        <label id="lblError3"></label>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label>Group : @ViewBag.GroupName </label>
+        </div>
+        <div id="divAssignPermission" style="display:none">
+            <div class="form-group">
+                <label> Member</label>
+                <Select id="ddlMemberList" class="form-control input-sm" style="height:35px">
+                    <option value="0">Select Member</option>
+                    @if (ViewBag.GroupMemberList != null)
+                    {
+                        foreach (var item in ViewBag.GroupMemberList)
+                        {
+                            <option value="@item.ChattingGroupMemberId" ChattingGroupMemberId="@item.ChattingGroupMemberId" qbid="@item.QuickBloxId"> @item.MemberName</option>
+                        }
+                    }
+                    else
+                    {
+                        <option value="0"> Member Not Found</option>
+                    }
+                </Select>
+            </div>
+            <div class="form-group">
+                <label>Assign Permission</label>
+                <Select id="permission" class="form-control input-sm" style="height:35px">
+                    @*<option value="0">Assign Permission</option>*@
+                    <option value="1">Read</option>
+                    <option value="2">Read / Write</option>
+                    <option value="3" , Selected="true">Read / Write / Attachment</option>
+                </Select>
+            </div>
+            <button type="button" onclick="SetPermission(@ViewBag.ChattingGroupId)" class="btn btn-sm btn-primary pull-right">ASSIGN PERMISSION</button>
+            <div class="clearfix"></div>
+
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label>Member List</label>
+            <div class="col-md-06" style="overflow-y:auto;scroll:auto;max-height:300px">
+                <table class="table table-striped table-bordered table-hover dataTables-example" id="tblAssignedMemberList">
+                    <thead>
+                        <tr>
+                            <td><b>Name</b> </td>
+                            <td><b>Role</b> </td>
+                            <td><b>Permission</b></td>
+                            <td style="width:10%;">
+                                <b>Action</b>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (ViewBag.AssignedMemberList != null)
+                        {
+                            foreach (var item in ViewBag.AssignedMemberList)
+                            {
+
+                                <tr id="@item.UserId">
+                                    <td>@item.MemberName</td>
+                                    <td>@item.Type</td>
+                                    <td>@item.PermissionType</td>
+                                    <td>
+                                        <center>
+                                            <button class="btn btn-xs btn-danger" style="margin:5px; width:auto;" onclick="OpenEdit('@item.ChattingGroupMemberId')"><span class="fa fa-pencil"></span></button>
+                                        </center>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    @*//}*@
+</div>
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script type="text/javascript">
+
+    function OpenEdit(ChattingGroupMemberId) {
+        $('#divAssignPermission').css('display', 'block');
+        $("#ddlMemberList").val(ChattingGroupMemberId).trigger('change');
+    }
+
+    function SetPermission(ChattingGroupId) {
+
+        debugger;
+        var selectedId = $('#ddlMemberList option:selected').val();
+        var selectedPermission = $('#permission option:selected').val();
+        //var qbid = $('#ddlMemberList option:selected').attr("qbid");
+
+        var selectedChattingGroupMemberId = '';
+
+        $('#ddlMemberList :selected').each(function () {
+            selectedChattingGroupMemberId += $(this).attr("ChattingGroupMemberId") + ',';
+        });
+
+        selectedChattingGroupMemberId = selectedChattingGroupMemberId.replace(/,\s*$/, "");
+
+
+        if (selectedId == 0) {
+            toastr.info("Please Select Member");
+            $('#ddlMemberList').focus();
+            return false;
+        }
+
+        if (selectedPermission == 0) {
+            toastr.info("Please Select Permission");
+            $('#permission').focus();
+            return false;
+        }
+        $('#loading').show();
+        var url = INITURL + '/Chatting/SetGroupChatMemberPermission';
+
+        $.ajax({
+            url: url,
+            cache: false,
+            type: 'POST',
+            data: {
+                ChattingGroupId: ChattingGroupId,
+                ChattingGroupMemberId: selectedChattingGroupMemberId,
+                Permission: selectedPermission
+
+            },
+            async: true,
+            success: function (data) {
+                if (data) {
+                    $('#tblAssignedMemberList tbody').empty();
+                    $('#divAssignPermission').css('display', 'none');
+
+                    for (i = 0; i < data.length; i++) {
+                        var newRowContent =
+                                    '<tr id="' + data[i].UserId + '">' +
+                                    '<td>' + data[i].MemberName + '</td>' +
+                                    '<td>' + data[i].Type + '</td>' +
+                                    '<td>' + data[i].PermissionType + '</td>' +
+
+                                   '<td><center>' +
+                                   '<button class="btn btn-xs btn-danger" style="margin:5px; width:auto;" onclick="OpenEdit(' + data[i].ChattingGroupMemberId + ')"><span class="fa fa-pencil"></span></button>' +
+                                   '</center></td></tr>';
+                        $("#tblAssignedMemberList tbody").append(newRowContent);
+                    }
+
+
+
+                }
+                $('#loading').hide();
+                toastr.success('Permission Assigned.');
+
+            },
+            error: function (reponse) {
+
+                $('#loading').hide();
+            }
+        });
+    }
+
+</script>
+
+

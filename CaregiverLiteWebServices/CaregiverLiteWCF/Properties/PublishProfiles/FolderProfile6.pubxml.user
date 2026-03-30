@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>D:\Paseva 29-07-2024 Oraganisation Build goes to Live\New Build Web 8080 and Back_up 08-01-2024\wcf build 01-08-2024</_PublishTargetUrl>
+    <History>True|2024-08-01T12:29:25.8134922Z;True|2024-08-01T17:51:31.2761900+05:30;True|2024-08-01T17:42:15.1441705+05:30;True|2024-08-01T17:01:39.0016021+05:30;</History>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="bin/CaregiverLiteWCF.dll">
+      <publishTime>08/01/2024 17:59:25</publishTime>
+    </File>
+    <File Include="bin/CaregiverLiteWCF.pdb">
+      <publishTime>08/01/2024 17:59:25</publishTime>
+    </File>
+    <File Include="bin/DifferenzLibrary.dll">
+      <publishTime>08/10/2023 14:11:30</publishTime>
+    </File>
+    <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
+      <publishTime>08/10/2023 14:11:44</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>08/10/2023 14:11:46</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>08/10/2023 14:11:50</publishTime>
+    </File>
+    <File Include="bin/Quickblox.Sdk.dll">
+      <publishTime>08/10/2023 14:11:52</publishTime>
+    </File>
+    <File Include="bin/Quickblox.Sdk.Platform.Abstractions.dll">
+      <publishTime>08/10/2023 14:11:52</publishTime>
+    </File>
+    <File Include="bin/Quickblox.Sdk.Platform.NET.dll">
+      <publishTime>08/10/2023 14:11:52</publishTime>
+    </File>
+    <File Include="bin/roslyn/csc.exe">
+      <publishTime>08/10/2023 14:11:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.Build.Tasks.CodeAnalysis.dll">
+      <publishTime>08/10/2023 14:11:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.dll">
+      <publishTime>08/10/2023 14:11:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.dll">
+      <publishTime>08/10/2023 14:11:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.VisualBasic.dll">
+      <publishTime>08/10/2023 14:11:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CSharp.Core.targets">
+      <publishTime>08/10/2023 14:11:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.VisualBasic.Core.targets">
+      <publishTime>08/10/2023 14:11:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Collections.Immutable.dll">
+      <publishTime>08/10/2023 14:11:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Reflection.Metadata.dll">
+      <publishTime>08/10/2023 14:11:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/vbc.exe">
+      <publishTime>08/10/2023 14:11:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe">
+      <publishTime>08/10/2023 14:11:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe.config">
+      <publishTime>08/10/2023 14:11:46</publishTime>
+    </File>
+    <File Include="bin/Sockets.Plugin.Abstractions.dll">
+      <publishTime>08/10/2023 14:11:56</publishTime>
+    </File>
+    <File Include="bin/Sockets.Plugin.Abstractions.pdb">
+      <publishTime>08/10/2023 14:11:56</publishTime>
+    </File>
+    <File Include="bin/Sockets.Plugin.dll">
+      <publishTime>08/10/2023 14:11:56</publishTime>
+    </File>
+    <File Include="bin/Sockets.Plugin.pdb">
+      <publishTime>08/10/2023 14:11:56</publishTime>
+    </File>
+    <File Include="bin/System.Net.Http.Formatting.dll">
+      <publishTime>08/10/2023 14:10:38</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>08/10/2023 14:11:44</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>08/10/2023 14:11:44</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>08/10/2023 14:11:44</publishTime>
+    </File>
+    <File Include="bin/System.Web.Webpages.Deployment.dll">
+      <publishTime>08/10/2023 14:11:44</publishTime>
+    </File>
+    <File Include="bin/System.Web.Webpages.dll">
+      <publishTime>08/10/2023 14:11:44</publishTime>
+    </File>
+    <File Include="bin/System.Web.Webpages.Razor.dll">
+      <publishTime>08/10/2023 14:11:44</publishTime>
+    </File>
+    <File Include="CaregiverLiteService.svc">
+      <publishTime>08/10/2023 14:10:38</publishTime>
+    </File>
+    <File Include="errorLOG.txt">
+      <publishTime>08/01/2024 17:48:16</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>08/10/2023 14:10:38</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>08/10/2023 14:10:38</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>08/01/2024 17:01:38</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,1753 @@
+﻿
+@{
+    ViewBag.Title = "Chat Window";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<script src="~/Content/css/QB/quickblox.min.js"></script>*@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+@*For UAT&*@
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/quickblox/2.5.4/quickblox.min.js"></script>*@
+@*For Live*@
+<script src="~/Scripts/QuickBlox/quickblox.min.js"></script>
+<script src="~/Scripts/pdfobject.js"></script>
+<style>
+    #toast-container > div.toast-info {
+        background-image: none !important;
+    }
+
+
+
+    /* new style*/
+    .chat-section {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background-color: #fff;
+        border: red;
+        margin-top: 88px;
+        /*  border: 1px solid grey;*/
+        width: 80%;
+        height: 729px;
+        margin-left: 35px;
+    }
+
+    .chat-header {
+        /*  padding: 20px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;*/
+        background-color: white;
+        padding: 10px;
+        border-bottom: 1px solid #dee2e6;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    /*.chat-body {
+            /*padding: 20px;
+            flex-grow: 1;
+            overflow-y: auto;*/
+    /* background-color: #F9FBFF !important;*/
+    /*height: 389px;
+            overflow-y: scroll;
+            padding: 15px;
+            background-color: #ffffff;*/
+    /*border: 1px solid #dee2e6;*/
+
+    /*height: 389px;
+    overflow-y: scroll;
+    padding: 15px;
+    background-color: #ffffff;*/
+
+
+
+    /*}*/
+
+
+
+    .chat-body {
+        background-color: white !important;
+        height: 366px;
+        overflow-y: scroll;
+        padding: 15px;
+        /*background-color: #ffffff;*/
+        /* border: 1px solid #dee2e6; */
+        position: absolute;
+    }
+
+
+    /* Table structure */
+    .chat-table {
+        width: 100%;
+        table-layout: fixed;
+    }
+
+        .chat-table td {
+            padding: 10px 20px;
+            vertical-align: top;
+        }
+
+    /* Received message */
+    .received {
+        /*        background-color: #eaeaea;
+    */ border-radius: 20px;
+        padding: 10px;
+        margin-right: auto;
+        text-align: left;
+        max-width: 70%;
+    }
+
+    /* Sent message */
+    .sent {
+        /*background-color: #eaeaea;*/
+        border-radius: 20px;
+        padding: 10px;
+        margin-left: auto;
+        text-align: right;
+        max-width: 70%;
+    }
+
+    /* Sender info */
+    .sender {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .message-text {
+        background-color: #F4F4F4; /* Background color for the text */
+        /*color: white;*/ /* Text color for the text */
+        padding: 8px;
+        /*        border-radius: 10px;
+    */ display: inline-block; /* Ensure it behaves like a "card" within the message bubble */
+        max-width: 100%;
+        word-wrap: break-word;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+
+
+    .message-textSend {
+        background-color: #E3F1FF; /* Background color for the text */
+        /*color: white;*/ /* Text color for the text */
+        padding: 8px;
+        /*        border-radius: 10px;
+    */ display: inline-block; /* Ensure it behaves like a "card" within the message bubble */
+        max-width: 100%;
+        word-wrap: break-word;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+
+    /* Time of message */
+    .time {
+        font-size: 12px;
+        color: #999;
+        margin-top: 5px;
+    }
+
+    /* Chat input area */
+    .chat-input {
+        /*border-top: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;*/
+        /*border-top: 1px solid #ddd;*/
+        display: flex;
+        align-items: center;
+        padding: 10px 20px;
+        position: fixed;
+        width: 76%;
+        bottom: 0px;
+        left: 250px;
+    }
+
+        .chat-input input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px 0px 5px 0px;
+            /* margin-right: 17px; */
+            /*position: fixed;*/
+            /*bottom: 4px;*/
+            margin-left: -14px;
+            height: 52px;
+            /*z-index: 1019;*/
+        }
+
+
+    .send-btn {
+        background-color: white;
+        color: white;
+        padding: 11px 12px;
+        border: none;
+        cursor: pointer;
+        border: 1px solid lightgray;
+        /*right: 59px;*/
+    }
+
+
+    .image-upload > input {
+        display: none;
+    }
+
+    .image-upload i {
+        width: 40px;
+        font-size: large;
+        cursor: pointer;
+    }
+
+    input[id="fileCall"] {
+        margin-left: -50px;
+        height: 25px;
+        width: 50px;
+    }
+
+
+
+    .sennbtn, .attachbtn {
+        /*position: fixed;
+            bottom: 11px;
+            height: 30px;
+            width: 50px;
+            border: none;
+            // background-color: #0084ff;
+            /*color: white;*/
+        border-radius: 4px;
+        /*cursor: pointer;
+            margin-left: 875px;*/
+    }
+
+
+    .AlertInfo {
+        display: block;
+        position: absolute;
+        z-index: 1020;
+        width: 97%;
+        left: 7px;
+        top: -33px;
+        height: 40px;
+    }
+
+
+    @@media screen and (max-width: 480px) {
+    .chat-section {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 20px;
+    }
+
+    .chat-body {
+        height: 250px;
+    }
+
+    .chat-input {
+        width: 100%;
+        left: 0;
+        padding: 10px;
+    }
+
+    .chat-input input {
+        margin-left: 0;
+        height: 40px;
+    }
+
+    .send-btn {
+        padding: 10px;
+    }
+}
+
+
+
+</style>
+<script type="text/javascript">
+
+    var ssFromQBId = '@Session["FromQBId"]';
+    var sToQBId = '@Session["ToQBId"]';
+
+    var sFromQBName = "@Session["Name"]";
+    var sToQBName = "@Session["ToQBUserName"]";
+
+    var strMessage = "";
+
+    var tmpDialogId = "@Session["chatDialogId"]";
+    var dialogJid = "...";
+    var totalFiles ="";
+
+    @*var GroupMemberList[] = @ViewBag.GroupMenberDetail;*@
+            var GroupMemberList = @Html.Raw(Json.Encode(ViewBag.GroupMenberDetail));
+            var QuickBloxInit = "@System.Web.Configuration.WebConfigurationManager.AppSettings["QuickbloxAPIUrl"]";
+
+
+    $(document).ready(function () {
+        $('#btnCloseMediaModal').click(function () {
+            $("#openVideo").attr('src', '');
+            $("#mediaDiv").html('');
+                })//Stop Video On Close Event
+
+        ///Handle File Uploading start
+        jQuery("input#file1").change(function () {
+                    ////1
+                    var totalSelectedFiles = $("input[type=file]")[0].files.length;
+                    var totalFiles = $("input[type=file]")[0].files;
+                    var totalFileType = "";
+                    if (totalFiles != null)
+                    {
+                        for (var l=0; l < totalSelectedFiles; l++)
+                        {
+
+                            File = totalFiles[l];
+                            console.log(File);
+                            //console.log(temptotalSelectedFiles+" + "+File.name);
+                            totalFileType =File.type.split('/');
+                            if(totalFileType[0] != 'image' && totalFileType[0] != 'video' && totalFileType[0] != 'audio')
+                            {
+                                totalFileType[0]  = 'doc';
+                            }
+
+                            var ext = File.name.split('.').pop();
+                            var Filesize =(File.size / (1024*1024)).toFixed(2);
+
+                            if(File){
+                                if (Filesize < 95 ) {
+                                    if(   ext.toLowerCase() == "ppt"
+                                        ||ext.toLowerCase() == "pptx"
+                                        ||ext.toLowerCase() == "xls"
+                                        ||ext.toLowerCase() == "doc"
+                                        ||ext.toLowerCase() == "docx"
+                                        ||ext.toLowerCase() == "png"
+                                        ||ext.toLowerCase() == "jpg"
+                                        ||ext.toLowerCase() == "jpeg"
+                                        ||ext.toLowerCase() == "mp4"
+                                        ||ext.toLowerCase() == "pdf")
+                                    {
+                                        toastr.success("File Selected");
+                                $("#fileCall").css({ 'color': "deepskyblue" });
+                                $("#FileAlert").css({ 'display': "block" });
+                                $("#FileAlertContent").html("<b>"+ (l+1) +" File Selected.</b>");
+                                //Remove
+                                $("#fileRemove").css({ 'display': "block" });
+                                $("#fileCall").css({ 'display': "none" });
+                                //
+                                $("#txtSendMsg").attr('disabled','true')
+                                    }
+                    else
+                    {
+                        toastr.info("You Choose Wrong format file... Please Select File having following extension .ppt, .pptx,  .xls, .doc, .docx, .png, .jpg, .jpeg, .mp4, .pdf");
+                                $("#file1").val('');
+                                $("#fileCall").css({ 'color': "" });
+                                $("#FileAlert").css({ 'display': "none" });
+
+                                $("#fileRemove").css({ 'display': "none" });
+                                $("#fileCall").css({ 'display': "block" });
+                        toastr.info("No File Selected... Please Open again for select a file.");
+                                $("#txtSendMsg").removeAttr('disabled')
+                                return;
+                    }
+
+                } else {
+                    if(Filesize > 95)
+                    {
+                        toastr.info("Please Select a file having size less then 95MB.");
+                                $("#file1").val('');
+                                $("#fileCall").css({ 'color': "" });
+                                $("#FileAlert").css({ 'display': "none" });
+
+                                $("#fileRemove").css({ 'display': "none" });
+                                $("#fileCall").css({ 'display': "block" });
+                        toastr.info("No File Selected... Please Open again for select a file.");
+                                $("#txtSendMsg").removeAttr('disabled');
+                        return;
+                    }
+
+                }
+            }
+                    else
+                    {
+                toastr.info("No File Selected... Please Open again for select a file.");
+                return;
+            }
+
+        }//--For looop end
+    }
+
+    ////1
+    ////2
+            @*
+            var input = this.files[0];
+            var ext = jQuery(this).val().split('.').pop();
+            var Filesize =(input.size / (1024*1024)).toFixed(2);
+            //alert(Filesize);//ppt ,pptx ,xls ,doc,docx,png,jpg,jpeg,mp4,pdf
+            if(input){
+                if (Filesize < 95 ) {
+                    if(   ext.toLowerCase() == "ppt"
+                        ||ext.toLowerCase() == "pptx"
+                        ||ext.toLowerCase() == "xls"
+                        ||ext.toLowerCase() == "doc"
+                        ||ext.toLowerCase() == "docx"
+                        ||ext.toLowerCase() == "png"
+                        ||ext.toLowerCase() == "jpg"
+                        ||ext.toLowerCase() == "jpeg"
+                        ||ext.toLowerCase() == "mp4"
+                        ||ext.toLowerCase() == "pdf")
+                    {
+                        toastr.success("File Selected");
+                        $("#fileCall").css({ 'color': "deepskyblue" });
+                        $("#FileAlert").css({ 'display': "block" });
+                        $("#FileAlertContent").html("<b>1 File Selected.</b>");
+
+                        //Remove
+                        $("#fileRemove").css({ 'display': "block" });
+                        $("#fileCall").css({ 'display': "none" });
+                        //
+
+                    }
+                    else
+                    {
+                        toastr.info("You Choose Wrong format file... Please Select File having following extension .ppt, .pptx,  .xls, .doc, .docx, .png, .jpg, .jpeg, .mp4, .pdf");
+                        $("#file1").val('');
+                        $("#fileCall").css({ 'color': "" });
+                        $("#FileAlert").css({ 'display': "none" });
+                    }
+
+                } else {
+                    if(Filesize > 95)
+                    {
+                        toastr.info("Please Select a file having size less then 95MB.");
+                        $("#file1").val('');
+                        $("#fileCall").css({ 'color': "" });
+                        $("#FileAlert").css({ 'display': "none" });
+                    }
+
+                }
+            }
+            else
+            {
+                toastr.info("No File Selected... Please Open again for select a file.");
+            }*@
+            ////2
+        });
+        ///Handle File Uploading end
+
+        //Remove Attachment Start
+        $("#fileRemove").click(function(){
+
+            $("#fileRemove").css({ 'display': "none" });
+            $("#fileCall").css({ 'display': "block" });
+            $("#file1").val('');
+            $("#fileCall").css({ 'color': "" });
+            $("#FileAlert").css({ 'display': "none" });
+            toastr.info("Attachment Removed");
+            $("#txtSendMsg").removeAttr('disabled')
+            return;
+        });
+        //Remove Attachment End
+
+    //    $("#txtSendMsg").keyup(function (event) {
+    //        if (event.keyCode == 13) {
+    //            $("#btnSendMsg").click();
+    //        }
+    //    });
+
+        $("#loading").show();
+
+        QB.init(@System.Web.Configuration.WebConfigurationManager.AppSettings["QuickbloxApp_Id"],
+              "@System.Web.Configuration.WebConfigurationManager.AppSettings["QuickbloxAuth_Key"]",
+             "@System.Web.Configuration.WebConfigurationManager.AppSettings["QuickbloxAuth_Secret"]",
+              true);
+
+
+        QB.createSession(function (err, result) {
+
+
+            if (err) {
+                //alert(err.message);
+            } else {
+
+                sessionStorage.setItem("sToken", result.token);
+
+                if (sFromQBId == '0') {
+
+                    RegisterNewUser("@Session["FromUserEmail"]", "@Session["LoginUserUserId"]");
+                }
+                else {
+
+                    startChat();
+
+                }
+
+            }//Else End Of createSession
+        });
+
+
+
+
+		function RefreshLoadChatMessages()
+		{
+		setInterval("loadChatMessages()", 1000);
+
+		//setInterval(function(){ alert("Hello"); }, 10000);
+		}
+
+
+        function startChat() {
+            var user = {
+                id: sFromQBId,
+                login: "@Session["FromUserEmail"]",
+                password: "Welcome007!"
+            };
+
+            if (sToQBId == '0') {
+                RegisterNewUser("@Session["ToUserEmail"]", "@Session["ToUserUserId"]");
+            }
+
+
+            QB.chat.connect({ userId: user.id, password: user.password }, function (err, roster) {
+                if (err) {
+                    //console.log('SERVER ERROR RESPONSE ');
+
+                } else {
+                    //console.log('SERVER SUCCESS RESPONSE ');
+
+
+                    if (tmpDialogId == "0") {
+                        CreateNewDialod();
+                    }
+                    else {
+
+
+                     loadChatMessages();
+			         // RefreshLoadChatMessages();
+                       joinChatRoom();
+                        toastr.success("Now You Can Start Chatting.");
+                        $("#loading").hide();
+
+                    }
+
+                }
+            });
+        }
+
+        function CreateSession() {
+            QB.createSession({ login: user.login, password: user.password }, function (err, result) {
+
+                if (err) {
+                    //alert(err.message);
+                } else {
+                    //alert("Session Token- " + result.token);
+                    sessionStorage.setItem("sToken", result.token);
+                }
+            });
+        }
+        //Create New Group Chat Dialog Start
+        function CreateNewDialod() {
+
+
+            var user = {
+                id: sFromQBId,
+                login: "@Session["FromUserEmail"]",
+                password: "Welcome007!"
+            };
+            QB.createSession({ login: user.login, password: user.password }, function (err, result) {
+
+                if (err) {
+                    //alert(err.message);
+                } else {
+                    //alert("Session Token- " + result.token);
+                    sessionStorage.setItem("sToken", result.token);
+
+                    var occupants = new Array(sToQBId, sFromQBId);
+                    var dialogOccupants = {
+                        type: 2,
+                        occupants_ids: [sFromQBId, sToQBId],
+                        name: "Chat_" + sFromQBId + "_" + sToQBId,
+                        data: {
+                            class_name: "ChatDialogType",
+                            ChatCategory: "1"
+                        }
+                    };
+
+
+                    //Create New Group Chat Dialog
+                    QB.chat.dialog.create(dialogOccupants, function (err, createdDialog) {
+                        if (err) {
+                            //console.log(err);
+                            //console.log("DIALOG CREATED FAIL");
+                        } else {
+                               debugger;
+                            //console.log(createdDialog);
+                            //console.log("DIALOG CREATED SUCCESS");
+                            //Add new QuickBlox Id For Specific User
+
+
+                            var url = INITURL + '/Chatting/SaveDialogId';
+
+
+                            $.ajax({
+                                url: url,
+                                data: {
+                                  //  NurseUserId: "@Session["ToUserUserId"]",
+                                 //   SchedulerUserId: "@Session["LoginUserUserId"]",
+                                    NurseUserId: "@Session["LoginUserUserId"]",
+                                    SchedulerUserId: "@Session["ToUserUserId"]",
+                                    //  UserType:"SchedulerToCaregiver",
+                                    UserType: "@Session["LoginRole"]",
+                                    DialogId: createdDialog._id
+                                },
+                                cache: false,
+                                type: 'POST',
+                                async: false,
+                                success: function (data) {
+                                    if (data == "Success") {
+                                        tmpDialogId = createdDialog._id;
+                                    }
+                                    loadChatMessages();
+								 // RefreshLoadChatMessages();
+                                    joinChatRoom();
+                                    toastr.success("Now You Can Start Chatting.");
+                                    $("#loading").hide();
+                                },
+                                error: function (reponse) {
+                                    //alert("error : " + reponse);
+                                    $("#loading").hide();
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+
+            //---
+        }
+
+        //Create New Group Chat Dialog End
+
+        //Register New User Start
+        function RegisterNewUser(Login, UserId1) {
+            var RegisterUser = { 'login': Login, 'password': "Welcome007!", 'tag': "differenzsystem", 'email': Login };
+
+            QB.users.create(RegisterUser, function (err, user1) {
+                if (user1) {
+                    //Add new QuickBlox Id For Specific User
+
+                    var url = INITURL + '/Chatting/SaveQBId';
+                    var QBId = user1.id;
+                    $.ajax({
+                        url: url,
+                        data: { UserId: UserId1, QuickBloxId: QBId },
+                        cache: false,
+                        type: 'POST',
+                        async: false,
+                        success: function (data) {
+                            if (data == "Success") {
+
+                                if (UserId1 == "@Session["LoginUserUserId"]") {
+                                    sFromQBId = "" + QBId + "";
+
+                                    sessionStorage.setItem("FromQBId", QBId);
+                                    startChat();
+
+                                }
+                                if (UserId1 == "@Session["ToUserUserId"]") {
+
+                                    sToQBId = "" + QBId + "";
+                                    sessionStorage.setItem("ToQBId", QBId);
+                                }
+                            }
+                            //CreateNewGroupDialod();
+                        },
+                        error: function (reponse) {
+                            //alert("error : " + reponse);
+                            $("#loading").hide();
+                        }
+                    });
+
+
+                    // success
+                } else {
+                    return;
+                    // error
+                }
+            });
+        }
+        //Register New User End
+
+        //Load Chat Message Start
+        function loadChatMessages() {
+
+            var user = {
+                id: ssFromQBId,
+                login: "@Session["FromUserEmail"]",
+                password: "Welcome007!"
+            };
+            QB.createSession({ login: user.login, password: user.password }, function (err, result) {
+
+                if (err) {
+                    //alert(err.message);
+                } else {
+                    //alert("Session Token- " + result.token);
+                    sessionStorage.setItem("sToken", result.token);
+
+
+                    var dialogId = tmpDialogId;
+
+
+                    var params = { chat_dialog_id: dialogId, sort_desc: 'date_sent', limit: 100, skip: 0 };
+                    QB.chat.message.list(params, function (err, messages) {
+
+                      // debugger;
+
+
+
+                        if (messages) {
+                            var latestMessages = "";
+
+                            var len = messages.items.length;
+                            if (len > 0) {
+                                for (var i = len - 1; i >= 0; i--) {
+                                    var strMsg = messages.items[i].message;
+                                    strMsg = strMsg.replace(/((http|https|ftp|ftps|www)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?)/g,'<a href="$1">$1</a>');
+
+                // start login for read status
+                                    var r = messages.items[i].read_ids; // all read ids
+
+
+
+
+                                    if(parseInt(messages.items[i].sender_id) != parseInt(ssFromQBId))
+                                    {
+
+                                        if(!r.includes(parseInt(ssFromQBId)))
+                                        {
+
+                                            var params = {
+                                                messageId: messages.items[i]._id,
+                                                userId: messages.items[i].sender_id,
+                                                dialogId: messages.items[i].chat_dialog_id
+                                            };
+
+                                            QB.chat.sendReadStatus(params);
+
+
+                                        }
+                                    }
+                  // end login for read status
+                                    //Image Display Start
+                                    var imageHTML = "";
+                                    var fileType = null;
+                                    if (messages.items[i].attachments.length > 0) {
+                                        if (messages.items[i].hasOwnProperty("attachments")) {
+                                            var fileId = messages.items[i].attachments[0].id;
+                                            var qbSessionToken = sessionStorage.getItem("sToken");
+                                            var privateUrl = QuickBloxInit + "/blobs/" + fileId + "/download?token=" + qbSessionToken;
+                                            var fileType1 = messages.items[i].attachments[0].type;
+                                            fileType = messages.items[i].MsgType;
+                                            var ancherStart = "<a target='_blank' href='" + privateUrl + "' alt=''>";
+                                            var ancherEnd = "</a>";
+
+
+                                            if (fileType == "doc") {
+                                                //console.log(String(messages.items[i].attachments[0].type));
+                                                if(String(messages.items[i].attachments[0].type) == "application/vnd.openxmlformats-officedocument.presentationml.presentation" || String(messages.items[i].attachments[0].type) == "pptx"|| String(messages.items[i].attachments[0].type) == "ppt")
+                                                {
+                                                    //imageHTML =  ancherStart + "<img width='50px' height='50px' src='/image/ppt-icon.png' alt='ppt File'/>"+ ancherEnd;
+                                                    imageHTML = ancherStart + "<i class='fa fa-file-powerpoint-o fa-2x'></i>" + ancherEnd;
+                                                }
+                                                else if(String(messages.items[i].attachments[0].type) == "application/vnd.ms-excel" || String(messages.items[i].attachments[0].type) == "xls"|| String(messages.items[i].attachments[0].type) == "xlsx")
+                                                {
+                                                    //imageHTML = ancherStart + "<img width='50px' height='50px' src='/image/excel-icon.png' alt='excel File'/>"+ ancherEnd;
+                                                    imageHTML = ancherStart + "<i class='fa fa-file-excel-o fa-2x'></i>" + ancherEnd;
+                                                }
+                                                else if(String(messages.items[i].attachments[0].type) == "application/pdf"|| String(messages.items[i].attachments[0].type) == "pdf")
+                                                {
+                                                    //imageHTML = ancherStart + "<img width='50px' height='50px' src='/image/pdf-icon.png' alt='pdf File'/>"+ ancherEnd;
+                                                    //imageHTML = ancherStart + "<i class='fa fa-file-pdf-o fa-2x'></i>" + ancherEnd;
+                                                    imageHTML = "<a  onclick='openMedia(\""+privateUrl+"\",3);' data-toggle='modal'>" + "<i class='fa fa-file-pdf-o fa-2x'></i>"+ ancherEnd;//myModalOpenMedia
+                                                }
+                                                else if(String(messages.items[i].attachments[0].type) == "application/msword" || String(messages.items[i].attachments[0].type) == "docx")
+                                                {
+                                                    //imageHTML = ancherStart + "<img width='50px' height='50px' src='/image/word-icon.png' alt='msword File'/>"+ ancherEnd;
+                                                    imageHTML = ancherStart + "<i class='fa fa-file-word-o fa-2x'></i>" + ancherEnd;
+                                                }
+                                                else if(String(messages.items[i].attachments[0].type) == "text/x-ms-contact")
+                                                {
+                                                    //imageHTML = ancherStart + "<img width='50px' height='50px' src='/image/word-icon.png' alt='msword File'/>"+ ancherEnd;
+                                                    imageHTML = ancherStart + "<i class='fa fa-phone fa-2x'></i>" + ancherEnd;
+                                                }
+                                                else
+                                                {
+                                                    imageHTML = ancherStart + "<i class='fa fa-file-text'></i>" + ancherEnd;
+                                                }
+                                            }
+                                            if (fileType == "audio" ){
+                                                imageHTML = "<audio  src='" + privateUrl + "' controls></audio>";
+                                            }
+                                            if (fileType == "image") {
+                                                //imageHTML = ancherStart + "<img width='50px' height='50px' src='" + privateUrl + "' alt='photo'/>"+ ancherEnd;
+                                                //imageHTML = ancherStart + "<i class='fa fa-file-image-o fa-2x'></i>"+ ancherEnd;//myModalOpenMedia
+                                                imageHTML = "<a  onclick='openMedia(\""+privateUrl+"\",1);' data-toggle='modal' data-target='#myModalOpenMedia' >" + "<i class='fa fa-file-image-o fa-2x'></i>"+ ancherEnd;//myModalOpenMedia
+                                            }
+                                            else if (fileType == "video") {
+                                                //imageHTML = ancherStart + "<img width='50px' height='50px' src='/image/videoThumb.png' />"+ ancherEnd;
+                                                //imageHTML = ancherStart + "<i class='fa fa-file-video-o fa-2x'></i>" + ancherEnd;
+                                                imageHTML = "<a  onclick='openMedia(\""+privateUrl+"\",2);' data-toggle='modal' data-target='#myModalOpenMedia' >" + "<i class='fa fa-file-video-o fa-2x'></i>"+ ancherEnd;//myModalOpenMedia
+
+                                            }
+
+                                        }
+                                        fileType = "";
+                                    }
+                                    //Image Display End
+
+
+                                    var date1 = new Date(messages.items[i].date_sent * 1000).toLocaleTimeString() +" " + new Date(messages.items[i].date_sent * 1000).toLocaleDateString();
+                                    if (messages.items[i].sender_id == sFromQBId) {
+                // start logic for read message *********************************************************************
+
+
+                                        var x = [] ;
+                                        var readStatus = "";
+                                        //debugger;
+                                        x.push(parseInt(sToQBId));
+                                        x.push(parseInt(sFromQBId));
+                                        x = x.sort();
+                                        //if(GroupMemberList.length > 1)
+                                        //{
+                                        //    for(var r1=0;r1<GroupMemberList.length;r1++)
+                                        //    {
+                                        //        x.push(parseInt(GroupMemberList[r1].QuickBloxId));
+                                        //    }
+                                        //    x = x.sort();
+
+                                        //    Array.prototype.compare = function(testArr) {
+                                        //        if (this.length != testArr.length) return false;
+                                        //        for (var i = 0; i < testArr.length; i++) {
+                                        //            if (this[i].compare) { //To test values in nested arrays
+                                        //                if (!this[i].compare(testArr[i])) return false;
+                                        //            }
+                                        //            else if (this[i] !== testArr[i]) return false;
+                                        //        }
+                                        //        return true;
+                                        //    }
+
+                                        //}
+
+                                            Array.prototype.compare = function(testArr) {
+                                                if (this.length != testArr.length) return false;
+                                                for (var i = 0; i < testArr.length; i++) {
+                                                    if (this[i].compare) { //To test values in nested arrays
+                                                        if (!this[i].compare(testArr[i])) return false;
+                                                    }
+                                                    else if (this[i] !== testArr[i]) return false;
+                                                }
+                                                return true;
+                                            }
+                                        if(r.sort().compare(x))
+                                        {
+                                            readStatus += "<span><i class='fa fa-check' style='color: #50b3e2;'></i></span>";
+
+                                        }
+                                        else
+                                        {
+
+                                            readStatus += "<span><i class='fa fa-check'></i></span>";
+
+                                        }
+                  // end logic for read message *********************************************************************
+
+
+                                        if(imageHTML){
+                                            //console.log("Sender Id " + messages.items[i].sender_id + " - " + messages.items[i].message + " Sent By You");
+
+                                            latestMessages += "<tr><td></td><td class='sent'><div class='message-header'><p class='sender'></p><span class='time'>" + date1 + "</span></div> <p class='message-textSend'><span>" + imageHTML + " " + strMsg +  "</span></p></td></tr>";
+                                                //"<tr ><td><strong>You</strong> Said : <strong>" + imageHTML + " " + strMsg + "</strong><span style='float:right'>" + date1 + readStatus + "</span>" + " </td></tr>";
+                                        }
+                                        else
+                                        {
+                                            latestMessages += "<tr><td></td><td class='sent'><div class='message-header'><p class='sender'></p><span class='time'>" + date1 + "</span></div> <p class='message-textSend'><span>" + strMsg + "</span></p></td></tr>";
+                                                //"<tr ><td><strong>You</strong> Said : <strong>" + strMsg + "</strong><span style='float:right'>" + date1 + readStatus + "</span>" + imageHTML + " </td></tr>";
+                                        }
+                                    } else {
+
+                                        //console.log("Reveiver Id " + messages.items[i].sender_id + " - " + messages.items[i].message + " Sent By  @Session["ToQBUserName"] ");
+                                        //latestMessages += "<tr><td><strong>@Session["ToQBUserName"]</strong> Said : <strong>" + messages.items[i].message + "</strong><span style='float:right'>" + date1 + "</span>  </td></tr>";
+                                        if(imageHTML){
+                                            //console.log("Reveiver Id " + messages.items[i].sender_id + " - " + messages.items[i].message + " Sent By  @Session["ToQBUserName"] ");
+                                            if(messages.items[i].message == null)
+                                            {
+                                                latestMessages += "<tr><td class='received'><div class='message-header'><p class='sender'></p><span class='time'>" + date1 + "</span></div><p class='message-text card-text'>" + imageHTML + "</p></td><td></td></tr>";
+                                                //"<tr><td><strong>@Session["ToQBUserName"]</strong> Said : <strong>" + imageHTML + " " + "</strong><span style='float:right'>" + date1 + "</span></td></tr>";
+                                            }else{
+
+                                                latestMessages += "<tr><td class='received'><div class='message-header'><p class='sender'></p><span class='time'>" + date1 + "</span></div><p class='message-text card-text'>" + imageHTML + " " + strMsg + "</p></td><td></td></tr>";
+                                                    //"<tr><td><strong>@Session["ToQBUserName"]</strong> Said : <strong>" + imageHTML + " " + strMsg + "</strong><span style='float:right'>" + date1 + "</span></td></tr>";
+                                            }
+                                        }
+                                        else
+                                        {
+
+                                            latestMessages += "<tr><td class='received'><div class='message-header'><p class='sender'></p><span class='time'>" + date1 + "</span></div><p class='message-text card-text'>" + strMsg + "</p></td><td></td></tr>";
+                                                //"<tr><td><strong>@Session["ToQBUserName"]</strong> Said : <strong>" + strMsg + "</strong><span style='float:right'>" + date1 + "</span>" + imageHTML + " </td></tr>";
+                                        }
+                                    }
+                                }
+
+                            }
+                            else {
+
+                                latestMessages += "<tr><td><strong>Conversation Not Started.</strong> </td></tr>";
+
+                            }
+                            $("#chatMsg").empty();
+                            document.getElementById("chatMsg").innerHTML = latestMessages;
+                            $('#chat1').scrollTop($('#chat1')[0].scrollHeight);
+
+                        } else {
+                            //console.log(err);
+                        }
+
+                    });
+                }
+            });
+
+        }
+        //Load Chat Message End
+
+        //Join Group Chat Start
+        function joinChatRoom() {
+            dialogJid = QB.chat.helpers.getRoomJidFromDialogId(tmpDialogId);
+            QB.chat.muc.join(dialogJid, function (resultStanza) {
+                var joined = true;
+                for (var i = 0; i < resultStanza.childNodes.length; i++) {
+                    var elItem = resultStanza.childNodes.item(i);
+                    if (elItem.tagName === 'error') {
+                        joined = false;
+                    }
+                }
+            });
+        }
+
+        //Join Group Chat End
+
+		function playAudio() {
+		                       var x = document.getElementById("myAudio");
+
+                                x.play();
+                        }
+
+
+        function onMessage(sFromQBId, sentMsg) {
+//debugger;
+            if(sentMsg.markable){
+                //debugger;
+                var params = {
+                    messageId: sentMsg.id,
+                    userId: sFromQBId,
+                    dialogId: sentMsg.dialogId
+                };
+                QB.chat.sendReadStatus(params);
+            }
+
+		if(parseInt(sFromQBId) != parseInt(ssFromQBId))
+           {
+				playAudio();
+           }
+
+            loadChatMessages();
+            ///$("#file1").val('');
+            $("#fileCall").css({ 'color': "" });
+            $("#loading").hide();
+        }
+
+
+         QB.chat.onMessageListener = onMessage;
+
+        QB.chat.onReadStatusListener = function(messageId, dialogId, userId){
+            //debugger;
+            if(parseInt(userId) != parseInt(sFromQBId))
+            {
+                loadChatMessages();
+
+            }
+        }
+        //Start Send Message To CareGiver
+        $("#btnSendMsg").click(function () {
+
+            var currentMessage = $('#txtSendMsg').val();
+            $('#txtSendMsg').val("");
+
+            var opponentId = sToQBId;
+            var sToken = sessionStorage.getItem("sToken");
+            ////1
+            var totalSelectedFiles = $("input[type=file]")[0].files.length;
+            totalFiles = $("input[type=file]")[0].files;
+            var totalFileType = "";
+
+            if (totalSelectedFiles > 0)
+            {
+			     //$("#loading").hide();
+               $("#loading").show();
+                toastr.info("File Uploading Started");
+                uploadFile(totalSelectedFiles-1,totalFiles[totalSelectedFiles-1]);
+               // $("#loading").hide();
+
+            }
+                ////1
+                @*//2
+                //
+                    var inputFile = null;
+                    inputFile = $("input[type=file]")[0].files[0];
+                    var FileType ="";
+                    if (inputFile != null) {
+                        FileType =inputFile.type.split('/');
+                        if(FileType[0] != 'image' && FileType[0] != 'video' && FileType[0] != 'audio')
+                        {
+                            FileType[0]  = 'doc';
+                        }
+                    }
+                //
+            if (inputFile != null) {
+                var params = { name: inputFile.name, file: inputFile, type: inputFile.type, size: inputFile.size, 'public': false };
+                $("#loading").show();
+                QB.content.createAndUpload(params, function (err, response) {
+
+                    if (err) {
+                        //console.log(err);
+                    }
+                    else
+                    {
+                        var uploadedFileId = response.id;
+
+
+                        var msg = {
+                            type: 'groupchat',
+                            body: FileType[0]+". " + currentMessage,
+                            extension: {
+                                save_to_history: 1,
+                                userName:sFromQBName,
+                                chatType:"1",
+                                MsgType:FileType[0],
+                                file_name:inputFile.name,
+                                file_size:inputFile.size
+                            },
+                        };
+                        msg["extension"]["attachments"] = [{ id: uploadedFileId, type: inputFile.type }];
+
+
+                        QB.chat.send(dialogJid, msg);
+		    	$("#FileAlert").css({ 'display': "none" });
+                        $("#fileRemove").css({ 'display': "none" });
+                        $("#fileCall").css({ 'display': "block" });
+                        $("#file1").val('');
+                        $("#fileCall").css({ 'color': "" });
+                        //Send PushNotification start
+
+
+                        var url = INITURL + '/Chatting/NotifyUserForChatMessage';
+                        $.ajax({
+                            url: url,
+                            data: {
+                                UserId: "@Session["LoginUserUserId"]",
+                                Msg: FileType[0]+". " +currentMessage,
+                                QuickBloxId:sFromQBId,
+                                DialogId : tmpDialogId,
+                                Type : "1",
+                                UserName : sFromQBName,
+                                GroupName : "@ViewBag.CareGiverName"
+                            },
+                            cache: false,
+                            type: 'POST',
+                            async: false,
+                            success: function (data) {
+
+
+							}
+                            error: function (reponse) {
+                                //alert("error : " + reponse);
+                                $("#loading").hide();
+                            }
+                        });
+                        //Send PushNotification end
+
+                    }
+
+                });
+            }
+                //2*@
+            else {
+
+                var msg = {
+                    type: 'groupchat',
+                    body: currentMessage,
+                    extension: {
+                        save_to_history: 1,
+                        userName:sFromQBName,
+                        chatType:"1",
+                        MsgType:'text'
+
+                    },
+                    markable: 1
+                };
+
+                if (currentMessage.length != 0){
+                    QB.chat.send(dialogJid, msg);
+
+                    $("#loading").show();
+                    //Send PushNotification start
+                    var url = INITURL + '/Chatting/NotifyUserForChatMessage';
+                    $.ajax({
+                        url: url,
+                        data: {
+                            UserId: "@Session["LoginUserUserId"]",
+                            Msg: currentMessage,
+                            QuickBloxId:sFromQBId,
+                            DialogId : tmpDialogId,
+                            Type : "1",
+                            UserName : sFromQBName,
+                            GroupName : "@ViewBag.CareGiverName"
+                        },
+                        cache: false,
+                        type: 'POST',
+                        async: false,
+                        success: function (data) {
+
+
+
+                        },
+                        error: function (reponse) {
+                            $("#loading").hide();
+                        }
+                    });
+                    //Send PushNotification end
+                }
+                else
+                {
+                    toastr.info("Please Enter Message.");
+                }
+
+            }
+			$('#txtSendMsg').focus();
+            $("#loading").hide();
+
+            ////
+            ////////---
+            @*var msg = {
+                type: 'groupchat',
+                body: currentMessage,
+                extension: {
+                    save_to_history: 1,
+                    userName:sFromQBName,
+                    chatType:"1"
+
+                }
+            };
+
+            if (currentMessage.length != 0) {
+                QB.chat.send(dialogJid, msg);
+                //debugger;
+                var url = INITURL + '/Chatting/NotifyUserForChatMessage';
+
+                @*var url = INITURL + '/Chatting/NotifyUserForChatMessage';
+                console.log( "@Session["LoginUserUserId"]");
+                console.log(currentMessage);
+                console.log(tmpDialogId);
+
+                console.log(sFromQBName);
+                console.log("@ViewBag.CareGiverName");*@
+
+            @*$.ajax({
+                    url: url,
+                    data: {
+                        UserId: "@Session["LoginUserUserId"]",
+                        Msg: currentMessage,
+                        QuickBloxId:sFromQBId,
+                        DialogId : tmpDialogId,
+                        Type : "1",
+                        UserName : sFromQBName,
+                        GroupName : "@ViewBag.CareGiverName"
+                    },
+                    cache: false,
+                    type: 'POST',
+                    async: false,
+                    success: function (data) {
+                    },
+                    error: function (reponse) {
+                        alert("error : " + reponse);
+                        $("#loading").hide();
+                    }
+                });*@
+
+            @*}
+            $("#loading").hide();*@
+
+        });
+        //End Send Message To CareGiver
+
+        //UploadMultipleFile
+        function uploadFile(temptotalSelectedFiles,File){
+
+            File = totalFiles[temptotalSelectedFiles];
+            //console.log(temptotalSelectedFiles+" + "+File.name);
+            totalFileType =File.type.split('/');
+            if(totalFileType[0] != 'image' && totalFileType[0] != 'video' && totalFileType[0] != 'audio')
+            {
+                totalFileType[0]  = 'doc';
+            }
+
+
+
+            if (File != null) {
+
+                var params = { name: File.name, file: File, type: File.type, size: File.size, 'public': false };
+                $("#loading").show();
+                QB.content.createAndUpload(params, function (err, response) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        var uploadedFileId = response.id;
+
+
+                        var msg = {
+                            type: 'groupchat',
+                            body: totalFileType[0]+". ",// + currentMessage,
+                            extension: {
+                                save_to_history: 1,
+                                userName:sFromQBName,
+                                chatType:"1",
+                                MsgType:totalFileType[0],
+                                file_name:File.name,
+                                file_size:File.size
+
+                            },
+                        };
+
+                        msg["extension"]["attachments"] = [{ id: uploadedFileId, type: File.type }];
+
+                        QB.chat.send(dialogJid, msg);
+                        toastr.success(File.name +" "+ File.type +  " uploaded");
+                        $("#FileAlert").css({ 'display': "none" });
+                        $("#fileRemove").css({ 'display': "none" });
+                        $("#fileCall").css({ 'display': "block" });
+                        $("#fileCall").css({ 'color': "" });
+
+                        //Send PushNotification start
+
+                        var url = INITURL + '/Chatting/NotifyUserForChatMessage';
+                        $.ajax({
+                            url: url,
+                            data: {
+                                UserId: "@Session["LoginUserUserId"]",
+                                Msg:  totalFileType[0]+". ",//+ currentMessage,
+                                QuickBloxId:sFromQBId,
+                                DialogId : tmpDialogId,
+                                Type : "2",
+                                UserName : sFromQBName,
+                                GroupName : sFromQBName//"@ViewBag.CareGiverName"
+                            },
+                            cache: false,
+                            type: 'POST',
+                            async: false,
+                            success: function (data) {
+                                //console.log(temptotalSelectedFiles+" + "+File.name);
+                                //console.log("temptotalSelectedFiles - " + temptotalSelectedFiles);
+                                temptotalSelectedFiles -= 1;
+                                if(temptotalSelectedFiles >= 0)
+                                {
+                                    uploadFile(temptotalSelectedFiles,totalFiles[temptotalSelectedFiles]);
+
+                                }
+                                else
+                                {
+                                    toastr.info("File Uploading Finished.");
+                                    $("#txtSendMsg").removeAttr('disabled');
+                                    $("#file1").val('');
+                                }
+                            },
+                            error: function (reponse) {
+                                //alert("error : " + reponse);
+                                $("#loading").hide();
+                            }
+                        });
+                        //Send PushNotification end
+
+                    }
+
+                });
+
+            }
+
+        }
+        //Upload Multiple File
+
+    });
+
+
+
+
+
+
+    function openMedia(url,type)
+    {
+
+        debugger;
+        if(type==1)
+        {
+           var media = '';
+        $("#mediaDiv").css("max-height", "320px");
+        $("#mediaDiv").html(media);
+
+            media="<img src='"+url+"' style='vertical-align:middle' width='90%' height='90%' alt='image'/>";
+            $("#mediaDiv").css("max-height", "320px");
+            $("#mediaDiv").html(media);
+        }
+        else if(type==2)
+        {
+            var media = '';
+        $("#mediaDiv").css("max-height", "320px");
+        $("#mediaDiv").html(media);
+
+            media="<video controls>"+"<source src='"+url+"' type='video/mp4'>"+  "<source src='"+url+"' type='video/ogg'>"+"</video>";
+            $("#mediaDiv").css("height", "310px"); $("#mediaDiv").css("max-height", "400px");
+            $("#mediaDiv").html(media);
+        }
+        else if(type==3)
+        {
+
+
+          //  PDFObject.embed(url, "#mediaDiv");
+          //  $("#mediaDiv").css("height", "510px");
+           // $("#mediaDiv").css("max-height", "510px");
+
+               window.open(url);
+
+        }
+
+
+    }
+</script>
+<style>
+    #toast-container > div.toast-info {
+        background-image: none !important;
+    }
+
+    video::-internal-media-controls-download-button {
+        display: none;
+    }
+
+    video::-webkit-media-controls-enclosure {
+        overflow: hidden;
+    }
+
+    video::-webkit-media-controls-panel {
+        width: calc(100% + 30px); /* Adjust as needed */
+    }
+
+    video {
+        width: 100%;
+        max-height: 100%;
+    }
+</style>
+<div id="myModalOpenMedia" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 1001;">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" id="btnCloseMediaModal" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Media</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-16" style="z-index: 1001;overflow-y: auto;">
+                    <div id="mediaDiv" align="center" style="max-height:350px"></div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+<section class="chat-section" style="position:fixed;top:-17px;">
+
+
+    <!--<div class="chat-header">
+    @if (@ViewBag.GroupTypeId == 2)
+    {
+        <a href="@Url.Action("PatientChat", "Chatting")" class="back-arrow">
+            <img src="~/Content/LeftMenuLogo/Arrow-icon.svg" alt="" class="user-icon" />
+        </a>
+    }
+    else
+    {
+        <a href="@Url.Action("GroupChat", "Chatting")" class="back-arrow">
+            <img src="~/Content/LeftMenuLogo/Arrow-icon.svg" alt="" class="user-icon" />
+        </a>
+    }
+
+    <style>
+
+                    .stats-container {
+                        background-color: #fff;
+                        display: flex;
+                        width: 100%;
+                        padding-top: 11px;
+                        flex-direction: column;
+                    }
+
+                    .stats-wrapper {
+                        align-self: flex-end;
+                        display: flex;
+                        margin-right: 30px;
+                        width: 268px;
+                        max-width: 100%;
+                        gap: 20px;
+                        justify-content: space-between;
+                    }
+
+                    .member-count {
+                        /*                display: flex;
+        */ gap: 7px;
+                    }
+
+        .member-icon-wrapper {
+            justify-content: center;
+            align-items: center;
+            border-radius: 34px;
+            background-color: #f6f6f8;
+            display: flex;
+            /*width: 30px;
+            height: 30px;
+            padding: 0 8px;*/
+            width: 121px;
+            height: 30px;
+            padding: 8px 8px 8px 0px;
+        }
+
+                    .member-icon {
+                        aspect-ratio: 0.86;
+                        object-fit: contain;
+                        width: 12px;
+                    }
+
+        .member-count-text {
+            color: #464748;
+            font: 600 13px Mulish, sans-serif;
+            margin: auto 0;
+            padding-left: 10px;
+        }
+
+                    .supply-items-badge {
+                        align-self: flex-start;
+                        border-radius: 6px;
+                        background-color: #fff;
+                        color: #1b4066;
+                        padding: 5px 7px;
+                        font: 600 12px Open Sans, sans-serif;
+                        border: 1px solid #1b4066;
+                    }
+    </style>-->
+    @*<span style="text-align:start;"><strong>@ViewBag.Groupname</strong>  </span>
+        <div class="members" style="margin-left: 889px; margin-top: -22px;"></div>
+        </div>*@
+
+    <!--<span style="text-align:start;">@ViewBag.GroupName</span>
+
+        <div class="stats-container">
+            <div class="stats-wrapper">
+                <div class="member-count">
+                    <div class="member-icon-wrapper">
+                        <img src="~/Content/LeftMenuLogo/MemberList-icon.svg" alt="" class="member-icon" />
+                        <span class="member-count-text">13 Member</span>
+                    </div>
+
+
+                </div>
+                <span class="supply-items-badge">Total Supply Items</span>
+            </div>
+        </div>
+    </div>-->
+    @*<div class="container mt-3">*@
+
+
+    <div class="row">
+        <div>
+            <a href="@Url.Action("OneToOneChat", "Chatting")" class="back-arrow">
+                <img src="~/Content/LeftMenuLogo/Arrow-icon.svg" alt="" class="user-icon" />
+            </a>
+        </div>
+        <div>
+            <h5 style="margin-right: 847px; margin-top: 14px; font-size: 14px;">@ViewBag.CareGiverName</h5>
+        </div>
+        <div>
+
+        </div>
+    </div>
+    <!-- Chat Header -->
+    <div class="chat-header">
+
+        @*@if (@ViewBag.GroupTypeId == 2)
+        {*@
+           
+            @*<h5 style="margin-right: 847px; margin-top: 14px; font-size: 14px;">@ViewBag.CareGiverName</h5>*@
+        @*}*@
+        @*else
+        {
+            <a href="@Url.Action("GroupChat", "Chatting")" class="back-arrow">
+                <img src="~/Content/LeftMenuLogo/Arrow-icon.svg" alt="" class="user-icon" />
+            </a>
+
+            <h5 style="margin-left:  -808px; margin-top: 14px; font-size:14px;">@ViewBag.GroupName</h5>
+        }*@
+
+        <style>
+            /*.stats-container {
+                    background-color: #fff;
+                    display: flex;
+                    width: 100%;
+                    padding-top: 11px;
+                    flex-direction: column;
+                }
+
+                .stats-wrapper {
+                    align-self: flex-end;
+                    display: flex;
+                    margin-right: 30px;
+                    width: 268px;
+                    max-width: 100%;
+                    gap: 20px;
+                    justify-content: space-between;
+                }
+
+                .member-count {*/
+            /*                display: flex;
+                */ /*gap: 7px;
+                }
+
+                .member-icon-wrapper {
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 34px;
+                    background-color: #f6f6f8;
+                    display: flex;*/
+            /*width: 30px;
+                    height: 30px;
+                    padding: 0 8px;*/
+            /*width: 121px;
+                    height: 30px;
+                    padding: 8px 8px 8px 0px;
+                }*/
+
+
+            .chat-body::-webkit-scrollbar-track {
+                box-shadow: inset 0 0 5px grey;
+                border-radius: 10px;
+                position: absolute;
+            }
+
+            /* Handle */
+            .chat-body::-webkit-scrollbar-thumb {
+                background: #68AAEA;
+                border-radius: 10px;
+                position: absolute;
+            }
+
+                /* Handle on hover */
+                .chat-body::-webkit-scrollbar-thumb:hover {
+                    background: #68AAEA;
+                    position: absolute;
+                }
+
+            .member-icon {
+                aspect-ratio: 0.86;
+                object-fit: contain;
+                width: 12px;
+            }
+
+            #Onhoverchange:hover {
+                background-color: #68AAEA; /* Background color on hover */
+                color: white; /* Text color on hover */
+            }
+
+            /*.member-count-text {
+                    color: #464748;
+                    font: 600 13px Mulish, sans-serif;
+                    margin: auto 0;
+                    padding-left: 10px;
+                }*/
+
+            .supply-items-badge {
+                align-self: flex-start;
+                border-radius: 6px;
+                background-color: #fff;
+                color: #1b4066;
+                padding: 5px 7px;
+                font: 600 12px Open Sans, sans-serif;
+                border: 1px solid #1b4066;
+            }
+        </style>
+
+
+        @*<div>
+            <span style="margin-right: 16px;" id="Onhoverchange">
+                <img src="~/Content/LeftMenuLogo/MemberList-icon.svg" alt="" class="member-icon" />
+                <a data-toggle="modal" data-target="#myModal" id="lblGroupInfo" href="javascript:;" style="text-transform: capitalize;text-decoration: underline;"></a>
+            </span>
+            @if (@ViewBag.GroupTypeId == 2)
+            {
+                <span class="supply-items-badge" id="OpenNewSupplyformData">Total Supply Items</span>
+            }
+
+        </div>*@
+
+        @*<span>Total Members: 13</span>*@
+        @*<button class="btn btn-secondary me-3">Total Supply Items</button>*@
+
+    </div>
+
+
+    @*<div class="chat-body" id="chat1" style="z-index: 1001;max-height: 635px;overflow-y: scroll;">*@
+
+    <div class="chat-body" id="chat1" style="margin-top: 60px;">
+        <table class="chat-table" id="chatMsg"></table>
+    </div>
+    <div class="chat-input">
+
+        <div class="alert alert-info alert-dismissable AlertInfo" style="display:none" id="FileAlert">
+            <div style="float:right;display:none;cursor: pointer;" id="fileRemove" title="Remove Attached File"><b>Remove Attachment</b></div>
+            <div id="FileAlertContent"></div>
+        </div>
+
+        <input type="text" placeholder="Type message" id="txtSendMsg" />
+       
+        @*<div>
+
+            <a class="btn btn-xs btn-primary popup-act" style="bottom:6px;line-height: 16px;font-size:10px" id="btnshow" onclick="OpenSupplyForm();"><span class="glyphicon glyphicon-plus"></span></a>
+                </div>*@
+
+        @*<div class="image-upload" id="selectFileIcon">
+                <label for="file1">
+                    <i style="float:right;" id="fileCall" class="fa fa-paperclip" title="Attach File"></i>
+                </label>
+                <label id="fileViewer"></label>
+                <input id="file1" type="file" accept="image/*,video/*,application/msword,application/pdf,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/vnd.ms-excel" multiple />
+            </div>*@
+
+
+
+        <div class="image-upload" id="selectFileIcon" style="top : 23px;position : absolute;right : 65px;">
+            <label for="file1">
+                <i id="fileCall" class="fa fa-paperclip attachbtn" title="Attach File"></i>
+            </label>
+
+            <label id="fileViewer"></label>
+            <input id="file1" type="file" accept="image/*,video/*,application/msword,application/pdf,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/vnd.ms-excel" multiple />
+        </div>
+
+
+        @*<label id="fileViewer"></label>
+            <input id="file1" type="file" accept="image/*,video/*,application/msword,application/pdf,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/vnd.ms-excel" multiple />*@
+
+        <button class="send-btn" id="btnSendMsg">
+            <img src="~/Content/LeftMenuLogo/SendChatButton.svg" alt="" class="user-icon" />
+        </button>
+
+
+    </div>
+
+</section>
+
+
+
+<!--<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>@ViewBag.CareGiverName</h5>
+                    <div class="ibox-tools">
+
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="col-md-12" id="chat1" style="z-index: 1001;max-height: 350px;overflow-y: scroll;">
+                    <table id="myDataTable" class="table table-striped table-bordered table-hover dataTables-example">
+                        <thead>
+
+                        </thead>
+                        <tbody id="chatMsg"></tbody>
+                    </table>
+                </div>
+                <hr style="border-top: 1px solid #1dca75;padding-top:15px">
+                <div style="clear:both">
+                    <br><br>
+                </div>
+
+                <audio id="myAudio">
+                    <source src="~/Sound/ChatNotification.mp3" />
+                </audio>
+
+
+                <div class="alert alert-info alert-dismissable" style="display:none" id="FileAlert">
+                    <div style="float:right;display:none;cursor: pointer;" id="fileRemove" title="Remove Attached File"><b>Remove Attachment</b></div>
+                    <div id="FileAlertContent"></div>
+                </div>
+                <div class="col-md-12">
+
+                    <table class="col-md-12">
+                        <tr style="height:75px">
+                            <td style="position:relative;">
+                                ​<textarea id="txtSendMsg" rows="5" style="width:100%;padding-right: 30px;" placeholder="Enter Your Message" cols="70"></textarea>-->
+@*  <input type="text" id="txtSendMsg" name="txtSendMsg" style="width:100%" class="form-control" placeholder="Enter Your Message" />*@
+<!--<div class="image-upload " id="selectFileIcon" style="position: absolute;right: -10px;top: 30px;">
+                                    <label for="file1">
+                                        <i style="float:right;" id="fileCall" class="fa fa-paperclip" title="Attach File"></i>
+                                    </label>
+
+                                    <label id="fileViewer"></label>
+                                    <input id="file1" type="file" accept="image/*,video/*,application/msword,application/pdf,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/vnd.ms-excel" multiple />
+                                </div>
+                                <style>
+                                    .image-upload > input {
+                                        display: none;
+                                    }
+
+                                    .image-upload i {
+                                        width: 40px;
+                                        font-size: large;
+                                        cursor: pointer;
+                                    }
+
+                                    input[id="fileCall"] {
+                                        margin-left: -50px;
+                                        height: 25px;
+                                        width: 50px;
+                                    }
+                                </style>
+                            </td>
+                            <td>
+                                <input type="button" id="btnSendMsg" style="background-color:#63ccfe;color:white;margin-left: 5px;" class="form-control btn btn-lg btn-primary" value="Send" />
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>-->

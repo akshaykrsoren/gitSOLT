@@ -1,0 +1,198 @@
+﻿<div id="main_div">
+    <div class="alert alert-danger alert-dismissable" style="display:none" id="dvError3">
+        <button onclick="divClose();" class="close" type="button">×</button>
+        <label id="lblError3"></label>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label>Scheduler : @ViewBag.Name </label>
+        </div>
+        <div class="form-group">
+            <label>Group(s)</label>
+            <div class="form-group">
+                @Html.DropDownList("ddlChattingGroup", new MultiSelectList(@ViewBag.UnassignedGroupList, "ChattingGroupId", "GroupName"), new { @multiple = "multiple", @class = "chosen-select" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <button type="button" onclick="AssignGroupToScheduler('@ViewBag.UserId','@ViewBag.QuickBloxId')" class="btn btn-sm btn-primary pull-right">ASSIGN</button>
+        <div class="clearfix"></div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label>Group List</label>
+            <div class="col-md-06" style="overflow-y:auto;scroll:auto;max-height:300px">
+                <table class="table table-striped table-bordered table-hover dataTables-example">
+                    <thead>
+                        <tr>
+                            <td>
+                                <b>Group(s)</b>
+                            </td>
+                            <td>
+                                <b>Office</b>
+                            </td>
+                            <td style="width:10%;">
+                                <b>Action</b>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (ViewBag.AssignedGroupList != null)
+                        {
+                            foreach (var item in ViewBag.AssignedGroupList)
+                            {
+                                <tr id="@item.ChattingGroupId">
+                                    <td>@item.GroupName</td>
+                                    <td>@item.OfficeName</td>
+                                    <td>
+                                        <center>
+                                            <button class="btn btn-xs btn-danger" style="margin:5px; width:auto;" onclick="RemoveScheduler('@item.ChattingGroupId','@ViewBag.UserId','@ViewBag.QuickBloxId')"><span class="fa fa-remove"></span></button>
+                                        </center>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script type="text/javascript">
+    $(document).ready(function () {
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': { allow_single_deselect: true },
+            '.chosen-select-no-single': { disable_search_threshold: 10 },
+            '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+            '.chosen-select-width': { width: "95%" }
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+    });
+
+    function AssignGroupToScheduler(UserId, QuickBloxId)
+    {
+        QuickBloxId == "0" ? RegisterNewSchedulerOnQuickBlox('@ViewBag.Email', UserId) : AssignMultipleGroupsToScheduler(UserId, QuickBloxId);
+    }
+
+    function AssignMultipleGroupsToScheduler(UserId, QuickBloxId) {
+        var selectedChattingGroupIds = '';
+        $('#ddlChattingGroup :selected').each(function () {
+            selectedChattingGroupIds += $(this).val() + ',';
+        });
+
+        selectedChattingGroupIds = selectedChattingGroupIds.replace(/,\s*$/, "");
+
+        if (selectedChattingGroupIds == "") {
+            toastr.info("Please select atleast one group");
+            $('#ddlChattingGroup').focus();
+            return;
+        }
+
+        $('#loading').show();
+        var url = INITURL + '/Schedulers/AssignGroupToScheduler';
+        $.ajax({
+            url: url,
+            cache: false,
+            type: 'POST',
+            data: {
+                ChattingGroupIds: selectedChattingGroupIds,
+                UserId: UserId,
+                QuickBloxId: QuickBloxId
+            },
+            async: true,
+            success: function (data) {
+                $('#loading').hide();
+                if (data == "Success") {
+                    $('#modalGroupAssignment').modal('hide');
+                    toastr.success('Group(s) have been assigned successfully.');
+                }
+            },
+            error: function (reponse) {
+                $('#loading').hide();
+            }
+        });
+    }
+
+    function RemoveScheduler(ChattingGroupId, UserId, QuickBloxId) {
+        if (!confirm('Are you sure you want remove scheduler from this group ?'))
+            return false;
+        if (ChattingGroupId && UserId) {
+            $('#loading').show();
+            var url = INITURL + '/Schedulers/RemoveSchedulerFromGroupChat';
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                data: {
+                    ChattingGroupId: ChattingGroupId,
+                    UserId: UserId,
+                    QuickBloxId: QuickBloxId
+                },
+                async: true,
+                success: function (data) {
+                    if (data.result == "Success") {
+                        $('#' + ChattingGroupId).remove();
+                        LoadChattingGroupSelectList(data.lstChattingGroup);
+                        $('#loading').hide();
+                        toastr.success('Scheduler has been removed successfully.');
+                    }
+                    else {
+                        toastr.error('Something went wrong!');
+                        $('#loading').hide();
+                    }
+                },
+                error: function (reponse) {
+                    $('#loading').hide();
+                }
+            });
+        }
+    }
+
+    function LoadChattingGroupSelectList(lstChattingGroup) {
+        $('#ddlChattingGroup').empty();
+        if (lstChattingGroup.length > 0) {
+            $.each(lstChattingGroup, function (key, value) {
+                $('#ddlChattingGroup').append("<option value=" + value.ChattingGroupId + ">" + value.GroupName + "</option>");
+            });
+        }
+        $('#ddlChattingGroup').trigger("chosen:updated");
+        $('#loading').hide();
+    }
+
+    function RegisterNewSchedulerOnQuickBlox(Login, UserId) {
+        $("#loading").show();
+        var RegisterUser = { 'login': Login, 'password': "Welcome007!", 'tag': "differenzsystem", 'email': Login };
+        QB.users.create(RegisterUser, function (err, user) {
+            if (user) {
+                var url = INITURL + '/Chatting/SaveQBId';
+                var QBId = user.id;
+                $.ajax({
+                    url: url,
+                    data: { UserId: UserId, QuickBloxId: QBId },
+                    type: 'POST',
+                    async: false,
+                    success: function (data) {
+                        $("#loading").hide();
+                        AssignMultipleGroupsToScheduler(UserId, QBId);
+                        window.location.reload();
+                    },
+                    error: function (reponse) {
+                        alert("error : " + reponse);
+                        $("#loading").hide();
+                        return ;
+                    }
+                });
+            } else {
+                alert("error : " + err);
+                $("#loading").hide();
+                return;
+            }
+        });
+    }
+</script>
+

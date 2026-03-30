@@ -1,0 +1,457 @@
+﻿
+
+
+
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="~/Content/css/bootstrap-datetimepicker.css" rel="stylesheet">
+    <link href="~/Content/css/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="~/Content/css/dataTables.responsive.css" rel="stylesheet">
+    <link href="~/Content/css/dataTables.tableTools.min.css" rel="stylesheet">
+    <link href="~/Content/css/animate.css" rel="stylesheet">
+    <link href="~/Content/css/style.css" rel="stylesheet">
+    <link href="~/Content/css/chosen.css" rel="stylesheet">
+    <link href="~/Content/css/switchery.css" rel="stylesheet">
+    <link href="~/Content/css/fullcalendar.css" rel="stylesheet">
+    <link href="~/Content/css/toastr.css" rel="stylesheet" />
+    <link href="~/Content/css/fullcalendar.print.css" rel='stylesheet' media='print'>
+    @*@System.Web.Optimization.Styles.Render("~/Content/CommanCss")*@
+
+    @System.Web.Optimization.Scripts.Render("~/bundles/CommanJs")
+    <script src="~/Scripts/js/toastr.js"></script>
+    <script src="~/Scripts/js/jquery.validate.min.js"></script>
+    <script src="~/Scripts/js/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>*@
+    @*<script src="~/Scripts/QuickBlox/quickblox.min.js"></script>*@
+
+
+
+
+    <title>Appointment</title>
+    <style>
+                .common {
+                    position: relative;
+                    margin-top: -20px;
+                    left: -12px;
+                    width: 70px;
+                    padding: 5px;
+                    border-radius: 5px;
+                }
+
+                .card p {
+                    font-weight: 700;
+                    margin-bottom: 0px;
+                }
+
+                .bg-1 {
+                    background-color: yellow;
+                }
+
+                .bg-2 {
+                    background-color: yellowgreen;
+                }
+
+                .bg-3 {
+                    background-color: violet;
+                }
+
+                .bg-4 {
+                    background-color: turquoise;
+                }
+
+                .card {
+                    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 20%);
+                    transition: 0.3s;
+                    border: none;
+                    padding: 10px;
+                }
+
+                .card2 {
+                    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 20%);
+                    transition: 0.3s;
+                    border: none;
+                }
+
+                .viewbtn {
+                    border: none;
+                    background: #fff;
+                    text-align: left;
+                }
+
+                .mycommon {
+                    text-align: center;
+                    padding: 5px;
+                    border-radius: 2px 0px 0px 0px;
+                }
+
+                .card2 p {
+                    font-weight: 700;
+                    margin-bottom: 0px;
+                    padding: 10px 2px 0px 2px;
+                }
+
+                .bg-green {
+                    background-color: #19bb8c;
+                    height: 100px;
+                }
+
+                    .bg-green h2 {
+                        line-height: 100px;
+                    }
+
+                .sidebg {
+                    background-color: #000;
+                    /*height: 100vh;*/
+                    height: 900px;
+                    padding: 0px;
+                    position: relative;
+                }
+
+                    .sidebg ul {
+                        list-style: none;
+                        padding: 0;
+                        margin-bottom: 0px;
+                    }
+
+                .mt-30 {
+                    margin-top: 20px;
+                }
+
+                .pl-30 {
+                    padding: 10px 30px !important;
+                    border-bottom: 1px solid #fff;
+                }
+
+                .sidebg ul li {
+                    background-color: #red;
+                    color: #fff;
+                    cursor: pointer;
+                    height: 40px;
+                }
+
+                .commonpadding {
+                    padding: 8px 0px 15px 10px;
+                    margin: 0px 0px 0px 0px;
+                }
+
+                .submenu {
+                    padding: 8px 0px 0px 10px;
+                    margin: 0px 0px 0px 10px;
+                }
+
+                .listborder {
+                    border-left: 4px solid #red;
+                    font-family: Arial, Helvetica, sans-serif;
+                    text-decoration: none;
+                    font-size: 14px;
+                }
+
+                #submenudrop {
+                    display: none;
+                }
+
+                .circleicon {
+                    height: 30px;
+                    width: 30px;
+                    border: 1px solid red;
+                    border-radius: 50%;
+                }
+
+                .active {
+                    display: block;
+                }
+
+                .hide {
+                    display: none;
+                }
+
+                .activelink {
+                    background-color: #5073fe;
+                }
+
+                .activelinkText {
+                    background-color: #5073fe;
+                }
+
+                #submenudrop a {
+                    color: #fff;
+                }
+
+                li a {
+                    text-decoration: none;
+                    color: white;
+                    display: block;
+                }
+
+                #pasevalogo {
+                    height: 90px;
+                    padding: 10px 10px 10px 60px;
+                }
+
+                #pasevaName {
+                    font-family: Arial, Helvetica, sans-serif;
+                    padding: 0px 10px 10px 25px;
+                    font-size: 20px;
+                    color: white;
+                }
+
+                a:hover, a:focus, a:active {
+                    color: inherit;
+                }
+
+                #menuImg {
+                    height: 20px;
+                    margin-top: -5px;
+                }
+
+                #userlogo {
+                    height: 50px;
+                    width: 50px;
+                    background-color: #bbb;
+                    border-radius: 50%;
+                }
+
+                .sidebg ul {
+                    list-style: none;
+                    padding: 0px;
+                    margin-bottom: 0px;
+                }
+
+                .mt-30 {
+                    margin-top: 132px;
+                }
+
+                element.style {
+                    width: 41px;
+                }
+
+                select.form-group-sm .form-control, select.input-sm {
+                    height: 40px;
+                    line-height: 40px;
+                }
+
+                element.style {
+                    color: blue;
+                }
+
+                label {
+                    display: inline-block;
+                    max-width: 100%;
+                    margin-bottom: 5px;
+                    color: blue;
+                    font-weight: 700;
+                }
+                /*.loading {
+            position: fixed;
+            z-index: 1000000;
+            top: 0;
+            left: 0;
+            align-content: center;
+            height: 100%;
+            width: 100%;
+            background: rgba(255,255,255,.8) url(../../image/loading.gif) 50% 50% no-repeat;
+        }*/
+    </style>
+</head>
+<body>
+
+    <div class="container-fluid" style="background-color:#F5F5F5;">
+        <div class="row">
+            <div class="col-md-2 sidebg">
+                <div style="background-color:#5073fe; padding-bottom:7px;" class="col-md-12">
+
+                    <img id="pasevalogo" src="~/Content/image/PasevaCustomerLogo.svg" />
+
+                    <!--<h3 id="pasevaName" > Paseva Customer</h3>-->
+                    <img style="display:block; width:70%; margin:auto; " src="~/Content/image/PaSevaCustomerNameLogo.png" alt="bottle" />
+
+
+
+                </div>
+
+                <ul class="mt-30" id="dropmenu">
+
+                    @* <li class="listborder commonpadding"><img id="menuImg" src="~/Content/image/dashboard.svg" alt="bottle" class="thumbnails" /> <span style="padding-left:5px">Dashboard</span> </li>*@
+
+                    <li class="listborder commonpadding dashboardPSC">
+                        <a href="~/PasevaCustomerDashBorad/PasevaDashboard" data-tag="one" style="margin-right:5px">
+                            <img id="menuImg" src="~/Content/image/dashboardMenu.svg" alt="bottle" class="thumbnails" />
+                            <span style="padding-left:5px">Dashboard</span>
+                        </a>
+                    </li>
+
+
+
+                    @*<li class="listborder submenu patients">
+                           <a href="~/Appointment/Patients" data-tag="one" style="margin-right:5px">
+                             <i class="fa fa-user"></i>
+                             <span style="padding-left:5px">Patients</span>
+                             </a>
+                         </li>
+                        <li class="listborder submenu nurse">
+                        <a href="~/Appointment/Nurse" data-tag="one" style="margin-right:5px">
+                            <i class="fa fa-user-md" style="padding-left:5px"></i>
+                            <span style="padding-left:5px">Nurse</span>
+                            </a>
+                        </li>*@
+
+                    <li class="listborder submenu bookappointment"><a href="~/Appointment/BookAppointment" data-tag="one" style="margin-right:5px"><img id="menuImg" src="~/Content/image/BookAppointmentMenu.svg" alt="bottle" class="thumbnails" /><span style="padding-left:5px">Book Appointment</span></a></li>
+                    <li class="listborder submenu awaitingAppointment"><a href="~/Appointment/PendingAppointment" data-tag="one"><img id="menuImg" src="~/Content/image/AwaitingAppointmentMenu.svg" alt="bottle" class="thumbnails" /> <span style="padding-left:5px">Awaiting Appointment </span></a></li>
+                    <li class="listborder submenu confirmAppointment"><a href="~/Appointment/ConfirmAppointment" data-tag="one"><img id="menuImg" src="~/Content/image/ConfirmAppointmentMenu.svg" alt="bottle" class="thumbnails" /> <span style="padding-left:5px">Confirm Appointment </span></a></li>
+                    <li class="listborder submenu completeAppointment"><a href="~/Appointment/CompleteAppointment" data-tag="one"><img id="menuImg" src="~/Content/image/CompleteAppointmentMenu.svg" alt="bottle" class="thumbnails" /> <span style="padding-left:5px">Complete Appointment </span></a></li>
+                    <li class="listborder submenu cancelAppointment"><a href="~/Appointment/CancelAppointment" data-tag="one"><img id="menuImg" src="~/Content/image/CancelledAppointmentMenu.svg" alt="bottle" class="thumbnails" /> <span style="padding-left:5px">Cancel Appointment </span></a></li>
+                    <li class="listborder submenu rescheduleAppointment"><a href="~/Appointment/RescheduledAppointment" data-tag="one"><img id="menuImg" src="~/Content/image/RescheduleAppointmentMenu.svg" alt="bottle" class="thumbnails" /> <span style="padding-left:5px">Reschedule Appointment </span></a></li>
+                    <li class="listborder submenu paymentAppointment"><a href="~/Appointment/PaymentDetails" data-tag="one"><img id="menuImg" src="~/Content/image/paymentMenu.svg" alt="bottle" class="thumbnails" /> <span style="padding-left:5px">Payment Details </span></a></li>
+
+                    <li class="listborder commonpadding patients">
+                        <a href="~/Appointment/Patients" data-tag="one" style="margin-right:5px">
+                            <i class="fa fa-user"></i>
+                            <span style="padding-left:5px">Patients</span>
+                        </a>
+                    </li>
+                    <li class="listborder commonpadding nurse">
+                        <a href="~/Appointment/Nurse" data-tag="one" style="margin-right:5px">
+                            <i class="fa fa-user-md"></i>
+                            <span style="padding-left:5px">Nurse</span>
+                        </a>
+                    </li>
+
+                    <li class="listborder commonpadding"><img id="menuImg" src="~/Content/image/logout.svg" alt="bottle" class="thumbnails" /> <span style="padding-left:5px">Logout</span> </li>
+
+
+                </ul>
+
+            </div>
+            <div class="loading" id="loading">
+            </div>
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-12 bg-green" style="height:128px;">
+                        <div class="row">
+                            <div class="col-md-9">
+
+                                <h2 class="text-white" style="font-size:40px;">@ViewBag.PageName</h2>
+
+                            </div>
+                            <div class="col-md-3" style="margin:35px 0px 0px 0px; ">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <img id="userlogo" src="/Content/image/neeraj.jpeg" alt="" />
+                                    </div>
+                                    <div class="col-md-9" style="padding-left:10px;">
+                                        <div class="text-white">Neeraj Venu </div>
+
+                                        <div class="text-white" style="font-size:12px">Administrator</div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="container">
+                    @RenderBody()
+                </div>
+
+
+            </div>
+            @*</div>*@
+
+        </div>
+    </div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+            var selected = 0;
+            $("#dropmenu").click(function () {
+                $("#submenudrop").toggle()
+            })
+
+
+            $(".listborder").click(function () {
+                $('.listborder').removeClass('activelink');
+                $(this).addClass('activelink');
+                $(this).addClass('Active');
+
+            })
+            $('#loading').show();
+            var url = window.location;
+            $('.nav').find('.activelink').removeClass('activelink');
+            $('.nav li a').each(function () {
+                if (this.href == url) {
+                    $(this).parent().addClass('activelink');
+                }
+            });
+            $('#loading').hide();
+
+
+            var PageStatus = "@ViewBag.PageName";
+
+
+            if (PageStatus == "DashBoard") {
+                $(".dashboardPSC").addClass('activelink');
+            }
+            if (PageStatus == "Book Appointment") {
+                $(".bookappointment").addClass('activelink');
+            }
+
+            if (PageStatus == "Awaiting Appointment") {
+                $(".awaitingAppointment").addClass('activelink');
+            }
+            if (PageStatus == "Confirm Appointment") {
+                $(".confirmAppointment").addClass('activelink');
+            }
+            if (PageStatus == "Complete Appointment") {
+                $(".completeAppointment").addClass('activelink');
+            }
+            if (PageStatus == "Cancel Appointment") {
+                $(".cancelAppointment").addClass('activelink');
+            }
+
+            if (PageStatus == "Reschedule Appointment") {
+                $(".rescheduleAppointment").addClass('activelink');
+            }
+
+            if (PageStatus == "Transaction Details") {
+                $(".paymentAppointment").addClass('activelink');
+            }
+
+            if (PageStatus == "Patients") {
+                $(".patients").addClass('activelink');
+            }
+
+            if (PageStatus == "Nurse") {
+                $(".nurse").addClass('activelink');
+            }
+
+
+
+
+
+            $('.clickme a').click(function () {
+                $('.clickme a').removeClass('activelink');
+                $(this).addClass('activelink');
+                var tagid = $(this).data('tag');
+                $('.list').removeClass('active').addClass('hide');
+                $('#' + tagid).addClass('active').removeClass('hide');
+            });
+    </script>
+
+</body>
+</html>

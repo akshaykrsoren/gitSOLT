@@ -1,0 +1,294 @@
+﻿
+@{
+    ViewBag.Title = "Office";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- ADD Office POPUP START -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Add New Office</h4>
+            </div>
+            <div class="modal-body row" id="AddOffice">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- EDIT Office POPUP START -->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Update Office</h4>
+            </div>
+            <div class="modal-body row" id="EditPanel">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ASSIGN OFFICE ZIPCODES POPUP START -->
+<div class="modal fade" id="modalOfficeZipcodes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Assign Zipcode(s)</h4>
+            </div>
+            <div class="modal-body row" id="AssignOfficeZipcodes">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Office List</h5>
+                    <div class="ibox-tools">
+                        <a class="btn btn-xs btn-primary" style="margin-top:-9px;" href="javascript:;" onclick="OpenAddNew()">Add New Office</a>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <table id="myDataTable" class="table table-striped table-bordered table-hover dataTables-example">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Office Name</th>
+                                <th>Office Manager</th>
+                                <th>Street</th>
+                                <th>City</th>
+                                <th>State</th>
+                                <th>Zipcode</th>
+                                <th>Assigned Zipcodes</th>
+                                <th style="width: 100px;">@CaregiverLite.Views.Resources.Schedulers.TableHeaderAction</th>
+                                <th style="width: 100px;">Assign ZipCodes</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/js/jquery-2.1.1.js"></script>
+<script src="~/Scripts/js/jquery.dataTables.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="~/Scripts/js/oms.min.js"></script>
+<script type="text/javascript">
+    var tempMsg = '@TempData["Message"]';
+    if (tempMsg != "")
+        toastr.success(tempMsg);
+
+    var oTable;
+    $(document).ready(function () {
+        //GetUnAssignedNurseCoordinator();
+
+        $("#loading").show();
+        var jquey = jQuery.noConflict();
+        oTable = $('#myDataTable').dataTable({
+            responsive: true,
+            "dom": 'lfrtip',
+            "bPaginate": true,
+            "bServerSide": true,
+            "bSortable": true,
+            "sPaginationType": "full_numbers",
+            "oLanguage": {
+                "sProcessing": "<div class=\"loading\" id=\"loading\" style=\"display: block;\"></div>"
+            },
+            "processing": true,
+            "sAjaxSource": "GetAllOfficesList",
+            "fnServerData": function (sSource, aoData, fnCallback) {
+                $.getJSON(sSource, aoData, function (json) {
+                    fnCallback(json);
+                }).fail(function (jqxhr, textStatus, error) {
+                    window.location.reload();
+                });
+            },
+            "fnDrawCallback": function (oSettings) {
+                //Navigation validation
+                var rowsPerPage = this.fnSettings()._iDisplayLength;
+                var rowsToShow = this.fnSettings().fnRecordsDisplay();
+                var table = $('#myDataTable').DataTable();
+                var info = table.page.info();
+                var currentPageNo = info.page + 1;
+                $("#loading").hide();
+            },
+            "responsive": {
+                "details": {
+                    "type": 'column'
+                }
+            },
+            "aoColumns": [
+                            {
+                                className: 'control',
+                                orderable: false,
+                                targets: 0,
+                                "mRender": function (oObj) {
+                                    return '';
+                                }
+                            },
+                            {
+                                "sName": "OfficeName",
+                                "mRender": function (oObj) {
+                                    return oObj["OfficeName"];
+                                }
+                            },
+                              {
+                                  "sName": "AdminName",
+                                  "mRender": function (oObj) {
+                                      return oObj["AdminName"];
+                                  }
+                              },
+                            {
+                                "sName": "Street",
+                                "mRender": function (oObj) {
+                                    return oObj["Street"];
+                                }
+                            },
+                            {
+                                "sName": "City",
+                                "mRender": function (oObj) {
+                                    return oObj["City"];
+                                }
+                            },
+                            {
+                                "sName": "State",
+                                "mRender": function (oObj) {
+                                    return oObj["State"];
+                                }
+                            },
+                            {
+                                "sName": "ZipCode",
+                                "mRender": function (oObj) {
+                                    return oObj["ZipCode"];
+                                }
+                            },
+                            {
+                                "sName": "AssignedZipcodes",
+                                "mRender": function (oObj) {
+                                    return '<span title="' + oObj["AssignedZipcodes"] + '">' + (oObj["AssignedZipcodes"].length >= 99 ? (oObj["AssignedZipcodes"].substring(0, 50) + "...") : oObj["AssignedZipcodes"]) + '</span>';
+                                    
+                                }
+                            },
+                                 {
+                                     "sName": "OfficeId",
+                                     "bSortable": false,
+                                     "mRender": function (oObj) {
+                                         var actionhtml = '';
+                                         actionhtml += '<a href="javascript:;" class="btn btn-xs btn-danger" style="margin-top:5px; width:100%;" onclick="DeleteOffice(\'' + oObj["OfficeId"] + '\');">@CaregiverLite.Views.Resources.CareGiver.ButtonDelete</a>'
+                                         actionhtml += '<a href="javascript:;" class="btn btn-xs btn-primary" style="margin-top:5px; width:100%;" onclick="EditOffice(\'' + oObj["OfficeId"] + '\');">EDIT</a>'
+                                         return actionhtml;
+                                     }
+                                 },
+                                 {
+                                     "sName": "OfficeId",
+                                     "bSortable": false,
+                                     "mRender": function (oObj) {
+                                         var actionhtml = '';
+                                         actionhtml += '<a href="javascript:;" class="btn btn-xs btn-primary" style="margin-top:5px; width:100%;" onclick="AssignZipcodes(\'' + oObj["OfficeId"] + '\');">ASSIGN ZIPCODES</a>'
+                                         return actionhtml;
+                                     }
+                                 }
+
+
+            ]
+        });
+
+        $('#myDataTable_filter input').unbind(); //Unbind direct search on each keypress
+        $('#myDataTable_filter input').bind('keyup', function (e) { //Bind Keyup event that filter data only on "Enter" key.
+            if (e.keyCode == 13) {
+                oTable.fnFilter(this.value);
+            }
+        });
+        /* Init DataTables */
+        $('.carousel').carousel({
+            interval: false
+        });
+
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': { allow_single_deselect: true },
+            '.chosen-select-no-single': { disable_search_threshold: 10 },
+            '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+            '.chosen-select-width': { width: "95%" }
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+
+        $("#loading").hide();
+    });
+
+    //Add new
+    function OpenAddNew() {
+        $("#loading").show();
+        console.log(INITURL);
+
+        $('#AddOffice').load(INITURL + 'Office/_AddOffice', function () {
+            sessionStorage.setItem("PartialView", "1");
+            $('#myModal').modal('show');
+            $("#loading").hide();
+        });
+    }
+    //Delete One
+    function DeleteOffice(OfficeId1) {
+        if (confirm('Are you sure you want to delete Office?')) {
+            $("#loading").show();
+            var url = INITURL + '/Office/DeleteOffice';
+
+            $.ajax({
+                url: url,
+                data: { OfficeId: OfficeId1 },
+                cache: false,
+                type: 'POST',
+                async: false,
+                success: function (data) {
+                    if (data == "Success") {
+                        toastr.success('Office is Deleted successfully.');
+                        window.location = INITURL + '/Office/Office';
+                    }
+                    $("#loading").hide();
+                },
+                error: function (reponse) {
+                    alert("error : " + reponse);
+                    $("#loading").hide();
+                }
+            });
+        }
+    }
+
+    //Edit One
+    function EditOffice(OfficeId) {
+        // console.log(schedulerid);
+        $("#loading").show();
+        $('#EditPanel').load(INITURL + '/Office/_EditOffice/' + OfficeId, function () {
+            sessionStorage.setItem("PartialView", "1");
+            $('#myModal2').modal('show');
+            $("#loading").hide();
+        });
+    }
+    //Assign Zipcodes 
+    function AssignZipcodes(OfficeId) {
+        //$('#AssignOfficeZipcodes').remove();
+        
+        $("#loading").show();
+        $('#AssignOfficeZipcodes').load(INITURL + '/Office/_AssignZipcodes/' + OfficeId, function () {
+            sessionStorage.setItem("PartialView", "1");
+            $('#modalOfficeZipcodes').modal('show');
+            $("#loading").hide();
+        });
+    }
+
+
+
+
+</script>

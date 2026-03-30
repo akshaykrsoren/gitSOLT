@@ -1,0 +1,433 @@
+﻿
+@{
+    ViewBag.Title = "Chatting";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Chat List</h5>
+                </div>
+                <div class="ibox-content">
+
+                    @*   <div class="form-group col-md-2 pull-right">
+                            <label>Read/Unread:</label>
+                            <select id="ddlUnread" name="ddlUnread" onchange="GetUnread();" style="width: 148px;height:34px;border-color:#e5e6e7">
+                                <option value="0">All</option>
+                                <option value="1">Unread</option>
+                            </select>
+                            <div class="clearfix"></div>
+                        </div>*@
+
+                    <div class="form-group col-md-2 pull-right">
+                        <label>Search:</label>
+                        <input type="text" class="form-control" id="table-filter" placeholder="Search Here..">
+                    </div>
+                    <div class="form-group col-md-2 pull-right">
+                        @if (!ViewContext.Controller.HasRoles("Nurse") && !ViewContext.Controller.HasRoles("NurseCoordinator"))
+                        {
+                            <label>@CaregiverLite.Views.Resources.PatientRequest.FilterLabelOffice</label>
+                            <br>
+                            <div class="form-group" style="margin-right: 10px;">
+                                @Html.DropDownList("ddlOfficeDropDownList", (System.Web.Mvc.SelectList)ViewBag.OfficeDropDownList, new { @class = "form-control", style = "width:170px", @onchange = "FilterOffice(this.value)" })
+                            </div>
+                        }
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <table id="myDataTable" class="table table-striped table-bordered table-hover dataTables-example">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Role</th>
+                                <th>Office</th>
+                                <th>Chat</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/js/jquery-2.1.1.js"></script>
+<script src="~/Scripts/js/jquery.dataTables.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="~/Scripts/js/oms.min.js"></script>
+<script>
+    var tempMsg = '@TempData["Message"]';
+    if (tempMsg != "")
+        toastr.success(tempMsg);
+
+    $('#ddlOfficeDropDownList').val(0);
+
+    var oTable;
+
+    var ChatDatatable;
+
+
+    function GetUnread() {
+
+
+        if (localStorage.getItem('chatting_data') != null) {
+            var a = JSON.parse(localStorage.getItem('chatting_data'));
+        }
+        else {
+
+            var a = JSON.parse(localStorage.getItem('local_chatting_data'));
+        }
+
+
+
+        var b = a.filter(function (el) {
+            return el.unreadMsgCount > 0;
+        });
+
+
+        if ($('#ddlUnread').val() == 1) {
+            var datatable = ChatDatatable;
+
+            datatable.clear().draw();
+            datatable.rows.add(b);
+            // Add new data
+            datatable.columns.adjust().draw();
+        }
+        else {
+            var datatable = ChatDatatable;
+
+            datatable.clear().draw();
+            datatable.rows.add(a);
+            // Add new data
+            datatable.columns.adjust().draw();
+        }
+        //********************************************************* old logic for unread count
+        //for (var i1 = 0; i1 < DialogIds.length ; i1++) {
+        //    var res = JSON.parse(localStorage.getItem('QBres'));
+        //    debugger;
+        //    if (res[DialogIds[i1].QuickBloxDialogId]) {
+        //        //   debugger;
+        //        if (($("#myDataTable").find('tbody tr td span[id="notify' + DialogIds[i1].QuickBloxDialogId + '"]')).length > 0) {
+        //            $("#notify" + DialogIds[i1].QuickBloxDialogId).text(res[DialogIds[i1].QuickBloxDialogId]);
+        //            $("#notify" + DialogIds[i1].QuickBloxDialogId).show();
+        //        }
+        //        else {
+
+        //            if (DialogIds[i1].QuickBloxDialogId != "") {
+        //                //console.log(DialogIds[i1].NurseId + " _ notify" + DialogIds[i1].QuickBloxDialogId);
+        //                var tmpdid = "notify" + DialogIds[i1].QuickBloxDialogId
+        //                $("#" + DialogIds[i1].UserId).show();
+        //                $("#" + DialogIds[i1].UserId).attr('id', tmpdid);
+        //                $("#notify" + DialogIds[i1].QuickBloxDialogId).text(res[DialogIds[i1].QuickBloxDialogId]);
+
+        //            }
+        //        }
+        //    }
+
+        //}
+        // *************************************************************************************
+    }
+
+    function FilterOffice(OfficeId) {
+
+        //debugger;
+        //$('#ddlOfficeDropDownList').val();
+        //{
+
+        //}
+
+        var OfficeSelect = document.getElementById("ddlOfficeDropDownList");
+        var OfficeNameText = OfficeSelect.options[OfficeSelect.selectedIndex].text;
+
+
+        if (localStorage.getItem('chatting_data') != null) {
+            var a = JSON.parse(localStorage.getItem('chatting_data'));
+        }
+        else {
+
+            var a = JSON.parse(localStorage.getItem('local_chatting_data'));
+        }
+
+
+
+        //var b = a.filter(function (el) {
+        //    return el.OfficeId == OfficeId;
+        //});
+
+        var b = a.filter(function (el) {
+
+            var x = OfficeNameText;
+            var y = el.OfficeName;
+            //debugger;
+            // str.includes("world");
+            return el.OfficeName.includes(OfficeNameText);
+            // return el.OfficeName == OfficeName;
+        });
+
+        if ($('#ddlOfficeDropDownList').val() != 0) {
+            var datatable = ChatDatatable;
+
+            datatable.clear().draw();
+            datatable.rows.add(b);
+            // Add new data
+            datatable.columns.adjust().draw();
+        }
+        else {
+            var datatable = ChatDatatable;
+
+            datatable.clear().draw();
+            datatable.rows.add(a);
+            // Add new data
+            datatable.columns.adjust().draw();
+        }
+        for (var i1 = 0; i1 < DialogIds.length ; i1++) {
+            var res = JSON.parse(localStorage.getItem('QBres'));
+            //   debugger;
+            //********************************************************* old logic for unread count
+            //if (res[DialogIds[i1].QuickBloxDialogId]) {
+            //    //   debugger;
+            //    if (($("#myDataTable").find('tbody tr td span[id="notify' + DialogIds[i1].QuickBloxDialogId + '"]')).length > 0) {
+            //        $("#notify" + DialogIds[i1].QuickBloxDialogId).text(res[DialogIds[i1].QuickBloxDialogId]);
+            //        $("#notify" + DialogIds[i1].QuickBloxDialogId).show();
+            //    }
+            //    else {
+
+            //        if (DialogIds[i1].QuickBloxDialogId != "") {
+            //            //console.log(DialogIds[i1].NurseId + " _ notify" + DialogIds[i1].QuickBloxDialogId);
+            //            var tmpdid = "notify" + DialogIds[i1].QuickBloxDialogId
+            //            $("#" + DialogIds[i1].UserId).show();
+            //            $("#" + DialogIds[i1].UserId).attr('id', tmpdid);
+            //            $("#notify" + DialogIds[i1].QuickBloxDialogId).text(res[DialogIds[i1].QuickBloxDialogId]);
+
+            //        }
+            //    }
+            //}
+            //********************************************
+        }
+
+    }
+
+
+    $(document).ready(function () {
+        //  localStorage.clear();
+        localStorage.removeItem("local_chatting_data");
+        localStorage.removeItem("chatting_data");
+
+
+
+        var columns = [
+                            {
+                                'targets': 0,
+                                "sName": "CareGiverName",
+                                "bSortable": true,
+                                "mRender": function (data, type, row, meta) {
+                                    var notify = "";
+                                    //if (row.QuickBloxDialogId != "") {
+                                    //    notify = '<span class="label label-danger" style="float: right;height: 25px;width: auto;padding-top: 7px;font-size: 12px;border-radius: 15px;display:none" v1="' + row.UserId + '"  id="notify' + row.QuickBloxDialogId + '"></span>';
+                                    //}
+                                    //else {
+                                    //    notify = '<span class="label label-danger" style="float: right;height: 25px;width: auto;padding-top: 7px;font-size: 12px;border-radius: 15px;display:none" v1="' + row.UserId + '"  id="' + row.UserId + '"></span>';
+                                    //}
+
+                                    var v1 = '<span class="label label-danger" style="float: right;height: 25px;width: auto;padding-top: 7px;font-size: 12px;border-radius: 15px;">' + row.unreadMsgCount + '</span>'
+
+                                    if (row.unreadMsgCount) {
+                                        return '<span style="margin-left: 0px;">' + row.CareGiverName + '</span>' + v1;
+                                    }
+                                    else {
+
+                                        return '<span style="margin-left: 0px;">' + row.CareGiverName + '</span>';
+                                    }
+                                }
+                            },
+                            {
+                                "sName": "Role",
+                                "bSortable": true,
+                                "mRender": function (data, type, row, meta) {
+                                    //  debugger;
+                                    return row.Role;
+                                }
+                            },
+                            {
+                                "sName": "OfficeName",
+                                "bSortable": true,
+                                "mRender": function (data, type, row, meta) {
+                                    //  debugger;
+                                    return row.OfficeName;
+                                }
+                            },
+                                 {
+                                     "sName": "NurseId",
+                                     "bSortable": false,
+                                     "mRender": function (data, type, row, meta) {
+                                         var actionhtml = '';
+                                         actionhtml += '<a href="/Chatting/OpenChatWindow?Id=' + row.NurseId + '&UserId=' + row.UserId + '" class="btn btn-xs btn-primary" style="margin-top:5px; width:100%;" >Chat</a>'
+                                         //actionhtml += '<a href="/Chatting/OpenChatWindow?Id=' + row.NurseId + '" class="btn btn-xs btn-primary" style="margin-top:5px; width:100%;" >Chat</a>'
+                                         return actionhtml;
+                                     }
+                                 },
+                                {
+                                    "sName": "Time",
+                                    "bVisible": false,
+                                    "mRender": function (data, type, row, meta) {
+                                        return row.Time;
+
+                                        //   console.log(data);
+                                        //   console.log(row.Time);
+                                    }
+
+                                }
+
+        ]
+
+        if (localStorage.getItem('local_chatting_data') == null) {
+            //debugger;
+            localdata();
+        }
+        else {
+            dataTable();
+        }
+        function localdata() {
+            //  debugger;
+            try {
+                // $('#loading').show();
+                $.ajax({
+                    url: "@Url.Action("GetChattingList", "Chatting")",
+                    type: 'POST',
+                    data: jQuery.param({ sEcho: "1", iDisplayStart: "0", iDisplayLength: "500", iSortCol_0: "2", sSortDir_0: "asc", sSearch: "", iColumns: "4" }),
+                    success: function (response) {
+                        localStorage.setItem('local_chatting_data', JSON.stringify(response));
+                        //debugger;
+
+                        dataTable();
+                    },
+                    error: function (error) {
+                        //   debugger;
+                        //throw error;
+                    }
+                });
+
+            } catch (e) {
+                //  $('#loading').hide();
+
+            }
+        }
+
+
+
+
+
+        function dataTable() {
+
+            if (localStorage.getItem('chatting_data') != null) {
+                //debugger;
+                //  var testdata = JSON.parse(localStorage.getItem('local_chatting_data'));
+                var data = JSON.parse(localStorage.getItem('chatting_data'));
+                //debugger;
+
+            }
+            else {
+                // debugger;
+                var testdata = JSON.parse(localStorage.getItem('local_chatting_data'));
+                var data = testdata.aaData;
+
+            }
+            $("#loading").show();
+            var jquey = jQuery.noConflict();
+            ChatDatatable = $('#myDataTable')
+                         .DataTable({
+                             "aaData": data,
+                             "draw": 1,
+                             "bDeferRender": true,
+                             "sDom": '<"top"l>rt<"bottom"ip><"clear">',
+                             "pageLength": 100,
+                             "autoWidth": false,
+                             "bPaginate": true,
+                             "bSearchable": true,
+                             columns: columns,
+                             "order": [[4, 'desc']],
+                         });
+
+
+            $("#loading").hide();
+
+
+            setTimeout(sortByTime, 1000);
+            setTimeout(GetUnread, 1000);
+        }
+
+
+
+        $('#myDataTable_filter input').unbind(); //Unbind direct search on each keypress
+        $('#myDataTable_filter input').bind('keyup', function (e) { //Bind Keyup event that filter data only on "Enter" key.
+            if (e.keyCode == 13) {
+                ChatDatatable.fnFilter(this.value);
+            }
+        });
+        /* Init DataTables */
+        //$('.carousel').carousel({
+        //    interval: false
+        //});
+
+        //var config = {
+        //    '.chosen-select': {},
+        //    '.chosen-select-deselect': { allow_single_deselect: true },
+        //    '.chosen-select-no-single': { disable_search_threshold: 10 },
+        //    '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+        //    '.chosen-select-width': { width: "95%" }
+        //}
+        //for (var selector in config) {
+        //    $(selector).chosen(config[selector]);
+        //}
+
+        $("#loading").hide();
+        $('#table-filter')
+                  .bind('keyup',
+                      function (e) {
+                          //Bind Keyup event that filter data only on "Enter" key.
+                          if (e.keyCode == 13) {
+                              ChatDatatable.search(this.value).draw();
+                              //oTable.fnFilter(this.value, null, false);
+                          }
+                      });
+
+
+        function sortByTime() {
+
+            var dialogs = JSON.parse(localStorage.getItem('QBres'));
+
+            if (dialogs) {
+                var testdata = JSON.parse(localStorage.getItem('local_chatting_data'));
+                var dataSource = testdata.aaData;
+                //debugger;
+                for (var d = 0; d < dialogs.length; d++) {
+                    var dt;
+                    dt = dialogs[d].last_message_date_sent;
+                    count = dialogs[d].unread_messages_count;
+                    try {
+                        for (var x = 0; x < dataSource.length; x++) {
+                            if (dialogs[d]._id == dataSource[x].QuickBloxDialogId) {
+                                dataSource[x]["Time"] = dt;
+                                dataSource[x]["unreadMsgCount"] = count;
+                            }
+                        }
+                    } catch (e) { }
+                }
+
+                //  debugger;
+                var sortData = dataSource.sort(function (a, b) { return b.Time - a.Time });
+
+                //    debugger;
+                localStorage.setItem('chatting_data', JSON.stringify(sortData));
+
+            }
+        }
+    });
+
+</script>

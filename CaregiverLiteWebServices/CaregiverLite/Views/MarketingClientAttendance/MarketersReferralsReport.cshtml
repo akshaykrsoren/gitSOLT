@@ -1,0 +1,203 @@
+﻿@model CaregiverLite.Models.MarketerAttendanceModel
+
+
+<style>
+    #ui-datepicker-div {
+        z-index: 10000 !important;
+    }
+
+    .form-calender {
+        padding: 0 15px;
+    }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+
+<script>
+    $(function () {
+        debugger;
+        var dateFormat = "mm/dd/yy",
+          from = $("#FromDate")
+            .datepicker({
+                defaultDate: "+1w",
+                changeMonth: true,
+                numberOfMonths: 1,
+                maxDate: new Date()
+
+            })
+            .on("change", function () {
+                //toMinDate.setDate(toMinDate.getDate() - 365);
+                to.datepicker("option", "minDate", getDate(this));
+            }),
+          to = $("#ToDate").datepicker({
+              defaultDate: "+1w",
+              changeMonth: true,
+              numberOfMonths: 1,
+              maxDate: new Date(),
+              minDate: $("#FromDate").val()
+
+          })
+          .on("change", function () {
+              // var fromMaxDate = $("#FromDate").val();
+              //fromMaxDate.setDate(fromMaxDate.getDate() - 1);
+              to.datepicker("option", "minDate", getDate(this));
+          });
+
+        function getDate(element) {
+            var date;
+            try {
+                date = $.datepicker.parseDate(dateFormat, element.value);
+            } catch (error) {
+                date = null;
+            }
+
+            return date;
+        }
+
+        //$(function () {
+        var ddlCustomers = $("#ddlOffices");
+        ddlCustomers.empty().append('<option selected="selected" value="0" disabled = "disabled">Loading.....</option>');
+        $.ajax({
+            type: "POST",
+            url: "/MarketingClientAttendance/ListOffices",
+            data: '{}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                ddlCustomers.empty().append('<option selected="selected" value="0">All</option>');
+                $.each(response, function () {
+                    ddlCustomers.append($("<option></option>").val(this['Value']).html(this['Text']));
+                });
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        });
+    //});
+
+
+
+
+
+    });
+
+
+</script>
+
+@using (Html.BeginForm("GenerateMarketersReferralsReport", "MarketingClientAttendance", FormMethod.Post, new { @id = "fmGenerateReport", @class = "horizontal-form", @enctype = "multipart/form-data" }))
+{
+    <div id="main_div" class="Edit_div">
+        <div class="alert alert-danger alert-dismissable" style="display:none" id="dvError3">
+            <button onclick="divClose();" class="close" type="button">×</button>
+            <label id="lblError3"></label>
+        </div>
+        <div class="row form-calender">
+            <div class="col-md-6">
+                @*Date*@
+                <div class="form-group">
+                    <label>From Date</label>
+                    <span style="color:red;">*</span>
+                    @*@Html.ValidationMessageFor(model => model.Date)*@
+                    @Html.TextBoxFor(model => model.FromDate, new { @class = "form-control clsDatePicker", @data_toggle = "dropdown", @placeholder = "DD-MM-YYYY", onkeydown = "return false", autocomplete = "off", @tabindex = "8" })
+                    <label id="lblFromDate"></label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label>To Date</label>
+                <span style="color:red;">*</span>
+                @Html.TextBoxFor(model => model.ToDate, new { @class = "form-control clsDatePicker", @data_toggle = "dropdown", @placeholder = "DD-MM-YYYY", onkeydown = "return false", autocomplete = "off", @tabindex = "8" })
+                <label id="lblToDate"></label>
+            </div>
+        </div>
+        <div class="col-md-2">
+
+            <div>
+                <label>Offices :</label>
+                <select id="ddlOffices"></select>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <button type="button" href="javascript:void(0)" onclick="Addnew();" class="btn btn-sm btn-primary pull-right" tabindex="10">REFERRALS REPORT</button>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+
+
+    <div class="col-md-12">
+        <div class="clearfix"></div>
+    </div>
+}
+
+<script type="text/javascript">
+    $(".loading").show();
+    function Addnew() {
+
+       $('#loading').show();
+        var FromDate = $("#FromDate").val();
+        var ToDate = $("#ToDate").val();
+        var OfficeId=$("#ddlOffices").val();
+
+        if (FromDate == "" && ToDate == "") {
+            toastr.error("Please select required field.");
+            $("#loading").hide();
+            return false;
+        }
+        else if (FromDate == "") {
+            toastr.error("Please select from date.");
+            $("#loading").hide();
+            return false;
+        }
+        else if (ToDate=="") {
+            toastr.error("Please select to date.");
+            $("#loading").hide();
+            return false;
+        }
+
+        //$(".loading").show();
+        debugger;
+        var url = '@Url.Action("GenerateMarketersReferralsReport", "MarketingClientAttendance")';
+
+       // var url = "http://localhost:15177/AttendanceManagement/GenerateReportAction";
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: { FromDate: FromDate, ToDate: ToDate, OfficeId: OfficeId},
+            success: function (res) {
+                $(".loading").hide();
+                if (res) {
+
+                    debugger;
+                    var filename = res;
+                    var iframe = document.createElement("iframe");
+                    iframe.src = filename;
+                    debugger;
+                    iframe.style.display = 'none';
+                    document.body.appendChild(iframe);
+                    debugger;
+                    toastr.success("successfully export.");
+
+                }
+                else {
+                    toastr.warning("No File Exported!");
+                }
+
+            },
+            error: function (reponse) {
+                alert("error : " + JSON.stringify(reponse));
+                $(".loading").hide();
+            }
+        });
+
+        //if($("#fmGenerateReport").valid())
+        //{
+        //    $("#fmGenerateReport").submit();
+        //}
+
+
+    }
+</script>
+

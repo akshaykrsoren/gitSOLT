@@ -1,0 +1,209 @@
+﻿@{
+    Layout = null;
+}
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav" id="side-menu">
+            <li class="nav-header">
+                <div class="profile-element">
+                    <h2 class="block m-t-xs text-center" style="font-size: 30px;">@Html.Raw(CaregiverLite.Views.Resources.Layout.HeaderCAREGIVER)</h2>
+                </div>
+            </li>
+            @*<li class="active">
+                    <a href="~/Dashboard/Dashboard">
+                        <i class="fa fa-th-large"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuDashboard</span>
+                    </a>
+                </li>*@
+
+            @if (ViewContext.Controller.HasRoles("Admin") || ViewContext.Controller.HasRoles("Scheduler") || ViewContext.Controller.IsSysAdmin())
+            {
+                <li>
+                    <a href="~/Patients/Patients">
+                        <i class="fa fa-user"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuPatients</span>
+                    </a>
+                </li>
+            }
+            @if (!ViewContext.Controller.HasRoles("NurseCoordinator") && !ViewContext.Controller.HasRoles("Nurse"))
+            {
+                <li>
+                    <a href="~/PatientRequest/PatientRequest">
+                        <i class="fa fa-clock-o"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuPatientRequest</span>
+                    </a>
+                </li>
+            }
+            @*@if (ViewContext.Controller.HasRoles("SuperAdmin;Scheduler") || ViewContext.Controller.IsSysAdmin())
+                {*@
+            @if (!ViewContext.Controller.HasRoles("NurseCoordinator") && !ViewContext.Controller.HasRoles("Nurse"))
+            {
+                <li>
+                    <a href="~/CareGiver/CareGiver">
+                        <i class="fa fa-user-md"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuCareGiver</span>
+                    </a>
+                </li>
+            }
+            @*}*@
+            @if (ViewContext.Controller.HasRoles("SuperAdmin"))
+            {
+                <li>
+                    <a href="~/Services/Services">
+                        <i class="fa fa-medkit"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuServices</span>
+                    </a>
+                </li>
+            }
+
+            @if (ViewContext.Controller.HasRoles("SuperAdmin") || ViewContext.Controller.IsSysAdmin())
+            {
+                <li>
+                    <a href="~/Admin/Admin">
+                        <i class="fa fa-male"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuAdmin</span>
+                    </a>
+                </li>
+            }
+            @if (ViewContext.Controller.HasRoles("SuperAdmin") || ViewContext.Controller.HasRoles("Admin") || ViewContext.Controller.IsSysAdmin())
+            {
+
+                <li>
+                    <a href="~/Schedulers/Schedulers">
+                        <i class="fa fa-user"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuScheduler</span>
+                    </a>
+                </li>
+            }
+            @if (ViewContext.Controller.HasRoles("SuperAdmin") || ViewContext.Controller.HasRoles("Admin") || ViewContext.Controller.IsSysAdmin())
+            {
+                <li>
+                    <a href="~/RewardPoint/RewardPoint">
+                        <i class="fa fa-plus-circle"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuRewardPoint</span>
+                    </a>
+                </li>
+            }
+            @if (ViewContext.Controller.HasRoles("SuperAdmin") || ViewContext.Controller.HasRoles("Admin") || ViewContext.Controller.IsSysAdmin())
+            {
+                <li>
+                    <a href="~/RewardPointAdvance/RewardPointAdvance">
+                        <i class="fa fa-newspaper-o"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuRewardPointAdv</span>
+                    </a>
+                </li>
+            }
+            @*@if (!ViewContext.Controller.HasRoles("NurseCoordinator"))
+                {}*@
+            @if (Session["IsOfficePermission"].ToString() == "True" && Session["IsAllowOneToOneChat"].ToString() == "True")
+            {
+                <li>
+                    <a href="~/Chatting/Chatting">
+                        <i class="fa fa-comments"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuChatting</span>
+                    </a>
+                </li>
+            }
+            @if (Session["IsOfficePermission"].ToString() == "True"  && Session["IsAllowForPatientChatRoom"].ToString() == "True")
+            {
+                <li>
+                    <a href="~/Chatting/PatientGroupChatting">
+                        <i class="fa fa-group"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuPatientGroupChatting</span>
+                    </a>
+                </li>
+            }
+            @if (Session["IsOfficePermission"].ToString() == "True" && Session["IsAllowGroupChat"].ToString() == "True")
+            {
+                <li>
+                    <a href="~/Chatting/GroupChat">
+                        <i class="fa fa-weixin"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuGroupChat</span>
+                    </a>
+                </li>
+            }
+            @if (ViewContext.Controller.IsSysAdmin() || ViewContext.Controller.HasRoles("Admin"))
+            {
+                <li>
+                    <a href="~/NurseCoordinator/NurseCoordinator">
+                        <i class="fa fa-mortar-board"></i>
+                        @*<span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuNurseCoordinator</span>*@
+						<span class="nav-label">Office Staff</span>
+                    </a>
+                </li>
+            }
+            @if (ViewContext.Controller.IsSysAdmin())
+            {
+                <li>
+                    <a href="~/Office/Office">
+                        <i class="fa fa-bank"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuOffice</span>
+                    </a>
+                </li>
+            }
+
+           
+            @*<li>
+                    <a href="~/Appointment/Appointments">
+                        <i class="fa fa-clock-o"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuAppointment</span>
+                    </a>
+                </li>*@
+            @*<li>
+                    <a href="~/Schedule/Schedule">
+                        <i class="fa fa-calendar"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuSchedule</span>
+                    </a>
+                </li>*@
+            @*<li>
+                    <a href="~/Reports/Reports">
+                        <i class="fa fa-file-text"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuReports</span>
+                    </a>
+                </li>*@
+            @*<li>
+                    <a href="~/Account/Profile">
+                        <i class="fa fa-user"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuProfile</span>
+                    </a>
+                </li>*@
+            @*<li>
+                    <a href="~/Account/Verification">
+                        <i class="fa fa-gavel"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuVerification</span>
+                    </a>
+                </li>*@
+            @*<li>
+                    <a href="~/Payment/PaymentInfo">
+                        <i class="fa fa-dollar"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuPaymentInfo</span>
+                    </a>
+                </li>*@
+            @*<li>
+                    <a href="~/Stripe/StripeConnect">
+                        <i class="fa fa-cc-stripe"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuStripAccount</span>
+                    </a>
+                </li>*@
+            @*<li>
+                    <a href="~/Account/ChangePassword">
+                        <i class="fa fa-lock"></i>
+                        <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuChangePassword</span>
+                    </a>
+                </li>*@
+            @*<li>
+                <a href="~/Account/ContactUs">
+                    <i class="fa fa-phone-square"></i>
+
+                    <span class="nav-label">Contact Us</span>
+                </a>
+            </li>*@
+            <li>
+                <a href="~/Account/Logout">
+                    <i class="fa fa-sign-out"></i>
+                    <span class="nav-label">@CaregiverLite.Views.Resources.Layout.MenuSignOut</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>

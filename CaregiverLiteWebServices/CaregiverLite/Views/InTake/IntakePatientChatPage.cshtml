@@ -1,0 +1,3834 @@
+﻿@{
+    ViewBag.Title = "Patient Chat Room";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="></script>
+
+
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>*@
+@*For UAT&*@
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/quickblox/2.5.4/quickblox.min.js"></script>*@
+@*For Live*@
+
+<script src="~/Scripts/QuickBlox/quickblox.min.js"></script>
+<script src="~/Scripts/pdfobject.js"></script>
+<script src="~/Scripts/js/oms.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<script src="~/Scripts/js/InTakeChat.js"></script>
+
+<style>
+    #toast-container > div.toast-info {
+        background-image: none !important;
+    }
+
+    .placeReplace::placeholder {
+        color: rgb(117, 117, 117);
+        font-weight: 100;
+        opacity: 1;
+    }
+
+    .read {
+        color: aqua;
+    }
+
+    .costomdialog {
+        width: 70%;
+    }
+
+    .ibox {
+        margin-top: 16px;
+    }
+
+    .ibox-title {
+        height: auto;
+    }
+
+    .liformat {
+        font-family: Mulish;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+    }
+
+    li {
+        cursor: pointer;
+    }
+
+    .activeDiv {
+        border-bottom: 3px solid #1F305B;
+        color: #fff !important;
+        background-color: #1F305B !important;
+    }
+
+    .CutomFontSize {
+        font-size: 16px;
+    }
+
+    .customcontent {
+        padding: 15px;
+    }
+
+    .btnCenterclass {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
+
+
+
+    video::-internal-media-controls-download-button {
+        display: none;
+    }
+
+    video::-webkit-media-controls-enclosure {
+        overflow: hidden;
+    }
+
+    video::-webkit-media-controls-panel {
+        width: calc(100% + 30px); /* Adjust as needed */
+    }
+
+    video {
+        width: 100%;
+        max-height: 100%;
+    }
+
+    #ui-datepicker-div {
+        z-index: 10000 !important;
+    }
+
+    .form-calender {
+        padding: 0 15px;
+    }
+
+
+    .content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 50px;
+        height: 20px;
+        text-align: center;
+        background-color: #e8eae6;
+        box-sizing: border-box;
+        padding: 10px;
+        z-index: 100;
+        display: none;
+        /*to hide popup initially*/
+    }
+
+    .button {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 25px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 20px;
+    }
+
+
+
+    .come-from-modal.left .modal-dialog, .come-from-modal.right .modal-dialog {
+        position: fixed;
+        margin: auto;
+        width: 320px;
+        height: 100%;
+        -webkit-transform: translate3d(0%, 0, 0);
+        -ms-transform: translate3d(0%, 0, 0);
+        -o-transform: translate3d(0%, 0, 0);
+        transform: translate3d(0%, 0, 0);
+    }
+
+    .come-from-modal.left .modal-content, .come-from-modal.right .modal-content {
+        height: 100%;
+        overflow-y: auto;
+        border-radius: 0px;
+    }
+
+    .come-from-modal.left .modal-body, .come-from-modal.right .modal-body {
+        padding: 15px 15px 80px;
+    }
+
+    .come-from-modal.right.fade .modal-dialog {
+        right: -320px;
+        -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+        -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+        -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+        transition: opacity 0.3s linear, right 0.3s ease-out;
+    }
+
+
+
+    .come-from-modal.right.fade.in .modal-dialog {
+        right: 0;
+    }
+
+
+
+    /*      new style
+    */
+
+    .chat-section {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background-color: #fff;
+        border: red;
+        margin-top: 88px;
+        /*  border: 1px solid grey;*/
+        /*width: 80%;*/
+        height: 729px;
+        /*margin-left: 35px;*/
+    }
+
+    .chat-header {
+        /*  padding: 20px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;*/
+        /*background-color: #f8f9fa;*/
+        padding: 10px;
+        border-bottom: 1px solid #dee2e6;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    /*.chat-body {
+            /*padding: 20px;
+            flex-grow: 1;
+            overflow-y: auto;*/
+    /* background-color: #F9FBFF !important;*/
+    /*height: 389px;
+            overflow-y: scroll;
+            padding: 15px;
+            background-color: #ffffff;*/
+    /*border: 1px solid #dee2e6;*/
+
+    /*height: 389px;
+    overflow-y: scroll;
+    padding: 15px;
+    background-color: #ffffff;*/
+
+
+
+    /*}*/
+
+
+
+    .chat-body {
+        /*background-color: #F9FBFF !important;*/
+        height: 366px;
+        overflow-y: scroll;
+        /*/*padding: 15px;*/ */ background-color: #ffffff;
+        /* border: 1px solid #dee2e6; */
+        /*position: absolute;*/
+    }
+
+
+    /* Table structure */
+    .chat-table {
+        width: 100%;
+        table-layout: fixed;
+    }
+
+        .chat-table td {
+            padding: 10px 20px;
+            vertical-align: top;
+        }
+
+    /* Received message */
+    .received {
+        /*        background-color: #eaeaea;
+    */ border-radius: 20px;
+        padding: 10px;
+        margin-right: auto;
+        text-align: left;
+        max-width: 70%;
+    }
+
+    /* Sent message */
+    .sent {
+        /*background-color: #eaeaea;*/
+        border-radius: 20px;
+        padding: 10px;
+        margin-left: auto;
+        text-align: right;
+        max-width: 70%;
+    }
+
+    /* Sender info */
+    .sender {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .message-text {
+        background-color: #F4F4F4; /* Background color for the text */
+        /*color: white;*/ /* Text color for the text */
+        padding: 8px;
+        /*        border-radius: 10px;
+    */ display: inline-block; /* Ensure it behaves like a "card" within the message bubble */
+        max-width: 100%;
+        word-wrap: break-word;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+
+
+    .message-textSend {
+        background-color: #E3F1FF; /* Background color for the text */
+        /*color: white;*/ /* Text color for the text */
+        padding: 8px;
+        /*        border-radius: 10px;
+    */ display: inline-block; /* Ensure it behaves like a "card" within the message bubble */
+        max-width: 100%;
+        word-wrap: break-word;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+
+    /* Time of message */
+    .time {
+        font-size: 12px;
+        color: #999;
+        margin-top: 5px;
+    }
+
+    /* Chat input area */
+    .chat-input {
+        /*border-top: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;*/
+        /*border-top: 1px solid #ddd;*/
+        display: flex;
+        align-items: center;
+        padding: 10px 20px;
+        position: sticky;
+        /*width: 56%;*/
+        bottom: 0px;
+        left: 275px;
+    }
+
+        .chat-input input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px 0px 5px 0px;
+            /* margin-right: 17px; */
+            /*position: fixed;*/
+            /*bottom: 4px;*/
+            margin-left: -14px;
+            height: 52px;
+            /*z-index: 1019;*/
+        }
+
+
+    .send-btn {
+        background-color: white;
+        color: white;
+        padding: 11px 12px;
+        border: none;
+        cursor: pointer;
+        border: 1px solid lightgray;
+        /*right: 59px;*/
+    }
+
+
+    .image-upload > input {
+        display: none;
+    }
+
+    .image-upload i {
+        width: 40px;
+        font-size: large;
+        cursor: pointer;
+    }
+
+    input[id="fileCall"] {
+        margin-left: -50px;
+        height: 25px;
+        width: 50px;
+    }
+
+
+
+    .sennbtn, .attachbtn {
+        /*position: fixed;
+            bottom: 11px;
+            height: 30px;
+            width: 50px;
+            border: none;
+            // background-color: #0084ff;
+            /*color: white;*/
+        border-radius: 4px;
+        /*cursor: pointer;
+            margin-left: 875px;*/
+    }
+
+
+    .AlertInfo {
+        display: block;
+        position: absolute;
+        z-index: 1020;
+        width: 93%;
+        left: 7px;
+        top: -33px;
+        height: 40px;
+    }
+
+
+
+
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .shared-files-container {
+        /*  width: 100%;
+        margin: 20px auto;
+        background: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;*/
+        width: 100%;
+        margin: 20px auto -15px auto;
+        background: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 2px;
+        padding: 40px 20px 1px 20px;
+    }
+
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+    .filter-buttons button {
+        margin-right: 10px;
+        padding: 10px 15px;
+        border: none;
+        background-color: #007bff;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    #search-input {
+        padding: 10px;
+        width: 200px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    #files-list {
+        margin-top: 20px;
+    }
+
+    .file-group {
+        margin-bottom: 20px;
+    }
+
+        .file-group h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+    .file-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: white;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+        .file-item img {
+            width: 50px;
+            height: 50px;
+            border-radius: 5px;
+        }
+
+        .file-item div {
+            flex: 1;
+            margin-left: 15px;
+        }
+
+            .file-item div span {
+                display: block;
+            }
+
+    .action-btn {
+        cursor: pointer;
+    }
+</style>
+
+
+
+<script>
+
+    var ChattingGroupId= @Session["ChattingGroupId"];
+    var DialogId=  @Session["DialogId"];
+    var GroupName= @Session["GroupName"];
+    var OfficeId  @Session["OfficeId"];
+    var QBID= @Session["QBID"];
+
+
+    $(document).ready(function () {
+        $('#specialityTypeDiv').css("display", "block");
+        $('#visitTypeDiv').css("display", "none");
+
+        $('#tab1234 li').click(function () {
+            $('#tab1234 li').removeClass("activeDiv");
+
+            var clickedId = $(this).attr("id");
+
+            debugger;
+            if (clickedId == "visitType") {
+                $('#visitTypeDiv').css("display", "block");
+                $('#specialityTypeDiv').css("display", "none")
+            } else {
+                $('#visitTypeDiv').css("display", "none");
+                $('#specialityTypeDiv').css("display", "block")
+            }
+            $(this).addClass("activeDiv")
+        })
+    });
+
+    //$(function () {
+    //    var dateFormat = "mm/dd/yy",
+    //        from = $("#ScheduledDate")
+    //            .datepicker({
+    //                defaultDate: "+1w",
+    //                changeMonth: true,
+    //                numberOfMonths: 1,
+    //                maxDate: new Date()
+
+    //            })
+    //            .on("change", function () {
+
+    //                to.datepicker("option", "minDate", getDate(this));
+    //            }),
+    //        to = $("#ReScheduledDate").datepicker({
+    //            defaultDate: "+1w",
+    //            changeMonth: true,
+    //            numberOfMonths: 1,
+    //            maxDate: new Date(),
+    //            minDate: $("#ScheduledDate").val()
+
+    //        })
+    //            .on("change", function () {
+
+    //                to.datepicker("option", "minDate", getDate(this));
+    //            });
+
+
+
+    //    var dateFormat1 = "mm/dd/yy",
+    //        from1 = $("#ScheduledDate1")
+    //            .datepicker({
+    //                defaultDate: "+1w",
+    //                changeMonth: true,
+    //                numberOfMonths: 1,
+    //                maxDate: new Date()
+
+    //            })
+    //            .on("change", function () {
+
+    //                to1.datepicker("option", "minDate", getDate(this));
+    //            }),
+    //        to1 = $("#ReScheduledDate1").datepicker({
+    //            defaultDate: "+1w",
+    //            changeMonth: true,
+    //            numberOfMonths: 1,
+    //            maxDate: new Date(),
+    //            minDate: $("#ScheduledDate1").val()
+
+    //        })
+    //            .on("change", function () {
+
+    //                to1.datepicker("option", "minDate", getDate(this));
+    //            });
+
+    //    var dateFormat2 = "mm/dd/yy",
+    //        from2 = $("#ScheduledDateTime2")
+    //            .datepicker({
+    //                defaultDate: "+1w",
+    //                changeMonth: true,
+    //                numberOfMonths: 1,
+    //                maxDate: new Date()
+
+    //            })
+    //            .on("change", function () {
+
+    //                to2.datepicker("option", "minDate", getDate(this));
+    //            }),
+    //        to2 = $("#ReScheduledDateTime2").datepicker({
+    //            defaultDate: "+1w",
+    //            changeMonth: true,
+    //            numberOfMonths: 1,
+    //            maxDate: new Date(),
+    //            minDate: $("#ScheduledDateTime2").val()
+
+    //        })
+    //            .on("change", function () {
+
+    //                to2.datepicker("option", "minDate", getDate(this));
+    //            });
+
+
+
+    //    function getDate(element) {
+    //        var date;
+    //        try {
+    //            date = $.datepicker.parseDate(dateFormat, element.value);
+    //        } catch (error) {
+    //            date = null;
+    //        }
+
+    //        return date;
+    //    }
+
+
+    //});
+
+</script>
+
+
+
+
+
+<audio id="myAudio">
+    <source src="~/Sound/ChatNotification.mp3" />
+</audio>
+@*view  group chat member list*@
+@*<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 1001;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">@ViewBag.GroupName Group Member</h4>
+                </div>
+                <div class="modal-body row" id="ViewGroupChat">
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+
+<div class="content">
+    @*<h3>Popup</h3>*@
+
+    <p>
+        <button class="button" id="buttons" value="PrivatData" onclick="OpenPrivateChatPop()"> privateChat</button><br />
+        <br />
+        <button class="button" id="ClosePop">cancel</button>
+    </p>
+</div>
+
+
+@*@using (Html.BeginForm("CreatePdf", "Chatting", FormMethod.Post, new { @id = "FileResultCreatePdf1", @class = "horizontal-form", @enctype = "multipart/form-data" }))
+    {
+    <div class="modal fade" id="myModalSupply" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog costomdialog modal-lg modal-Vd" id="modalEditPopup">
+            <div class="modal-content customcontent">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">Supply Form</h4>
+                </div>
+                <div class="modal-body row" >
+                    <div id="main_div" class="Edit_div">
+                        <div class="alert alert-danger alert-dismissable" style="display:none" id="dvError3">
+                            <button onclick="divClose();" class="close" type="button">×</button>
+                            <label id="lblError3"></label>
+                        </div>
+                        <form id="formid">
+                            <div class="row form-calender">
+                                <div class="form-group col-md-12">
+                                    <label for="name"> Patient Name:</label>
+                                    <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label for="name"> Product Name:</label>
+                                    <input type="text" class="form-control" id="Productname" placeholder="Enter Product" name="name">
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label for="quality">Quantity:</label>
+                                    <input type="text" class="form-control" id="quality" placeholder="Enter quality" name="quality">
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label for="description">Description:</label>
+                                    <input type="text" class="form-control" id="description" placeholder="Enter description" name="Description">
+                                </div>
+                                <button type="submit" class="btn btn-primary pull-right-20 btnCenterclass" onclick="SELFSupply();">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    }*@
+
+
+
+@using (Html.BeginForm("CreatePdf", "Chatting", FormMethod.Post, new { @id = "FileResultCreatePdf1", @class = "horizontal-form", @enctype = "multipart/form-data" }))
+{
+    <div class="modal fade" id="myModalSupply" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog costomdialog modal-lg modal-Vd" id="modalEditPopup">
+            <div class="modal-content customcontent">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">Supply Form</h4>
+                </div>
+                <div class="modal-body row" id="SupplyformId">
+
+                    <div id="main_div" class="Edit_div">
+                        <div class="alert alert-danger alert-dismissable" style="display:none" id="dvError3">
+                            <button onclick="divClose();" class="close" type="button">×</button>
+                            <label id="lblError3"></label>
+                        </div>
+
+                        <div class="card mt-5 py-5">
+                            <div class="row">
+                                <div class="col-md-3 text-Left mb-5" style="width:20%;">
+                                    @*<img src="https://solifetec.com/assets/img/logo/pseva22.png" style="width: 132px;margin-bottom:20px;">*@
+                                    <img src="http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/image/PasevaNewIcon.png" style="width: 132px;margin-bottom:20px;">
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="form-group col-md-3">
+                                        <label for="name" class="CutomFontSize"><span>Employee Name:</span></label>
+                                        <b><p id="empname"></p></b>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="name" class="CutomFontSize">Patient Name:</label>
+                                        <b><p id="Patientname"></p></b>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="name" class="CutomFontSize">Office Name:</label>
+                                        <b><p id="offcName"></p></b>
+                                    </div>
+                                    <div class="form-group col-md-1">
+                                        <label for="quality" class="CutomFontSize">Date:</label>
+                                        <b><p id="date"></p></b>
+                                    </div>
+
+
+                                    <div class="form-group col-md-6">
+                                        <label for="quality" style="margin-left: -3px;">Ordering Physician Name:<input type="text" id="OrdPhysicianName" class="form-group" name="ordpysicianss" style="margin-right: 254px;width: 200pxpx;height: 30px;"></label>
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+
+
+
+                            <div class="row">
+
+                            </div>
+
+                            <form>
+
+                                <div class="row">
+
+                                    <div class="form-group col-md-4">
+                                        <label for="quality" style="margin-left: 195px;">Wound Care Type:<input type="text" id="WoundCareType" class="form-group" name="WoundCareType" style="margin-right: 254px;width: 200pxpx;height: 30px;"></label>
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label for="quality" style="margin-left: 125px;">Wound Location:<input type="text" id="WoundLocation" class="form-group" name="WoundLocation" style="margin-right: 254px;width: 200pxpx;height: 30px;"></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="form-group col-md-4">
+                                        <label for="quality" style="margin-left: 195px;">Catheter Type Size:<input type="text" id="CatheterTypeSize" class="form-group" name="CatheterTypeSize" style="margin-right: 254px;width: 200pxpx;height: 30px;"></label>
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label for="quality" style="margin-left: 125px;">Catheter supplies:<input type="text" id="FrequencyCathetersupplies" class="form-group" name="FrequencyCathetersupplies" style="margin-right: 254px;width: 200pxpx;height: 30px;"></label>
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label for="quality" style="margin-left: 55px;">Ostomy supplie:<input type="text" id="Ostomysupplie" class="form-group" name="Ostomysupplie" style="margin-right: 254px;width: 200pxpx;height: 30px;"></label>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+
+                                    <div class="form-group col-md-4">
+                                        <label for="name" style="margin-left: 195px;">Produt Name:<input type="text" class="form-group placeReplace" id="name" placeholder="Enter Product name" name="name" style="margin-right: 254px;width: 200pxpx;height: 30px;"></label>
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label for="Quantity" style="margin-left: 125px;">Quantity:<input type="text" class="form-group placeReplace" id="Quantity" placeholder="Enter quality" name="Quantity" style="margin-right: 254px;width: 200pxpx;height: 30px;"></label>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="Quantity" style="margin-left: 55px;">Description:<input type="text" class="form-group placeReplace" id="Description" placeholder="Enter description" name="Description" style="margin-right: 254px;width: 200pxpx;height: 30px;"></label>
+                                    </div>
+                                </div>
+
+
+
+
+                                <div class="row">
+
+                                    <div class="form-group col-md-4">
+
+                                        <input type="text" class="form-group" id="name1" placeholder="Enter Product name" name="name" style="margin-left: 195px;width: 190px;height: 30px;">
+                                    </div>
+                                    <div class="form-group col-md-4">
+
+                                        <input type="text" class="form-group" id="quality1" placeholder="Enter quality" name="quality" style="margin-left: 125px;width: 190px;height: 30px;">
+                                    </div>
+                                    <div class="form-group col-md-4">
+
+                                        <input type="text" class="form-group" id="description1" placeholder="Enter description" name="Description" style="margin-left: 55px;width: 190px;height: 30px;">
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="form-group col-md-4">
+
+                                        <input type="text" class="form-group" id="name2" placeholder="Enter Product name" name="name" style="margin-left: 195px;width: 190px;height: 30px;">
+                                    </div>
+                                    <div class="form-group col-md-4">
+
+                                        <input type="text" class="form-group" id="quality2" placeholder="Enter quality" name="quality" style="margin-left: 125px;width: 190px;height: 30px;">
+                                    </div>
+                                    <div class="form-group col-md-4">
+
+                                        <input type="text" class="form-group" id="description2" placeholder="Enter description" name="Description" style="margin-left: 55px;width: 190px;height: 30px;">
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="form-group col-md-4">
+
+                                        <input type="text" class="form-group" id="name3" placeholder="Enter Product name" name="name" style="margin-left: 195px;width: 190px;height: 30px;">
+                                    </div>
+                                    <div class="form-group col-md-4">
+
+                                        <input type="text" class="form-group" id="quality3" placeholder="Enter quality" name="quality" style="margin-left: 125px;width: 190px;height: 30px;">
+                                    </div>
+                                    <div class="form-group col-md-4">
+
+                                        <input type="text" class="form-group" id="description3" placeholder="Enter description" name="Description" style="margin-left: 55px;width: 190px;height: 30px;">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+
+                                        <button type="submit" class="btn btn-primary pull-right-20 btnCenterclass" href="#" onclick="SELFSupply();">Submit</button>
+                                        @*<button type="submit" class="btn btn-primary">Submit</button>*@
+                                        <!-- <button id="addItem">Add More Item</button> -->
+                                    </div>
+
+                                </div>
+                                <div id="data"></div>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+@using (Html.BeginForm("CreateShedulerPdf", "Chatting", FormMethod.Post, new { @id = "FileResultCreatePdf1", @class = "horizontal-form", @enctype = "multipart/form-data" }))
+{
+    <div class="modal fade" id="modalGetsupplylist2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog costomdialog modal-lg modal-Vd" id="modalEditPopup">
+            <div class="modal-content customcontent ">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><h3>Close</h3></button>
+                    <h4 class="text-center" id="gridSystemModalLabel">Re Scheduler Form</h4>
+                </div>
+                <div class="modal-body row" id="Getsupplylist2">
+                </div>
+
+                <div id="main_div" class="Edit_div">
+                    <div class="alert alert-danger alert-dismissable" style="display:none" id="dvError3">
+                        <button onclick="divClose();" class="close" type="button">Close</button>
+                        <label id="lblError3"></label>
+                    </div>
+
+                    <div class="card mt-5 py-5">
+                        <div class="row">
+                            <div class="form-group col-md-1">
+                            </div>
+                            <div class="form-group col-md-2">
+                                <h3 style="color:purple" for="name">EmployeeName:</h3>
+                                <b><p id="empname">@Session["name"]    </p></b>
+
+                            </div>
+
+                            <div class="col-md-6 text-center mb-8">
+                                <img src="https://solifetec.com/assets/img/logo/pseva22.png" style="width: 132px;margin-bottom:20px;">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="name">Office Name:</label>
+                                <b><p id="officeName2"></p></b>
+                            </div>
+
+                            <div class="form-group col-md-2">
+
+                                <h3 style="color:purple">DateTime:</h3>
+
+
+                                <div><p id="p1"></p></div>
+
+                                <script>
+
+                                    var today = new Date();
+
+                                    var date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+
+                                    var time = today.getHours() + ":" + today.getMinutes();
+
+                                    var dateTime = date + ' ' + time;
+                                    document.getElementById("p1").innerHTML = dateTime;
+
+
+
+                                </script>
+
+                            </div>
+                        </div>
+
+
+                        <form>
+
+
+                            <div class="row ">
+
+
+                                <h1 class="text-center">Re Scheduler Form</h1>
+
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-3">
+                                    <label for="name">Patient Name:</label>
+                                    <input type="text" class="form-control" id="PatientName" placeholder="Patient Name" name="PatientName">
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label>Scheduled Date:</label>
+                                    <input type="text" class="form-control  " id="ScheduledDate" placeholder="Scheduled Date" name="ScheduledDate">
+
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="Time">Time:</label>
+                                    @*<input type="time" id="ScheduledTime" name="ScheduledTime" required="">*@
+                                    <select name="Time" id="ScheduledTime" required>
+                                        <option value="">SelectTime</option>
+
+                                        <option value="Morning(6AM - 12 PM)">Morning(6AM - 12 PM)</option>
+                                        <option value="Afternoon(12PM-6PM)"> Afternoon(12PM-6PM)</option>
+                                        <option value="Evening (6PM-12AM)">Evening (6PM-12AM)</option>
+
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-md-2">
+                                    <label>ReScheduled Date:</label>
+                                    <input type="text" class="form-control " id="ReScheduledDate" placeholder="ReScheduledDate" name="ReScheduledDate">
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label>Time:</label>
+                                    @*<input type="time" id="ReScheduledTime" name="ReScheduledTime" required="">*@
+                                    <select name="Time" id="ReScheduledTime" required>
+                                        <option value="">SelectTime</option>
+
+                                        <option value="Morning(6AM - 12 PM)">Morning(6AM - 12 PM)</option>
+                                        <option value="Afternoon(12PM-6PM)"> Afternoon(12PM-6PM)</option>
+                                        <option value="Evening (6PM-12AM)">Evening (6PM-12AM)</option>
+
+                                    </select>
+                                </div>
+
+
+                                <div class="form-group col-md-9" style="padding-right: 6px;">
+                                    <label>Reason</label>
+                                    <textarea class="form-control" name='Reason'
+                                              placeholder="here to see how it Reason!" id="Reason"></textarea>
+                                    @*<input type="text" class="form-control " id="Reason" placeholder="Enter Reason" name="Reason">*@
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label>Types of Visits:</label>
+
+                                    <select name="Time" id="TypesofVisits" required style="height: 25px;width: 161px;">
+                                        <option value="">SelectTypes of Visits</option>
+
+                                        <option value="Regular Visit ">Regular Visit </option>
+                                        <option value="SOC"> SOC</option>
+                                        <option value="Eval">Eval</option>
+                                        <option value="ROC">ROC</option>
+                                        <option value="Recert ">Recert </option>
+                                        <option value="Supervisory">Supervisory</option>
+                                        <option value="Discipline DC with visit">Discipline DC with visit</option>
+                                        <option value="Discipline DC without visit"> Discipline DC without visit</option>
+                                        <option value="Agency DC with visit">Agency DC with visit</option>
+                                        <option value="Agency DC without visit">Agency DC without visit</option>
+                                        <option value="30-day Re-eval ">30-day Re-eval </option>
+                                        <option value="Transfer">Transfer</option>
+
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="form-group col-md-3">
+                                    <label for="name">Patient Name:</label>
+                                    @*<p> <span class="textarea" role="textbox" id="PatientName1" contenteditable ></span></p>*@
+
+                                    <input type="text" class="form-control " id="PatientName1" @Session["PatientName"] placeholder="Patient Name" name="PatientName1">
+                                    @*<textarea name="name" rows="2" cols="20"></textarea>*@
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label>Scheduled Date:</label>
+                                    <input type="text" class="form-control  " id="ScheduledDate1" placeholder="Scheduled Date" name="ScheduledDate1">
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="Time">Time:</label>
+                                    @*<input type="time" id="ScheduledTime1" name="ScheduledTime" required="" >*@
+                                    <select name="Time" id="ScheduledTime1" required>
+                                        <option value="">SelectTime</option>
+                                        <option value="Morning(6AM - 12 PM)">Morning(6AM - 12 PM)</option>
+                                        <option value="Afternoon(12PM-6PM)"> Afternoon(12PM-6PM)</option>
+                                        <option value="Evening (6PM-12AM)">Evening (6PM-12AM)</option>
+
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-md-2">
+                                    <label>ReScheduled Date:</label>
+                                    <input type="text" class="form-control " id="ReScheduledDate1" placeholder="ReScheduledDate" name="ReScheduledDate1">
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label>Time:</label>
+                                    @*<input type="time" id="ReScheduledTime1" name="ReScheduledTime" required="">*@
+                                    <select name="Time" id="ReScheduledTime1" required>
+                                        <option value="">SelectTime</option>
+
+                                        <option value="Morning(6AM - 12 PM)">Morning(6AM - 12 PM)</option>
+                                        <option value="Afternoon(12PM-6PM)"> Afternoon(12PM-6PM)</option>
+                                        <option value="Evening (6PM-12AM)">Evening (6PM-12AM)</option>
+
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-9" style="padding-right: 6px" ;>
+                                    <label>Reason</label>
+                                    <textarea class="form-control " name='Reason'
+                                              placeholder="here to see how it Reason!" id="Reason1"></textarea>
+                                    @*<input type="text" class="form-control " id="Reason1" placeholder="Enter Reason" name="Reason">*@
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label>Types of Visits:</label>
+
+                                    <select name="Time" id="TypesofVisits1" required style="height: 25px;width: 161px;">
+                                        <option value="">SelectTypes of Visits</option>
+
+                                        <option value="Regular Visit ">Regular Visit </option>
+                                        <option value="SOC"> SOC</option>
+                                        <option value="Eval">Eval</option>
+                                        <option value="ROC">ROC</option>
+                                        <option value="Recert ">Recert </option>
+                                        <option value="Supervisory">Supervisory</option>
+                                        <option value="Discipline DC with visit">Discipline DC with visit</option>
+                                        <option value="Discipline DC without visit"> Discipline DC without visit</option>
+                                        <option value="Agency DC with visit">Agency DC with visit</option>
+                                        <option value="Agency DC without visit">Agency DC without visit</option>
+                                        <option value="30-day Re-eval ">30-day Re-eval </option>
+                                        <option value="Transfer">Transfer</option>
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+
+                                    <button type="submit" class="btn btn-primary pull-right-20 btnCenterclass" href="#" onclick="SELFschedule();">Submit</button>
+
+                                </div>
+
+                            </div>
+                            <div id="date"></div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
+<div class="modal fade come-from-modal right" id="sharedFile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" id="modalViewPopup" style="top:74px;width:50%;right:0%">
+        <div class="modal-content">
+            <div class="modal-header customheader">
+                <button type="button" class="close" id="btnClose" data-dismiss="modal" aria-label="Close" style="color:#282572;float:left">
+                    @*<span aria-hidden="true">&#8592;<span class="modal-title" id="gridSystemModalLabel" style="margin-left: 12px;">Shared Files</span>     </span>*@
+                </button>
+            </div>
+
+            <div class="modal-body row" id="UserProfileView" style="background-color:#F9FBFF">
+                <div class="shared-files-container">
+                    <header>
+                        @*<h1>Shared Files</h1>*@
+                        <div class="filter-buttons">
+                            <button id="media-btn">Media</button>
+                            <button id="docs-btn">Docs</button>
+                            <button id="link-btn">Link</button>
+                        </div>
+                        <input type="text" id="search-input" placeholder="Search by keyword">
+                    </header>
+                    <table id="myDataTable" class="table table-striped table-bordered table-hover dataTables-example">
+                        <thead>
+                            <tr>
+                                <th><b>Name</b></th>
+                                <th><b>Date</b></th>
+                                <th><b>Shared</b></th>
+                                <th><b>Action</b></th>
+                            </tr>
+                        </thead>
+                        <tbody id="Attachmentlist"></tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@*<div class="modal fade" id="sharedFile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog costomdialog modal-md">
+            <div class="modal-content">
+                <div class="shared-files-container">
+                    <header>
+                        <h1>Shared Files</h1>
+                        <div class="filter-buttons">
+                            <button id="media-btn">Media</button>
+                            <button id="docs-btn">Docs</button>
+                            <button id="link-btn">Link</button>
+                        </div>
+                        <input type="text" id="search-input" placeholder="Search by keyword">
+                    </header>
+                    <table id="myDataTable" class="table table-striped table-bordered table-hover dataTables-example">
+                        <thead>
+                            <tr>
+                                <th><b>Document</b></th>
+                                <th><b>Shared by</b></th>
+                                <th><b>date</b></th>
+                                <th><b>Action</b></th>
+                            </tr>
+                        </thead>
+                        <tbody id="Attachmentlist"></tbody>
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+    </div>*@
+
+
+
+
+
+
+
+<div class="modal fade" id="modalSupplyFormDetailsAssignment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog costomdialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Supply Form Details(s)</h4>
+            </div>
+            <div class="modal-body row" id="GetsSupplyFormData">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<div class="modal fade" id="modalReScheduledFormDetailsAssignment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog costomdialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">ReScheduled Form Details(s)</h4>
+            </div>
+            <div class="modal-body row" id="GetsReScheduledFormData">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<a href="" id="test" download style="display:none">Download Here</a>
+
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">@ViewBag.GroupName Group Member</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-16" style="z-index: 1001;overflow-y: auto;">
+                    <table id="tblMemberDetail" class="table table-striped table-hover"></table>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-xs btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div id="myModalOpenMedia" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 1001;">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" id="btnCloseMediaModal" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">@ViewBag.GroupName Group Media</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-16" style="z-index: 2001;overflow-y: auto;">
+                    <div id="mediaDiv" align="center" style="max-height:350px"></div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+@*<div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <label id="lblPermissionInfo" style="left: 30px;position: absolute;top: 15px;display:none;color:red;"></label>
+                        <br />
+                        <br />
+                        @if (@ViewBag.GroupTypeId == 3)
+                            {
+                               <a onclick="ViewGroupMemberList(@ViewBag.ChattingGroupId)">@ViewBag.GroupName</a> }
+                            else
+                            {
+                        <a data-toggle="modal" data-target="#myModal" id="lblGroupInfo">@ViewBag.GroupName</a>
+
+                        @if (@ViewBag.GroupTypeId == 2)
+                        {
+                            <a class="btn btn-xs btn-primary text-center" style="margin-top:-8px;position: absolute;right:390px;" onclick="OpenReScheduledformData1();">Total Reschedule Items</a>
+                            <b class="btn btn-xs btn-primary text-center" style="margin-top:-8px;position: absolute;right:180px;" onclick="OpenNewSupplyformData();">Total Supply Items</b>
+                        }
+                        @if (@ViewBag.GroupTypeId == 2)
+                        {
+                            <p class="btn btn-xs btn-primary pull-right" style="margin-top:-4px;margin-right:20px" onclick="printDiv()">Print</p>
+                        }
+                          }
+
+                        <label id="lblPermissionInfo" style="right: 50px;position: absolute;top: 20px;display:none;color:red;"></label>
+
+                        <div class="ibox-tools">
+
+                            <div class="clearfix"></div>
+                        </div>
+
+                    </div>
+                    @if (@ViewBag.GroupSubject != null && @ViewBag.GroupSubject != "")
+                    {
+                        <div class="ibox-title col-md-12 m-t-sm" style="height: auto;margin-top: 22px;">
+                            <label>Subject :</label>
+
+                            <span class="m-l-sm">@ViewBag.GroupSubject</span>
+
+                        </div>
+                    }
+                    @if (@ViewBag.permissionMessage != null)
+                    {
+                        <span class="text-center">@ViewBag.permissionMessage</span>
+                    }
+                    else
+                    {
+                        <div class="col-md-12" id="chat1" style="z-index: 1001;max-height: 350px;overflow-y: scroll;">
+                            <table id="myDataTable" class="table table-striped table-bordered table-hover dataTables-example">
+
+                                <tbody id="chatMsg"></tbody>
+                            </table>
+                        </div>
+                    }
+                    <hr style="border-top: 1px solid #1dca75;padding-top:15px">
+                    <div style="clear:both">
+                        <br><br>
+                    </div>
+                    <div class="alert alert-info alert-dismissable" style="display:none" id="FileAlert">
+                        <div style="float:right;display:none;cursor: pointer;" id="fileRemove" title="Remove Attached File"><b>Remove Attachment</b></div>
+                        <div id="FileAlertContent"></div>
+                    </div>
+                    <div class="col-md-12">
+                        <table class="col-md-12" id="chatInput">
+                            <tr style="height:75px">
+                                <td style="position:relative;">
+                                    ​<textarea id="txtSendMsg" rows="5" class="pramendra" style="width:100%;padding-right: 30px;" placeholder="Enter Your Message" cols="70"></textarea>
+                                    <select id="memberListForOption" class="form-control" style="width:100%;display:none; position:absolute; top:-34px; color: #14a950;font-weight: bold;"></select>
+                                      <input type="text" id="txtSendMsg" name="txtSendMsg" style="width:100%" class="form-control" placeholder="Enter Your Message" />
+                                    <div class="image-upload" id="selectFileIcon" style="position: absolute;right: -10px;top: 30px;">
+                                        <label for="file1">
+                                            <i style="float:right;" id="fileCall" class="fa fa-paperclip" title="Attach File"></i>
+                                        </label>
+                                        <label id="fileViewer"></label>
+                                        <input id="file1" type="file" accept="image/*,video/*,application/msword,application/pdf,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/vnd.ms-excel" multiple />
+                                    </div>
+                                    <div class="image-upload" id="selectFileIcon" style="position: absolute;right:12px;top: 68px;">
+                                        <label for="file1">
+                                                <i style="float:right;" id="fileCall" class="fa fa-paperclip" title="Attach File"></i>
+                                            </label>
+                                        <label id="fileViewer"></label>
+                                        <a class="btn btn-xs btn-primary popup-act" style="margin-top:-9px; line-height: 16px;font-size:10px" id="btnshow" onclick="OpenSupplyForm();"><span class="glyphicon glyphicon-plus"></span></a>
+                                        <a class="btn btn-xs btn-primary popup-act" style="margin-top:-9px; line-height: 16px;font-size:10px" id="btnshow" onclick="OpenshedulerFrom();"><span class="glyphicon glyphicon-inbox"></span></a>
+
+                                    </div>
+
+                                    <style>
+                                        .image-upload > input {
+                                            display: none;
+                                        }
+
+                                        .image-upload i {
+                                            width: 40px;
+                                            font-size: large;
+                                            cursor: pointer;
+                                        }
+
+                                        input[id="fileCall"] {
+                                            margin-left: -50px;
+                                            height: 25px;
+                                            width: 50px;
+                                        }
+                                    </style>
+                                </td>
+                                <td>
+                                    <input type="button" id="btnSendMsg" style="background-color:#63ccfe;color:white;margin-left: 5px;" class="form-control btn btn-lg btn-primary" value="Send" />
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>*@
+
+
+<section class="chat-section" style="position:fixed;top:-17px;">
+
+
+    <!--<div class="chat-header">
+    @if (@ViewBag.GroupTypeId == 2)
+    {
+        <a href="@Url.Action("Inteklist", "Intektype")" class="back-arrow">
+            <img src="~/Content/LeftMenuLogo/Arrow-icon.svg" alt="" class="user-icon" />
+        </a>
+    }
+    else
+    {
+        <a href="@Url.Action("Inteklist", "Intektype")" class="back-arrow">
+            <img src="~/Content/LeftMenuLogo/Arrow-icon.svg" alt="" class="user-icon" />
+        </a>
+    }
+
+    <style>
+
+                    .stats-container {
+                        background-color: #fff;
+                        display: flex;
+                        width: 100%;
+                        padding-top: 11px;
+                        flex-direction: column;
+                    }
+
+                    .stats-wrapper {
+                        align-self: flex-end;
+                        display: flex;
+                        margin-right: 30px;
+                        width: 268px;
+                        max-width: 100%;
+                        gap: 20px;
+                        justify-content: space-between;
+                    }
+
+                    .member-count {
+                        /*                display: flex;
+        */ gap: 7px;
+                    }
+
+        .member-icon-wrapper {
+            justify-content: center;
+            align-items: center;
+            border-radius: 34px;
+            background-color: #f6f6f8;
+            display: flex;
+            /*width: 30px;
+            height: 30px;
+            padding: 0 8px;*/
+            width: 121px;
+            height: 30px;
+            padding: 8px 8px 8px 0px;
+        }
+
+                    .member-icon {
+                        aspect-ratio: 0.86;
+                        object-fit: contain;
+                        width: 12px;
+                    }
+
+        .member-count-text {
+            color: #464748;
+            font: 600 13px Mulish, sans-serif;
+            margin: auto 0;
+            padding-left: 10px;
+        }
+
+                    .supply-items-badge {
+                        align-self: flex-start;
+                        border-radius: 6px;
+                        background-color: #fff;
+                        color: #1b4066;
+                        padding: 5px 7px;
+                        font: 600 12px Open Sans, sans-serif;
+                        border: 1px solid #1b4066;
+                    }
+    </style>-->
+    @*<span style="text-align:start;"><strong>@ViewBag.Groupname</strong>  </span>
+        <div class="members" style="margin-left: 889px; margin-top: -22px;"></div>
+        </div>*@
+
+    <!--<span style="text-align:start;">@ViewBag.GroupName</span>
+
+        <div class="stats-container">
+            <div class="stats-wrapper">
+                <div class="member-count">
+                    <div class="member-icon-wrapper">
+                        <img src="~/Content/LeftMenuLogo/MemberList-icon.svg" alt="" class="member-icon" />
+                        <span class="member-count-text">13 Member</span>
+                    </div>
+
+
+                </div>
+                <span class="supply-items-badge">Total Supply Items</span>
+            </div>
+        </div>
+    </div>-->
+    @*<div class="container mt-3">*@
+
+
+    <!-- Chat Header -->
+    <div class="row" style="margin: 35px">
+        <div class="">
+            <div class="col-md-8" style="background: white;border: 1px solid #e7e7e7;border-radius: 5px;margin: 0px 10px 10px -19px;">
+
+                <div class="chat-header">
+
+                    @if (@ViewBag.GroupTypeId == 2)
+                    {
+                        <a href="@Url.Action("Inteklist","Intektype")" class="back-arrow">
+                            <img src="~/Content/LeftMenuLogo/Arrow-icon.svg" alt="" class="user-icon" />
+                        </a>
+                        <h5 style="margin-left: -552px; margin-top: 14px; font-size:14px;">@ViewBag.GroupName</h5>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Inteklist","Intektype")" class="back-arrow">
+                            <img src="~/Content/LeftMenuLogo/Arrow-icon.svg" alt="" class="user-icon" />
+                        </a>
+
+                        <h5 style="margin-left:  -552px; margin-top: 14px; font-size:14px;">@ViewBag.GroupName</h5>
+                    }
+
+                    <style>
+                        /*.stats-container {
+                            background-color: #fff;
+                            display: flex;
+                            width: 100%;
+                            padding-top: 11px;
+                            flex-direction: column;
+                        }
+
+                        .stats-wrapper {
+                            align-self: flex-end;
+                            display: flex;
+                            margin-right: 30px;
+                            width: 268px;
+                            max-width: 100%;
+                            gap: 20px;
+                            justify-content: space-between;
+                        }
+
+                        .member-count {*/
+                        /*                display: flex;
+                        */ /*gap: 7px;
+                        }
+
+                        .member-icon-wrapper {
+                            justify-content: center;
+                            align-items: center;
+                            border-radius: 34px;
+                            background-color: #f6f6f8;
+                            display: flex;*/
+                        /*width: 30px;
+                            height: 30px;
+                            padding: 0 8px;*/
+                        /*width: 121px;
+                            height: 30px;
+                            padding: 8px 8px 8px 0px;
+                        }*/
+
+
+                        .chat-body::-webkit-scrollbar-track {
+                            box-shadow: inset 0 0 5px grey;
+                            border-radius: 10px;
+                            position: absolute;
+                        }
+
+                        /* Handle */
+                        .chat-body::-webkit-scrollbar-thumb {
+                            background: #68AAEA;
+                            border-radius: 10px;
+                            position: absolute;
+                        }
+
+                            /* Handle on hover */
+                            .chat-body::-webkit-scrollbar-thumb:hover {
+                                background: #68AAEA;
+                                position: absolute;
+                            }
+
+                        .member-icon {
+                            aspect-ratio: 0.86;
+                            object-fit: contain;
+                            width: 12px;
+                        }
+
+                        #Onhoverchange:hover {
+                            background-color: #68AAEA; /* Background color on hover */
+                            color: white; /* Text color on hover */
+                        }
+
+                        /*.member-count-text {
+                            color: #464748;
+                            font: 600 13px Mulish, sans-serif;
+                            margin: auto 0;
+                            padding-left: 10px;
+                        }*/
+
+                        .supply-items-badge {
+                            align-self: flex-start;
+                            border-radius: 6px;
+                            background-color: #fff;
+                            color: #1b4066;
+                            padding: 5px 7px;
+                            font: 600 12px Open Sans, sans-serif;
+                            border: 1px solid #1b4066;
+                        }
+                    </style>
+
+
+
+                    <div>
+
+                        @*<span class="supply-items-badge" id="ShowSharedFiled">shared File</span>*@
+
+                        <span style="margin-right: 16px;" id="Onhoverchange">
+                            <img src="~/Content/LeftMenuLogo/MemberList-icon.svg" alt="" class="member-icon" />
+                            <a data-toggle="modal" data-target="#myModal" id="lblGroupInfo" href="javascript:;" style="text-transform: capitalize;text-decoration: underline;"></a>
+                        </span>
+                        @if (@ViewBag.GroupTypeId == 2 && @ViewBag.OrganisationId == 0)
+            {
+                            <span class="supply-items-badge" id="OpenNewSupplyformData">Total Supply Items</span>
+                        }
+
+                    </div>
+
+                    @*<span>Total Members: 13</span>*@
+                    @*<button class="btn btn-secondary me-3">Total Supply Items</button>*@
+
+                </div>
+
+
+                @*<div class="chat-body" id="chat1" style="z-index: 1001;max-height: 635px;overflow-y: scroll;">*@
+
+                <div class="chat-body" id="chat1">
+                    <table class="chat-table" id="chatMsg"></table>
+                </div>
+                <div class="chat-input">
+
+                    <div class="alert alert-info alert-dismissable" style="display:none" id="FileAlert">
+                        <div style="float:right;display:none;cursor: pointer;" id="fileRemove" title="Remove Attached File"><b>Remove Attachment</b></div>
+                        <div id="FileAlertContent"></div>
+                    </div>
+
+                    <input type="text" placeholder="Type message" id="txtSendMsg" class="TagUser" />
+                    <select id="memberListForOption" class="form-control" style="width:100%;display:none; position:absolute; top:-34px; color: #14a950;font-weight: bold;"></select>
+                    @*<div>
+
+                        <a class="btn btn-xs btn-primary popup-act" style="bottom:6px;line-height: 16px;font-size:10px" id="btnshow" onclick="OpenSupplyForm();"><span class="glyphicon glyphicon-plus"></span></a>
+                            </div>*@
+
+                    @*<div class="image-upload" id="selectFileIcon">
+                            <label for="file1">
+                                <i style="float:right;" id="fileCall" class="fa fa-paperclip" title="Attach File"></i>
+                            </label>
+                            <label id="fileViewer"></label>
+                            <input id="file1" type="file" accept="image/*,video/*,application/msword,application/pdf,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/vnd.ms-excel" multiple />
+                        </div>*@
+
+
+
+                    <div class="image-upload" id="selectFileIcon" style="top : 23px;position : absolute;right : 65px;">
+                        <label for="file1">
+                            <i id="fileCall" class="fa fa-paperclip attachbtn" title="Attach File"></i>
+                        </label>
+
+                        <label id="fileViewer"></label>
+                        <input id="file1" type="file" accept="image/*,video/*,application/msword,application/pdf,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/vnd.ms-excel" multiple />
+                    </div>
+
+
+                    @*<label id="fileViewer"></label>
+                        <input id="file1" type="file" accept="image/*,video/*,application/msword,application/pdf,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/vnd.ms-excel" multiple />*@
+
+                    <button class="send-btn" id="btnSendMsg">
+                        <img src="~/Content/LeftMenuLogo/SendChatButton.svg" alt="" class="user-icon" />
+                    </button>
+
+
+                </div>
+            </div>
+
+            <div class="col-md-4" style="background: white;border: 1px solid #e7e7e7;border-radius: 5px;">
+                <div class="ibox float-e-margins">
+                    <ul id="tab1234" style="list-style: none;   display: flex; background: #fff;">
+                        <li id="Specilatily" class="activeDiv liformat" style="margin-right: 23px;background: #fff;padding: 10px 20px 15px 20px;color: #9f9f9f;">Authorization</li>
+
+                        <li id="visitType" class="liformat" style="margin-right: 23px;background: #fff;padding: 10px 20px 15px 20px;color: #9f9f9f;">Insurance</li>
+                    </ul>
+
+                </div>
+
+                <div class="col-md-12" style="margin-top: -7px;margin-left: 8px;">
+                    <div class="container" style="background: white;  width:100%;  border: 1px solid #e7e7e7;    border-radius: 5px;">
+                        <div id="specialityTypeDiv">
+
+
+                        </div>
+
+                        <div id="visitTypeDiv">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</section>
+
+
+
+
+<script type="text/javascript">
+
+        var ssFromQBId = '@Session["FromQBId"]';
+        //var sToQBId = '@Session["ToQBId"]';
+
+        var sFromQBName = "@Session["Name"]";
+        //var sToQBName = "@Session["ToQBUserName"]";
+
+        var strMessage = "";
+
+        var tmpDialogId = "@Session["chatDialogId"]";
+        var dialogJid = "...";
+        var msgUserList = [];
+
+        var gSkip=0;
+        var GroupMemberList = @Html.Raw(Json.Encode(ViewBag.GroupMemberDetail));
+        var GetAllDialogIdBroadCast=@Html.Raw(Json.Encode(ViewBag.GetalldialogIdDetials));
+        var strtblMemberDetail="";
+        var strMemberList="";
+        var loaderFlag=0;
+        var totalFiles ="";
+        var QuickBloxInit = "@System.Web.Configuration.WebConfigurationManager.AppSettings["QuickbloxAPIUrl"]";
+
+        var PatientGroupName='@Session["patientgroupname"]';
+        var ChattingId='@Session["chattingGroupId"]';
+
+        var OfficeName='@Session["OfficeName"]';
+    var OfficeAddress = '@Session["OfficeAddress"]';
+
+    var attachmentArray = [];
+
+
+
+        debugger
+
+        $(document).ready(function () {
+
+
+            n = new Date();
+            y = n.getFullYear();
+            m = n.getMonth() + 1;
+            d = n.getDate();
+            document.getElementById("date").innerHTML = m + "/" + d + "/" + y;
+
+
+            var PatientGroupName1 =PatientGroupName.split("(");
+            var touser = PatientGroupName1[0];
+
+            document.getElementById("Patientname").innerHTML=touser;
+
+            document.getElementById("empname").innerHTML =sFromQBName;
+
+            document.getElementById("offcName").innerHTML=OfficeName;
+
+            document.getElementById("officeName2").innerHTML=OfficeName;
+
+
+
+        });
+
+
+        debugger
+        function SELFSupply(e)
+        {
+            debugger;
+            $('#loading').show();
+                  var OrdPhysicianName=$("#OrdPhysicianName").val();
+                  var WoundCareType=$("#WoundCareType").val();
+                  var WoundLocation=$("#WoundLocation").val();
+                  var CatheterTypeSize=$("#CatheterTypeSize").val();
+                  var FrequencyCathetersupplies=$("#FrequencyCathetersupplies").val();
+                  var Ostomysupplie=$("#Ostomysupplie").val();
+
+                var name=$("#name").val();
+            var quality = $("#Quantity").val();
+            var description = $("#Description").val();
+
+            var name1 = $("#name1").val();
+            var quality1 = $("#quality1").val();
+            var description1 = $("#description1").val();
+
+            var name2 = $("#name2").val();
+            var quality2 = $("#quality2").val();
+            var description2 = $("#description2").val();
+            //var Productname = $("#Productname").val();
+
+            var name3 = $("#name3").val();
+            var quality3 = $("#quality3").val();
+            var description3 = $("#description3").val();
+
+            debugger;
+            var things = [
+            { name: name, quality:quality,description:description },
+            { name: name1, quality: quality1, description: description1 },
+            { name: name2, quality: quality2, description: description2 },
+            { name: name3, quality:quality3,description:description3}
+            ];
+
+            debugger;
+            // things = JSON.stringify({ 'things': things });
+            var things = {
+                things: things,
+                patientgroupname:PatientGroupName,
+                ChattingId:ChattingId,
+                        OrdPhysicianName:OrdPhysicianName,
+                      WoundCareType:WoundCareType,
+                      WoundLocation:WoundLocation,
+                      CatheterTypeSize:CatheterTypeSize,
+                      FrequencyCathetersupplies:CatheterTypeSize,
+                      Ostomysupplie:Ostomysupplie
+            }
+
+            debugger;
+            if (name == "" && quality == "" && description == "") {
+                toastr.error("Please select required field.");
+                $("#loading").hide();
+                return false;
+            }
+            else if (name == "") {
+                toastr.error("Please select Name.");
+                $("#loading").hide();
+                return false;
+            }
+            else if (quality == "") {
+                toastr.error("Please select to Quality.");
+                $("#loading").hide();
+                return false;
+            }
+            else if (description == "") {
+                toastr.error("Please select to Description.");
+                $("#loading").hide();
+                return false;
+            }
+            //else if (Productname == "") {
+            //    toastr.error("Please select to Description.");
+            //    $("#loading").hide();
+            //    return false;
+            //}
+
+
+            debugger;
+            var url = '@Url.Action("CreatePdf", "Chatting")';
+
+            // var url = "http://localhost:15177/AttendanceManagement/GenerateReportAction";
+            debugger;
+            $.ajax({
+                url: url,
+                type: "POST",
+                data:things,
+                // data: { name: name, quality: quality, description: description,Productname: Productname},
+                success: function (res) {
+                    debugger;
+                    $("#loading").show();
+
+                    if (res) {
+
+                        $("#test").attr("href",res);
+
+                        //$("#test").trigger("click");
+
+                        debugger;
+                        document.getElementById("test").click();
+
+                                            // Get a reference to our file input
+        const fileInput = document.querySelector('input[type=file]');
+
+        // Create a new File object
+
+            var FilePathName=res.split('/')[4];
+
+
+            async function createFile(){
+
+  let response = await fetch(res);
+  let data = await response.blob();
+  let metadata = {
+    type: 'application/pdf',
+    lastModified: new Date(),
+  };
+ let myFile = new File([data], FilePathName, metadata);
+
+  const dataTransfer = new DataTransfer();
+       dataTransfer.items.add(myFile);
+       fileInput.files = dataTransfer.files;
+  // ... do something with the file or return it
+
+
+
+       function uploadFile(temptotalSelectedFiles,File,currentMessage){
+                $("#loading").show();
+                debugger;
+                File = totalFiles[temptotalSelectedFiles];
+                // console.log(temptotalSelectedFiles+" + "+File.name);
+                totalFileType =File.type.split('/');
+                //totalFileType=totalFileType1[1];
+                //alert(totalFileType);
+                if(totalFileType[0] != 'image' && totalFileType[0] != 'video' && totalFileType[0] != 'audio')
+                {
+                    totalFileType[0]  = 'doc';
+                }
+
+var ext = File.name.split('.').pop();
+
+                        var Filesize =(File.size / (1024*1024)).toFixed(2);
+
+                        if(File){
+                            if (Filesize < 95 ) {
+                                if(   ext.toLowerCase() == "ppt"
+                                    ||ext.toLowerCase() == "pptx"
+                                    ||ext.toLowerCase() == "xls"
+                                    ||ext.toLowerCase() == "doc"
+                                    ||ext.toLowerCase() == "docx"
+                                    ||ext.toLowerCase() == "png"
+                                    ||ext.toLowerCase() == "jpg"
+                                    ||ext.toLowerCase() == "jpeg"
+                                    ||ext.toLowerCase() == "mp4"
+                                    ||ext.toLowerCase() == "pdf")
+                                {
+                                                debugger;
+                                    toastr.success("File Selected");
+                                    $("#fileCall").css({ 'color': "deepskyblue" });
+                                    $("#FileAlert").css({ 'display': "block" });
+                                    $("#FileAlertContent").html("<b>"+ (1) +" File Selected.</b>");
+
+                                    $("#fileRemove").css({ 'display': "block" });
+
+                                   // $("#fileCall").css({ 'display': "none" });
+                                    //$("#txtSendMsg").attr('disabled','true')
+
+                                                                  $("#loading").show();
+
+                                }
+                                else
+                                {
+                                    toastr.info("You Choose Wrong format file... Please Select File having following extension .ppt, .pptx,  .xls, .doc, .docx, .png, .jpg, .jpeg, .mp4, .pdf");
+                                    $("#file1").val('');
+                                    $("#fileCall").css({ 'color': "" });
+                                    $("#FileAlert").css({ 'display': "none" });
+
+                                    $("#fileRemove").css({ 'display': "none" });
+                                    $("#fileCall").css({ 'display': "block" });
+                                    toastr.info("No File Selected... Please Open again for select a file.");
+                                    $("#txtSendMsg").removeAttr('disabled')
+                                }
+
+                            } else {
+                                if(Filesize > 95)
+                                {
+                                    toastr.info("Please Select a file having size less then 95MB.");
+                                    $("#file1").val('');
+                                    $("#fileCall").css({ 'color': "" });
+                                    $("#FileAlert").css({ 'display': "none" });
+
+                                    $("#fileRemove").css({ 'display': "none" });
+                                    $("#fileCall").css({ 'display': "block" });
+                                    toastr.info("No File Selected... Please Open again for select a file.");
+                                    $("#txtSendMsg").removeAttr('disabled')
+                                }
+
+                            }
+                        }
+                        else
+                        {
+                            toastr.info("No File Selected... Please Open again for select a file.");
+                        }
+
+$("#loading").show();
+                                      debugger;
+                                                         $("#btnSendMsg").click();
+
+
+            }
+
+
+  var totalSelectedFiles = $("input[type=file]")[0].files.length;
+                        totalFiles = $("input[type=file]")[0].files;
+
+   uploadFile(totalSelectedFiles-1,totalFiles[totalSelectedFiles-1],currentMessage);
+
+
+
+}
+
+
+
+createFile();
+
+      //  const myFile = new File(['Hello'], "C:\fakepath\SupplyReport_2023-08-14_09-19-15-.pdf" , {
+        //    type: 'application/pdf',
+        //    lastModified: new Date(),
+       // });
+
+
+
+//input.addEventListener('change', changeFile);
+
+
+                        $("#name").val(' ');
+                        $("#Quantity").val(' ');
+                        $("#Description").val(' ');
+
+                        $("#name1").val(' ');
+                        $("#quality1").val(' ');
+                        $("#description1").val(' ');
+                        $("#name2").val(' ');
+                        $("#quality2").val(' ');
+                        $("#description2").val(' ');
+                        //var Productname = $("#Productname").val();
+
+                        $("#name3").val(' ');
+                        $("#quality3").val(' ');
+                        $("#description3").val(' ');
+
+                        $('#myModalSupply').modal('hide');
+
+                        var totalSelectedFiles = $("input[type=file]")[0].files.length;
+                        totalFiles = $("input[type=file]")[0].files;
+
+                                     var currentMessage = $('#txtSendMsg').val();
+
+
+
+
+
+
+
+
+
+
+
+                               //  uploadFile(totalSelectedFiles-1,totalFiles[totalSelectedFiles-1],currentMessage);
+
+
+
+                    }
+
+                    else
+                    {
+                        toastr.warning("No File Exported!");
+                    }
+
+                  // $("#name").val('');
+          //  $("#Quantity").val();
+            // $("#Description").val();
+
+
+                    $('#myModalSupply').modal('hide');
+
+                },
+                error: function (reponse) {
+                    alert("error : " + JSON.stringify(reponse));
+                    $(".loading").hide();
+                }
+            });
+
+
+
+        }
+
+
+
+    function SELFschedule(e) {
+        debugger;
+        //alert('calling function');
+        //$('#loading').show();
+
+        //var val = document.getElementById('PatientName3').value;
+        //toastr.error(val);
+        // var PatientName = $("#PatientName").val();
+        var PatientName=PatientGroupName;
+        var ScheduledDate = $("#ScheduledDate").val();
+        var Time = $("#ScheduledTime").val();
+
+        var ReScheduledDate = $("#ReScheduledDate").val();
+        var RTime = $("#ReScheduledTime").val();
+        var Reason = $("#Reason").val();
+        var TypesOfVisit = $("#TypesofVisits").val();
+        var PatientName1=PatientGroupName;
+       // var PatientName1 = $("#PatientName1").val();
+        var ScheduledDate1 = $("#ScheduledDate1").val();
+        var Time1 = $("#ScheduledTime1").val();
+
+        var ReScheduledDate1 = $("#ReScheduledDate1").val();
+        var RTime1 = $("#ReScheduledTime1").val();
+        var Reason1 = $("#Reason1").val();
+        var TypesOfVisit1 = $("#TypesofVisits1").val();
+
+
+        debugger;
+        var result = [
+        { PatientName: PatientName, ScheduledDate: ScheduledDate, Time: Time, ReScheduledDate: ReScheduledDate, Rtime: RTime, Reason: Reason,TypesOfVisit:TypesOfVisit },
+        { PatientName: PatientName1, ScheduledDate: ScheduledDate1, Time: Time1, ReScheduledDate: ReScheduledDate1, RTime: RTime1, Reason: Reason1 ,TypesOfVisit:TypesOfVisit1}
+        ];
+        debugger;
+
+        //debugger;
+        var PdfDetails = {
+            PdfDetail: result,
+            ChattingId:ChattingId,
+            OfficeName:OfficeName
+
+        }
+
+
+
+        debugger;
+        if (PatientName == "" && ScheduledDate == "" && Time == "" && ReScheduledDate == "" && RTime == "") {
+            toastr.error("Please select required field.");
+            $("#loading").hide();
+            return false;
+        }
+        else if (PatientName == "") {
+            toastr.error("Please select Patient Name.");
+            $("#loading").hide();
+            return false;
+        }
+        else if (ScheduledDate == "") {
+            toastr.error("Please select to Scheduled Date.");
+            $("#loading").hide();ssss
+            return false;
+        }
+        else if (Time == "") {
+            toastr.error("Please select  time field.");
+            $("#loading").hide();
+            return false;
+        }
+        else if (ReScheduledDate == "") {
+            toastr.error("Please select to ReScheduled Date.");
+            $("#loading").hide();
+            return false;
+        }
+        else if (RTime == "") {
+            toastr.error("Please select to  Time.");
+            $("#loading").hide();
+            return false;
+        }
+        else if (TypesofVisits == "") {
+            toastr.error("Please select to  TypesofVisits.");
+            $("#loading").hide();
+            return false;
+        }
+
+
+
+
+        //return;
+        var url = '@Url.Action("CreateShedulerPdf", "Chatting")';
+                    @*var url = '@Url.Action("subcreateaaFile112", "Chatting")';*@
+                    debugger;
+                   // var url = "http://localhost:15177/Chatting/CreateShedulerPdf";
+        debugger;
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: PdfDetails,
+            success: function (res)
+            {
+                debugger;
+                $(".loading").hide();
+
+                if (res) {
+                    debugger;
+                    //alert(res.replace(/\"/g, ""));
+                    var rescheduleUrl=res.replace(/\"/g, "");
+
+                    $("#test").attr("href",rescheduleUrl);
+
+                    //$("#test").trigger("click");
+
+                    debugger;
+                    document.getElementById("test").click();
+
+                    debugger;
+                   // window.open(res);
+
+                }
+
+                else {
+                    toastr.warning("No File Exported!");
+                }
+
+                //$("#PatientName").val() = " ";
+                //$("#ScheduledDateTime").val() = " ";
+                //$("#ReScheduledDateTime").val() = " ";
+
+
+
+                $('#modalGetsupplylist2').modal('hide');
+
+            },
+
+            error: function (reponse) {
+                alert("error : " + JSON.stringify(reponse));
+                $(".loading").hide();
+            }
+        });
+
+
+
+    }
+
+
+
+
+        debugger;
+        strtblMemberDetail +="<thead><tr>";
+
+        strMemberList +="<option selected>Select any one</option>";
+
+        @*if("@ViewBag.GroupTypeId" == "3")
+        strtblMemberDetail +=   "<td>  </td>";*@
+
+        strtblMemberDetail += "<td> <b>Member Name</b> </td>"+
+                            "<td><b> Email-Id </b></td>"+
+                            "<td> <b>Role Type</b> </td>"+
+                            "</tr></thead><tbody>";
+
+        for(var tb1=0;tb1 <GroupMemberList.length ; tb1++)
+        {
+            var html = "";
+            if(GroupMemberList[tb1].MemberName.length >0){
+
+                if(GroupMemberList[tb1].IsGroupAdmin == true && "@ViewBag.GroupTypeId" == "3")
+                    html += "<span style='color: #1dca75;'> (Group Admin)</span>"
+                //html += "<i class='fa fa-user' style='margin-left:15px;color: #088bca;font-size: medium;'></i>"
+
+                strtblMemberDetail +=   "<tr>"+
+                                        //"<td>"+ html +"</td>"+
+                                        "<td>"+ GroupMemberList[tb1].MemberName+"</td>"+
+                                        "<td><a href='mailto:"+GroupMemberList[tb1].Email+"' >"+GroupMemberList[tb1].Email+"</a></td>"+
+                                        "<td>" + (GroupMemberList[tb1].Type =="NurseCoordinator" ? "Office Staff" :  GroupMemberList[tb1].Type)+ html +"</td>"+
+                                        "</tr>";
+                strMemberList +="<option value='"+GroupMemberList[tb1].MemberName+"'>"+GroupMemberList[tb1].MemberName+"</option>";
+            }
+        }
+        strtblMemberDetail +=   "</tbody>"+
+        $("#tblMemberDetail").append(strtblMemberDetail);
+
+    $("#lblGroupInfo").html(GroupMemberList.length+' Members');
+
+        debugger;
+        $("#memberListForOption").html(strMemberList);
+
+        $(document).ready(function () {
+
+            $("#memberListForOption").change(function(){
+                //alert( this.value );
+                debugger;
+                var memberListForOptionValue= this.value;
+                msgUserList.push(memberListForOptionValue);
+
+                //alert(msgUserList);
+                debugger;
+                var txtMsgArea= $("#txtSendMsg").val();
+                $("#txtSendMsg").val(txtMsgArea+""+memberListForOptionValue);
+                $('#memberListForOption').css("display","none");
+                $('#memberListForOption').prop("selectedIndex",null);
+                $("#txtSendMsg").focus();
+
+                //alert(msgUserList);
+
+                $("#txtSendMsg").empty();
+
+            });
+
+            $('.pramendra').keyup(function(e){
+                // alert(e.which);
+                debugger;
+
+                if (e.which==50)
+                {
+                    //$('#pram').css("display","block");
+                    $('#memberListForOption').css("display","block");
+                }
+
+                if (e.which==8)
+                {
+                    //$('#pram').css("display","block");
+                    $('#memberListForOption').css("display","none");
+                }
+
+            });
+
+
+            //console.log(GroupMemberList);
+
+            //$(document).ready(function () {
+            //    debugger;
+            //    $("#memberListForOption").change(function(){
+            //        //alert( this.value );
+            //        debugger;
+            //        var memberListForOptionValue= this.value;
+            //        msgUserList.push(memberListForOptionValue);
+
+            //        alert(msgUserList);
+
+            //        debugger;
+            //        var txtMsgArea= $("#txtSendMsg").val();
+            //        $("#txtSendMsg").val(txtMsgArea+""+memberListForOptionValue);
+            //        debugger;
+            //        $('#memberListForOption').css("display","none");
+            //        $('#memberListForOption').prop("selectedIndex",null);
+            //        $("#txtSendMsg").focus();
+
+            //        //alert(msgUserList[0]+""+msgUserList[1]+""+msgUserList[2]);
+            //    });
+
+            //    $('.pramendra').keyup(function(e){
+            //        debugger;
+            //        var KeyVal= $('.pramendra').val();
+            //
+
+            //        //if(GroupChatID=='2015' || GroupChatID=='391')
+            //        //{
+
+            //        debugger;
+            //        if (KeyVal=='@@')
+            //        {
+            //            //$('#pram').css("display","block");
+            //            $('#memberListForOption').css("display","block");
+            //        }
+
+            //        if (e.which==8)
+            //        {
+            //            //$('#pram').css("display","block");
+            //            $('#memberListForOption').css("display","none");
+            //        }
+            //        //}
+            //    });
+
+
+
+            $('#btnCloseMediaModal').click(function () {
+                $("#openVideo").attr('src', '');
+                $("#mediaDiv").html('');
+            })//Stop Video On Close Event
+
+            //setLoadMoreMessagesListener();
+            ///Handle File Uploading start
+            jQuery("input#file1").change(function (event) {
+                ////1
+
+                         var filePathsss = $(this).val();
+                        var tmppath = URL.createObjectURL(event.target.files[0]);
+
+                debugger;
+                var totalSelectedFiles = $("input[type=file]")[0].files.length;
+                var totalFiles = $("input[type=file]")[0].files;
+                var totalFileType = "";
+
+                if (totalFiles != null)
+                {
+                    for (var l=0; l < totalSelectedFiles; l++)
+                    {
+                        File = totalFiles[l];
+                        //console.log(File);
+                        //console.log(temptotalSelectedFiles+" + "+File.name);
+                        totalFileType =File.type.split('/');
+                        if(totalFileType[0] != 'image' && totalFileType[0] != 'video' && totalFileType[0] != 'audio')
+                        {
+                            totalFileType[0]  = 'doc';
+                        }
+
+                        var ext = File.name.split('.').pop();
+                        var Filesize =(File.size / (1024*1024)).toFixed(2);
+
+                        if(File){
+                            if (Filesize < 95 ) {
+                                if(   ext.toLowerCase() == "ppt"
+                                    ||ext.toLowerCase() == "pptx"
+                                    ||ext.toLowerCase() == "xls"
+                                    ||ext.toLowerCase() == "doc"
+                                    ||ext.toLowerCase() == "docx"
+                                    ||ext.toLowerCase() == "png"
+                                    ||ext.toLowerCase() == "jpg"
+                                    ||ext.toLowerCase() == "jpeg"
+                                    ||ext.toLowerCase() == "mp4"
+                                    ||ext.toLowerCase() == "pdf")
+                                {
+                                    toastr.success("File Selected");
+                                    $("#fileCall").css({ 'color': "deepskyblue" });
+                                    $("#FileAlert").css({ 'display': "block" });
+                                    $("#FileAlertContent").html("<b>"+ (l+1) +" File Selected.</b>");
+                                    //Remove
+                                    $("#fileRemove").css({ 'display': "block" });
+                                    $("#fileCall").css({ 'display': "none" });
+                                    //
+                                    //$("#txtSendMsg").attr('disabled','true')
+
+                                }
+                                else
+                                {
+                                    toastr.info("You Choose Wrong format file... Please Select File having following extension .ppt, .pptx,  .xls, .doc, .docx, .png, .jpg, .jpeg, .mp4, .pdf");
+                                    $("#file1").val('');
+                                    $("#fileCall").css({ 'color': "" });
+                                    $("#FileAlert").css({ 'display': "none" });
+
+                                    $("#fileRemove").css({ 'display': "none" });
+                                    $("#fileCall").css({ 'display': "block" });
+                                    toastr.info("No File Selected... Please Open again for select a file.");
+                                    $("#txtSendMsg").removeAttr('disabled')
+                                }
+
+                            } else {
+                                if(Filesize > 95)
+                                {
+                                    toastr.info("Please Select a file having size less then 95MB.");
+                                    $("#file1").val('');
+                                    $("#fileCall").css({ 'color': "" });
+                                    $("#FileAlert").css({ 'display': "none" });
+
+                                    $("#fileRemove").css({ 'display': "none" });
+                                    $("#fileCall").css({ 'display': "block" });
+                                    toastr.info("No File Selected... Please Open again for select a file.");
+                                    $("#txtSendMsg").removeAttr('disabled')
+                                }
+
+                            }
+                        }
+                        else
+                        {
+                            toastr.info("No File Selected... Please Open again for select a file.");
+                        }
+
+                    }//--For looop end
+                }
+
+
+            });
+            ///Handle File Uploading end
+
+            //Remove Attachment Start
+
+            $("#fileRemove").click(function(){
+
+                $("#fileRemove").css({ 'display': "none" });
+                $("#fileCall").css({ 'display': "block" });
+                $("#file1").val('');
+                $("#fileCall").css({ 'color': "" });
+                $("#FileAlert").css({ 'display': "none" });
+                toastr.info("Attachment Removed");
+                $("#txtSendMsg").removeAttr('disabled')
+            });
+
+
+            $("#loading").show();
+            //QB.init(QuickbloxApp_Id, QuickbloxAuth_Key, QuickbloxAuth_Secret, true);
+            QB.init(@System.Web.Configuration.WebConfigurationManager.AppSettings["QuickbloxApp_Id"],
+                  "@System.Web.Configuration.WebConfigurationManager.AppSettings["QuickbloxAuth_Key"]",
+                 "@System.Web.Configuration.WebConfigurationManager.AppSettings["QuickbloxAuth_Secret"]",
+                  true);
+
+
+            QB.createSession(function (err, result) {
+
+
+                if (err) {
+                    alert(err.message);
+                } else {
+
+                    sessionStorage.setItem("sToken", result.token);
+
+                    if (sFromQBId == '0') {
+
+                        RegisterNewUser("@Session["FromUserEmail"]", "@Session["LoginUserUserId"]");
+                    }
+                    else {
+
+                        startChat();
+
+                    }
+
+                }//Else End Of createSession
+            });
+
+
+
+
+
+            function startChat() {
+                var user = {
+                    id: sFromQBId,
+                    login: "@Session["FromUserEmail"]",
+                    password: "Welcome007!"
+                };
+
+
+                QB.chat.connect({ userId: user.id, password: user.password }, function (err, roster) {
+
+                    if (err) {
+                        //console.log('SERVER ERROR RESPONSE ');
+
+                    } else {
+                        //console.log('SERVER SUCCESS RESPONSE ');
+
+
+                        if (tmpDialogId == "0") {
+                            CreateNewGroupDialod();
+                        }
+                        else {
+                            //CreateSession();
+                            loadChatMessages(100,0);
+                            joinChatRoom();
+
+                            toastr.success("Now You Can Start Chatting.");
+                            $("#loading").hide();
+                            //For Permission Start
+                            @*@if (!@Session["Role"].ToString().Equals("SuperAdmin") || !@Session["Role"].ToString().Equals("Admin"))*@
+
+                            if ('@ViewBag.role' != null){
+
+                                if ('@Session["Role"]' != 'SuperAdmin' && '@Session["Role"]' != 'Admin' )
+                                {
+                                    $('#lblPermissionInfo').css('display', 'block');
+                                    if ('@ViewBag.permission' == "1"){
+                                        toastr.info("You Have Only Read Permission For This Group.");
+                                        $('#lblPermissionInfo').html('You Have Only Read Permission For This Group.');
+                                        $('#chatInput').css('display','none')
+                                        $('#chatInput').css('display','none')
+
+                                    }
+                                    if ('@ViewBag.permission' == "2"){
+                                        toastr.info("You Have Only Read / Write Permission For This Group.");
+                                        $('#lblPermissionInfo').html('You Have Only Read / Write Permission For This Group.');
+                                        $('#selectFileIcon').css('display','none');
+
+                                    }
+                                    if ('@ViewBag.permission' == "3" || '@ViewBag.permission' == "0"){
+
+                                        toastr.info("You Have Read / Write / Attachment Permission For This Group.");
+                                        $('#lblPermissionInfo').html('You Have Read / Write / Attachment Permission For This Group.');
+                                    }
+                                                      if ('@ViewBag.permission' == "4" || '@ViewBag.permission' == "0"){
+
+                                        toastr.info("You Have Only Write Permission For This Group.");
+                                        $('#lblPermissionInfo').html('You Have Only Write Permission For This Group.');
+                                       // $('#chatMsg').css('display','none')
+                                       // $('#chatMsg').css('display','none')
+                                    }
+
+                                }
+                                else
+                                {$('#lblPermissionInfo').css('display', 'none');}
+                            }
+                            //For Permission End
+                        }
+
+                    }
+
+
+                });
+            }
+
+
+
+
+
+            //Create New Group Chat Dialog Start
+
+            function CreateNewGroupDialod() {
+
+                var user = {
+                    id: sFromQBId,
+                    login: "@Session["FromUserEmail"]",
+                    password: "Welcome007!"
+                };
+                QB.createSession({ login: user.login, password: user.password }, function (err, result) {
+
+                    if (err) {
+                        alert(err.message);
+                    } else {
+                        //alert("Session Token- " + result.token);
+                        sessionStorage.setItem("sToken", result.token);
+
+                        //var occupants = new Array(sToQBId, sFromQBId);
+                        var occupants = new Array();
+                        for (var v1=0;v1 < GroupMemberList.length ; v1++)
+                        {
+                            occupants.push(GroupMemberList[v1].QuickBloxId);
+                        }
+
+
+
+                        var dialogOccupants = {
+
+                            type: 2,
+                            occupants_ids: occupants,//[sFromQBId, sToQBId],
+                            name: "Chat_" + "@ViewBag.GroupName",
+                            data: {
+                                class_name: "ChatDialogType",
+                                ChatCategory: "3"
+                            }
+                            //name: "Chat_" + sFromQBId + "_" + sToQBId
+                        };
+
+
+
+                        //Create New Group Chat Dialog
+                        QB.chat.dialog.create(dialogOccupants, function (err, createdDialog) {
+                            if (err) {
+                                //console.log(err);
+                                //console.log("DIALOG CREATED FAIL");
+                            } else {
+                                //Add new QuickBlox Id For Specific User
+
+                                var url = INITURL + '/Chatting/SaveDialogId';
+
+
+                                $.ajax({
+                                    url: url,
+                                    data: {
+                                        @*NurseUserId: "@Session["ToUserUserId"]",
+                                    SchedulerUserId: "@Session["LoginUserUserId"]",*@
+                                        ChattingGroupId: @ViewBag.GroupDialogId,
+                                        DialogId: createdDialog._id
+                                    },
+                                    cache: false,
+                                    type: 'POST',
+                                    async: false,
+                                    success: function (data) {
+                                        if (data == "Success") {
+                                            tmpDialogId = createdDialog._id;
+                                        }
+                                        loadChatMessages(100,0);
+                                        joinChatRoom();
+
+                                        toastr.success("Now You Can Start Chatting.");
+                                        $("#loading").hide();
+                                    },
+                                    error: function (reponse) {
+                                        alert("error : " + reponse);
+                                        $("#loading").hide();
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+
+                //---
+            }
+
+            //Create New Group Chat Dialog End
+
+            //Register New User Start
+            function RegisterNewUser(Login, UserId1,Index) {
+                var RegisterUser = { 'login': Login, 'password': "Welcome007!", 'tag': "differenzsystem", 'email': Login };
+
+                QB.users.create(RegisterUser, function (err, user1) {
+                    if (user1) {
+                        //Add new QuickBlox Id For Specific User
+                        //debugger;
+                        var url = INITURL + '/Chatting/SaveQBId';
+                        var QBId = user1.id;
+                        $.ajax({
+                            url: url,
+                            data: { UserId: UserId1, QuickBloxId: QBId },
+                            cache: false,
+                            type: 'POST',
+                            async: false,
+                            success: function (data) {
+                                if (data == "Success") {
+
+                                    if (UserId1 == "@Session["LoginUserUserId"]") {
+                                        sFromQBId = "" + QBId + "";
+                                        GroupMemberList[Index].QuickBloxId = sFromQBId;
+
+                                        sessionStorage.setItem("FromQBId", QBId);
+                                        startChat();
+
+                                    }
+                                    if (UserId1 == GroupMemberList[Index].UserId) {
+
+                                        //sToQBId = "" + QBId + "";
+                                        //GroupMemberList[Index].QuickBloxId = sToQBId;
+                                        sessionStorage.setItem("ToQBId", QBId);
+                                    }
+                                }
+                                //CreateNewGroupDialod();
+                            },
+                            error: function (reponse) {
+                                alert("error : " + reponse);
+                                $("#loading").hide();
+                            }
+                        });
+
+
+                        // success
+                    } else {
+                        return;
+                        // error
+                    }
+                });
+            }
+            //Register New User End
+
+            //Load Chat Message Start
+            function loadChatMessages(vLimit,vSkip) {
+
+                var user = {
+                    id: sFromQBId,
+                    login: "@Session["FromUserEmail"]",
+                    password: "Welcome007!"
+                };
+                QB.createSession({ login: user.login, password: user.password }, function (err, result) {
+
+                    if (err) {
+                        alert(err.message);
+                    } else {
+                        //alert("Session Token- " + result.token);
+                        sessionStorage.setItem("sToken", result.token);
+
+                        loadMessageV1(1);
+
+                    }
+                });
+
+            }
+            //Load Chat Message End
+
+
+
+            function loadMessageV1(scroll)
+            {
+
+                //debugger;
+                var dialogId = tmpDialogId;
+
+
+                var params = { chat_dialog_id: dialogId, sort_desc: 'date_sent', limit: 50, skip: 0 };
+                QB.chat.message.list(params, function (err, messages) {
+
+
+                    if (messages) {
+                        var latestMessages = "";
+
+                        var len = messages.items.length;
+                        if (len > 0) {
+                            for (var i = len - 1; i >= 0; i--) {
+
+
+
+                                var strMsg = messages.items[i].message;
+                                strMsg = strMsg.replace(/((http|https|ftp|ftps|www)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?)/g,'<a href="$1">$1</a>');
+
+                                var filenamedata=messages.items[i].file_name;
+
+                                // start login for read status ********************************************************************************
+                                var r = messages.items[i].read_ids; // all read ids
+
+
+                                //debugger;
+                                if(parseInt(messages.items[i].sender_id) != parseInt(sFromQBId))
+                                {
+                                    if(!r.includes(parseInt(sFromQBId)))
+                                    {
+                                        playAudio();
+
+                                        //debugger;
+                                        var params = {
+                                            messageId: messages.items[i]._id,
+                                            userId: messages.items[i].sender_id,
+                                            dialogId: messages.items[i].chat_dialog_id
+                                        };
+
+                                        QB.chat.sendReadStatus(params);
+
+                                    }
+
+                                }
+
+                                // end login for read status ********************************************************************************
+
+                                //Image Display Start
+                                var imageHTML = "";
+                                var fileType = null;
+                                if (messages.items[i].attachments.length > 0) {
+                                    if (messages.items[i].hasOwnProperty("attachments")) {
+                                        var fileId = messages.items[i].attachments[0].id;
+                                        var qbSessionToken = sessionStorage.getItem("sToken");
+                                        var privateUrl = QuickBloxInit + "/blobs/" + fileId + "/download?token=" + qbSessionToken;
+                                        var fileType1 = messages.items[i].attachments[0].type;
+                                        fileType = messages.items[i].MsgType;
+                                        var ancherStart = "<a target='_blank'  href='" + privateUrl + "' alt=''>";
+                                        var ancherEnd = "</a>";
+
+                                        var UserData = messages.items[i].userName;
+                                        var _id = messages.items[i]._id;
+
+                                        debugger;
+                                        var my_object = {};
+
+                                        var messagedate = new Date(messages.items[i].date_sent * 1000).toLocaleTimeString() + " " + new Date(messages.items[i].date_sent * 1000).toLocaleDateString();
+
+                                        my_object.privateUrl = privateUrl;
+                                        my_object.userName = UserData;
+                                        my_object.fileType = fileType;
+                                        my_object.anchertag = ancherStart + ancherEnd;
+                                        my_object.filenamedata = filenamedata;
+                                        my_object.messagedate = messagedate;
+                                        my_object.fileId = fileId;
+                                        my_object.qbSessionToken = qbSessionToken;
+                                        my_object._id = _id;
+
+
+
+                                        if (fileType == "doc") {
+
+                                            if(String(messages.items[i].attachments[0].type) == "application/vnd.openxmlformats-officedocument.presentationml.presentation" || String(messages.items[i].attachments[0].type) == "pptx"|| String(messages.items[i].attachments[0].type) == "ppt")
+                                            {
+                                                imageHTML = ancherStart + "<i class='fa fa-file-powerpoint-o fa-2x' style='font-size: 20px;'></i>" + ancherEnd;
+                                            }
+                                            else if(String(messages.items[i].attachments[0].type) == "application/vnd.ms-excel" || String(messages.items[i].attachments[0].type) == "xls"|| String(messages.items[i].attachments[0].type) == "xlsx")
+                                            {
+                                                imageHTML = ancherStart + "<i class='fa fa-file-excel-o fa-2x' style='font-size: 20px;'></i>" + ancherEnd;
+                                            }
+                                            else if(String(messages.items[i].attachments[0].type) == "application/pdf"|| String(messages.items[i].attachments[0].type) == "pdf")
+                                            {
+                                                imageHTML = "<a  onclick='openMedia(\""+privateUrl+"\",3);' data-toggle='modal' data-target='#myModalOpenMedia' >" + "<i class='fa fa-file-pdf-o fa-2x' style='font-size: 20px;'></i>"+ ancherEnd;//myModalOpenMedia
+                                            }
+                                            else if(String(messages.items[i].attachments[0].type) == "application/msword" || String(messages.items[i].attachments[0].type) == "docx")
+                                            {
+                                                imageHTML = ancherStart + "<i class='fa fa-file-word-o fa-2x' style='font-size: 20px;'></i>" + ancherEnd;
+                                            }
+                                            else if(String(messages.items[i].attachments[0].type) == "text/x-ms-contact")
+                                            {
+                                                imageHTML = ancherStart + "<i class='fa fa-phone fa-2x'></i style='font-size: 20px;'>" + ancherEnd;
+                                            }
+                                            else
+                                            {
+                                                imageHTML = ancherStart + "<i class='fa fa-file-text'></i style='font-size: 20px;'>" + ancherEnd;
+                                            }
+                                        }
+                                        if (fileType == "audio" ){
+                                            imageHTML = "<audio  src='" + privateUrl + "' controls></audio>";
+                                        }
+                                        if (fileType == "image") {
+                                            imageHTML = "<a  onclick='openMedia(\""+privateUrl+"\",1);' data-toggle='modal' data-target='#myModalOpenMedia' >" + "<i class='fa fa-file-image-o fa-2x' style='font-size: 20px;'></i>"+ ancherEnd;//myModalOpenMedia
+                                        }
+                                        else if (fileType == "video") {
+                                            imageHTML = "<a  onclick='openMedia(\""+privateUrl+"\",2);' data-toggle='modal' data-target='#myModalOpenMedia' >" + "<i class='fa fa-file-video-o fa-2x' style='font-size: 20px;'></i>"+ ancherEnd;//myModalOpenMedia
+                                        }
+                                    }
+
+                                    my_object.imageHTML = imageHTML;
+                                    attachmentArray.push(my_object);
+
+
+                                    fileType = "";
+
+
+
+                                }
+
+                                //Image Display End
+                                var date1 = new Date(messages.items[i].date_sent * 1000).toLocaleTimeString() +" " + new Date(messages.items[i].date_sent * 1000).toLocaleDateString();
+                                if (messages.items[i].sender_id == sFromQBId) {
+
+                                    // start logic for read message *********************************************************************
+                                    var x = [] ;
+                                    var readStatus = "";
+                                    if(GroupMemberList.length > 1)
+                                    {
+                                        for(var r1=0;r1<GroupMemberList.length;r1++)
+                                        {
+                                            x.push(parseInt(GroupMemberList[r1].QuickBloxId));
+                                        }
+                                        x = x.sort();
+
+                                        Array.prototype.compare = function(testArr) {
+                                            if (this.length != testArr.length) return false;
+                                            for (var i = 0; i < testArr.length; i++) {
+                                                if (this[i].compare) { //To test values in nested arrays
+                                                    if (!this[i].compare(testArr[i])) return false;
+                                                }
+                                                else if (this[i] !== testArr[i]) return false;
+                                            }
+                                            return true;
+                                        }
+
+
+                                        if(r.sort().compare(x))
+                                        {
+                                            readStatus += "<span><i class='fa fa-check' style='color: #50b3e2;'></i></span>";
+                                        }
+                                        else
+                                        {
+                                            readStatus += "<span><i class='fa fa-check'></i></span>";
+                                        }
+                                    }
+
+
+
+                                    // end logic for read message *********************************************************************
+                                    if(imageHTML){
+                                        if(strMsg=="doc. ")
+                                        {
+                                            //console.log("Sender Id " + messages.items[i].sender_id + " - " + messages.items[i].message + " Sent By You");
+
+                                            latestMessages += "<tr><td></td><td class='sent'><div class='message-header'><p class='sender'></p><span class='time'>" + date1 + "</span></div> <p class='message-textSend'><span>" + imageHTML + " " + filenamedata + "</span></p></td></tr>";
+
+                                        //        "<tr ><td style='background:#E3E3E3'><b>You Said </b>: <span>" + imageHTML + " " + filenamedata + "</span><span style='float:right'><img src='http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/image/chat_black_24dp.svg' style='vertical-align:middle' width='10%' height='10%' alt='image'/>" + date1 + readStatus + "</span>" + " </td></tr>";
+                                        }
+                                        else
+                                        {
+                                            latestMessages += "<tr><td></td><td class='sent'><div class='message-header'><p class='sender'></p><span class='time'>" + date1 +  "</span></div> <p class='message-textSend'><span>" + imageHTML + " " + strMsg + "</span></p></td></tr>";
+
+                                        //        "<tr ><td style='background:#E3E3E3'><b>You Said </b>: <span>" + imageHTML + " " + strMsg + "</span><span style='float:right'><img src='http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/image/chat_black_24dp.svg' style='vertical-align:middle' width='10%' height='10%' alt='image'/>" + date1 + readStatus + "</span>" + " </td></tr>";
+                                        }
+                                        }
+                                    else
+                                    {
+                                        latestMessages += "<tr><td></td><td class='sent'><div class='message-header'><p class='sender'></p><span class='time'>" + date1 +  "</span></div> <p class='message-textSend'><span>" + imageHTML + " " + strMsg + "</span></p></td></tr>";
+
+                                    //        "<tr ><td style='background:#E3E3E3'><b>You Said</b> : <span>" + strMsg + "</span><span style='float:right'><img src='http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/image/chat_black_24dp.svg' style='vertical-align:middle' width='10%' height='10%' alt='image'/>" + date1 + readStatus + "</span>" + imageHTML + " </td></tr>";
+                                    }
+
+                                } else {
+                                    var receiver = "";
+                                    var Userid="";
+                                    var Id="";
+                                                      if('@ViewBag.permission' != "4")
+                                                    {
+                                    if(GroupMemberList.length > 1)
+                                    {
+                                        for(var i1=0;i1<GroupMemberList.length;i1++)
+                                        {
+                                            if(GroupMemberList[i1].QuickBloxId == messages.items[i].sender_id)
+                                            {
+                                                receiver = GroupMemberList[i1].MemberName;
+
+                                                UserId=GroupMemberList[i1].UserId;
+
+                                                Id = GroupMemberList[i1].MemberId;
+                                            }
+                                        }
+                                        if(receiver == ""){
+                                            receiver = messages.items[i].userName;
+
+                                        }
+                                        }
+
+                                    if(imageHTML){
+
+                                        //console.log("Reveiver Id " + messages.items[i].sender_id + " - " + messages.items[i].message + " Sent By  @Session["ToQBUserName"] ");
+                                        if(messages.items[i].message == null)
+                                        {
+                                            latestMessages += "<tr><td class='received'><div class='message-header'><p class='sender'>" + receiver + "</p><span class='time'>" + date1 + "</span></div><p class='message-text card-text'>" + imageHTML + "</p></td><td></td></tr>";
+
+                                                //"<tr><td style='background:#D1E5EF'><b>" + receiver + " Said </b>: <span>" + imageHTML + " " + "</span><span style='float:right'><img src='http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/image/chat_black_24dp.svg' style='vertical-align:middle' width='10%' height='10%' alt='image'/>" + date1 + "</span></td></tr>";
+                                        }else{
+                                            if(strMsg=="doc. ")
+                                            {
+                                                debugger;
+                                                latestMessages += "<tr><td class='received'><div class='message-header'><p class='sender'>" + receiver + "</p><span class='time'>" + date1 + "</span></div><p class='message-text card-text'>" + imageHTML + " " + filenamedata + "</p></td><td></td></tr>";
+                                                    //"<tr><td style='background:#D1E5EF'><b  onclick='OpenPrivateChatToggle(\"" + UserId + "\" ,\"" + Id + "\");'>" + receiver + " Said </b>: <span>" + imageHTML + " " + filenamedata + "</span><span style='float:right'><img src='http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/image/chat_black_24dp.svg' style='vertical-align:middle' width='10%' height='10%' alt='image'/>" + date1 + "</span></td></tr>";
+                                            }
+                                            else
+                                            {
+                                                latestMessages += "<tr><td class='received'><div class='message-header'><p class='sender'>" + receiver + "</p><span class='time'>" + date1 + "</span></div><p class='message-text card-text'>" + imageHTML + " " + strMsg + "</p></td><td></td></tr>";
+                                                    //"<tr><td style='background:#D1E5EF'><b  onclick='OpenPrivateChatToggle(\"" + UserId + "\" ,\"" + Id + "\");'>" + receiver + " Said </b>: <span>" + imageHTML + " " + strMsg + "</span><span style='float:right'><img src='http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/image/chat_black_24dp.svg' style='vertical-align:middle' width='10%' height='10%' alt='image'/>" + date1 + "</span></td></tr>";
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+
+                                        latestMessages += "<tr><td class='received'><div class='message-header'><p class='sender'>" + receiver + "</p><span class='time'>" + date1 +"</span></div><p class='message-text card-text'>" + strMsg + "</p></td><td></td></tr>";
+                                            //"<tr><td style='background:#D1E5EF'><b   onclick='OpenPrivateChatToggle(\"" + UserId + "\" ,\"" + Id + "\");'>" + receiver + " Said </b>: <span>" + strMsg + "</span><span style='float:right'><img src='http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/image/chat_black_24dp.svg' style='vertical-align:middle' width='10%' height='10%' alt='image'/>" + date1 + "</span>" + imageHTML + " </td></tr>";
+
+                                    }
+                                }
+                                                }
+                            }
+
+                        }
+                        else {
+                            if(loaderFlag==0)
+                            {
+                                loaderFlag=1;
+                                latestMessages += "<tr><td><strong>Conversation Not Started.</strong> </td></tr>";
+                            }
+
+                        }
+                        $("#chatMsg").empty();
+                        //document.getElementById("chatMsg").innerHTML = latestMessages;
+
+                        if(latestMessages.length > 0){
+
+                            var div = document.getElementById('chatMsg');
+                            div.innerHTML= latestMessages ;
+                        }
+                        if(len > 0){
+
+                            if(scroll)
+                                $('#chat1').scrollTop($('#chat1')[0].scrollHeight);
+                        }
+
+                    } else {
+                        console.log(err);
+                    }
+
+                });
+            }
+
+
+
+            //Join Group Chat Start
+            function joinChatRoom() {
+                dialogJid = QB.chat.helpers.getRoomJidFromDialogId(tmpDialogId);
+                QB.chat.muc.join(dialogJid, function (resultStanza) {
+
+                    var joined = true;
+
+                    for (var i = 0; i < resultStanza.childNodes.length; i++) {
+                        var elItem = resultStanza.childNodes.item(i);
+                        if (elItem.tagName === 'error') {
+                            joined = false;
+                        }
+                    }
+                });
+            }
+            //Join Group Chat End
+
+
+
+            function playAudio() {
+                var x = document.getElementById("myAudio");
+                x.play();
+            }
+
+
+            //QB.chat.onMessageListener = onMessage;
+
+            function onMessage(sFromQBId, sentMsg) {
+
+                if(parseInt(sFromQBId)!=parseInt(ssFromQBId))
+                {
+
+                    playAudio();
+                }
+
+
+                //debugger;
+                if(sentMsg.markable){
+                    //     debugger;
+                    var params = {
+                        messageId: sentMsg.id,
+                        userId: sFromQBId,
+                        dialogId: sentMsg.dialog_id
+                    };
+                    QB.chat.sendReadStatus(params);
+
+                }
+                //debugger;
+
+                loadChatMessages(100,0);
+                //$("#file1").val('');
+                $("#fileCall").css({ 'color': "" });
+                $("#loading").hide();
+            }
+
+
+            QB.chat.onMessageListener = onMessage;
+
+
+
+
+            QB.chat.onReadStatusListener = function(messageId, dialogId, userId){
+                //  debugger;
+                if(parseInt(userId) != parseInt(sFromQBId))
+                {
+                    loadMessageV1(0);
+                }
+            }
+
+            //Start Send Message To CareGiver
+            $("#btnSendMsg").click(function () {
+               // alert("12345");
+                debugger;
+                var currentMessage = $('#txtSendMsg').val();
+                $('#txtSendMsg').val("");
+                //var opponentId = sToQBId;
+                var sToken = sessionStorage.getItem("sToken");
+
+
+                debugger;
+                ////1
+                var totalSelectedFiles = $("input[type=file]")[0].files.length;
+                totalFiles = $("input[type=file]")[0].files;
+                var totalFileType = "";
+
+                if (totalSelectedFiles > 0)
+                {
+                    $("#loading").show();
+                    toastr.info("File Uploading Stared");
+                    debugger;
+                    uploadFile(totalSelectedFiles-1,totalFiles[totalSelectedFiles-1],currentMessage);
+                    //$("#loading").hide();
+
+                }
+                else {
+                    //debugger;
+                    var msg = {
+                        type: 'groupchat',
+                        body: currentMessage,
+                        extension: {
+                            save_to_history: 1,
+                            userName:sFromQBName,
+                            chatType:"@ViewBag.GroupTypeId",//"2",//Custom Parameter pass to QuickBlox
+                            MsgType:'text'
+                        },
+                        markable: 1
+                    };
+
+                    if (currentMessage.length != 0) {
+                        QB.chat.send(dialogJid, msg);
+                        $("#loading").show();
+                        // Start for broadcast message
+                        debugger;
+                        let params = (new URL(document.location)).searchParams;
+                        let UrlIdValue = params.get("Id");
+                        if(UrlIdValue=='11582')
+                        {
+                            var msg = {
+                                type: 'groupchat',
+                                body: currentMessage,
+                                extension: {
+                                    save_to_history: 1,
+                                    userName:sFromQBName,
+                                    chatType:"1",
+                                    MsgType:'text'
+                                },
+                                markable: 1
+                            };
+
+                            for(var i1=0;i1<GetAllDialogIdBroadCast.length;i1++)
+                            {
+                                QB.chat.send(GetAllDialogIdBroadCast[i1].room_jid, msg);
+
+                            }
+                        }
+
+                        //for(var i5=0;i5<msgUserList.length;i5++)
+                        //{
+                        //    alert(msgUserList[i5]);
+                        //}
+
+                        debugger;
+                        let chtids = (new URL(document.location)).searchParams;
+                        let GroupChatID = chtids.get("Id");
+
+                        debugger;
+                        //var MemberToNotify =[{
+
+                        //    MemberToNotify:msgUserList
+
+                        //}]
+
+                        var MemberToNotify={
+                            MemberToNotify:msgUserList,
+                            ChatId:GroupChatID,
+                            vMsg: currentMessage,
+                            UserName : sFromQBName,
+                            GroupName : "@ViewBag.GroupName",
+                            //QuickBloxId:sFromQBId,
+                            DialogId : tmpDialogId,
+                            //Type:"@ViewBag.GroupTypeId"
+                            Type:"1"
+                        }
+
+
+                        debugger;
+                        // End for broadcast message
+                       // if(msgUserList.length>0)
+                       // {
+                           // for(var i=0; i<msgUserList.length;i++)
+                           // {
+                                debugger;
+                                var url = INITURL + '/Chatting/MemberToNotifyforTaggedNotification';
+                                // var url='http://localhost:15177'+'/Chatting/MemberToNotifyforTaggedNotification';
+                                $.ajax({
+                                    url: url,
+                                    data:{
+                                       // MemberToNotify:msgUserList[i],
+                                        ChatId:GroupChatID,
+                                        vMsg: currentMessage,
+                                        UserName : sFromQBName,
+                                        GroupName : "@ViewBag.GroupName",
+                                        //QuickBloxId:sFromQBId,
+                                        DialogId : tmpDialogId,
+                                        //Type:"@ViewBag.GroupTypeId"
+                                        Type:"1"
+                                    },
+                                    cache: false,
+                                    type: 'POST',
+                                    async: false,
+                                    success: function (data) {
+                                        debugger;
+
+
+                                    },
+                                    error: function (reponse) {
+                                        $("#loading").hide();
+                                    }
+                                });
+
+                          //  }
+                          //  msgUserList=[];
+                       // }
+                        @*else
+                {
+                    //Send PushNotification start
+                    var url = INITURL + '/Chatting/NotifyUserForChatMessage';
+                    $.ajax({
+                        url: url,
+                        data: {
+                            UserId: "@Session["LoginUserUserId"]",
+                            Msg: currentMessage,
+                            QuickBloxId:sFromQBId,
+                            DialogId : tmpDialogId,
+                            Type:"@ViewBag.GroupTypeId",    @*Type : "2",*@
+                        @*UserName : sFromQBName,
+                            GroupName : "@ViewBag.GroupName"
+                        },
+                        cache: false,
+                        type: 'POST',
+                        async: false,
+                        success: function (data) {
+                        },
+                        error: function (reponse) {
+                            $("#loading").hide();
+                        }
+                    });
+                }*@
+                        //Send PushNotification end
+                        $("#loading").hide();
+                    }
+
+                    else
+                    {
+                        toastr.info("Please Enter Message.");
+                    }
+                }
+                ////
+
+                $('#txtSendMsg').focus();
+               // $("#loading").hide();
+            });
+            //End Send Message To CareGiver
+
+            function setLoadMoreMessagesListener (){
+                $("#chat1").on('scroll', function loadMoreMessages(e) {
+                    var elem = e.currentTarget;
+                    if (elem.scrollTop < 5) {
+                        gSkip= gSkip+100;
+                        //loadChatMessages(gSkip,gSkip);
+                        $('#ScrollUp').css('display','block');
+                        $('#ScrollDown').css('display','none');
+                    }
+                    if (elem.scrollTop == 1) {
+                        $('#ScrollUp').css('display','none');
+                        $('#ScrollDown').css('display','block');
+                    }
+                });
+
+            };
+            $("#ScrollUp").click(function(){
+                $('#chat1').animate({
+                    scrollTop: 6
+                }, 'slow')
+                $('#ScrollUp').css('display','none');
+                $('#ScrollDown').css('display','block');
+            });
+            $("#ScrollDown").click(function(){
+                $('#chat1').animate({
+                    scrollTop: $('#chat1')[0].scrollHeight
+                }, 'slow')
+                $('#ScrollDown').css('display','none');
+            });
+
+
+            function uploadFile(temptotalSelectedFiles,File,currentMessage){
+                $("#loading").show();
+                debugger;
+                File = totalFiles[temptotalSelectedFiles];
+                // console.log(temptotalSelectedFiles+" + "+File.name);
+                totalFileType =File.type.split('/');
+                //totalFileType=totalFileType1[1];
+                //alert(totalFileType);
+                if(totalFileType[0] != 'image' && totalFileType[0] != 'video' && totalFileType[0] != 'audio')
+                {
+                    totalFileType[0]  = 'doc';
+                }
+
+
+                if (File != null) {
+                    debugger;
+                    var params = { name: File.name, file: File, type: File.type, size:File.size, 'public': false };
+                    $("#loading").show();
+                    debugger;
+                    QB.content.createAndUpload(params, function (err, response) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            var uploadedFileId = response.id;
+
+                            debugger;
+                            var msg = {
+                                type: 'groupchat',
+                                body: totalFileType[0]+". "+currentMessage,
+                                extension: {
+                                    save_to_history: 1,
+                                    userName:sFromQBName,
+                                    chatType:"@ViewBag.GroupTypeId",//"2",//Custom Parameter pass to QuickBlox
+                                    MsgType:totalFileType[0],
+                                    file_name:File.name,
+                                    file_size:File.size
+
+                                },
+                                markable: 1
+                            };
+                            msg["extension"]["attachments"] = [{ id: uploadedFileId, type: File.type }];
+
+                            QB.chat.send(dialogJid, msg);
+                            toastr.success(File.name +" "+ File.type +  " uploaded");
+                            $("#FileAlert").css({ 'display': "none" });
+                            $("#fileRemove").css({ 'display': "none" });
+                            $("#fileCall").css({ 'display': "block" });
+                            $("#fileCall").css({ 'color': "" });
+
+                            //Send PushNotification start
+
+                            var url = INITURL + '/Chatting/NotifyUserForChatMessage';
+                            $.ajax({
+                                url: url,
+                                data: {
+                                    UserId: "@Session["LoginUserUserId"]",
+                                    Msg:  totalFileType[0]+". ",               //+ currentMessage,
+                                    QuickBloxId:sFromQBId,
+                                    DialogId : tmpDialogId,
+                                    Type:"@ViewBag.GroupTypeId",               @*Type : "2",*@
+                                    UserName : sFromQBName,
+                                    GroupName : "@ViewBag.GroupName"
+                                },
+                                cache: false,
+                                type: 'POST',
+                                async: false,
+                                success: function (data) {
+                                    //console.log(temptotalSelectedFiles+" + "+File.name);
+                                    //console.log("temptotalSelectedFiles - " + temptotalSelectedFiles);
+                                    temptotalSelectedFiles -= 1;
+                                    if(temptotalSelectedFiles >= 0)
+                                    {
+                                        uploadFile(temptotalSelectedFiles,totalFiles[temptotalSelectedFiles]);
+                                    }
+                                    else
+                                    {
+                                        toastr.info("File Uploading Finished.");
+                                        $("#file1").val('');
+                                        $("#txtSendMsg").removeAttr('disabled');
+                                        $("#loading").hide();
+                                    }
+                                },
+                                error: function (reponse) {
+                                    //alert("error : " + reponse);
+                                    $("#loading").hide();
+                                }
+                            });
+                            //Send PushNotification end
+
+                        }
+
+                    });
+
+                }
+
+            }
+        });
+
+    //    function openMedia(url,type)
+    //    {
+
+    //        debugger;
+    //        var media = '';
+    //        $("#mediaDiv").css("max-height", "320px");
+    //        $("#mediaDiv").html(media);
+    //        if(type==1)
+    //        {
+    //            media="<img src='"+url+"' style='vertical-align:middle' width='90%' height='90%' alt='image'/>";
+    //            $("#mediaDiv").css("max-height", "320px");
+    //            $("#mediaDiv").html(media);
+    //        }
+    //        else if(type==2)
+    //        {
+    //            media="<video id='openVideo'  controls>"+"<source  src='"+url+"' type='video/mp4'>"+  "<source src='"+url+"' type='video/ogg'>"+"</video>";
+    //            $("#mediaDiv").css("height", "310px"); $("#mediaDiv").css("max-height", "400px");
+    //            $("#mediaDiv").html(media);
+    //        }
+    //        else if(type==3)
+    //        {
+    //            //PDFObject.embed(url, "#mediaDiv");
+    //            //$("#mediaDiv").css("height", "810px");
+    //            //$("#mediaDiv").css("max-height", "810px");
+
+    //            window.open(url);
+
+    //        }
+
+    //}
+
+
+    function openMedia(url, type) {
+
+        debugger;
+        var media = '';
+        $("#mediaDiv").css("max-height", "320px");
+        $("#mediaDiv").css("z-index", "2000");
+        $("#mediaDiv").html(media);
+        if (type == 1) {
+            media = "<img src='" + url + "' style='vertical-align:middle' width='90%' height='90%' alt='image'/>";
+            $("#mediaDiv").css("max-height", "320px");
+            $("#mediaDiv").html(media);
+        }
+        else if (type == 2) {
+            media = "<video id='openVideo'  controls>" + "<source  src='" + url + "' type='video/mp4'>" + "<source src='" + url + "' type='video/ogg'>" + "</video>";
+            $("#mediaDiv").css("height", "310px"); $("#mediaDiv").css("max-height", "400px");
+            $("#mediaDiv").html(media);
+        }
+        else if (type == 3) {
+            PDFObject.embed(url, "#mediaDiv");
+            $("#mediaDiv").css("height", "810px");
+            $("#mediaDiv").css("max-height", "810px");
+
+           // window.open(url);
+
+        }
+
+    }
+
+
+        function convertTimeStampToTimeAgo(TimeStamp) {
+            var date = new Date(TimeStamp * 1000);
+            var seconds = Math.floor((new Date() - date) / 1000);
+            if (Math.round(seconds / (60 * 60 * 24 * 365.25)) >= 2) return Math.round(seconds / (60 * 60 * 24 * 365.25)) + " years ago";
+            else if (Math.round(seconds / (60 * 60 * 24 * 365.25)) >= 1) return "last year ago";
+            else if (Math.round(seconds / (60 * 60 * 24 * 30.4)) >= 2) return Math.round(seconds / (60 * 60 * 24 * 30.4)) + " months ago";
+            else if (Math.round(seconds / (60 * 60 * 24 * 30.4)) >= 1) return "last month ago";
+            else if (Math.round(seconds / (60 * 60 * 24 * 7)) >= 2) return Math.round(seconds / (60 * 60 * 24 * 7)) + " weeks ago";
+            else if (Math.round(seconds / (60 * 60 * 24 * 7)) >= 1) return "last week ago";
+            else if (Math.round(seconds / (60 * 60 * 24)) >= 2) return Math.round(seconds / (60 * 60 *  24)) + " days ago";
+            else if (Math.round(seconds / (60 * 60 * 24)) >= 1) return "yesterday";
+            else if (Math.round(seconds / (60 * 60)) >= 2) return Math.round(seconds / (60 * 60)) + " hours ago";
+            else if (Math.round(seconds / (60 * 60)) >= 1) return "an hour ago";
+            else if (Math.round(seconds / 60) >= 2) return Math.round(seconds / 60) + " minutes ago";
+            else if (Math.round(seconds / 60) >= 1) return "a minute ago";
+            else if (seconds >= 2) return seconds + " seconds ago";
+            else if (seconds == 1) return "just now";
+            else return "just now";
+        };
+
+        debugger;
+        function OpenSupplyForm() {
+            $("#loading").show();
+
+            debugger;
+
+            // alert(INITURL);
+            debugger;
+            //$('#SupplyformId').load(INITURL + 'Chatting/SupplyForm', function () {
+            //    debugger;
+            //    sessionStorage.setItem("PartialView", "1");
+            debugger;
+            $('#myModalSupply').modal('show');
+            $("#loading").hide();
+            //// });
+        }
+
+        function OpenshedulerFrom() {
+            debugger;
+            $("#loading").show();
+
+            debugger;
+            $('#modalGetsupplylist2').modal('show');
+            $("#loading").hide();
+            // });
+        }
+
+
+
+
+        function printDiv() {
+            // var printContents = document.getElementById("myDataTable").innerHTML;
+
+            var printContents = document.getElementById("chatMsg").innerHTML;
+            var originalContents = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+
+            window.print();
+            document.body.innerHTML = originalContents;
+        }
+
+
+        debugger;
+   // function OpenNewSupplyformData(e)
+
+    $("#OpenNewSupplyformData").click(function () {
+        //PatientGroupName='@Session["patientgroupname"]';
+        //var ChattingId='@Session["chattingGroupId"]';
+
+
+        console.log(attachmentArray);
+        debugger;
+        $("#loading").show();
+        //  var url=INITURL+ 'Chatting/AssignCaregiver?ChattingGroupId=' + ChattingGroupId + '&GroupName=\"' + unescape(GroupName) +'\"';
+        debugger;
+        var url = INITURL + 'Chatting/SupplyFormDetails?ChattingGroupId=' + ChattingId + '&GroupName=' + unescape(PatientGroupName);
+        debugger;
+        $('#GetsSupplyFormData').load(encodeURI(url), function () {
+            debugger;
+            sessionStorage.setItem("PartialView", "1");
+            debugger;
+            $('#modalSupplyFormDetailsAssignment').modal('show');
+            $("#loading").hide();
+        });
+
+    });
+
+
+
+    //$("#ShowSharedFiled").click(function () {
+
+    //    sessionStorage.setItem("PartialView", "1");
+
+    //    let data = [];
+
+    //    attachmentArray.forEach((file) => {
+
+    //        debugger;
+    //        // Find or create the group
+    //        let group = data.find((g) => g.group === file.messagedate);
+
+    //        debugger;
+    //        if (!group) {
+    //            group = { group: file.messagedate, files: [] };
+    //            data.push(group);
+    //        }
+
+    //        //filenamedata
+    //        //messagedate
+
+    //        // Add the file to the group's files array
+    //        group.files.push({
+    //            imageHTML: file.imageHTML,
+    //            date: file.messagedate.split(' ')[1], // Example static date; replace if needed
+    //            sharedBy: file.userName,
+    //            image: file.privateUrl, // Use privateUrl as the image URL
+    //            fileType: file.fileType // Include fileType if needed
+    //        });
+    //    });
+
+    //    console.log(data);
+    //    renderFiles(data);
+
+    //    $('#sharedFile').modal('show');
+    //    $("#loading").hide();
+    //});
+
+
+
+
+
+    $("#ShowSharedFiled").click(function () {
+        sessionStorage.setItem("PartialView", "1");
+
+        let groupedData = {};
+
+        attachmentArray.forEach((file) => {
+            let groupKey = file.messagedate;
+
+            if (!groupedData[groupKey]) {
+                groupedData[groupKey] = { group: groupKey, files: [] };
+            }
+
+            groupedData[groupKey].files.push({
+                imageHTML: file.imageHTML,
+                date: file.messagedate.split(' ')[1] || '', // Extract time part safely
+                sharedBy: file.userName,
+                filename: file.filenamedata,
+                image: file.privateUrl, // Use privateUrl as the image URL
+                fileType: file.fileType,
+                fileId: file.fileId,
+                qbSessionToken: file.qbSessionToken,
+                _id: file._id
+                // Include fileType if needed
+            });
+        });
+
+        let groupedArray = Object.values(groupedData).sort((a, b) => new Date(b.group) - new Date(a.group));
+
+            //Object.values(groupedData); // Convert object to array
+        console.log(groupedArray);
+        renderFiles(groupedArray);
+
+        $('#sharedFile').modal('show');
+        $("#loading").hide();
+    });
+
+
+
+//    function renderFiles(data) {
+//        data.forEach((group) => {
+//            const groupElement = $(`<div class="file-group">
+//            <h2>${group.group}</h2>
+//          </div>`);
+//            debugger;
+//            group.files.forEach((file) => {
+//                debugger;
+//                if (file != null) {
+//                    str += "<tr>" +
+//                        "<td><img src=" + file.imageHTML + "></td>" +
+//                        "<td> " + file.sharedBy + "</td>" +
+//                        "<td> " + file.messagedate + "</td>" +
+//                        "<td>Action</td>" +
+//                        "</tr>";
+//                }
+//                else { str = "<tr><td colspan='6'>" + "No Attachment Found" + "</td></tr>"; }
+//                document.getElementById("Attachmentlist").innerHTML = str;
+
+//            });
+//        }
+//}
+
+
+    function renderFiles(data) {
+        $("#Attachmentlist").empty();
+        str = "";
+        if (data != null) {
+            data.forEach((group) => {
+                //  const groupElement = $(`<div class="file-group">
+                //  <h2>${group.group}</h2>
+                //</div>`);
+
+
+                group.files.forEach((file) => {
+                    debugger;
+                    if (file != null) {
+                        str += "<tr>" +
+                            "<td>" + file.imageHTML + "<span style='padding:8px;'>" + file.filename + "</span></td>" +
+                            "<td> " + file.date + "</td>" +
+                            "<td> " + file.sharedBy + "</td>" +
+                            "<td><a href='javascript:;'class='btn downloadfile'  onclick = 'downloadfile(\"" + file.fileId + "\" ,\"" + file.qbSessionToken + "\",\"" + file._id + "\");'>Download</a></td>" +
+                            "</tr>";
+                    }
+                    else { str = "<tr><td colspan='6'>" + "No Attachment Found" + "</td></tr>"; }
+
+                });
+
+            });
+        } else {
+
+            str = "<tr><td colspan='6'>" + "No Attachment Found" + "</td></tr>";
+        }
+
+        document.getElementById("Attachmentlist").innerHTML = str;
+
+
+
+
+
+
+    }
+
+
+
+
+    /*< a href = 'javascript:;'class='btn downloadfile'  onclick = 'downloadfile('"+ file.image +");> Download</a >*/
+   /*'<a href="javascript:;" class="btn downloadfile"  onclick="downloadfile(\'' + oObj["TotalCaregiversNotified"] + ')">Download</a>'*/
+
+
+    function downloadfile(fileid, qbsessiontoken, _id) {
+
+        debugger;
+        //var dataprivateurl = QuickBloxInit + "/blobs/" + _id + "/download.json";
+
+        //$.ajax({
+        //    url: dataprivateurl,
+        //    type: "GET",
+        //    headers: {
+        //        "QB-Token": qbsessiontoken
+        //    },
+        //    success: function (response) {
+        //        console.log("Success:", response);
+        //    },
+        //    error: function (xhr, status, error) {
+        //        console.error("Error:", status, error);
+        //    }
+        //});
+
+
+        const privateUrl2 = QB.content.privateUrl(_id);
+        const [url, token] = privateUrl2.split('?token=');
+        fetch(url + '.json', {
+            headers: { 'QB-Token': qbsessiontoken }
+        })
+            .then(res => res.blob())
+            .then(blob => {
+                debugger;
+                const a = document.createElement('a');
+                const blobUrl = URL.createObjectURL(blob);
+                a.href = URL.createObjectURL(blob);
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(blobUrl);
+            })
+
+        debugger;
+
+        var privateUrl = QuickBloxInit + "/blobs/" + fileid + "/download?token=" + qbsessiontoken;
+
+      //  url = "https://apisoltapps.quickblox.com/blobs/8999995/download?token=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdHlwZSI6InVzZXJfYWNjZXNzIiwiYXBwbGljYXRpb25faWQiOjU5MjMwLCJhdWQiOiJxYl9jb3JlIiwiZXhwIjoxNzM3MTA5MjY2LCJpYXQiOjE3MzcwMjI4NjYsImlzcyI6InFiX2NvcmUiLCJqdGkiOiI2ZGQwOTUzNi05MmI1LTQxNzItYmQzNC0wMzM4OWUzMmIxNmIiLCJuYmYiOjE3MzcwMjI4NjUsInN1YiI6MzIyNzQxMTQsInR5cCI6ImFjY2VzcyJ9.i3caJ-C7qhyUZbU3LUGccu-I5yjLvGDHWl_d2JlLPPWrgxMvnlgO9LOC7moaEUphmn9xECdnQAdnTEmU_jH6_g"
+        var filename = privateUrl;
+        var iframe = document.createElement("iframe");
+        iframe.src = filename;
+        iframe.style.display = 'none';
+        document.body.appendChild(iframe);
+        toastr.success("successfully Download.");
+
+
+
+        $("#test").attr("href", privateUrl);
+
+        //$("#test").trigger("click");
+
+        debugger;
+        document.getElementById("test").click();
+
+
+        var link = document.createElement("a");
+        link.download = filename;
+        // Construct the uri
+        //var uri = 'data:text/csv;charset=utf-8;base64,' + someb64data
+        link.href = privateUrl;
+        document.body.appendChild(link);
+        link.click();
+        // Cleanup the DOM
+        document.body.removeChild(link);
+
+
+    }
+
+
+    $("#search-input").on("input", function () {
+        const keyword = $(this).val().toLowerCase();
+        const filteredData = data.map((group) => ({
+            group: group.group,
+            files: group.files.filter((file) =>
+                file.name.toLowerCase().includes(keyword)
+            ),
+        })).filter((group) => group.files.length > 0);
+        renderFiles(filteredData);
+    });
+
+
+
+    function OpenReScheduledformData1(e)
+    {
+        debugger;
+        $("#loading").show();
+
+        debugger;
+        var url = INITURL + 'Chatting/ReScheduledFromDetails?ChattingGroupId=' + ChattingId + '&GroupName=' + unescape(PatientGroupName);
+        debugger;
+        $('#GetsReScheduledFormData').load(encodeURI(url), function () {
+            debugger;
+            sessionStorage.setItem("PartialView", "1");
+            debugger;
+            $('#modalReScheduledFormDetailsAssignment').modal('show');
+            $("#loading").hide();
+        });
+    }
+
+
+    function OpenPrivateChatToggle(Id,UserId)
+    {
+        debugger;
+        var a=Id;
+        var b=UserId;
+        debugger;
+        //  var xyz='abc';
+        debugger;
+
+        // document.getElementById('PrivatData').value=a+''+b
+        var y=a+','+b;
+
+        $('#buttons').val(y);
+
+        $(".content").toggle();
+    }
+
+    function OpenPrivateChatPop()
+    {
+        var x= document.getElementById("buttons").value;
+
+        var z= $('#buttons').val();
+
+        var xy=z.split(',');
+        var id=xy[1];
+        var UserId=xy[0]
+
+        console.log("hjhh"+UserId);
+
+        console.log("fgghhg"+'http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Chatting/OpenChatWindow?Id=+'+id+'&UserId='+UserId);
+
+
+        window.open('http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Chatting/OpenChatWindow?Id='+id+'&UserId='+UserId, "_self");
+
+        // window.open(http://localhost:15177//Chatting/OpenChatWindow?Id=+554+&UserId=6e243a82-4946-48aa-88a0-b9ec96477c80)
+
+    }
+
+
+
+
+
+
+
+</script>

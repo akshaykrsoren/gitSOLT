@@ -1,0 +1,1573 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>D:\Organisation Build and Back-up 29-04-2024 isapproval\New Build Website carespace giver to caregiver back_up and Build\New Milage clock-in with Based Organisation 07-02-2024</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="Audio/sound.mp3">
+      <publishTime>08/10/2023 14:09:32</publishTime>
+    </File>
+    <File Include="Audio/sound.wav">
+      <publishTime>08/10/2023 14:09:32</publishTime>
+    </File>
+    <File Include="bin/Antlr3.Runtime.dll">
+      <publishTime>08/10/2023 14:11:30</publishTime>
+    </File>
+    <File Include="bin/Antlr3.Runtime.pdb">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/App_global.asax.compiled">
+      <publishTime>07/02/2024 17:27:01</publishTime>
+    </File>
+    <File Include="bin/App_global.asax.dll">
+      <publishTime>07/02/2024 17:27:01</publishTime>
+    </File>
+    <File Include="bin/ca/Hangfire.Core.resources.dll">
+      <publishTime>08/10/2023 14:11:36</publishTime>
+    </File>
+    <File Include="bin/CaregiverLite.dll">
+      <publishTime>07/02/2024 17:26:42</publishTime>
+    </File>
+    <File Include="bin/CaregiverLite.pdb">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/CaregiverLiteWCF.dll">
+      <publishTime>07/02/2024 17:25:29</publishTime>
+    </File>
+    <File Include="bin/CaregiverLiteWCF.dll.config">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/CaregiverLiteWCF.pdb">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/ClosedXML.dll">
+      <publishTime>08/10/2023 14:11:30</publishTime>
+    </File>
+    <File Include="bin/de/Hangfire.Core.resources.dll">
+      <publishTime>08/10/2023 14:11:36</publishTime>
+    </File>
+    <File Include="bin/DifferenzLibrary.dll">
+      <publishTime>08/10/2023 14:11:30</publishTime>
+    </File>
+    <File Include="bin/DocumentFormat.OpenXml.dll">
+      <publishTime>08/10/2023 14:11:32</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>08/10/2023 14:11:32</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.SqlServer.dll">
+      <publishTime>08/10/2023 14:11:34</publishTime>
+    </File>
+    <File Include="bin/EPPlus.dll">
+      <publishTime>08/10/2023 14:11:34</publishTime>
+    </File>
+    <File Include="bin/es/Hangfire.Core.resources.dll">
+      <publishTime>08/10/2023 14:11:38</publishTime>
+    </File>
+    <File Include="bin/Excel.dll">
+      <publishTime>08/10/2023 14:11:34</publishTime>
+    </File>
+    <File Include="bin/ExcelNumberFormat.dll">
+      <publishTime>08/10/2023 14:11:34</publishTime>
+    </File>
+    <File Include="bin/fa/Hangfire.Core.resources.dll">
+      <publishTime>08/10/2023 14:11:38</publishTime>
+    </File>
+    <File Include="bin/fr/Hangfire.Core.resources.dll">
+      <publishTime>08/10/2023 14:11:38</publishTime>
+    </File>
+    <File Include="bin/Hangfire.Core.dll">
+      <publishTime>08/10/2023 14:11:36</publishTime>
+    </File>
+    <File Include="bin/Hangfire.SqlServer.dll">
+      <publishTime>08/10/2023 14:11:40</publishTime>
+    </File>
+    <File Include="bin/ICSharpCode.SharpZipLib.dll">
+      <publishTime>08/10/2023 14:11:42</publishTime>
+    </File>
+    <File Include="bin/itextsharp.dll">
+      <publishTime>08/10/2023 14:11:42</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
+      <publishTime>08/10/2023 14:11:44</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.Identity.EntityFramework.dll">
+      <publishTime>08/10/2023 14:11:44</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.Identity.Owin.dll">
+      <publishTime>08/10/2023 14:11:44</publishTime>
+    </File>
+    <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
+      <publishTime>08/10/2023 14:11:44</publishTime>
+    </File>
+    <File Include="bin/Microsoft.IO.RecyclableMemoryStream.dll">
+      <publishTime>08/10/2023 14:11:44</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.dll">
+      <publishTime>08/10/2023 14:11:46</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Host.SystemWeb.dll">
+      <publishTime>08/10/2023 14:11:46</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.Cookies.dll">
+      <publishTime>08/10/2023 14:11:46</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.dll">
+      <publishTime>08/10/2023 14:11:46</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.Facebook.dll">
+      <publishTime>08/10/2023 14:11:46</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.Google.dll">
+      <publishTime>08/10/2023 14:11:46</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.MicrosoftAccount.dll">
+      <publishTime>08/10/2023 14:11:46</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.OAuth.dll">
+      <publishTime>08/10/2023 14:11:46</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.Twitter.dll">
+      <publishTime>08/10/2023 14:11:46</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>08/10/2023 14:11:46</publishTime>
+    </File>
+    <File Include="bin/nb/Hangfire.Core.resources.dll">
+      <publishTime>08/10/2023 14:11:38</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>08/10/2023 14:11:48</publishTime>
+    </File>
+    <File Include="bin/nl/Hangfire.Core.resources.dll">
+      <publishTime>08/10/2023 14:11:38</publishTime>
+    </File>
+    <File Include="bin/NReco.VideoConverter.dll">
+      <publishTime>08/10/2023 14:11:52</publishTime>
+    </File>
+    <File Include="bin/Owin.dll">
+      <publishTime>08/10/2023 14:11:52</publishTime>
+    </File>
+    <File Include="bin/pt-BR/Hangfire.Core.resources.dll">
+      <publishTime>08/10/2023 14:11:38</publishTime>
+    </File>
+    <File Include="bin/pt-PT/Hangfire.Core.resources.dll">
+      <publishTime>08/10/2023 14:11:38</publishTime>
+    </File>
+    <File Include="bin/pt/Hangfire.Core.resources.dll">
+      <publishTime>08/10/2023 14:11:38</publishTime>
+    </File>
+    <File Include="bin/Quickblox.Sdk.dll">
+      <publishTime>08/10/2023 14:11:52</publishTime>
+    </File>
+    <File Include="bin/Quickblox.Sdk.Platform.Abstractions.dll">
+      <publishTime>08/10/2023 14:11:52</publishTime>
+    </File>
+    <File Include="bin/roslyn/csc.exe">
+      <publishTime>08/10/2023 14:11:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.Build.Tasks.CodeAnalysis.dll">
+      <publishTime>08/10/2023 14:11:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.dll">
+      <publishTime>08/10/2023 14:11:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.dll">
+      <publishTime>08/10/2023 14:11:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.VisualBasic.dll">
+      <publishTime>08/10/2023 14:11:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CSharp.Core.targets">
+      <publishTime>08/10/2023 14:11:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.VisualBasic.Core.targets">
+      <publishTime>08/10/2023 14:11:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Collections.Immutable.dll">
+      <publishTime>08/10/2023 14:11:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Reflection.Metadata.dll">
+      <publishTime>08/10/2023 14:11:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/vbc.exe">
+      <publishTime>08/10/2023 14:11:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe">
+      <publishTime>08/10/2023 14:11:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe.config">
+      <publishTime>08/10/2023 14:11:46</publishTime>
+    </File>
+    <File Include="bin/Sockets.Plugin.Abstractions.dll">
+      <publishTime>08/10/2023 14:11:56</publishTime>
+    </File>
+    <File Include="bin/Sockets.Plugin.dll">
+      <publishTime>08/10/2023 14:11:56</publishTime>
+    </File>
+    <File Include="bin/System.Net.Http.Formatting.dll">
+      <publishTime>08/10/2023 14:10:38</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>08/10/2023 14:11:44</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>08/10/2023 14:11:44</publishTime>
+    </File>
+    <File Include="bin/System.Web.Optimization.dll">
+      <publishTime>08/10/2023 14:11:44</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>08/10/2023 14:11:44</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.dll">
+      <publishTime>08/10/2023 14:11:44</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.dll">
+      <publishTime>08/10/2023 14:11:44</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.dll">
+      <publishTime>08/10/2023 14:11:44</publishTime>
+    </File>
+    <File Include="bin/WebGrease.dll">
+      <publishTime>08/10/2023 14:12:00</publishTime>
+    </File>
+    <File Include="bin/WSServiceAddAppointment.dll">
+      <publishTime>08/10/2023 14:09:32</publishTime>
+    </File>
+    <File Include="bin/zh-TW/Hangfire.Core.resources.dll">
+      <publishTime>08/10/2023 14:11:38</publishTime>
+    </File>
+    <File Include="bin/zh/Hangfire.Core.resources.dll">
+      <publishTime>08/10/2023 14:11:38</publishTime>
+    </File>
+    <File Include="CareGiverDocuments/CareGiver_1c4551b9-8a70-49dd-9329-55d2928d80491438589308.jpeg">
+      <publishTime>10/07/2022 16:39:50</publishTime>
+    </File>
+    <File Include="CareGiverDocuments/CareGiver_738abbf9-fe4f-418d-9f66-e0cbed1e5f241437732186.jpeg">
+      <publishTime>10/07/2022 16:39:50</publishTime>
+    </File>
+    <File Include="CareGiverDocuments/CareGiver_738abbf9-fe4f-418d-9f66-e0cbed1e5f241437732319.jpeg">
+      <publishTime>10/07/2022 16:39:50</publishTime>
+    </File>
+    <File Include="CareGiverDocuments/CareGiver_738abbf9-fe4f-418d-9f66-e0cbed1e5f241437732368.jpeg">
+      <publishTime>10/07/2022 16:39:50</publishTime>
+    </File>
+    <File Include="CareGiverDocuments/CareGiver_738abbf9-fe4f-418d-9f66-e0cbed1e5f241437732530.jpeg">
+      <publishTime>10/07/2022 16:39:50</publishTime>
+    </File>
+    <File Include="CareGiverDocuments/CareGiver_738abbf9-fe4f-418d-9f66-e0cbed1e5f241437733820.jpeg">
+      <publishTime>10/07/2022 16:39:50</publishTime>
+    </File>
+    <File Include="CareGiverDocuments/CareGiver_738abbf9-fe4f-418d-9f66-e0cbed1e5f241437734963.jpeg">
+      <publishTime>10/07/2022 16:39:50</publishTime>
+    </File>
+    <File Include="CareGiverDocuments/CareGiver_738abbf9-fe4f-418d-9f66-e0cbed1e5f241437735508.jpeg">
+      <publishTime>10/07/2022 16:39:50</publishTime>
+    </File>
+    <File Include="CareGiverDocuments/CareGiver_738abbf9-fe4f-418d-9f66-e0cbed1e5f241437735523.jpeg">
+      <publishTime>10/07/2022 16:39:50</publishTime>
+    </File>
+    <File Include="CareGiverDocuments/CareGiver_738abbf9-fe4f-418d-9f66-e0cbed1e5f241437735529.jpeg">
+      <publishTime>10/07/2022 16:39:50</publishTime>
+    </File>
+    <File Include="CareGiverDocuments/CareGiver_b2d9c9a0-2199-48ff-aa1c-83b7a85db4a21438584047.jpeg">
+      <publishTime>10/07/2022 16:39:50</publishTime>
+    </File>
+    <File Include="CareGiverDocuments/CareGiver_b2d9c9a0-2199-48ff-aa1c-83b7a85db4a21438586600.jpeg">
+      <publishTime>10/07/2022 16:39:50</publishTime>
+    </File>
+    <File Include="CareGiverDocuments/CareGiver_dcc2fa01-9102-4d60-af37-d613779484ba1437736472.jpeg">
+      <publishTime>10/07/2022 16:39:50</publishTime>
+    </File>
+    <File Include="CareGiverDocuments/CareGiver_dcc2fa01-9102-4d60-af37-d613779484ba1437736483.jpeg">
+      <publishTime>10/07/2022 16:39:50</publishTime>
+    </File>
+    <File Include="CareGiverDocuments/CareGiver_dcc2fa01-9102-4d60-af37-d613779484ba1437736490.jpeg">
+      <publishTime>10/07/2022 16:39:50</publishTime>
+    </File>
+    <File Include="Constants/CareGiverDocuments/CareGiver_1c4551b9-8a70-49dd-9329-55d2928d80491438589308.jpeg">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Constants/CareGiverDocuments/CareGiver_738abbf9-fe4f-418d-9f66-e0cbed1e5f241437732186.jpeg">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Constants/CareGiverDocuments/CareGiver_738abbf9-fe4f-418d-9f66-e0cbed1e5f241437732319.jpeg">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Constants/CareGiverDocuments/CareGiver_738abbf9-fe4f-418d-9f66-e0cbed1e5f241437732368.jpeg">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Constants/CareGiverDocuments/CareGiver_738abbf9-fe4f-418d-9f66-e0cbed1e5f241437732530.jpeg">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Constants/CareGiverDocuments/CareGiver_738abbf9-fe4f-418d-9f66-e0cbed1e5f241437733820.jpeg">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Constants/CareGiverDocuments/CareGiver_738abbf9-fe4f-418d-9f66-e0cbed1e5f241437734963.jpeg">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Constants/CareGiverDocuments/CareGiver_738abbf9-fe4f-418d-9f66-e0cbed1e5f241437735508.jpeg">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Constants/CareGiverDocuments/CareGiver_738abbf9-fe4f-418d-9f66-e0cbed1e5f241437735523.jpeg">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Constants/CareGiverDocuments/CareGiver_738abbf9-fe4f-418d-9f66-e0cbed1e5f241437735529.jpeg">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Constants/CareGiverDocuments/CareGiver_b2d9c9a0-2199-48ff-aa1c-83b7a85db4a21438584047.jpeg">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Constants/CareGiverDocuments/CareGiver_b2d9c9a0-2199-48ff-aa1c-83b7a85db4a21438586600.jpeg">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Constants/CareGiverDocuments/CareGiver_dcc2fa01-9102-4d60-af37-d613779484ba1437736472.jpeg">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Constants/CareGiverDocuments/CareGiver_dcc2fa01-9102-4d60-af37-d613779484ba1437736483.jpeg">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Constants/CareGiverDocuments/CareGiver_dcc2fa01-9102-4d60-af37-d613779484ba1437736490.jpeg">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Content/bootstrap.css">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Content/bootstrap.min.css">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Content/css/animate.css">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Content/css/blueimp-gallery.min.css">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Content/css/bootstrap-datetimepicker.css">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Content/css/bootstrap.css">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Content/css/bootstrap.min.css">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Content/css/chosen-sprite%402x.png">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Content/css/chosen-sprite.png">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Content/css/chosen.css">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Content/css/custom.css">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Content/css/dataTables.bootstrap.css">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Content/css/dataTables.responsive.css">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Content/css/dataTables.tableTools.min.css">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Content/css/fullcalendar.css">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Content/css/fullcalendar.print.css">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Content/css/green%402x.png">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Content/css/green.png">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Content/css/img/error.png">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Content/css/img/error.svg">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Content/css/img/loading.gif">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Content/css/img/play-pause.png">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Content/css/img/play-pause.svg">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Content/css/img/video-play.png">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Content/css/img/video-play.svg">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Content/css/jquery.steps.css">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Content/css/morris-0.4.3.min.css">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Content/css/star-rating.css">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Content/css/star-rating.min.css">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Content/css/style.css">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Content/css/switchery.css">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Content/css/toastr.css">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Content/font-awesome/css/font-awesome.css">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Content/font-awesome/css/font-awesome.min.css">
+      <publishTime>08/10/2023 14:09:36</publishTime>
+    </File>
+    <File Include="Content/font-awesome/fonts/fontawesome-webfont.eot">
+      <publishTime>08/10/2023 14:09:36</publishTime>
+    </File>
+    <File Include="Content/font-awesome/fonts/fontawesome-webfont.svg">
+      <publishTime>08/10/2023 14:09:36</publishTime>
+    </File>
+    <File Include="Content/font-awesome/fonts/fontawesome-webfont.ttf">
+      <publishTime>08/10/2023 14:09:36</publishTime>
+    </File>
+    <File Include="Content/font-awesome/fonts/fontawesome-webfont.woff">
+      <publishTime>08/10/2023 14:09:36</publishTime>
+    </File>
+    <File Include="Content/font-awesome/fonts/fontawesome-webfont.woff2">
+      <publishTime>08/10/2023 14:09:36</publishTime>
+    </File>
+    <File Include="Content/font-awesome/fonts/FontAwesome.otf">
+      <publishTime>08/10/2023 14:09:36</publishTime>
+    </File>
+    <File Include="Content/ic-trending-up-24px.svg">
+      <publishTime>01/24/2024 12:00:16</publishTime>
+    </File>
+    <File Include="Content/image/bg.jpg">
+      <publishTime>08/10/2023 14:09:36</publishTime>
+    </File>
+    <File Include="Content/jquery-ui.css">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="Content/Site.css">
+      <publishTime>08/10/2023 14:09:34</publishTime>
+    </File>
+    <File Include="EmailTemplates/RescheduleAppointmentPateint.html">
+      <publishTime>08/10/2023 14:09:36</publishTime>
+    </File>
+    <File Include="EmailTemplates/WelcomeCareGiver.html">
+      <publishTime>08/10/2023 14:09:36</publishTime>
+    </File>
+    <File Include="ExportedFile/PatientDetails_2017-09-08_18-13-13.xlsx">
+      <publishTime>09/08/2017 18:13:12</publishTime>
+    </File>
+    <File Include="favicon.ico">
+      <publishTime>08/10/2023 14:09:32</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.eot">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.svg">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.ttf">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.woff">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="image/bg.jpg">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/bigstock-Map-Marker-Map-Pin-Vector-Ma-92524379-Converted-1-195x300.png">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/blue-dot.png">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/CareGiverProfileImages/da29d10d-bb77-4888-8597-5f74a38b4c76.jpeg">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/CertificateSample.jpg">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/checkbox-selected-booked.png">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/checkbox-selected-partial.png">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/checkbox-selected-partial1.png">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/checkbox-selected.png">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/checkbox.png">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/checkbox1.png">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/free-map-marker-icon-red.png">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/green-dot.png">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/IconApproved.png">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/loading.gif">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/map-marker-2-xxl.png">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/marker-x.png">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/marker.png">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/nurse.jpg">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/nurse.png">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/ok-white-full.png">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/ok-white.png">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/ok.png">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/physician_icon.png">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/red-dot.png">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/red_checked_selected.png">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/Red_Green_Marker.png">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/Red_Marker.png">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/Remove-icon.png">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/Signatures/CareGiverSignature_1444285478.jpeg">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/Signatures/CareGiverSignature_1444285537.jpeg">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/Signatures/CareGiverSignature_9fe99038-0545-42f9-9f48-42856a042dc61485162979.jpeg">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/Signatures/CareGiverSignature_9fe99038-0545-42f9-9f48-42856a042dc61485163124.jpeg">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/Signatures/CareGiverSignature_9fe99038-0545-42f9-9f48-42856a042dc61485163870.jpeg">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/Signatures/CareGiverSignature_9fe99038-0545-42f9-9f48-42856a042dc61485164004.jpeg">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/Signatures/CareGiverSignature_9fe99038-0545-42f9-9f48-42856a042dc61485167182.jpeg">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/Signatures/CareGiverSignature_9fe99038-0545-42f9-9f48-42856a042dc61485167633.jpeg">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/Signatures/CareGiverSignature_9fe99038-0545-42f9-9f48-42856a042dc61485168854.jpeg">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/Signatures/CareGiverSignature_9fe99038-0545-42f9-9f48-42856a042dc61485169046.jpeg">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/Signatures/CareGiverSignature_9fe99038-0545-42f9-9f48-42856a042dc61485169157.jpeg">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/Signatures/CareGiverSignature_9fe99038-0545-42f9-9f48-42856a042dc61485172079.jpeg">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/Signatures/CareGiverSignature_F29AE6BE-7B3D-45DB-978A-F153579A91331437733080.jpeg">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/Signatures/CareGiverSignature_F29AE6BE-7B3D-45DB-978A-F153579A91331437733196.jpeg">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/sort.png">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/sort_asc.png">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/sort_desc.png">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="image/Spinner-1s-32px.gif">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="Iphone Certificate/CareGiveLiteProduction.p12">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="Iphone Certificate/CareGiverDevelopment.p12">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="Iphone Certificate/CareGiverProduction.p12">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="Iphone Certificate/CareGiverProduction_old.p12">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="Iphone Certificate/PatientDevelopment.p12">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="Iphone Certificate/PatientProduction.p12">
+      <publishTime>08/10/2023 14:09:38</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>05/21/2024 12:08:17</publishTime>
+    </File>
+    <File Include="PrecompiledApp.config">
+      <publishTime>07/02/2024 17:26:43</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.Admin.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.AdminsList.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.AttendanceDetailsList.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.CareGiverReviewList.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.CareGivers.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.CareGiverSchedule.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.CareGiversList.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.CareGiverTimeSlots.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.CareGiverTrackLocation.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.CareGiverUserNRate.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.Chatting.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.ChattingGroupMember.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.ChattingsList.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.Class.AdminsList.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.Class.CornaStatsDetailsList.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.Class.Permission.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.Class.Role.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.Class.ScheduleInfo.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.Class.SchedulePatientRequest.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.Class.SchedulePatientRequestList.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.Class.SuperAdmin.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.Disputes.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.GetDatesList.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.NurseCoordinator.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.NurseCoordinatorsList.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.Office.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.OfficesList.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.PatientChatList.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.PatientDetailsList.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.PatientRequestList.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.PatientRequests.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.Patients.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.PatientsDetail.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.PatientsList.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.RatingsList.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.RewardPointsList.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.Scheduler.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.SchedulersList.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.Services.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.StripeAccessToken.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.UnavailabilityRequest.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/CaregiverLiteWCF.UnavailabilityRequestsList.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Properties/DataSources/WSServiceAddAppointment.Model.RootRegister.datasource">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="sample/Patient_Detail_Sample_File_Demo.xlsx">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap-datetimepicker.min.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap.js">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap.min.js">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Scripts/Config.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.min.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.min.map">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.8.0.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.8.0.min.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/jquery-ui.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/jquery.unobtrusive-ajax.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/jquery.unobtrusive-ajax.min.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.min.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.unobtrusive.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.unobtrusive.min.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/bootstrap-datetimepicker.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/bootstrap.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/bootstrap.min.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/chosen.jquery.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/curvedLines.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/dataTables.bootstrap.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/dataTables.responsive.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/dataTables.tableTools.min.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/easypiechart.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/excanvas.min.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/fullcalendar.min.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/icheck.min.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/images/gritter-light.png">
+      <publishTime>08/10/2023 14:10:26</publishTime>
+    </File>
+    <File Include="Scripts/js/images/gritter-long.png">
+      <publishTime>08/10/2023 14:10:26</publishTime>
+    </File>
+    <File Include="Scripts/js/images/gritter.png">
+      <publishTime>08/10/2023 14:10:26</publishTime>
+    </File>
+    <File Include="Scripts/js/images/ie-spacer.gif">
+      <publishTime>08/10/2023 14:10:26</publishTime>
+    </File>
+    <File Include="Scripts/js/inspinia.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/jquery-2.1.1.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/jquery-jvectormap-1.2.2.min.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/jquery-jvectormap-world-mill-en.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/jquery.dataTables.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/jquery.flot.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/jquery.flot.pie.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/jquery.flot.resize.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/jquery.flot.spline.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/jquery.flot.symbol.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/jquery.flot.time.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/jquery.flot.tooltip.min.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/jquery.gritter.css">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/jquery.gritter.min.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/jquery.jeditable.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/jquery.metisMenu.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/jquery.peity.min.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/jquery.slimscroll.min.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/jquery.sparkline.min.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/jquery.steps.min.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/jquery.validate.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/jquery.validate.min.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/jquery.validate.unobtrusive.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/jquery.validate.unobtrusive.min.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/MapLibrary.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/moment.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/moment.min.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/js/oms.min.js">
+      <publishTime>08/10/2023 14:10:26</publishTime>
+    </File>
+    <File Include="Scripts/js/pace.min.js">
+      <publishTime>08/10/2023 14:10:26</publishTime>
+    </File>
+    <File Include="Scripts/js/raphael-2.1.0.min.js">
+      <publishTime>08/10/2023 14:10:26</publishTime>
+    </File>
+    <File Include="Scripts/js/star-rating.js">
+      <publishTime>08/10/2023 14:10:26</publishTime>
+    </File>
+    <File Include="Scripts/js/star-rating.min.js">
+      <publishTime>08/10/2023 14:10:26</publishTime>
+    </File>
+    <File Include="Scripts/js/switchery.js">
+      <publishTime>08/10/2023 14:10:26</publishTime>
+    </File>
+    <File Include="Scripts/js/toastr.js">
+      <publishTime>08/10/2023 14:10:26</publishTime>
+    </File>
+    <File Include="Scripts/modernizr-2.6.2.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/moment.min.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/QuickBlox/quickblox.min.js">
+      <publishTime>08/10/2023 14:10:26</publishTime>
+    </File>
+    <File Include="Scripts/respond.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/respond.min.js">
+      <publishTime>08/10/2023 14:10:24</publishTime>
+    </File>
+    <File Include="Scripts/_references.js">
+      <publishTime>08/10/2023 14:10:22</publishTime>
+    </File>
+    <File Include="Service References/CaregiverLiteService/CaregiverLite.CaregiverLiteService.AdminsList.datasource">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Service References/CaregiverLiteService/CaregiverLite.CaregiverLiteService.CareGiverReviewList.datasource">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Service References/CaregiverLiteService/CaregiverLite.CaregiverLiteService.CareGivers.datasource">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Service References/CaregiverLiteService/CaregiverLite.CaregiverLiteService.CareGiverSchedule.datasource">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Service References/CaregiverLiteService/CaregiverLite.CaregiverLiteService.CareGiversList.datasource">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Service References/CaregiverLiteService/CaregiverLite.CaregiverLiteService.CareGiverTimeSlots.datasource">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Service References/CaregiverLiteService/CaregiverLite.CaregiverLiteService.CareGiverUserNRate.datasource">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Service References/CaregiverLiteService/CaregiverLite.CaregiverLiteService.Disputes.datasource">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Service References/CaregiverLiteService/CaregiverLite.CaregiverLiteService.PatientRequestList.datasource">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Service References/CaregiverLiteService/CaregiverLite.CaregiverLiteService.PatientRequests.datasource">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Service References/CaregiverLiteService/CaregiverLite.CaregiverLiteService.Patients.datasource">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Service References/CaregiverLiteService/CaregiverLite.CaregiverLiteService.PatientsList.datasource">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Service References/CaregiverLiteService/CaregiverLite.CaregiverLiteService.Permission.datasource">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Service References/CaregiverLiteService/CaregiverLite.CaregiverLiteService.Role.datasource">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Service References/CaregiverLiteService/CaregiverLite.CaregiverLiteService.Services.datasource">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Service References/CaregiverLiteService/CaregiverLite.CaregiverLiteService.StripeAccessToken.datasource">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Service References/CaregiverLiteService/CaregiverLite.CaregiverLiteService.SuperAdmin.datasource">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Service References/CaregiverLiteService/CaregiverLite.CaregiverLiteService.UnavailabilityRequest.datasource">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Service References/CaregiverLiteService/CaregiverLite.CaregiverLiteService.UnavailabilityRequestsList.datasource">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Service References/ServiceReference2/CaregiverLite.ServiceReference2.CellData.datasource">
+      <publishTime>05/24/2022 13:42:54</publishTime>
+    </File>
+    <File Include="Service References/ServiceReference2/CaregiverLite.ServiceReference2.CircleOperator.datasource">
+      <publishTime>05/24/2022 13:42:54</publishTime>
+    </File>
+    <File Include="Service References/ServiceReference2/CaregiverLite.ServiceReference2.LoginModel.datasource">
+      <publishTime>05/24/2022 13:42:54</publishTime>
+    </File>
+    <File Include="Service References/ServiceReference2/CaregiverLite.ServiceReference2.RootRegister.datasource">
+      <publishTime>12/16/2021 17:38:30</publishTime>
+    </File>
+    <File Include="Views/Account/ChangePassword.cshtml">
+      <publishTime>08/10/2023 14:10:32</publishTime>
+    </File>
+    <File Include="Views/Account/ConfirmEmail.cshtml">
+      <publishTime>08/10/2023 14:10:32</publishTime>
+    </File>
+    <File Include="Views/Account/ContactUs.cshtml">
+      <publishTime>08/10/2023 14:10:32</publishTime>
+    </File>
+    <File Include="Views/Account/Error.cshtml">
+      <publishTime>08/10/2023 14:10:32</publishTime>
+    </File>
+    <File Include="Views/Account/ExternalLoginConfirmation.cshtml">
+      <publishTime>08/10/2023 14:10:32</publishTime>
+    </File>
+    <File Include="Views/Account/ExternalLoginFailure.cshtml">
+      <publishTime>08/10/2023 14:10:32</publishTime>
+    </File>
+    <File Include="Views/Account/ForgotPassword.cshtml">
+      <publishTime>08/10/2023 14:10:32</publishTime>
+    </File>
+    <File Include="Views/Account/ForgotPasswordConfirmation.cshtml">
+      <publishTime>08/10/2023 14:10:32</publishTime>
+    </File>
+    <File Include="Views/Account/Login.cshtml">
+      <publishTime>05/21/2024 12:16:54</publishTime>
+    </File>
+    <File Include="Views/Account/LoginDetails.cshtml">
+      <publishTime>02/13/2024 13:10:36</publishTime>
+    </File>
+    <File Include="Views/Account/Profile.cshtml">
+      <publishTime>08/10/2023 14:10:32</publishTime>
+    </File>
+    <File Include="Views/Account/Register.cshtml">
+      <publishTime>08/10/2023 14:10:32</publishTime>
+    </File>
+    <File Include="Views/Account/ResetPassword.cshtml">
+      <publishTime>08/10/2023 14:10:32</publishTime>
+    </File>
+    <File Include="Views/Account/ResetPasswordConfirmation.cshtml">
+      <publishTime>08/10/2023 14:10:32</publishTime>
+    </File>
+    <File Include="Views/Account/SendCode.cshtml">
+      <publishTime>08/10/2023 14:10:32</publishTime>
+    </File>
+    <File Include="Views/Account/SessionTimeout.cshtml">
+      <publishTime>02/13/2024 01:49:48</publishTime>
+    </File>
+    <File Include="Views/Account/SessionTimeoutTemp.cshtml">
+      <publishTime>08/10/2023 14:10:32</publishTime>
+    </File>
+    <File Include="Views/Account/Verification.cshtml">
+      <publishTime>08/10/2023 14:10:32</publishTime>
+    </File>
+    <File Include="Views/Account/VerifyCode.cshtml">
+      <publishTime>08/10/2023 14:10:32</publishTime>
+    </File>
+    <File Include="Views/Account/_editProfile.cshtml">
+      <publishTime>08/10/2023 14:10:32</publishTime>
+    </File>
+    <File Include="Views/Account/_ExternalLoginsListPartial.cshtml">
+      <publishTime>08/10/2023 14:10:32</publishTime>
+    </File>
+    <File Include="Views/Account/_FeedBackReview.cshtml">
+      <publishTime>08/10/2023 14:10:32</publishTime>
+    </File>
+    <File Include="Views/Account/_viewProfile.cshtml">
+      <publishTime>08/10/2023 14:10:32</publishTime>
+    </File>
+    <File Include="Views/AddSuperAdminLogin/AddUsersToRoles.cshtml">
+      <publishTime>08/10/2023 14:10:32</publishTime>
+    </File>
+    <File Include="Views/AddSuperAdminLogin/Index.cshtml">
+      <publishTime>08/10/2023 14:10:32</publishTime>
+    </File>
+    <File Include="Views/Admin/AddAdmin.cshtml">
+      <publishTime>08/10/2023 14:10:32</publishTime>
+    </File>
+    <File Include="Views/Admin/Admin.cshtml">
+      <publishTime>02/05/2024 18:44:42</publishTime>
+    </File>
+    <File Include="Views/Admin/AssignGroupToAdmin.cshtml">
+      <publishTime>08/10/2023 14:10:32</publishTime>
+    </File>
+    <File Include="Views/Admin/EditAdmin.cshtml">
+      <publishTime>08/10/2023 14:10:32</publishTime>
+    </File>
+    <File Include="Views/AttendanceManagement/AttendanceDetail.cshtml">
+      <publishTime>01/03/2024 18:40:16</publishTime>
+    </File>
+    <File Include="Views/AttendanceManagement/AttendanceDetailAllStatus.cshtml">
+      <publishTime>10/25/2023 13:57:02</publishTime>
+    </File>
+    <File Include="Views/AttendanceManagement/AttendanceDetailsManaul.cshtml">
+      <publishTime>08/10/2023 14:10:32</publishTime>
+    </File>
+    <File Include="Views/AttendanceManagement/AttendanceList.cshtml">
+      <publishTime>07/02/2024 11:47:26</publishTime>
+    </File>
+    <File Include="Views/AttendanceManagement/ExcelReport.cshtml">
+      <publishTime>08/10/2023 14:10:32</publishTime>
+    </File>
+    <File Include="Views/AttendanceManagement/ExcelReportClockInClockOut.cshtml">
+      <publishTime>07/02/2024 14:23:34</publishTime>
+    </File>
+    <File Include="Views/AttendanceManagement/ExcelReportNo.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/AttendanceManagement/ExcelReportPauseResume.cshtml">
+      <publishTime>03/03/2021 22:09:17</publishTime>
+    </File>
+    <File Include="Views/AttendanceManagement/SendVisitRequestData.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/AttendanceManagement/TestClientMap.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/CareGiver/AddCareGiver.cshtml">
+      <publishTime>06/25/2024 18:35:10</publishTime>
+    </File>
+    <File Include="Views/CareGiver/AssignGroupToCaregiver.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/CareGiver/CareGiver.cshtml">
+      <publishTime>05/29/2024 18:25:11</publishTime>
+    </File>
+    <File Include="Views/CareGiver/CareGiverIndiVidualReports.cshtml">
+      <publishTime>05/23/2024 14:41:29</publishTime>
+    </File>
+    <File Include="Views/CareGiver/EditCareGiver.cshtml">
+      <publishTime>05/22/2024 16:29:38</publishTime>
+    </File>
+    <File Include="Views/CareGiver/GetReadExcelSheet.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/CareGiver/NurseClockInAttendance.cshtml">
+      <publishTime>06/24/2024 12:46:38</publishTime>
+    </File>
+    <File Include="Views/CareGiver/SendApproval.cshtml">
+      <publishTime>05/21/2024 18:43:02</publishTime>
+    </File>
+    <File Include="Views/CareGiver/SendEmployeeRequestDataPage.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/CareGiver/ViewCareGiver.cshtml">
+      <publishTime>05/24/2024 14:42:19</publishTime>
+    </File>
+    <File Include="Views/Chart/Index.cshtml">
+      <publishTime>01/24/2024 16:28:20</publishTime>
+    </File>
+    <File Include="Views/Chart/ManualAutoScheduling_ChartData.cshtml">
+      <publishTime>03/28/2024 11:47:02</publishTime>
+    </File>
+    <File Include="Views/Chart/PatientOfficewise_ChartData.cshtml">
+      <publishTime>01/24/2024 11:55:24</publishTime>
+    </File>
+    <File Include="Views/Chart/TypeOfVisitByPatient_ChartData.cshtml">
+      <publishTime>01/24/2024 11:55:24</publishTime>
+    </File>
+    <File Include="Views/Chart/WeeklyScheduleActivity_ChartData.cshtml">
+      <publishTime>01/24/2024 17:12:04</publishTime>
+    </File>
+    <File Include="Views/Chatting/AddNewGroup.cshtml">
+      <publishTime>02/21/2024 18:29:06</publishTime>
+    </File>
+    <File Include="Views/Chatting/AssignCaregiver.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/Chatting/AssignMember.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/Chatting/AssignNurseCoordinator.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/Chatting/ChatManagement.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/Chatting/ChatManagementMember.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/Chatting/Chatting.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/Chatting/EditGroupDetail.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/Chatting/GroupChat.cshtml">
+      <publishTime>10/04/2023 15:30:54</publishTime>
+    </File>
+    <File Include="Views/Chatting/GroupChat_old.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/Chatting/NoAuthorize.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/Chatting/OneToOneChat.cshtml">
+      <publishTime>02/20/2024 17:45:58</publishTime>
+    </File>
+    <File Include="Views/Chatting/OpenChatWindow.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/Chatting/OpenGroupChatWindow.cshtml">
+      <publishTime>10/19/2023 18:31:30</publishTime>
+    </File>
+    <File Include="Views/Chatting/PatientChatRoom.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/Chatting/PatientChatRoom_new.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/Chatting/PatientGroupChatting.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/Chatting/PatientOneToOneChat.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/Chatting/ReScheduledFromDetails.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/Chatting/SupplyForm.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/Chatting/SupplyFormDetails.cshtml">
+      <publishTime>06/24/2024 18:20:58</publishTime>
+    </File>
+    <File Include="Views/Chatting/ViewGroupMemberList.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/Chatting/_AssignPermission.cshtml">
+      <publishTime>10/04/2023 18:44:48</publishTime>
+    </File>
+    <File Include="Views/Client/AddClient.cshtml">
+      <publishTime>09/29/2023 18:26:34</publishTime>
+    </File>
+    <File Include="Views/Client/ClientRegister.cshtml">
+      <publishTime>09/15/2023 12:26:30</publishTime>
+    </File>
+    <File Include="Views/Client/EditClientDetail.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/Client/Index.cshtml">
+      <publishTime>08/28/2023 11:31:10</publishTime>
+    </File>
+    <File Include="Views/ClientRequest/AddClientMarektingRequest.cshtml">
+      <publishTime>10/25/2023 15:36:56</publishTime>
+    </File>
+    <File Include="Views/ClientRequest/ClientRequest.cshtml">
+      <publishTime>10/25/2023 15:30:34</publishTime>
+    </File>
+    <File Include="Views/CoronaStats/CoronaStats.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/Dashboard/Dashboard.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/Dashboard/GetCancelledAppointment.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/Dashboard/GetFinishedJobs.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/Dashboard/GetLastWeekPayment.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/Dashboard/GetPendingJobs.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/Dashboard/GetProjectedPayment.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/Dashboard/GetRescheduleAlerts.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/GenerateReports/ExcelReportPauseResume.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/GenerateReports/GenerateReports.cshtml">
+      <publishTime>05/15/2024 14:45:09</publishTime>
+    </File>
+    <File Include="Views/GenerateReports/OpenDetailsView.cshtml">
+      <publishTime>05/15/2024 00:21:02</publishTime>
+    </File>
+    <File Include="Views/Home/About.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/Home/Contact.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/Home/Index.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/Manage/AddPhoneNumber.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/Manage/ChangePassword.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/Manage/Index.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/Manage/ManageLogins.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/Manage/SetPassword.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/Manage/VerifyPhoneNumber.cshtml">
+      <publishTime>08/10/2023 14:10:34</publishTime>
+    </File>
+    <File Include="Views/MarketingClientAttendance/ClientAttendanceDetail.cshtml">
+      <publishTime>08/25/2023 14:37:18</publishTime>
+    </File>
+    <File Include="Views/MarketingClientAttendance/MarketersExcelReport.cshtml">
+      <publishTime>08/25/2023 15:38:32</publishTime>
+    </File>
+    <File Include="Views/MarketingClientAttendance/MarketersReferralsReport.cshtml">
+      <publishTime>11/30/2023 13:22:00</publishTime>
+    </File>
+    <File Include="Views/MarketingClientAttendance/MarketingAttendanceList.cshtml">
+      <publishTime>11/30/2023 19:06:08</publishTime>
+    </File>
+    <File Include="Views/MarketingClientAttendance/REferralDetail.cshtml">
+      <publishTime>11/16/2023 11:24:26</publishTime>
+    </File>
+    <File Include="Views/Marketings/AddMarketers.cshtml">
+      <publishTime>12/05/2023 12:01:12</publishTime>
+    </File>
+    <File Include="Views/Marketings/EditmarketingDetail.cshtml">
+      <publishTime>05/02/2024 13:02:56</publishTime>
+    </File>
+    <File Include="Views/Marketings/ImportScheduledAppointment.cshtml">
+      <publishTime>09/15/2023 12:26:52</publishTime>
+    </File>
+    <File Include="Views/Marketings/Marketings.cshtml">
+      <publishTime>09/29/2023 11:20:02</publishTime>
+    </File>
+    <File Include="Views/NurseCoordinator/AddNurseCoordinator.cshtml">
+      <publishTime>08/10/2023 14:10:36</publishTime>
+    </File>
+    <File Include="Views/NurseCoordinator/EditNurseCoordinator.cshtml">
+      <publishTime>08/10/2023 14:10:36</publishTime>
+    </File>
+    <File Include="Views/NurseCoordinator/NurseCoordinator.cshtml">
+      <publishTime>08/10/2023 14:10:36</publishTime>
+    </File>
+    <File Include="Views/Office/Office.cshtml">
+      <publishTime>08/10/2023 14:10:36</publishTime>
+    </File>
+    <File Include="Views/Office/test.cshtml">
+      <publishTime>08/10/2023 14:10:36</publishTime>
+    </File>
+    <File Include="Views/Office/_AddOffice.cshtml">
+      <publishTime>02/21/2024 13:12:58</publishTime>
+    </File>
+    <File Include="Views/Office/_AssignZipcodes.cshtml">
+      <publishTime>08/10/2023 14:10:36</publishTime>
+    </File>
+    <File Include="Views/Office/_EditOffice.cshtml">
+      <publishTime>08/10/2023 14:10:36</publishTime>
+    </File>
+    <File Include="Views/OpenMapFromExcelLink/Index.cshtml">
+      <publishTime>08/10/2023 14:10:36</publishTime>
+    </File>
+    <File Include="Views/Organisation/Organisation.cshtml">
+      <publishTime>01/18/2024 12:53:24</publishTime>
+    </File>
+    <File Include="Views/Organisation/_AddOrganisation.cshtml">
+      <publishTime>01/18/2024 14:26:22</publishTime>
+    </File>
+    <File Include="Views/Organisation/_AssignZipcodes.cshtml">
+      <publishTime>01/18/2024 11:56:58</publishTime>
+    </File>
+    <File Include="Views/Organisation/_EditOrganisation.cshtml">
+      <publishTime>01/18/2024 11:56:58</publishTime>
+    </File>
+    <File Include="Views/PatientRequest/AddPatientRequest.cshtml">
+      <publishTime>05/23/2024 14:29:16</publishTime>
+    </File>
+    <File Include="Views/PatientRequest/ExcelReport.cshtml">
+      <publishTime>08/10/2023 14:10:36</publishTime>
+    </File>
+    <File Include="Views/PatientRequest/GetNurseList.cshtml">
+      <publishTime>08/10/2023 14:10:36</publishTime>
+    </File>
+    <File Include="Views/PatientRequest/ImportScheduledAppointmentReader.cshtml">
+      <publishTime>08/10/2023 14:10:36</publishTime>
+    </File>
+    <File Include="Views/PatientRequest/ImportScheduleWithWellskyData.cshtml">
+      <publishTime>08/10/2023 14:10:36</publishTime>
+    </File>
+    <File Include="Views/PatientRequest/PasevaCustomerPatientRequest.cshtml">
+      <publishTime>11/28/2023 18:37:30</publishTime>
+    </File>
+    <File Include="Views/PatientRequest/PatientRequest.cshtml">
+      <publishTime>04/29/2024 15:23:22</publishTime>
+    </File>
+    <File Include="Views/PatientRequest/PatientRequestManualEntry.cshtml">
+      <publishTime>08/10/2023 14:10:36</publishTime>
+    </File>
+    <File Include="Views/PatientRequest/PatientRequestManualEntryCompleteApproval.cshtml">
+      <publishTime>06/20/2024 15:47:57</publishTime>
+    </File>
+    <File Include="Views/PatientRequest/PatientRequestManualEntry_CompleteApproval.cshtml">
+      <publishTime>06/20/2024 12:44:37</publishTime>
+    </File>
+    <File Include="Views/PatientRequest/ShowManualDetails.cshtml">
+      <publishTime>06/20/2024 14:23:09</publishTime>
+    </File>
+    <File Include="Views/PatientRequest/ShowManualEntryCompleteApprovalDetail.cshtml">
+      <publishTime>06/20/2024 15:02:31</publishTime>
+    </File>
+    <File Include="Views/PatientRequest/ShowManualEntryDetail.cshtml">
+      <publishTime>08/10/2023 14:10:36</publishTime>
+    </File>
+    <File Include="Views/Patients/AddPatient.cshtml">
+      <publishTime>01/10/2024 17:29:14</publishTime>
+    </File>
+    <File Include="Views/Patients/EditPatientDetail.cshtml">
+      <publishTime>12/28/2023 16:04:00</publishTime>
+    </File>
+    <File Include="Views/Patients/InsurancePolicyExport.cshtml">
+      <publishTime>01/09/2024 14:45:28</publishTime>
+    </File>
+    <File Include="Views/Patients/Patients.cshtml">
+      <publishTime>01/30/2024 17:36:10</publishTime>
+    </File>
+    <File Include="Views/Patients/SendClientRequestDataPage.cshtml">
+      <publishTime>08/10/2023 14:10:36</publishTime>
+    </File>
+    <File Include="Views/RewardPoint/RewardPoint.cshtml">
+      <publishTime>08/10/2023 14:10:36</publishTime>
+    </File>
+    <File Include="Views/RewardPoint/ViewRewardPoint.cshtml">
+      <publishTime>08/10/2023 14:10:36</publishTime>
+    </File>
+    <File Include="Views/RewardPointAdvance/RewardPointAdvance.cshtml">
+      <publishTime>08/10/2023 14:10:36</publishTime>
+    </File>
+    <File Include="Views/Schedulers/AddScheduler.cshtml">
+      <publishTime>08/10/2023 14:10:36</publishTime>
+    </File>
+    <File Include="Views/Schedulers/AssignGroupToScheduler.cshtml">
+      <publishTime>08/10/2023 14:10:36</publishTime>
+    </File>
+    <File Include="Views/Schedulers/AssignOfficeToScheduler.cshtml">
+      <publishTime>08/10/2023 14:10:36</publishTime>
+    </File>
+    <File Include="Views/Schedulers/EditScheduler.cshtml">
+      <publishTime>08/10/2023 14:10:36</publishTime>
+    </File>
+    <File Include="Views/Schedulers/Schedulers.cshtml">
+      <publishTime>01/30/2024 18:05:20</publishTime>
+    </File>
+    <File Include="Views/Services/Services.cshtml">
+      <publishTime>08/10/2023 14:10:36</publishTime>
+    </File>
+    <File Include="Views/Shared/Error.cshtml">
+      <publishTime>08/10/2023 14:10:38</publishTime>
+    </File>
+    <File Include="Views/Shared/Lockout.cshtml">
+      <publishTime>08/10/2023 14:10:38</publishTime>
+    </File>
+    <File Include="Views/Shared/_Layout.cshtml">
+      <publishTime>01/10/2024 19:12:30</publishTime>
+    </File>
+    <File Include="Views/Shared/_LayoutAtt.cshtml">
+      <publishTime>08/10/2023 14:10:38</publishTime>
+    </File>
+    <File Include="Views/Shared/_Layout_working.cshtml">
+      <publishTime>08/10/2023 14:10:38</publishTime>
+    </File>
+    <File Include="Views/Shared/_LeftMenu.cshtml">
+      <publishTime>06/20/2024 15:21:29</publishTime>
+    </File>
+    <File Include="Views/Shared/_LoginLayout.cshtml">
+      <publishTime>08/10/2023 14:10:38</publishTime>
+    </File>
+    <File Include="Views/Shared/_LoginPartial.cshtml">
+      <publishTime>08/10/2023 14:10:38</publishTime>
+    </File>
+    <File Include="Views/UnAuthorised/Index.cshtml">
+      <publishTime>08/10/2023 14:10:38</publishTime>
+    </File>
+    <File Include="Views/Web.config">
+      <publishTime>08/10/2023 14:10:32</publishTime>
+    </File>
+    <File Include="Views/_ViewStart.cshtml">
+      <publishTime>08/10/2023 14:10:32</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>07/02/2024 17:26:43</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

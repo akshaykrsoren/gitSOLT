@@ -1,0 +1,138 @@
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\roslyn\csc.exe
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\roslyn\System.Collections.Immutable.dll
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\roslyn\System.Reflection.Metadata.dll
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\roslyn\vbc.exe
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\roslyn\VBCSCompiler.exe
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\roslyn\VBCSCompiler.exe.config
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\CaregiverLiteWCF.dll.config
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\CaregiverLiteWCF.dll
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\CaregiverLiteWCF.pdb
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\DifferenzLibrary.dll
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Microsoft.Web.Infrastructure.dll
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Newtonsoft.Json.dll
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Quickblox.Sdk.dll
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Quickblox.Sdk.Platform.Abstractions.dll
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Quickblox.Sdk.Platform.NET.dll
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Sockets.Plugin.Abstractions.dll
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Sockets.Plugin.dll
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\System.Web.Helpers.dll
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\System.Web.Mvc.dll
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\System.Web.Razor.dll
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\System.Web.Webpages.Deployment.dll
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\System.Web.Webpages.dll
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\System.Web.Webpages.Razor.dll
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Newtonsoft.Json.xml
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Sockets.Plugin.pdb
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Sockets.Plugin.xml
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Sockets.Plugin.Abstractions.pdb
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Sockets.Plugin.Abstractions.xml
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\System.Web.Razor.xml
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\System.Web.Webpages.xml
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\System.Web.Webpages.Deployment.xml
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\System.Web.Webpages.Razor.xml
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\System.Web.Helpers.xml
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\bin\System.Web.Mvc.xml
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\obj\Release\CaregiverLiteWCF.dll
+D:\Paseva Project\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\obj\Release\CaregiverLiteWCF.pdb
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\roslyn\csc.exe
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\roslyn\System.Collections.Immutable.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\roslyn\System.Reflection.Metadata.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\roslyn\vbc.exe
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\roslyn\VBCSCompiler.exe
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\roslyn\VBCSCompiler.exe.config
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\CaregiverLiteWCF.dll.config
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\CaregiverLiteWCF.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\CaregiverLiteWCF.pdb
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\DifferenzLibrary.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Microsoft.Web.Infrastructure.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Newtonsoft.Json.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Quickblox.Sdk.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Quickblox.Sdk.Platform.Abstractions.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Quickblox.Sdk.Platform.NET.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Sockets.Plugin.Abstractions.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Sockets.Plugin.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\System.Web.Helpers.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\System.Web.Mvc.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\System.Web.Razor.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\System.Web.Webpages.Deployment.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\System.Web.Webpages.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\System.Web.Webpages.Razor.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Newtonsoft.Json.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Sockets.Plugin.pdb
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Sockets.Plugin.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Sockets.Plugin.Abstractions.pdb
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Sockets.Plugin.Abstractions.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\System.Web.Razor.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\System.Web.Webpages.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\System.Web.Webpages.Deployment.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\System.Web.Webpages.Razor.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\System.Web.Helpers.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\bin\System.Web.Mvc.xml
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\obj\Release\CaregiverLiteWCF.csproj.AssemblyReference.cache
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\obj\Release\CaregiverLiteWCF.csproj.CoreCompileInputs.cache
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\obj\Release\CaregiverLiteWCF.dll
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\obj\Release\CaregiverLiteWCF.pdb
+D:\Organisation Base Code Go On Live server 08-07-2024\CaregiverLiteWebServices\CaregiverLiteWCF\obj\Release\Caregive.02CD0190.Up2Date
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\roslyn\csc.exe
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\roslyn\System.Collections.Immutable.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\roslyn\System.Reflection.Metadata.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\roslyn\vbc.exe
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\roslyn\VBCSCompiler.exe
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\roslyn\VBCSCompiler.exe.config
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\CaregiverLiteWCF.dll.config
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\CaregiverLiteWCF.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\CaregiverLiteWCF.pdb
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\DifferenzLibrary.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Microsoft.Web.Infrastructure.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Newtonsoft.Json.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Quickblox.Sdk.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Quickblox.Sdk.Platform.Abstractions.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Quickblox.Sdk.Platform.NET.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Sockets.Plugin.Abstractions.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Sockets.Plugin.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\System.Web.Helpers.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\System.Web.Mvc.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\System.Web.Razor.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\System.Web.Webpages.Deployment.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\System.Web.Webpages.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\System.Web.Webpages.Razor.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Newtonsoft.Json.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Sockets.Plugin.pdb
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Sockets.Plugin.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Sockets.Plugin.Abstractions.pdb
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\Sockets.Plugin.Abstractions.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\System.Web.Razor.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\System.Web.Webpages.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\System.Web.Webpages.Deployment.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\System.Web.Webpages.Razor.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\System.Web.Helpers.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\bin\System.Web.Mvc.xml
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\obj\Release\CaregiverLiteWCF.csproj.AssemblyReference.cache
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\obj\Release\CaregiverLiteWCF.csproj.CoreCompileInputs.cache
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\obj\Release\CaregiverLiteWCF.csproj.CopyComplete
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\obj\Release\CaregiverLiteWCF.dll
+D:\Paseva Project\Organisation Based before ClientUi implementation\PasevaServer\CaregiverLiteWebServices\CaregiverLiteWCF\obj\Release\CaregiverLiteWCF.pdb

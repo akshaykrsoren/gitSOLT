@@ -1,0 +1,284 @@
+﻿
+@{
+    ViewBag.Title = "Reward Point";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- ADD Sheduler POPUP START -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">@CaregiverLite.Views.Resources.Schedulers.ButtonAddScheduler</h4>
+            </div>
+            <div class="modal-body row" id="AddScheduler">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- EDIT Sheduler POPUP START -->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog yModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">@CaregiverLite.Views.Resources.Schedulers.ButtonEditScheduler</h4>
+                </div>
+                <div class="modal-body row" id="EditPanel">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- VIEW REWARD POINT POPUP START -->
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 1001;">
+    <div class="modal-dialog modal-lg" style="height:90%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">@CaregiverLite.Views.Resources.RewardPoint.HeaderRewardPointDetail</h4>
+            </div>
+            <div class="modal-body" id="ViewPanel">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>@CaregiverLite.Views.Resources.RewardPoint.HeaderRewardPointList</h5>
+                    <div class="ibox-tools">
+
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="form-group col-md-2 pull-right">
+
+                            <label style="margin-left: 38px !important;">@CaregiverLite.Views.Resources.RewardPoint.FilterOffice</label>
+                            </br>
+                            @Html.DropDownList("ddFilterOffice", (System.Web.Mvc.SelectList)ViewBag.lstOffice, new { @class = "form-control", @style = "width: 148px;height:34px;border-color:#e5e6e7;margin-left: 38px !important;" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label></label>
+                        <div class="input-group pull-right margin-25">
+                            <a href="javascript:;" class="btn btn-sm btn-primary" onclick="RemoveFiltration();">@CaregiverLite.Views.Resources.PatientRequest.ButtonClearFilter</a>
+                        </div>
+                        <div class="input-group pull-right margin-25" style="margin-right: 10px;">
+                            <a href="javascript:;" class="btn btn-sm btn-primary" onclick="Filtration();">@CaregiverLite.Views.Resources.PatientRequest.ButtonFilter</a>
+                        </div>
+
+                        <div class="clearfix"></div>
+                    </div>
+                    <table id="myDataTable" class="table table-striped table-bordered table-hover dataTables-example">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>@CaregiverLite.Views.Resources.RewardPoint.TableHeaderName</th>
+                                <th>@CaregiverLite.Views.Resources.RewardPoint.TableHeaderPhoto</th>
+                                <th>@CaregiverLite.Views.Resources.RewardPoint.TableHeaderCompletedReqCount</th>
+                                <th>@CaregiverLite.Views.Resources.RewardPoint.TableHeaderTotalRewardPoint</th>
+                                <th>@CaregiverLite.Views.Resources.RewardPoint.TableHeaderOffice</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/js/jquery-2.1.1.js"></script>
+<script src="~/Scripts/js/jquery.dataTables.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="~/Scripts/js/oms.min.js"></script>
+<script>
+    var tempMsg = '@TempData["Message"]';
+    if (tempMsg != "")
+        toastr.success(tempMsg);
+    function Filtration() {
+        oTable.search($('#myDataTable').val()).draw();
+    }
+    function RemoveFiltration() {
+        $('#ddFilterOffice').val(0);
+        oTable.search($('#myDataTable').val()).draw();
+    }
+    var oTable;
+    $(document).ready(function () {
+
+        $("#loading").show();
+        var jquey = jQuery.noConflict();
+        oTable = $('#myDataTable').DataTable({
+            responsive: true,
+            "dom": 'lfrtip',
+            "bPaginate": true,
+            "bServerSide": true,
+            "bSortable": true,
+            "sPaginationType": "full_numbers",
+            "oLanguage": {
+                "sProcessing": "<div class=\"loading\" id=\"loading\" style=\"display: block;\"></div>"
+            },
+            "processing": true,
+            "sAjaxSource": "GetRewardPointList",
+            "fnServerData": function (sSource, aoData, fnCallback) {
+                $.getJSON(sSource, aoData, function (json) {
+                    fnCallback(json);
+                }).fail(function (jqxhr, textStatus, error) {
+                    window.location.reload();
+                });
+            },
+            "fnServerParams": function (aoData) {
+                aoData.push({ "name": "FilterOffice", "value": $('#ddFilterOffice option:selected').val() });
+            },
+            "fnDrawCallback": function (oSettings) {
+                //Navigation validation
+                var rowsPerPage = this.fnSettings()._iDisplayLength;
+                var rowsToShow = this.fnSettings().fnRecordsDisplay();
+                var table = $('#myDataTable').DataTable();
+                var info = table.page.info();
+                var currentPageNo = info.page + 1;
+                $("#loading").hide();
+            },
+            "responsive": {
+                "details": {
+                    "type": 'column'
+                }
+            },
+            "aoColumns": [
+                            {
+                                className: 'control',
+                                orderable: false,
+                                targets: 0,
+                                "mRender": function (oObj) {
+                                    return '';
+                                }
+                            },
+                            {
+                                "sName": "Name",
+                                "mRender": function (oObj) {
+                                    return '<span>' + oObj["Name"] + '</span>';
+                                }
+                            },
+                            {
+                                "sName": "Photo",
+                                "bSortable": false,
+                                "mRender": function (oObj) {
+                                    if (oObj["Photo"] != "")
+                                        return '<img height="70" width="80" src=\"' + oObj["Photo"] + '\" style=\"margin-left: 60px;\"/><br>'
+                                    else
+                                        return '<img height="70" width="80" src=\"' + oObj["Photo"] + '\" style=\"margin-left: 60px;\" />';
+
+                                }
+                            },
+                            {
+                                "sName": "CompletedReqCount",
+                                "mRender": function (oObj) {
+                                    return oObj["CompletedReqCount"];
+                                }
+                            },
+                            {
+                                "sName": "TotalRewardPoint",
+                                "mRender": function (oObj) {
+                                    return oObj["TotalRewardPoint"];
+                                }
+                            },
+                             {
+                                 "sName": "Office",
+                                 "mRender": function (oObj) {
+                                     return oObj["Office"];
+                                 }
+                             },
+                                 {
+                                     "sName": "Action",
+                                     "mRender": function (oObj) {
+                                         var actionhtml = '';
+                                         actionhtml += '<a href="javascript:;" class="btn btn-xs btn-primary" style="margin-top:5px; width:100%;" onclick="ViewRewardPointDetail(\'' + oObj["NurseId"] + '\');">@CaregiverLite.Views.Resources.RewardPoint.ButtonDetails</a>'
+                                         return actionhtml;
+                                     }
+                                 },
+                                @*{
+                                     "sName": "SchedulerId",
+                                     "bSortable": false,
+                                     "mRender": function (oObj) {
+                                         var actionhtml = '';
+                                         actionhtml += '<a href="javascript:;" class="btn btn-xs btn-danger" style="margin-top:5px; width:100%;" onclick="DeleteScheduler(\'' + oObj["SchedulerId"] + '\',\'' + oObj["UserName"] + '\');">@CaregiverLite.Views.Resources.CareGiver.ButtonDelete</a>'
+                                         actionhtml += '<a href="javascript:;" class="btn btn-xs btn-primary" style="margin-top:5px; width:100%;" onclick="EditScheduler(\'' + oObj["SchedulerId"] + '\');">@CaregiverLite.Views.Resources.CareGiver.ButtonEditProfile</a>'
+                                         return actionhtml;
+                                     }
+                                 },*@
+
+
+            ]
+        });
+
+        $('#myDataTable_filter input').unbind(); //Unbind direct search on each keypress
+        $('#myDataTable_filter input').bind('keyup', function (e) { //Bind Keyup event that filter data only on "Enter" key.
+            if (e.keyCode == 13) {
+                // oTable.fnFilter(this.value);
+                oTable.search(this.value).draw();
+            }
+        });
+
+        //$('#ddFilterOffice').bind('change', function (e) {
+        //    oTable.fnFilter('');
+        //});
+        /* Init DataTables */
+        $('.carousel').carousel({
+            interval: false
+        });
+
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': { allow_single_deselect: true },
+            '.chosen-select-no-single': { disable_search_threshold: 10 },
+            '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+            '.chosen-select-width': { width: "95%" }
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+
+        $("#loading").hide();
+    });
+    function ViewRewardPointDetail(id) {
+        //debugger;
+        $("#loading").show();
+        $('#myModal1').modal('show');
+        $('#ViewPanel').load(INITURL + '/RewardPoint/ViewRewardPoint/' + id, function () {
+          
+            sessionStorage.setItem("PartialView", "1");
+        });
+        $("#loading").hide();
+    }
+
+   
+    @*function LoadNotifiedNurseList(PatientRequestId, TotalCaregiversNotified) {
+        localStorage.setItem("PatientRequestId", PatientRequestId);
+        $("#GetNurseList").load('@(Url.Action("GetNurseList", "PatientRequest", null, Request.Url.Scheme))?PatientRequestId=' + PatientRequestId, function (data, response, status, xhr) {
+            //console.log(JSON.stringify(data, response, status));
+        });
+
+        if (TotalCaregiversNotified > 0) {
+            $('#myModal1').modal('show');
+        }
+        else {
+            alert("No caregivers found for this request.");
+        }
+    }*@
+
+
+
+
+
+
+</script>

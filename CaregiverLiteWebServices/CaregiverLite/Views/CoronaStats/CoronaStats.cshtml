@@ -1,0 +1,272 @@
+﻿@{
+    ViewBag.Title = "Care Giver Health Stats";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="wrapper wrapper-content animated fadeInRight ">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Health Stats List</h5>
+                </div>
+                <div class="clearfix"></div>
+
+
+                <table id="CovidVitalStats" class="table table-striped table-bordered table-hover dataTables-example dataTable no-footer dtr-column" role="grid" aria-describedby="myDataTable_info" style="width: 100%;">
+                    <thead>
+                        <tr role="row">
+                            <th>Nurse Name</th>
+                            <th>UserName</th>
+                            <th>Date & times</th>
+                            <th>Body Pain</th>
+                            <th>Body Temperature</th>
+                            <th>Cough</th>
+                            <th>Breathing Difficulty</th>
+                            <th>Sore Throat</th>
+                            <th>Office Name</th>
+                            <th>Status </th>
+
+                        </tr>
+                    </thead>
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="~/Scripts/js/jquery-2.1.1.js"></script>
+<script src="~/Scripts/js/jquery.dataTables.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="~/Scripts/js/oms.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        var oTable;
+
+        //  $("#loading").show();
+        var jquey = jQuery.noConflict();
+        debugger;
+        oTable = $('#CovidVitalStats').DataTable({
+
+            responsive: true,
+            "dom": 'lfrtip',
+
+            "bPaginate": true,
+            "bServerSide": true,
+
+            "bSortable": true,
+            "sPaginationType": "full_numbers",
+            "oLanguage": {
+               
+                "sProcessing": "<div class=\"loading\" id=\"loading\"></div>"
+            },
+
+            "processing": true,
+            "sAjaxSource": "GetCoronaStatsList",
+            "fnServerData": function (sSource, aoData, fnCallback) {
+                debugger;
+                $.getJSON(sSource, aoData, function (json) {
+                    fnCallback(json);
+                }).fail(function (jqxhr, textStatus, error) {
+                    window.location.reload();
+                });
+            },
+            "fnServerParams": function (aoData) {
+                debugger;
+
+                aoData.push({ "name": "FilterOfficeId", "value": $('#ddFilterOffice option:selected').val() });
+            },
+            "fnDrawCallback": function (oSettings) {
+                //Navigation validation
+                debugger;
+                var rowsPerPage = this.fnSettings()._iDisplayLength;
+                var rowsToShow = this.fnSettings().fnRecordsDisplay();
+                var table = $('#CovidVitalStats').DataTable();
+                var info = table.page.info();
+                var currentPageNo = info.page + 1;
+
+                $("#loading").hide();
+            },
+            "responsive": {
+                "details": {
+                    "type": 'column'
+                }
+            },
+
+            "aoColumns": [
+                            {
+                                "sName": "NurseName",
+                                "mRender": function (oObj) {
+                                    return '<span>' + oObj["NurseName"] + '</span>';
+                                }
+                            },
+                              {
+                                  "sName": "UserName",
+                                  "mRender": function (oObj) {
+                                      return '<span>' + oObj["Username"] + '</span>';
+                                  }
+                              },
+                            {
+                                "sName": "Datetimes",
+                                "mRender": function (oObj) {
+                                    return oObj["Datetimes"];
+                                }
+                            },
+                            {
+                                "sName": "BodyPain",
+                                "mRender": function (oObj) {
+                                    return oObj["BodyPain"];
+                                }
+                            },
+
+                         {
+                             "sName": "BodyTemperature",
+                             "mRender": function (oObj) {
+                                 return oObj["BodyTemperature"];
+                             }
+                         },
+                            {
+                                "sName": "Cough",
+                                "mRender": function (oObj) {
+                                    return oObj["Cough"];
+                                }
+                            },
+                            {
+                                "sName": "BreathingDifficulty",
+                                "mRender": function (oObj) {
+                                    return oObj["BreathingDifficulty"];
+                                }
+                            },
+                           {
+                               "sName": "SoreThroat",
+                               "mRender": function (oObj) {
+                                   return oObj["SoreThroat"];
+                               }
+                           },
+                           {
+                               "sName": "Office Name",
+                               "mRender": function (oObj) {
+                                   return oObj["OfficeName"];
+                               }
+                           },
+                            {
+                                "sName": "Status ",
+                                "mRender": function (oObj) {
+
+                                    var actionhtml = '';
+
+                                    debugger;
+                                    if (oObj["ActiveStatus"] == "1") {
+                                        actionhtml += '<a href="javascript:;" class="btn btn-xm"  onclick="Active(\'' + oObj["BodySymptomsId"] + '\',\'' + "0" + '\')" style="margin-top:5px; width:100%;background-color: #de3e44;color:#fff">InActive</a>'
+                                                                                                     }
+                                        else {
+                                            debugger;
+
+                                            actionhtml += '<a href="javascript:;" class="btn btn-xm"  onclick="DeActive(\'' + oObj["BodySymptomsId"] + '\',\'' + "1" + '\');" style="margin-top:5px; width:100%;background-color: #1ba345;color:#fff">Active</a>'
+                                     }
+
+                                        return actionhtml;
+                                    }
+
+
+                                    },
+
+
+            ]
+        });
+
+        $('#CovidVitalStats_filter input').unbind(); //Unbind direct search on each keypress
+        $('#CovidVitalStats_filter input').bind('keyup', function (e) { //Bind Keyup event that filter data only on "Enter" key.
+            if (e.keyCode == 13) {
+                oTable.search(this.value).draw();
+            }
+        });
+        /* Init DataTables */
+        $('.carousel').carousel({
+            interval: false
+        });
+
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': { allow_single_deselect: true },
+            '.chosen-select-no-single': { disable_search_threshold: 10 },
+            '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+            '.chosen-select-width': { width: "95%" }
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+
+        $("#loading").hide();
+
+
+    });
+
+    function Filtration() {
+
+        oTable.search($('##CovidVitalStats').val()).draw();
+    }
+
+    function Active(BodySymptomsId, ActiveStatus) {
+
+            $("#loading").show();
+            var url = INITURL + '/CoronaStats/AvailabeHealthStatusForLogin';
+            debugger;
+            $.ajax({
+                url: url,
+                data: { BodySymptomsId: BodySymptomsId, ActiveStatus: ActiveStatus },
+                cache: false,
+                type: 'POST',
+                async: false,
+                success: function (data) {
+                    debugger;
+                    //if (data == "Success") {
+                        debugger;
+                         window.location = INITURL + '/CoronaStats/CoronaStats';
+                        toastr.success("this Account has been Activated.");
+                   // }
+                    $("#loading").hide();
+                },
+                error: function (reponse) {
+                    alert("error : " + reponse);
+                    $("#loading").hide();
+                }
+            });
+        }
+    //  }
+
+    function DeActive(BodySymptomsId, ActiveStatus) {
+
+        $("#loading").show();
+        var url = INITURL + '/CoronaStats/AvailabeHealthStatusForLogin';
+        debugger;
+        $.ajax({
+            url: url,
+            data: { BodySymptomsId: BodySymptomsId, ActiveStatus: ActiveStatus },
+            cache: false,
+            type: 'POST',
+            async: false,
+            success: function (data) {
+                debugger;
+                //if (data == "Success") {
+                debugger;
+                window.location = INITURL + '/CoronaStats/CoronaStats';
+                toastr.success("this Account has been Deactivated.");
+                // }
+                $("#loading").hide();
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+                $("#loading").hide();
+            }
+        });
+    }
+
+</script>

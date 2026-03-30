@@ -1,0 +1,212 @@
+﻿
+@{
+    ViewBag.Title = "Conversations";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- VIEW REWARD POINT POPUP START -->
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 1001;">
+    <div class="modal-dialog modal-lg" style="height:700px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">@CaregiverLite.Views.Resources.Conversation.HeaderConversationDetails</h4>
+            </div>
+            
+                <div class="modal-body" id="ViewPanel">
+                    <iframe id="pingIFrame" src="" style="zoom:0.60" frameborder="0" height="700" width="99.6%"></iframe>
+                </div>
+            
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Conversations</h5>
+                    <div class="ibox-tools">
+
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    Scheduler : <select id="ddlSchedulerList" class="form-control input-sm" onchange="GetAllCareGiversList(this.value);" style="height: 34px;line-height: 30px"></select>
+                    Caregiver : <select id="ddlCaregiverList" class="form-control input-sm" onchange="ViewConversationDetail(this.value);" style="display:none;height: 34px;line-height: 30px"></select>
+                </div>
+               
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#loading").show();
+        GetAllSchedulerList();
+        $("#loading").hide();
+    });
+    function GetAllSchedulerList() {
+        var url = INITURL + '/Conversations/GetAllSchedulerList';
+        $.ajax({
+            url: url,
+            cache: false,
+            type: 'POST',
+            async: false,
+            success: function (data) {
+                var SchedulerList1 = "";
+                if (data.SchedulerList.length > 0) {
+                    var SchedulerList1 = "<option>Select Scheduler</option>";
+                    for (var i = 0; i < data.SchedulerList.length ; i++) {
+                        SchedulerList1 += "<option value='" + data.SchedulerList[i].UserId + "'>" + data.SchedulerList[i].FirstName + " " + data.SchedulerList[i].LastName + " <strong>(" + data.SchedulerList[i].Email + ")</strong> </option>";
+                    }
+                }
+                else {
+                    var SchedulerList1 = "<option>No Scheduler Found</option>";
+                }
+
+                $("#ddlSchedulerList").append(SchedulerList1);
+                $("#loading").hide();
+            },
+            error: function (reponse) {
+            }
+        });
+
+    }
+
+    function GetAllCareGiversList(value) {
+        //alert(value);
+        $("#loading").show();
+        //$("#ddlCaregiverList").show();
+        $("#ddlCaregiverList").css({ display: "block" });
+        debugger;
+        var url = INITURL + '/Conversations/GetAllCareGiversList';
+        $.ajax({
+            url: url,
+            cache: false,
+            type: 'POST',
+            data: { SchedulerUserId: value },
+            async: false,
+            success: function (data) {
+                debugger;
+                var CaregiverList1 = "";
+                if (data.CareGiverList != null) {
+                    if (data.CareGiverList.length > 0) {
+                        CaregiverList1 = "<option>Select Caregiver</option>";
+                        for (var i = 0; i < data.CareGiverList.length ; i++) {
+                            if (data.CareGiverList[i].DialogId != "") {
+                                CaregiverList1 += "<option value='" + data.CareGiverList[i].Email + "_" + data.CareGiverList[i].QuickBloxId + "_" + data.CareGiverList[i].DialogId + "'>" + data.CareGiverList[i].Name + " (" + data.CareGiverList[i].Email + ")</option>";
+                            }
+                        }
+                    }
+                    else {
+                        var CaregiverList1 = "<option>Conversation not found</option>";
+                    }
+                }
+                else {
+                    var CaregiverList1 = "<option>Conversation not found</option>";
+                }
+                $("#ddlCaregiverList").html(CaregiverList1);
+
+                $("#loading").hide();
+            },
+            error: function (reponse) {
+                //alert("error : " + reponse);
+                $("#loading").hide();
+            }
+        });
+    }
+
+    function loadChatMessages(ID) {
+        @*$("#chatMsg").empty();
+        //alert(ID);
+        var QBId = ID.split(" ");
+        var user = {
+            login: QBId[0],
+            password: "Welcome007!"
+        };
+        QB.createSession({ login: user.login, password: user.password }, function (err, result) {
+            debugger;
+            if (err) {
+                alert(err.message);
+            } else {
+                //alert("Session Token- " + result.token);
+                sessionStorage.setItem("sToken", result.token);
+                var CaregiverId = QBId[1];
+                var Dialod = QBId[2];
+
+                var params1 = { chat_dialog_id: Dialod, sort_desc: 'date_sent', limit: 100, skip: 0 };
+                QB.chat.message.list(params1, function (err, messages1) {
+                    debugger;
+                    if (messages1) {
+                        var latestMessages1 = "";
+
+                        var len1 = messages1.items.length;
+                        if (len1 > 0) {
+                            for (var i = len1 - 1; i >= 0; i--) {
+                                var date1 = new Date(messages1.items[i].date_sent * 1000).toLocaleTimeString() + " " + new Date(messages1.items[i].date_sent * 1000).toLocaleDateString();
+                                if (messages1.items[i].sender_id == CaregiverId) {
+                                    //console.log("Sender Id " + messages.items[i].sender_id + " - " + messages.items[i].message + " Sent By You");
+                                    latestMessages1 += "<tr ><td><strong>Caregiver </strong> Said : <strong>" + messages1.items[i].message + "</strong><span style='float:right'>" + date1 + "</span> </td></tr>";
+                                } else {
+                                    //console.log("Reveiver Id " + messages.items[i].sender_id + " - " + messages.items[i].message + " Sent By  @Session["ToQBUserName"] ");
+                                    latestMessages1 += "<tr><td><strong>Scheduler </strong> Said : <strong>" + messages1.items[i].message + "</strong><span style='float:right'>" + date1 + "</span>  </td></tr>";
+                                }
+                            }
+                            debugger;
+                        }
+                        else {
+
+                            latestMessages1 += "<tr><td><strong>Conversation Not Started.</strong> </td></tr>";
+                            debugger;
+                        }
+                        $("#chatMsg").empty();
+                        document.getElementById("chatMsg").innerHTML = latestMessages1;
+                        $('#chat1').scrollTop($('#chat1')[0].scrollHeight);
+                        debugger;
+                    } else {
+                        console.log(err);
+                    }
+
+                });
+            }
+
+        });*@
+        ////createSession End
+
+
+    }
+    //Load Chat Message End
+
+
+    
+    //View Popup
+    function ViewConversationDetail(ids) {
+        debugger;
+        $("#loading").show();
+        var url = INITURL + '/Conversations/ViewConversation?ids=' + ids;
+        $(".loading").show();
+      
+        $('#pingIFrame').attr("src", url);
+        $('#myModal1').modal('show');
+
+        $('#pingIFrame').on('load', function () {
+            $(".loading").hide();
+        });
+        //$("#ViewPanel").load(INITURL + '/Conversations/ViewConversation?ids=' + ids, function () {
+        //    sessionStorage.setItem("PartialView", "1");
+        //    $("#myModal1").modal('show');            
+        //});
+        //$("#loading").hide();
+    }
+
+ 
+  
+
+
+</script>

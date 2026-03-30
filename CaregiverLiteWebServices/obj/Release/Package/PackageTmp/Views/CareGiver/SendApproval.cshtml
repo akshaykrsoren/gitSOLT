@@ -1,0 +1,58 @@
+﻿@model CaregiverLite.Models.CareGiverModel
+
+@using (Html.BeginForm("SendApproval", "CareGiver", FormMethod.Post, new { @id = "fmApproveCareGiver", @class = "horizontal-form", @enctype = "multipart/form-data" }))
+{
+    <div class="col-md-12">
+        @Html.HiddenFor(model => model.NurseId, new { @id = "hdnapNurseId" })
+        @Html.HiddenFor(model => model.OfficeId, new { @id = "hdnOfficeId" })
+        @Html.HiddenFor(model => model.QuickBloxId, new { @id = "hdnQuickbloxId" })
+        @Html.HiddenFor(model => model.IsApproved)
+        <div class="form-group">
+            <label>@CaregiverLite.Views.Resources.CareGiver.TableHeaderUserName</label>
+            @Html.ValidationMessageFor(model => model.Username)
+            @Html.TextBoxFor(model => model.Username, new { @type = "text", @id = "apUsername", @placeholder = @CaregiverLite.Views.Resources.CareGiver.PlaceHolderUserName, @class = "form-control" })
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label>@CaregiverLite.Views.Resources.CareGiver.TableHeaderPassword</label>
+            @Html.ValidationMessageFor(model => model.Password)
+            @Html.TextBoxFor(model => model.Password, new { @type = "password", @id = "apPassword", @placeholder = @CaregiverLite.Views.Resources.CareGiver.PlaceHolderPassword, @class = "form-control" })
+        </div>
+    </div>
+    @Html.HiddenFor(model => model.UserId, new { @id = "hdnapUserid" })
+    <div class="col-md-12">
+        <div class="form-group">
+            <label>@CaregiverLite.Views.Resources.CareGiver.TableHeaderEmail</label>
+            @Html.TextBoxFor(model => model.Email, new { @type = "text", @id = "apEmail", @readonly = "true", @placeholder = @CaregiverLite.Views.Resources.CareGiver.PlaceHolderEmail, @class = "form-control" })
+        </div>
+    </div>
+    @*<div class="col-md-12">
+        <div class="form-group">
+            <label>Hour Rate</label>
+            <div class="input-group">
+                <span class="input-group-addon">$</span>
+                @Html.TextBoxFor(model => model.HoursRate, new { @type = "text", @id = "apHourRate", @readonly = "true", @placeholder = @CaregiverLite.Views.Resources.CareGiver.PlaceHolderEmail, @class = "form-control" })
+            </div>
+        </div>
+    </div>*@
+    @*<div class="col-md-12">
+        <div class="form-group">
+            <label>To be charged to patient</label>
+            @Html.ValidationMessageFor(model => model.ChargeToPatient)
+            <div class="input-group" style="width:100%">
+                <span class="input-group-addon">$</span>
+                @Html.TextBoxFor(model => model.ChargeToPatient, new { @type = "text", @id = "apChargeToPatient", @placeholder = "Please enter To be charged to patient", @class = "form-control" })
+            </div>
+        </div>
+    </div>*@
+    <div class="col-md-12">
+        <div class="form-group">
+            <button type="submit" class="btn btn-sm btn-primary pull-right" id="btnApprove">@CaregiverLite.Views.Resources.CareGiver.ButtonSendNVerify</button>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+}
+<script src="~/Scripts/js/jquery.validate.min.js"></script>
+<script src="~/Scripts/js/jquery.validate.unobtrusive.min.js"></script>

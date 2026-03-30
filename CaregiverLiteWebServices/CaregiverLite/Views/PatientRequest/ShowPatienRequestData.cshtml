@@ -1,0 +1,124 @@
+﻿@model CaregiverLite.Models.PatientRequestsDetailModel
+<div>
+
+    <div class="card profile-card " style="margin-top: -24px;">
+        <div class="row">
+            <div class="col-md-2">
+                <img src="https://scheduler.paseva.com/Content/image/Success_Vector.gif" style="width: 70%;">
+            </div>
+            <div class="col-md-10" style="margin-left: -27px;">
+                <p class="DetailHDRName" style="margin-left: 18px;">Appointment has been successfully scheduled</p>
+                <p class="DetailHDR">You can view the details below</p>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-12" style="margin-left: 8px;">
+        <p style="font-family: Mulish;    font-size: 15px;    font-style: normal;    font-weight: 800;    line-height: normal;">Appointment Details</p>
+
+    </div>
+    <div class="card profile-card " style="margin-top: 45px;">
+        <div class="row" style="border-bottom: 1px solid #e7eaec;    padding-bottom: 20px;">
+            <div class="col-md-2">
+                <img src="https://scheduler.paseva.com/Content/image/AppintmentDetailProfileImage.png" style="width: 70%;">
+            </div>
+            <div class="col-md-3" style="margin-left: -27px;">
+                <p class="DetailHDR">Patient name</p>
+                <p class="DetailHDRName" id="S_modalPatientName"> @Model.PatientName</p>
+            </div>
+            <div class="col-md-3" style="border-left: 2px solid #EFF0F2;border-right: 2px solid #EFF0F2;">
+                <p class="DetailHDR">Visit Date</p>
+                @*@{
+                        var cleanedDateString = Model.AppointmentDate.Replace(" ", "-"); // Converts to "2025-03-24"
+                        var parsedDate = DateTime.ParseExact(cleanedDateString, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+                    }
+
+                    <p class="DetailHDRName" id="S_modalVisitDate"> @parsedDate.ToString("dd MMMM yyyy", System.Globalization.CultureInfo.InvariantCulture)</p>*@
+
+                @{
+                    var date = DateTime.ParseExact(Model.AppointmentDate, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+
+                    var formattedDate = date.ToString("dd MMMM yyyy");
+                }
+                <p class="DetailHDRName" id="S_modalVisitDate">@formattedDate</p>
+
+            </div>
+            <div class="col-md-4">
+                <p class="DetailHDR">Status</p>
+                <p class="DetailHDRName" id="S_modalStatus">Requested</p>
+            </div>
+        </div>
+
+        <div class="RequestedAppintmentDetials">
+            <div class="row" style="margin-left: -8px;">
+                <div class="col-md-6 labelMargin">
+                    <p class="DetailHDRR">Patient ID</p>
+                    <p class="DetailDTL" id="S_modalPatienId">@Model.PatientID</p>
+                </div>
+                <div class="col-md-6 labelMargin">
+                    <p class="DetailHDRR">Assigned Caregiver</p>
+                    <p class="DetailDTL" id="S_modalCAssigned" style="color:blue">@Model.CaregiverName</p>
+                </div>
+                <div class="col-md-6 labelMargin">
+                    <p class="DetailHDRR">Scheduled By</p>
+                    <p class="DetailDTL" id="S_modalScheduledBy">@Model.ScheduledBy</p>
+
+
+                </div>
+                <div class="col-md-6 labelMargin">
+                    <p class="DetailHDRR">Appointment Duration</p>
+
+                    @{
+                        var fromTime = DateTime.ParseExact(Model.FromTime, "HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
+                        var toTime = DateTime.ParseExact(Model.ToTime, "HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
+
+                        var duration = toTime - fromTime;
+                        string formattedDuration;
+
+                        if (duration.TotalHours >= 1)
+                        {
+                            // Format as H:mm hr
+                            formattedDuration = ((int)duration.TotalHours).ToString() + ":" + duration.Minutes.ToString("D2") + " hr";
+                        }
+                        else
+                        {
+                            // Format as X minutes
+                            formattedDuration = duration.Minutes.ToString() + " minutes";
+                        }
+
+                        var output = fromTime.ToString("HH:mm") + " - " + toTime.ToString("HH:mm") + " (" + formattedDuration + ")";
+                    }
+                    @*@{
+                            var fromTime = DateTime.ParseExact(Model.FromTime, "HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
+                            var toTime = DateTime.ParseExact(Model.ToTime, "HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
+                            var durationMinutes = (int)(toTime - fromTime).TotalMinutes;
+                            //var formattedTimeRange = $"{fromTime:hh:mm tt} - {toTime:hh:mm tt} ({durationMinutes} minutes)";
+                        }*@
+
+                    <p class="DetailDTL" id="S_modalAppointmentDuration">@output</p>
+
+
+
+                </div>
+                <div class="col-md-6 labelMargin">
+                    <p class="DetailHDRR">Patient Address</p>
+                    <p class="DetailDTL" id="S_modalPatientAddress">@Model.PatientAddress</p>
+                </div>
+                <div class="col-md-6 labelMargin">
+                    <p class="DetailHDRR">Speciality</p>
+                    <p class="DetailDTL" id="S_modalSpeciality">@Model.ServiceType</p>
+                </div>
+                <div class="col-md-6 labelMargin">
+                    <p class="DetailHDRR">Visit Type</p>
+                    <p class="DetailDTL" id="S_modalVisitType">@Model.VisitTypeName</p>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12" style="margin-top: -3px;background-color:white;padding-bottom: 12px;border-bottom-left-radius: 6px !important;    border-bottom-right-radius: 6px !important;">
+        <button type="button" data-dismiss="modal" class="btn btn-sm btn-primary pull-right">OK, Got It</button>
+
+    </div>
+</div>

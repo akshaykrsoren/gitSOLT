@@ -1,0 +1,1426 @@
+﻿@{
+    ViewBag.Title = @CaregiverLite.Views.Resources.CareGiver.TitleCareGiver;
+
+    //Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+
+
+<style>
+    .approve {
+        float: right;
+    }
+
+    .close:hover, .close:focus, .close {
+        color: #055175;
+        cursor: pointer;
+    }
+
+    .clsDatePicker {
+        z-index: 100000;
+    }
+
+    #ui-datepicker-div {
+        z-index: 1003;
+    }
+
+    #table-scroll {
+        height: 300px;
+        overflow: auto;
+        margin-top: 20px;
+        width: 760px;
+    }
+
+    table#myDataTable {
+        width: auto !important;
+    }
+
+    .btn-round {
+        border-radius: 50%; /* Make the button round */
+        padding: 10px;
+        background-color: #f1f1f1; /* Button background */
+        border: none;
+        width: 37px;
+        height: 37px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .TrachlocationId {
+        margin-top: 5px;
+        width: 100%;
+        border-radius: 4px;
+        background-color: #FFFFFF !important;
+        border: 1px solid #1B4066;
+        color: #1B4066;
+        text-transform: none;
+        font-weight: bold;
+        letter-spacing: 0px;
+    }
+
+        .TrachlocationId:hover {
+            background-color: #092C44 !important;
+            color: white !important;
+        }
+
+
+    .items-badge {
+        /*align-self: flex-start;
+        border-radius: 6px;
+        background-color: #fff;
+        color: #1b4066;
+        padding: 5px 7px;
+        font: 600 12px Open Sans, sans-serif;
+        border: 1px solid #1b4066;*/
+
+        align-self: flex-start;
+        border-radius: 18px;
+        color: #239450;
+        padding: 6px 10px;
+        font: 600 12px Open Sans, sans-serif;
+        background-color: #D4FFE8;
+    }
+
+
+
+    .items-badgeInActive {
+        align-self: flex-start;
+        border-radius: 18px;
+        color: #E24B4B;
+        padding: 6px 10px;
+        font: 600 12px Open Sans, sans-serif;
+        background-color: #FFDEDE;
+    }
+
+
+    .toggle-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: -27px;
+    }
+
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 48px; /* reduced width */
+        height: 24px; /* reduced height */
+        margin-left: 70%;
+    }
+
+        .switch input {
+            display: none;
+        }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.4s;
+        border-radius: 28px; /* adjusted to match new height */
+    }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px; /* adjusted height */
+            width: 18px; /* adjusted width */
+            left: 4px; /* adjusted position */
+            bottom: 3px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+    input:checked + .slider {
+        background-color: #4CAF50;
+    }
+
+        input:checked + .slider:before {
+            transform: translateX(22px); /* adjusted translation */
+        }
+
+    #toggleText {
+        font-weight: bold;
+        margin-top: -7px;
+    }
+
+    .cancelbtn {
+        background-color: #e6f4ea;
+        color: #1d9b6c;
+        border: 1px solid;
+        border-radius: 4px;
+        height: 40px;
+        font-weight: bold;
+    }
+
+        .cancelbtn:hover {
+            background-color: #d1ecd9;
+        }
+
+    .confirmbtn {
+        background-color: #f4e6e6;
+        color: #d93025;
+        border: 1px solid;
+        border-radius: 4px;
+        height: 40px;
+        font-weight: bold;
+    }
+
+        .confirmbtn:hover {
+            background-color: #ebd2d2;
+        }
+
+    .model123{
+        overflow:auto;
+    }
+
+
+    .cancelbtnActive {
+        background-color: #e6f4ea;
+        color: #1d9b6c;
+        border: 1px solid;
+        border-radius: 4px;
+        height: 40px;
+        font-weight: bold;
+    }
+
+        .cancelbtnActive:hover {
+            background-color: #d1ecd9;
+        }
+
+
+    .modal{
+        position:relative;
+    }
+
+    .confirmbtnActive {
+        background-color: #f4e6e6;
+        color: #d93025;
+        border: 1px solid;
+        border-radius: 4px;
+        height: 40px;
+        font-weight: bold;
+    }
+
+        .confirmbtnActive:hover {
+            background-color: #ebd2d2;
+        }
+</style>
+<!-- ADD TIME SLOT END-->
+<div class="modal fade" id="myModalVideo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <iframe src="" id="popupvideoid" height="500" width="100%" frameborder="0" scrolling="yes" allowfullscreen></iframe>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+<!-- VIEW NURSES POPUP START -->
+@*<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 1001;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">@CaregiverLite.Views.Resources.CareGiver.HeaderCareGiverDetail</h4>
+                </div>
+                <div class="modal-body row" id="ViewPanel">
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+<!-- VIEW NURSES POPUP START -->
+@*<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 1001;">
+        <div class="modal-dialog" style="width: 1010px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">@CaregiverLite.Views.Resources.CareGiver.HeaderCareGiverDetail</h4>
+                    <div class="toggle-container">
+                        <label class="switch">
+                            <input type="checkbox" id="toggleSwitch">
+                            <span class="slider"></span>
+                        </label>
+                        <span id="toggleText">Active</span>
+                    </div>
+                </div>
+                <div class="modal-body row" id="ViewPanel" style="padding:0px 15px 15px 15px">
+                    <div class="modal-dialog modal-sm" id="modalAddPopup">
+                        <div class="modal-content" id="deleteModal" style="width: 366px;    height: 141px;    border-radius: 8px;    bottom: -151px;">
+                            <p style="padding:23px 59px 0px 40px; margin-left:-22px; font-style: normal; font-size: 15px;"><strong style="font-weight: 800; color: #1B4066;">Are you sure you want to inactive this patient ?</strong></p>
+                            <button class="cancelbtn" style="margin-left: 43%;">No, Go Back</button>
+                            <button class="confirmbtn">Yes, Inactive</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+<div class="modal fade model123" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 1001;">
+    <div class="modal-dialog" style="width: 1010px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">@CaregiverLite.Views.Resources.CareGiver.HeaderCareGiverDetail</h4>
+                <div class="toggle-container">
+                    <label class="switch">
+                        <input type="checkbox" id="toggleSwitch">
+                        <span class="slider"></span>
+                    </label>
+                    <span id="toggleText">Active</span>
+                </div>
+            </div>
+            <div class="modal fade" id="ConfirmationModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm" id="modalAddPopup">
+                    <div class="modal-content" id="deleteModal" style="width: 366px;    height: 141px;    border-radius: 8px;    bottom: -151px;">
+                        <p style="padding:23px 59px 0px 40px; margin-left:-22px; font-style: normal; font-size: 15px;"><strong style="font-weight: 800; color: #1B4066;">Are you sure you want to inactive this Caregiver ?</strong></p>
+                        <button class="cancelbtn" style="margin-left: 43%;">No, Go Back</button>
+                        <button class="confirmbtn">Yes, Inactive</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="ConfirmationModelActive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm" id="modalAddPopup">
+                    <div class="modal-content" id="deleteModal" style="width: 366px;    height: 141px;    border-radius: 8px;    bottom: -151px;">
+                        <p style="padding:23px 59px 0px 40px; margin-left:-22px; font-style: normal; font-size: 15px;"><strong style="font-weight: 800; color: #1B4066;">Are you sure you want to active this Caregiver ?</strong></p>
+                        <button class="cancelbtnActive" style="margin-left: 43%;">No, Go Back</button>
+                        <button class="confirmbtnActive">Yes, active</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-body row" id="ViewPanel" style="padding:0px 15px 15px 15px">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ClockInClockout_Model" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 1001;">
+    <div class="modal-dialog" style="width: 1010px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">ClockIn ClockOut Details</h4>
+            </div>
+            <div class="modal-body row" id="ClockInClockout_ViewPanel" style="padding:0px 15px 15px 15px">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="CareGiverReport" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog costomdialog modal-md">
+        <div class="modal-content" id="CareGiverReportdt">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="CareGiverReportData">@CaregiverLite.Views.Resources.CareGiver.TitleCareGiver Report</h4>
+            </div>
+            <div class="modal-body row" id="CaregiverIndividualReport">
+
+                @*<div id="CaregiverIndividualReport" style="display:none">*@
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-1">
+                            <ul class="nav flex-column nav-pills" style="margin-left:-15px;">
+                                <li class="nav-item dj">
+                                    <a class="nav-link active" data-toggle="pill" href="#tab1" onclick="databind(5);">5 days</a>
+                                </li>
+                                <li class="nav-item dj">
+                                    <a class="nav-link" data-toggle="pill" href="#tab2" onclick="databind(10);">15 days</a>
+                                </li>
+                                <li class="nav-item dj">
+                                    <a class="nav-link" data-toggle="pill" href="#tab3" onclick="databind(30);">30 days</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-11">
+                            <div class="row">
+                                <div id="main_individualcaregiver">
+                                    <div class="col-md-10">
+                                        <div class="form-group" style="margin-left: -28px;">
+                                            <label>Milage Report</label>
+                                            <div class="col-md-06" style="overflow-y:auto;scroll:auto;max-height:300px;width:760px;">
+                                                <table class="table table-striped table-bordered table-hover dataTables-example">
+                                                    <thead>
+                                                        <tr>
+                                                            @*<td style="width:5%"><b>Caregiver Name</b></td>*@
+                                                            <td style="width: 5%;"><b>TotalVisits</b></td>
+                                                            <td style="width: 5%;"><b>Completed Vists</b></td>
+                                                            <td style="width: 5%;"><b>Cancel Visits</b></td>
+                                                            <td style="width: 5%;"><b>Total Checkin</b></td>
+                                                            <td style="width: 5%;"><b>Total Travel Miles</b></td>
+                                                            @*<td style="margin-left: 10px"><b>Total Travel Distance</b></td>*@
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="MilageReport"></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-10">
+
+
+                                        <div class="form-group">
+                                            @*<div class="input-group pull-right margin-25" style="margin-right: 10px;">
+                                                    <label>Attendance for: 1-11-2018</label>
+                                                </div>*@
+                                            <div class="input-group pull-left margin-25" style="margin-right: 10px;">
+                                                <label>Report Details</label>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div id="table-scroll">
+                                            <table class="table table-striped table-bordered table-hover dataTables-example">
+                                                <thead>
+                                                    <tr>
+                                                        @*<th>Nurse</th>*@
+                                                        <th>Patient</th>
+                                                        <th>Date</th>
+                                                        <th>Status</th>
+                                                        @*<th>Start Time</th>
+                                                            <th>End Time</th>*@
+                                                        @*<th>Requested Duration</th>*@
+                                                        <th>CheckIn Duration</th>
+                                                        <th>Travel Time</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="caregiverdetails"></tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="SendDatapopupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-Vd" id="modalEditPopup">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Sandata Emp Export</h4>
+            </div>
+            <div class="modal-body row" id="ExternalAPIPannel">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ADD NURSES POPUP START-->
+<div class="modal fade" id="modalAddCareGiver" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">@CaregiverLite.Views.Resources.CareGiver.HeaderAddCareGiver</h4>
+            </div>
+            <div class="modal-body row" id="AddCareGiver">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ADD NURSES POPUP END -->
+<!-- EDIT NURSES POPUP START -->
+<div class="modal fade" id="modalEditCareGiver" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">@CaregiverLite.Views.Resources.CareGiver.HeaderEditCareGiver</h4>
+            </div>
+            <div class="modal-body row" id="EditPanel">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- EDIT NURSES POPUP END -->
+<!-- STATUS POPUP START -->
+<div class="modal fade" id="modelApproveCareGiver" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">@CaregiverLite.Views.Resources.CareGiver.HeaderSendApproval</h4>
+            </div>
+            <div class="modal-body row" id="SendApprovePanel">
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- STATUS POPUP END -->
+<!-- ADD Group(s) POPUP START -->
+<div class="modal fade" id="modalGroupAssignment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Assign Patient Chat Room(s)</h4>
+            </div>
+            <div class="modal-body row" id="AssignGroupToCaregiver">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight containerstyle">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title" style="height: 88px ">
+                    @* <h5 >@CaregiverLite.Views.Resources.CareGiver.HeaderCareGiverList</h5>*@
+
+                    @*@if (ViewContext.Controller.HasPermission("CareGiver-DeleteNurse") || ViewContext.Controller.IsSysAdmin())
+                        {
+                            <div class="ibox-tools">
+                                <a class="btn btn-xs btn-primary" style="margin-top:-9px;" href="javascript:;" onclick="OpenAddNew()">@CaregiverLite.Views.Resources.CareGiver.ButtonAddCareGiver</a>
+                                <div class="clearfix"></div>
+                            </div>
+                        }*@
+                    @if (ViewContext.Controller.HasRoles("SuperAdmin") || ViewContext.Controller.HasRoles("Admin") || ViewContext.Controller.IsSysAdmin() || ViewContext.Controller.HasRoles("OrgSuperAdmin"))
+                    {
+                        <div class="row" style="margin-top: 17px;text-align:start;">
+                            <div class="col-md-6">
+                                <span id="CaregiverHeader" style="font-size:15px;color:#1B1B1C;font-weight:800">
+                                    @*@CaregiverLite.Views.Resources.CareGiver.HeaderCareGiverList*@
+                                    Caregiver
+                                </span>
+                            </div>
+                            <div class="col-md-6" style="text-align:end;">
+                                <a class="btn btn-xs CutomButton" style="margin-top: -10px;float: right;background-color: #092C44;color: white;padding: 10px;height: 42px;font-size: 14px;" href="javascript:;" onclick="OpenAddNew()">
+                                    <img src="http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Content/image/AddIcon.svg" alt="Add caregiver">
+                                    @* <span style="margin-left: 3px;">@CaregiverLite.Views.Resources.CareGiver.ButtonAddCareGiver</span>*@
+                                    <span style="margin-left: 3px;">Add Caregiver</span>
+
+                                </a>
+                            </div>
+                        </div>
+                        @*<div class="ibox-tools" style="float:left">
+                                <a class="btn btn-xs CutomButton" style="margin-top:-9px;" href="javascript:;" onclick="OpenAddNew()">@CaregiverLite.Views.Resources.CareGiver.ButtonAddCareGiver</a>
+
+                                <div class="clearfix"></div>
+                            </div>*@
+                        @*<div class="input-group pull-right">
+                                <a class="btn btn-xs btn-primary popup-act" style="margin-top:-9px;" href="javascript:;" onclick="OpenSendDatPannel()">Sandata Emp Export</a>
+
+                            </div>*@
+                    }
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+
+                        @if (ViewContext.Controller.HasRoles("SuperAdmin") || ViewContext.Controller.IsSysAdmin())
+                        {
+
+                            <div class="form-group col-md-2 ">
+                                <label>Organisation:</label>
+                                <br />
+
+                                @Html.DropDownList("ddFilterOrganisation", (System.Web.Mvc.SelectList)ViewBag.lstOrganisations, "All", new { @class = "form-control customdropDown", onchange = "Filtration();", @style = "border: 1px solid #b6b2b2 !important;    border-radius: 4px !important;    background: #ffffffa3 !important;margin-top:8px" })
+
+                            </div>
+                        }
+                        <div class="form-group col-md-2 ">
+
+                            <label>@CaregiverLite.Views.Resources.CareGiver.FilterOffice</label>
+                            </br>
+                            @Html.DropDownList("ddFilterOffice", (System.Web.Mvc.SelectList)ViewBag.lstOffice, new { @class = "form-control customdropDown", @style = "width: 100%;height:34px;border-color:#e5e6e7;border: 1px solid #b6b2b2 !important;    border-radius: 4px !important;    background: #ffffffa3 !important;margin-top:8px", onchange = "Filtration();" })
+                        </div>
+                        <div class="form-group col-md-2 ">
+                            <div class="form-group filter-option">
+                                <label>Status: </label>
+                                </br>
+                                <select id="ddFilterStatus" name="ddFilterStatus" class = "customdropDown" style="width: 100%;height:34px;border-color:#e5e6e7;margin-top:8px;border-radius:4px" onchange="Filtration();">
+                                    <option value="2">All</option>
+                                    <option value="1">Approved</option>
+                                    <option value="0">Not Approved</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-2 ">
+                            <div style="margin-top: 30px;">
+                                <button title="Clear Filters" class="btn btn-round" id="Clearbtn" onclick="RemoveFiltration()">
+                                    <img id="ClearIcon" src="http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Content/image/ClearFilter.png" alt="Refresh Icon">
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                    @* <div class="form-group">
+                            <label></label>
+                            <div class="input-group pull-right margin-25">
+                                <a href="javascript:;" class="btn btn-sm btn-primary" onclick="RemoveFiltration();">@CaregiverLite.Views.Resources.PatientRequest.ButtonClearFilter</a>
+                            </div>
+                            <div class="input-group pull-right margin-25" style="margin-right: 10px;">
+                                <a href="javascript:;" class="btn btn-sm btn-primary" onclick="Filtration();">@CaregiverLite.Views.Resources.PatientRequest.ButtonFilter</a>
+                            </div>
+
+                            <div class="clearfix"></div>
+                        </div> *@
+
+                    <table id="myDataTable" class="table table-striped table-bordered table-hover dataTables-example">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                @*<th>@CaregiverLite.Views.Resources.CareGiver.TableHeaderName</th>*@
+                                <th>FirstName</th>
+                                <th>LastName</th>
+                                <th>@CaregiverLite.Views.Resources.CareGiver.TableHeaderPhoto</th>
+                                <th>@CaregiverLite.Views.Resources.CareGiver.TableHeaderUserName</th>
+                                <th>@CaregiverLite.Views.Resources.CareGiver.TableHeaderEmail</th>
+                                <th>@CaregiverLite.Views.Resources.CareGiver.TableHeaderPhone</th>
+                                <th>@CaregiverLite.Views.Resources.CareGiver.TableHeaderZipCode</th>
+                                <th>@CaregiverLite.Views.Resources.CareGiver.TableHeaderOffice</th>
+                                <th>PayrollId</th>
+                                <th>@CaregiverLite.Views.Resources.CareGiver.TableHeaderInsertedOn</th>
+                                <th style="width: 100px;">@CaregiverLite.Views.Resources.CareGiver.TableHeaderAction</th>
+                                <th>@CaregiverLite.Views.Resources.CareGiver.TableHeaderTrackLocation</th>
+                                <th>Assign Patient Chat Room</th>
+                                <th>UserStatus</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* model for map view of track location *@
+<div class="modal fade " id="myModalTrackLocationNurse" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#Date').val('');"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Track Caregiver Location on Map :</h4>
+            </div>
+            <div class="modal-body row">
+                <div class="col-md-6">
+                    <div class="page-width">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div>
+                                    <label>Date</label>
+                                    <input type="text" id="Date" class="form-control clsDatePicker" data_toggle="dropdown" placeholder="MM-DD-YYYY" onkeydown="return false" autocomplete="off" tabindex="5" />
+                                    <button type="button" id="ViewOnMap" class="btn btn-primary m-t-md">View Map</button>
+                                    @*<div>
+                                            <label id="msg" style="display:none;"></label>
+                                        </div>*@
+                                </div>
+                                <div class="map m-t-md" id="dvmap" style="height:400px;width:570px;">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="//maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCySi2MFE1G-NwmKnJL0GCc-OVlnWGmzEc&amp;" type="text/javascript"></script>
+<!--<script src="//maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDTtI1adbJpP6PTDuLSFB9i4oWTRpLqnV8;" type="text/javascript"></script>-->
+<script src="~/Scripts/js/jquery-2.1.1.js"></script>
+<script src="~/Scripts/js/jquery.dataTables.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script>
+    $('#Clearbtn').mouseover(function () {
+        $('#ClearIcon').attr('src', 'http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Content/image/ClearBluebtn.png'); // Change to your hover image
+    });
+
+    // Revert image on mouseout
+    $('#Clearbtn').mouseout(function () {
+        $('#ClearIcon').attr('src', 'http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Content/image/ClearFilter.png'); // Revert to original image
+    });
+
+    function Filtration() {
+        oTable.search($('#myDataTable').val()).draw();
+    }
+    function RemoveFiltration() {
+        $('#ddFilterStatus').val(2);
+        $('#ddFilterOffice').val(0);
+        oTable.search($('#myDataTable').val()).draw();
+    }
+
+    var oTable;
+    $(document).ready(function () {
+
+
+
+
+        localStorage.clear();
+
+        var tempMsg = '@TempData["Message"]';
+        if (tempMsg != "")
+            toastr.success(tempMsg);
+
+        var value = '@Request.QueryString["IsAdded"]';
+        if (value != '') {
+            if (value == 'True') {
+                toastr.success('CareGiver is Added SuccessFully');
+                var originalURL = window.location.href;
+                window.history.pushState("string", '@ViewBag.Title', originalURL.substring(0, originalURL.indexOf('?')));
+            } else {
+                toastr.error('Internal server error');
+            }
+        }
+
+        $("#loading").show();
+        var jquey = jQuery.noConflict();
+        oTable = $('#myDataTable').DataTable({
+            responsive: true,
+            "dom": 'lfrtip',
+            "bPaginate": true,
+            "bServerSide": true,
+            "bSortable": true,
+            "sPaginationType": "full_numbers",
+            "oLanguage": {
+                "sProcessing": "<div class=\"loading\" id=\"loading\" style=\"display: block;\"></div>"
+            },
+            "processing": true,
+            "sAjaxSource": "GetCareGiverList",
+            "fnServerParams": function (aoData) {
+			debugger;
+                aoData.push({ "name": "FilterOffice", "value": $('#ddFilterOffice option:selected').val() });
+                aoData.push({ "name": "ddFilterStatus", "value": $('#ddFilterStatus').val() });
+				aoData.push({ "name": "FilterOrganisationId", "value": $('#ddFilterOrganisation option:selected').val() });
+
+            },
+            "fnServerData": function (sSource, aoData, fnCallback) {
+                $.getJSON(sSource, aoData, function (json) {
+                    fnCallback(json);
+
+                }).fail(function (jqxhr, textStatus, error) {
+                    window.location.reload();
+                });
+            },
+            "fnDrawCallback": function (oSettings) {
+			debugger;
+                //Navigation validation
+                var rowsPerPage = this.fnSettings()._iDisplayLength;
+                var rowsToShow = this.fnSettings().fnRecordsDisplay();
+                var table = $('#myDataTable').DataTable();
+                $('#myDataTable thead th').css({
+                    "background-color": "white" // Your desired color
+                    // Text color
+                });
+                var info = table.page.info();
+                var currentPageNo = info.page + 1;
+                $("#loading").hide();
+                $("#CaregiverHeader").text("");
+                $("#CaregiverHeader").text("Caregiver  (" + rowsToShow + ")");
+                $('#myDataTable_filter input ').css({ 'border-radius': '5px', 'height': '36px' });
+                //$('#myDataTable_filter label').text('');
+                // $('.dataTables_filter label').text('');
+
+                $('#myDataTable_wrapper select ').css({ 'margin-top': '10px', 'border-radius': '5px', 'margin-bottom': '10px' });
+                $('#myDataTable_filter label').contents().filter(function () {
+                    return this.nodeType === 3; // This checks for text nodes
+                }).remove();
+
+                var searchInput = $('#myDataTable_filter input');
+                searchInput.wrap('<div class="search-container" style="position: relative; display: inline-block; width: 100%;"></div>'); // Wrap the search input
+                searchInput.css({
+                    'padding-right': '30px' // Add padding to the right to make space for the icon
+                });
+                searchInput.after('<img src="http://ec2-52-38-33-252.us-west-2.compute.amazonaws.com/Content/image/SearchIcon.png" class="search-icon" id="SearchIcon" alt="Search Icon" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;">');
+
+
+				 // Add click event to each row after the table has been drawn
+
+
+
+            },
+            "responsive": {
+                "details": {
+                    "type": 'column'
+                }
+            },
+            "aoColumns": [
+                            {
+                                className: 'control',
+                                orderable: false,
+                                targets: 0,
+                                "mRender": function (oObj) {
+                                    return '';
+                                }
+                },
+
+          //                  {
+          //                      "sName": "Name",
+          //                      "mRender": function (oObj) {
+          //                         // return '<span>' + oObj["Name"] + '</span>';
+
+									 //var actionhtml = '';
+          //                               if (oObj["CaregiverName"] != "") {
+          //                                   actionhtml += '<center><a href="javascript:;" style="text-transform: capitalize;text-decoration: underline;" onclick="ViewCareGiverProfile(\'' + oObj["NurseId"] + '\');">' + oObj["Name"] + '</a></center>'
+          //                               }
+          //                               return actionhtml;
+          //                      }
+          //                  },
+
+                {
+                    "sName": "FirstName",
+                    "mRender": function (oObj) {
+                        // return '<span>' + oObj["Name"] + '</span>';
+
+                        var actionhtml = '';
+                        if (oObj["FirstName"] != "") {
+                            actionhtml += '<center><a href="javascript:;" style="text-transform: capitalize;text-decoration: underline;" onclick="ViewCareGiverProfile(\'' + oObj["NurseId"] + '\');">' + oObj["FirstName"] + '</a></center>'
+                        }
+                        return actionhtml;
+                    }
+                },
+
+                {
+                    "sName": "LastName",
+                    "mRender": function (oObj) {
+                        // return '<span>' + oObj["Name"] + '</span>';
+
+                        var actionhtml = '';
+                        if (oObj["LastName"] != "") {
+                            actionhtml += '<center><a href="javascript:;" style="text-transform: capitalize;text-decoration: underline;" onclick="ViewCareGiverProfile(\'' + oObj["NurseId"] + '\');">' + oObj["LastName"] + '</a></center>'
+                        }
+                        return actionhtml;
+                    }
+                },
+                            {
+                                "sName": "ProfileImage",
+                                "bSortable": false,
+                                "mRender": function (oObj) {
+                                    if (oObj["ProfileVideo"] != "")
+                                        return '<img height="70" width="80" src=\"' + oObj["ProfileImage"] + '\" style=\"margin-left: 60px;\"/><br><a href="javascript:void(0)" style=\"margin-left: 30px;\" onclick="OpenVideoPopup(\'' + oObj["ProfileVideo"] + '\');">Click here to see video</a>'
+                                    else
+                                        return '<img height="70" width="80" src=\"' + oObj["ProfileImage"] + '\" style=\"margin-left: 60px;\" />';
+                                }
+                            },
+                            {
+                                "sName": "UserName",
+                                "mRender": function (oObj) {
+                                    return oObj["UserName"];
+                                }
+                            },
+                            {
+                                "sName": "Email",
+                                "mRender": function (oObj) {
+                                    return oObj["Email"];
+                                }
+                            },
+                            {
+                                "sName": "Phone",
+                                "mRender": function (oObj) {
+                                    return oObj["Phone"];
+                                }
+                            },
+                            {
+                                "sName": "ZipCode",
+                                "mRender": function (oObj) {
+                                    return oObj["ZipCode"];
+                                }
+                            },
+                            {
+                                "sName": "Office",
+                                "mRender": function (oObj) {
+                                    return oObj["Office"];
+                                }
+                            },
+                           {
+                                "sName": "PayrollId",
+                                "mRender": function (oObj) {
+                                    return oObj["PayrollId"];
+                                }
+                            },
+                            {
+                              "sName": "InsertedOn",
+                           //   "sWidth":"110",
+                              "mRender": function (oObj) {
+                                  return oObj["InsertedOn"];
+                              }
+                          },
+                            {
+                                "sName": "NurseId",
+                                "bSortable": false,
+                                "mRender": function (oObj) {
+                                    @*var actionhtml = '';
+                                    if (oObj["IsApprove"] == false) {
+                                        @if (ViewContext.Controller.HasRoles("SuperAdmin") || ViewContext.Controller.IsSysAdmin() || ViewContext.Controller.HasRoles("Admin") || ViewContext.Controller.HasRoles("OrgSuperAdmin"))
+                                        {
+                                            @: actionhtml = '<a href="javascript:;" style="width:100%; margin-top:5px;" class="btn btn-xs btn-success" onclick="OpenApprovedPopup(\'' + oObj["UserName"] + '\', \'' + oObj["Email"] + '\', \'' + oObj["Password"] + '\', \'' + oObj["NurseId"] + '\', \'' + oObj["UserId"] + '\', \'' + oObj["OfficeId"] + '\', \'' + oObj["QuickBloxId"] + '\', \'' + parseFloat(oObj["HourlyRate"]).toFixed(2) + '\')">@CaregiverLite.Views.Resources.CareGiver.ButtonApprove</a>'
+                                                                                }
+                                    }
+                                    else {
+                                        @if (ViewContext.Controller.HasRoles("SuperAdmin") || ViewContext.Controller.HasRoles("Admin") || ViewContext.Controller.IsSysAdmin())
+                                        {
+                                            @: actionhtml = '<a href="javascript:;" style="width:100%; margin-top:5px;" class="btn btn-xs btn-warning" onclick="RejectApprovedNurse(\'' + oObj["NurseId"] + '\', \'' + oObj["OfficeId"] + '\', \'' + oObj["UserId"] + '\', \'' + oObj["QuickBloxId"] + '\',0)">@CaregiverLite.Views.Resources.CareGiver.ButtonReject</a>'
+                                        }
+                                    }
+
+                                    @if (ViewContext.Controller.HasRoles("SuperAdmin") || ViewContext.Controller.HasRoles("Admin") || ViewContext.Controller.IsSysAdmin() || ViewContext.Controller.HasRoles("OrgSuperAdmin"))
+                                    {
+                                        @:  actionhtml += '<a href="javascript:;" class="btn btn-xs btn-danger" style="margin-top:5px; width:100%;" onclick="DeleteNurse(\'' + oObj["NurseId"] + '\' , \'' + oObj["UserName"] + '\');">@CaregiverLite.Views.Resources.CareGiver.ButtonDelete</a>'
+                                    }
+
+                                    actionhtml += '<a href="javascript:;" class="btn btn-xs btn-primary" onclick="ViewCareGiverProfile(\'' + oObj["NurseId"] + '\');" style="margin-top:5px; width:100%;">@CaregiverLite.Views.Resources.CareGiver.ButtonProfile</a>'
+                                    return actionhtml;*@
+                                    var actionhtml = '';
+                                    if (oObj["IsApprove"] == false) {
+                                        @if (ViewContext.Controller.HasRoles("SuperAdmin") || ViewContext.Controller.IsSysAdmin() || ViewContext.Controller.HasRoles("Admin") || ViewContext.Controller.HasRoles("OrgSuperAdmin"))
+                                        {
+                                            @: actionhtml = '<a href="javascript:;" style="margin-top: 5px; width: 100%;background: #E3EAFC; border-radius: 4px;color: #3259CC;font-weight: bold;border: none;" class="btn btn-xs btn-success" onclick="OpenApprovedPopup(\'' + oObj["UserName"] + '\', \'' + oObj["Email"] + '\', \'' + oObj["Password"] + '\', \'' + oObj["NurseId"] + '\', \'' + oObj["UserId"] + '\', \'' + oObj["OfficeId"] + '\', \'' + oObj["QuickBloxId"] + '\', \'' + parseFloat(oObj["HourlyRate"]).toFixed(2) + '\')">Approve</a>'
+                                        }
+                                    }
+                                    else {
+                                        @if (ViewContext.Controller.HasRoles("SuperAdmin") || ViewContext.Controller.HasRoles("Admin") || ViewContext.Controller.IsSysAdmin())
+                                        {
+                                            @: actionhtml = '<a href="javascript:;" style="width: 100%; margin-top: 5px; border-radius: 4px; background: #FCFBE3; color: #BB9123;font-weight: bold;border: none" class="btn btn-xs btn-warning" onclick="RejectApprovedNurse(\'' + oObj["NurseId"] + '\', \'' + oObj["OfficeId"] + '\', \'' + oObj["UserId"] + '\', \'' + oObj["QuickBloxId"] + '\',0)">Reject</a>'
+                                        }
+                                    }
+
+                                    @if (ViewContext.Controller.HasRoles("SuperAdmin") || ViewContext.Controller.HasRoles("Admin") || ViewContext.Controller.IsSysAdmin() || ViewContext.Controller.HasRoles("OrgSuperAdmin"))
+                                    {
+                                        @:  actionhtml += '<a href="javascript:;"  style="margin-top: 5px; width: 100%; background:#FFDEDE; border-radius: 4px; color: #E24B4B; font-weight: bold;border: none" class="btn btn-xs btn-danger" onclick="DeleteNurse(\'' + oObj["NurseId"] + '\' , \'' + oObj["UserName"] + '\');">Delete</a>'
+                                    }
+
+                                    //actionhtml += '<a href="javascript:;" class="btn btn-xs btn-primary" onclick="ViewCareGiverProfile(\'' + oObj["NurseId"] + '\');" style="margin-top:5px; width:100%; border-radius: 4px;text-transform: none;font-weight: bold;">Profile</a>'
+                                    return actionhtml;
+                                }
+                            },
+                            {
+                                "sName": "NurseId",
+                                "bSortable": false,
+                                "mRender": function (oObj) {
+                                    //var actionhtml = '';
+                                    //actionhtml += '<a href="javascript:;" class="btn btn-xs btn-primary" style="margin-top:5px; width:100%;" onclick="NurseTrackLocation(\'' + oObj["NurseId"] + '\');">Track Location</a>'
+                                    //actionhtml += '<a href="javascript:;" class="btn btn-xs btn-primary" style="margin-top:5px; width:100%;" onclick="ViewClockInClockoutDetails(\'' + oObj["NurseId"] + '\');">Details</a>'
+                                    //return actionhtml;
+                                    var actionhtml = '';
+                                    actionhtml += '<a href="javascript:;" class="btn btn-xs btn-primary TrachlocationId"   onclick="NurseTrackLocation(\'' + oObj["NurseId"] + '\');">Track Location</a>'
+                                    actionhtml += '<a href="javascript:;" class="btn btn-xs btn-primary" style="margin-top:5px; width:100%;border-radius: 4px;text-transform: none;font-weight: bold;" onclick="ViewClockInClockoutDetails(\'' + oObj["NurseId"] + '\');">Details</a>'
+                                    return actionhtml;
+                                }
+                            },
+                            {
+                                "sName": "AssignGroup",
+                                "bSortable": false,
+                                "mRender": function (oObj) {
+                                    var actionhtml = '';
+                                    if (oObj["IsApprove"] == true && oObj["IsAllowPatientChatRoom"] == true) {
+                                        actionhtml += '<a href="javascript:;" class="btn btn-xs btn-primary TrachlocationId"  onclick="OpenAssignGroupModal(\'' + oObj["UserId"] + '\' , \'' + oObj["Name"] + '\',\'' + oObj["QuickBloxId"] + '\',\'' + oObj["Email"] + '\');">Assign Patient Chat</a>'
+                                    }
+                                    else
+                                    {
+                                    actionhtml += '-'
+                                    }
+
+                                    return actionhtml;
+                                }
+                },
+                            {
+                    "sname": "IsActive",
+                    "bSortable": false,
+                    "mRender": function (oObj) {
+
+                        if (oObj["IsActive"] != "False") {
+
+
+                            return '<span class="items-badge">Active</span>'
+
+                        }
+                        else {
+                            return '<span class="items-badgeInActive">Inactive</span>'
+                        }
+                        //  return oObj["IsActive"];
+
+                    }
+                }
+            ]
+        });
+
+        $('#myDataTable_filter input').unbind(); //Unbind direct search on each keypress
+        $('#myDataTable_filter input').bind('keyup', function (e) { //Bind Keyup event that filter data only on "Enter" key.
+            if (e.keyCode == 13) {
+                //oTable.fnFilter(this.value);
+                oTable.search(this.value).draw();
+            }
+        });
+
+        //$('#ddfilterstatus').bind('change', function (e) {
+        //    otable.fnfilter('');
+        //});
+        //$('#ddfilteroffice').bind('change', function (e) {
+        //    otable.fnfilter('');
+        //});
+        /* Init DataTables */
+        $('.carousel').carousel({
+            interval: false
+        });
+
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': { allow_single_deselect: true },
+            '.chosen-select-no-single': { disable_search_threshold: 10 },
+            '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+            '.chosen-select-width': { width: "95%" }
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+
+        $("#loading").hide();
+    });
+
+
+    $(document).on('click', '#SearchIcon', function (event) {
+        event.stopPropagation();  // Prevents the outer div's click event
+        var query = $('#myDataTable_filter input').val(); // Get the value from the search input
+        $('#myDataTable').DataTable().search(query).draw(); // Trigger the DataTable search
+
+    });
+
+
+    function OpenVideoPopup(URL) {
+        $('.loading').show();
+        $("#popupvideoid").attr("src", URL);
+        $("#myModalVideo").modal('show');
+        $('.loading').hide();
+    }
+
+    function DeleteNurse(nurseid,username) {
+        if (confirm('@CaregiverLite.Views.Resources.CareGiver.MsgDeleteConfirmation')) {
+            $("#loading").show();
+            var url = INITURL + '/CareGiver/DeleteNurse';
+
+            $.ajax({
+                url: url,
+                data: { NurseId: nurseid, Username:username },
+                cache: false,
+                type: 'POST',
+                async: false,
+                success: function (data) {
+                    if (data == "Success") {
+                        window.location = INITURL + '/CareGiver/CareGiver';
+                    }
+                    $("#loading").hide();
+                },
+                error: function (reponse) {
+                    alert("error : " + reponse);
+                    $("#loading").hide();
+                }
+            });
+        }
+    }
+
+    function ViewCareGiverProfile(id) {
+        $("#loading").show();
+        $('#ViewPanel').load(INITURL + '/CareGiver/ViewCareGiver/' + id, function () {
+            $('#myModal1').modal('show');
+            sessionStorage.setItem("PartialView", "1");
+        });
+    }
+
+    function ViewClockInClockoutDetails(pNurseid) {
+        $('#ClockInClockout_ViewPanel').load(INITURL + '/CareGiver/NurseClockInAttendance/?NurseId=' + pNurseid, function () {
+            $('#ClockInClockout_Model').modal('show');
+            //sessionStorage.setItem("PartialView", "1");
+        });
+
+    }
+
+    function OpenAddNew() {
+        $("#loading").show();
+        $('#AddCareGiver').load(INITURL + 'CareGiver/AddCareGiver', function () {
+            sessionStorage.setItem("PartialView", "1");
+            $('#modalAddCareGiver').modal('show');
+        });
+    }
+
+    function RejectApprovedNurse(nurseid, OfficeId, UserId, QuickBloxId) {
+
+        if (confirm("Are you sure you wants to reject.?")) {
+            $("#loading").show();
+            var url = INITURL + '/CareGiver/SendApproval';
+            var objCareGiver = { NurseId: nurseid, IsApproved: 0, UserId: UserId,OfficeId:OfficeId, QuickBloxId: QuickBloxId }
+
+            $.ajax({
+                url: url,
+                data: JSON.stringify({ 'CareGiver': objCareGiver }),
+                cache: false,
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                success: function (data) {
+                    if (data.Result == "Success") {
+                        window.location = INITURL + "/CareGiver/CareGiver";
+                    }
+                    else {
+                        alert('@CaregiverLite.Views.Resources.CareGiver.MsgError');
+                        $("#loading").hide();
+                    }
+                },
+                error: function (reponse) {
+                    alert("error : " + reponse);
+                    $("#loading").hide();
+                }
+            });
+        }
+    }
+
+    function OpenApprovedPopup(username, email, password, nurseid, userid,officeId,quckbloxid, hourrate) {
+        $("#loading").show();
+        $('#SendApprovePanel').load(INITURL + '/CareGiver/SendApproval', function () {
+            sessionStorage.setItem("PartialView", "1");
+            $("#apEmail").val(email);
+            $("#hdnapNurseId").val(nurseid);
+            $("#IsApproved").val(1);
+            $("#hdnapUserid").val(userid);
+            $("#apHourRate").val(hourrate)
+            $("#apHourRate").val(hourrate)
+            $("#apHourRate").val(hourrate)
+
+            $("#hdnOfficeId").val(officeId);
+            $("#hdnQuickbloxId").val(quckbloxid);
+            if (email != username) {
+                $("#apUsername").val(username);
+                $("#apUsername").attr('readonly', true);
+                $("#apPassword").val(password);
+                $("#apPassword").attr('readonly', true);
+                $("#btnApprove").text('Approve');
+            }
+            else {
+                $("#apUsername").val("");
+                $("#apUsername").attr('readonly', false);
+                $("#apPassword").attr('readonly', false);
+                $("#apPassword").val("");
+            }
+            $('#modelApproveCareGiver').modal('show');
+            $("#loading").hide();
+        });
+    }
+
+
+
+    function NurseTrackLocation(nurseid) {
+        var tempdate1 = moment(new Date()).format('MM-DD-YYYY');
+        $("#loading").show();
+        $('#myModalTrackLocationNurse').modal('show');
+        localStorage.setItem("NurseId", nurseid);
+        $("#Date").datepicker({
+            // minDate: 0,
+            dateFormat: 'mm-dd-yy',
+            onSelect: function () {
+                $(this).change();
+            }
+        });
+        $("#Date").val(tempdate1);
+        $("#dvmap").hide();
+        $("#loading").hide();
+        viewmap();
+    }
+
+    function viewmap() {
+        debugger;
+        $("#loading").show();
+        var Date = $("#Date").val();
+        var NurseID = localStorage.getItem("NurseId");
+
+        //   var d = new Date();
+        //    var n = d.getTimezoneOffset();
+        //     console.log(n);
+        //var offset = new Date().getTimezoneOffset();
+        //console.log(offset);
+
+
+        if (Date == "") {
+            toastr.error('Please Select Date');
+            $('#loading').hide();
+            return false;
+        }
+        console.log(Date);
+        console.log(NurseID);
+
+        $.ajax({
+            url: "@Url.Action("TrackLocationByNurseId", "CareGiver")",
+            data: { NurseId: NurseID, date: Date },
+        cache: false,
+        dataType: 'json',
+        type: 'POST',
+        success: function (data, response) {
+            console.log(JSON.stringify(data));
+            if (data.Result.length > 0) {
+                var trackedLocations = data.Result;
+                TrackLocationMap(trackedLocations)
+            }
+            else {
+                toastr.warning('No Location Available on this Date');
+                // $('#msg').html('No Location Available on this Date').show();
+            }
+            //  BindMap(NurseList)
+
+        },
+        error: function (xhr, response) {
+            console.log(xhr, response);
+
+            $('#loading').hide();
+        }
+    });
+    $("#loading").hide();
+    }
+    $('#ViewOnMap').click(function () {
+        viewmap();
+    });
+
+    function TrackLocationMap(trackedLocations) {
+
+        var icon = 'https://scheduler.paseva.com/image/Red_6_65x50.png';
+
+        var directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+
+        setTimeout(function () {
+            $("#dvmap").show();
+            var gm = google.maps;
+            var infowindow;
+
+            var mapCenter = {
+                lat: parseFloat(trackedLocations[0].LocationLatitude),
+                lng: parseFloat(trackedLocations[0].LocationLongitude)
+            }
+
+            var myOptions =
+            {
+                zoom: 16,
+                center: mapCenter,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("dvmap"), myOptions);
+            var iw = new gm.InfoWindow();
+
+            directionsDisplay.setMap(map);
+
+            //var  map = new google.maps.Map(document.getElementById('dvMap'),
+            // {
+            //     center: mapCenter,
+            //     zoom: 18,
+            //     mapTypeId: google.maps.MapTypeId.HYBRID
+            // });
+
+            // var bounds = new google.maps.LatLngBounds();
+            if (trackedLocations != null && trackedLocations.length > 0) {
+
+
+                // when only one marker
+                //if (trackedLocations.length == 1) {
+                //    var centercontent =
+                //          '<div><strong>Date: </strong>' +
+                //                trackedLocations[0].LocationDateTime +
+                //                '</div>' +
+                //                '<div><strong>Latitude: </strong>' +
+                //                trackedLocations[0].LocationLatitude +
+                //                '</div>' +
+                //                '<div><strong>Longitude: </strong>' +
+                //                trackedLocations[0].LocationLongitude +
+                //                '</div>' +
+                //                '<div><strong>Status: </strong>' +
+                //                trackedLocations[0].Status +
+                //                '</div>';
+
+                //    var centerinfowindow = new google.maps.InfoWindow();
+                //    var centermarker = new google.maps.Marker({
+                //        position: mapCenter,
+                //        map: map
+                //    });
+
+                //    google.maps.event.addListener(centermarker,
+                //        'click',
+                //        (function (centermarker, centercontent, centerinfowindow) {
+                //            return function () {
+                //                centerinfowindow.setContent(centercontent);
+                //                centerinfowindow.open(map, centermarker);
+
+                //            };
+                //        })(centermarker, centercontent, centerinfowindow));
+                //}
+               for (var i = 0; i < trackedLocations.length; i++)
+                //for (var i = 0; i < 500; i++)
+                {
+
+                    if ((i + 1) < trackedLocations.length) {
+
+                        var bounds = new google.maps.LatLngBounds();
+
+                        var src = new google.maps.LatLng(
+                            parseFloat(trackedLocations[i].LocationLatitude),
+                            parseFloat(trackedLocations[i].LocationLongitude)
+                        );
+                        var des = new google.maps.LatLng(
+                            parseFloat(trackedLocations[i + 1].LocationLatitude),
+                            parseFloat(trackedLocations[i + 1].LocationLongitude)
+                        );
+
+                        var content =
+                            '<div><strong>Date: </strong>' +
+                                trackedLocations[i].LocationDateTime +
+                                '</div>' +
+                                '<div><strong>Latitude: </strong>' +
+                                trackedLocations[i].LocationLatitude +
+                                '</div>' +
+                                '<div><strong>Longitude: </strong>' +
+                                trackedLocations[i].LocationLongitude +
+                                '</div>';
+
+                        var infowindow = new google.maps.InfoWindow();
+
+                        var marker = new google.maps.Marker({
+                            position: src,
+                            label: { text: 'S', color: 'white' },
+                            map: map
+                        });
+                        bounds.extend(marker.position);
+
+                        google.maps.event.addListener(marker,
+                            'click',
+                            (function (marker, content, infowindow) {
+                                return function () {
+                                    infowindow.setContent(content);
+                                    infowindow.open(map, marker);
+
+                                };
+                            })(marker, content, infowindow));
+
+                        //   marker.setIcon(marker)
+
+
+
+                        //set marker for last location
+                        if ((i + 2) === trackedLocations.length) {
+                            var infowindowDes = new google.maps.InfoWindow();
+
+                            var markerDes = new google.maps.Marker({
+                                position: des,
+                                map: map
+                            });
+
+                            // markerDes.setMap(map);
+
+                            markerDes.setIcon(icon)
+
+                            bounds.extend(markerDes.position);
+
+                            //   map.fitBounds(bounds);
+
+
+                            var contentDes =
+                                '<div><strong>Date: </strong>' +
+                                    trackedLocations[i + 1].LocationDateTime +
+                                    '</div>' +
+                                    '<div><strong>Latitude: </strong>' +
+                                    trackedLocations[i + 1].LocationLatitude +
+                                    '</div>' +
+                                    '<div><strong>Longitude: </strong>' +
+                                    trackedLocations[i + 1].LocationLongitude +
+                                    '</div>';
+
+                            google.maps.event.addListener(markerDes,
+                                'click',
+                                (function (markerDes, contentDes, infowindowDes) {
+                                    return function () {
+                                        infowindowDes.setContent(contentDes);
+                                        infowindowDes.open(map, markerDes);
+
+                                    };
+                                })(markerDes, contentDes, infowindowDes));
+
+                            map.fitBounds(bounds);
+
+                        }
+
+
+
+                                //calculateAndDisplayRoute(directionsService, directionsDisplay, src, des);
+
+
+                    }
+
+                }
+            }
+        }, 500);
+    }
+
+
+
+    function calculateAndDisplayRoute(directionsService, directionsDisplay, src, des) {
+        directionsService.route({
+            origin: src,
+            destination: des,
+            travelMode: 'DRIVING'
+        }, function (response, status) {
+            if (status === 'OK') {
+                directionsDisplay.setDirections(response);
+            }
+            //else {
+            //    window.alert('Directions request failed due to ' + status);
+            //}
+
+
+            else if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
+                wait = true;
+                setTimeout("wait = true", 2000);
+                calculateAndDisplayRoute(directionsService, directionsDisplay, src, des);
+                //alert("OQL: " + status);
+
+
+            }
+
+
+
+        });
+    }
+
+
+    function OpenAssignGroupModal(userid,name,quickbloxid,email) {
+        $("#loading").show();
+        var url = INITURL + 'CareGiver/AssignGroup?UserId=' + userid + '&CaregiverName=' + name + '&QuickBloxId=' + quickbloxid + '&Email='+email;
+        $('#AssignGroupToCaregiver').load(encodeURI(url), function () {
+            sessionStorage.setItem("PartialView", "1");
+            $('#modalGroupAssignment').modal('show');
+            $("#loading").hide();
+        });
+    }
+
+    function OpenSendDatPannel() {
+        //  $("#loading").show();
+        // $('#SendDatapopupModal').modal('show');
+
+        $('#ExternalAPIPannel').load(INITURL + 'CareGiver/SendEmployeeRequestDataPage', function () {
+
+            sessionStorage.setItem("PartialView", "1");
+            $('#SendDatapopupModal').modal('show');
+            $("#loading").hide();
+        });
+    }
+
+</script>

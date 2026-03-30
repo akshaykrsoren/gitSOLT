@@ -1,0 +1,889 @@
+﻿ERROR DATE: 05/21/2019 17:14:13 
+ERROR MESSAGE: Failed to map the path '/CaregiverLiteService.svc/GetAllSchedulePatientRequest/1/10/InsertDateTime/desc/Patient /1/d59ff81a-5f78-4d23-be3b-c8630313e2ba/1000-01-01/1000-01-01/||/0'.
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc/GetAllSchedulePatientRequest/1/10/InsertDateTime/desc/Patient /1/d59ff81a-5f78-4d23-be3b-c8630313e2ba/1000-01-01/1000-01-01/||/0
+QUERYSTRING: 
+TARGETSITE: System.String MapPathCaching(System.String, System.Web.VirtualPath)
+STACKTRACE:    at System.Web.Configuration.ProcessHostMapPath.MapPathCaching(String siteID, VirtualPath path)
+   at System.Web.Configuration.ProcessHostMapPath.System.Web.Configuration.IConfigMapPath2.MapPath(String siteID, VirtualPath path)
+   at System.Web.Hosting.HostingEnvironment.MapPathActual(VirtualPath virtualPath, Boolean permitNull)
+   at System.Web.Hosting.HostingEnvironment.MapPathInternal(VirtualPath virtualPath)
+   at System.Web.Hosting.MapPathBasedVirtualPathProvider.CacheLookupOrInsert(String virtualPath, Boolean isFile)
+   at System.Web.Hosting.MapPathBasedVirtualPathProvider.FileExists(String virtualPath)
+   at System.Web.WebPages.FileExistenceCache.<.ctor>b__4(String path)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at System.Web.WebPages.FileExistenceCache.FileExists(String virtualPath)
+   at System.Web.WebPages.BuildManagerWrapper.Exists(String virtualPath)
+   at System.Web.WebPages.VirtualPathFactoryManager.Exists(String virtualPath)
+   at System.Web.WebPages.WebPageRoute.FileExists(String virtualPath, Func`2 virtualPathExists)
+   at System.Web.WebPages.WebPageRoute.MatchRequest(String pathValue, String[] supportedExtensions, Func`2 virtualPathExists, HttpContextBase context, DisplayModeProvider displayModes)
+   at System.Web.WebPages.WebPageRoute.DoPostResolveRequestCache(HttpContextBase context)
+   at System.Web.WebPages.WebPageHttpModule.OnApplicationPostResolveRequestCache(Object sender, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 07/05/2019 12:51:50 
+ERROR MESSAGE: The connection name 'ConStringCareGiver' was not found in the applications configuration or the connection string is empty.
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc
+QUERYSTRING: 
+TARGETSITE: System.String GetConnectionString(System.Collections.Specialized.NameValueCollection)
+STACKTRACE:    at System.Web.Util.SecUtility.GetConnectionString(NameValueCollection config)
+   at System.Web.Security.SqlRoleProvider.Initialize(String name, NameValueCollection config)
+   at System.Web.Configuration.ProvidersHelper.InstantiateProvider(ProviderSettings providerSettings, Type providerType)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 07/05/2019 12:51:50 
+ERROR MESSAGE: The connection name 'ConStringCareGiver' was not found in the applications configuration or the connection string is empty.
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc/mex
+QUERYSTRING: 
+TARGETSITE: System.String GetConnectionString(System.Collections.Specialized.NameValueCollection)
+STACKTRACE:    at System.Web.Util.SecUtility.GetConnectionString(NameValueCollection config)
+   at System.Web.Security.SqlRoleProvider.Initialize(String name, NameValueCollection config)
+   at System.Web.Configuration.ProvidersHelper.InstantiateProvider(ProviderSettings providerSettings, Type providerType)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 07/05/2019 12:51:50 
+ERROR MESSAGE: The connection name 'ConStringCareGiver' was not found in the applications configuration or the connection string is empty.
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc
+QUERYSTRING: 
+TARGETSITE: System.String GetConnectionString(System.Collections.Specialized.NameValueCollection)
+STACKTRACE:    at System.Web.Util.SecUtility.GetConnectionString(NameValueCollection config)
+   at System.Web.Security.SqlRoleProvider.Initialize(String name, NameValueCollection config)
+   at System.Web.Configuration.ProvidersHelper.InstantiateProvider(ProviderSettings providerSettings, Type providerType)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 07/05/2019 12:51:51 
+ERROR MESSAGE: The connection name 'ConStringCareGiver' was not found in the applications configuration or the connection string is empty.
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc
+QUERYSTRING: 
+TARGETSITE: System.String GetConnectionString(System.Collections.Specialized.NameValueCollection)
+STACKTRACE:    at System.Web.Util.SecUtility.GetConnectionString(NameValueCollection config)
+   at System.Web.Security.SqlRoleProvider.Initialize(String name, NameValueCollection config)
+   at System.Web.Configuration.ProvidersHelper.InstantiateProvider(ProviderSettings providerSettings, Type providerType)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 07/05/2019 12:51:51 
+ERROR MESSAGE: The connection name 'ConStringCareGiver' was not found in the applications configuration or the connection string is empty.
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc
+QUERYSTRING: 
+TARGETSITE: System.String GetConnectionString(System.Collections.Specialized.NameValueCollection)
+STACKTRACE:    at System.Web.Util.SecUtility.GetConnectionString(NameValueCollection config)
+   at System.Web.Security.SqlRoleProvider.Initialize(String name, NameValueCollection config)
+   at System.Web.Configuration.ProvidersHelper.InstantiateProvider(ProviderSettings providerSettings, Type providerType)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 07/05/2019 12:51:51 
+ERROR MESSAGE: The connection name 'ConStringCareGiver' was not found in the applications configuration or the connection string is empty.
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc/mex
+QUERYSTRING: 
+TARGETSITE: System.String GetConnectionString(System.Collections.Specialized.NameValueCollection)
+STACKTRACE:    at System.Web.Util.SecUtility.GetConnectionString(NameValueCollection config)
+   at System.Web.Security.SqlRoleProvider.Initialize(String name, NameValueCollection config)
+   at System.Web.Configuration.ProvidersHelper.InstantiateProvider(ProviderSettings providerSettings, Type providerType)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 07/05/2019 12:53:52 
+ERROR MESSAGE: The connection name 'ConStringCareGiver' was not found in the applications configuration or the connection string is empty.
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc
+QUERYSTRING: 
+TARGETSITE: System.String GetConnectionString(System.Collections.Specialized.NameValueCollection)
+STACKTRACE:    at System.Web.Util.SecUtility.GetConnectionString(NameValueCollection config)
+   at System.Web.Security.SqlRoleProvider.Initialize(String name, NameValueCollection config)
+   at System.Web.Configuration.ProvidersHelper.InstantiateProvider(ProviderSettings providerSettings, Type providerType)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 07/05/2019 12:53:52 
+ERROR MESSAGE: The connection name 'ConStringCareGiver' was not found in the applications configuration or the connection string is empty.
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc/mex
+QUERYSTRING: 
+TARGETSITE: System.String GetConnectionString(System.Collections.Specialized.NameValueCollection)
+STACKTRACE:    at System.Web.Util.SecUtility.GetConnectionString(NameValueCollection config)
+   at System.Web.Security.SqlRoleProvider.Initialize(String name, NameValueCollection config)
+   at System.Web.Configuration.ProvidersHelper.InstantiateProvider(ProviderSettings providerSettings, Type providerType)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 07/05/2019 12:53:52 
+ERROR MESSAGE: The connection name 'ConStringCareGiver' was not found in the applications configuration or the connection string is empty.
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc
+QUERYSTRING: 
+TARGETSITE: System.String GetConnectionString(System.Collections.Specialized.NameValueCollection)
+STACKTRACE:    at System.Web.Util.SecUtility.GetConnectionString(NameValueCollection config)
+   at System.Web.Security.SqlRoleProvider.Initialize(String name, NameValueCollection config)
+   at System.Web.Configuration.ProvidersHelper.InstantiateProvider(ProviderSettings providerSettings, Type providerType)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 07/05/2019 12:53:53 
+ERROR MESSAGE: The connection name 'ConStringCareGiver' was not found in the applications configuration or the connection string is empty.
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc
+QUERYSTRING: 
+TARGETSITE: System.String GetConnectionString(System.Collections.Specialized.NameValueCollection)
+STACKTRACE:    at System.Web.Util.SecUtility.GetConnectionString(NameValueCollection config)
+   at System.Web.Security.SqlRoleProvider.Initialize(String name, NameValueCollection config)
+   at System.Web.Configuration.ProvidersHelper.InstantiateProvider(ProviderSettings providerSettings, Type providerType)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 07/05/2019 12:53:53 
+ERROR MESSAGE: The connection name 'ConStringCareGiver' was not found in the applications configuration or the connection string is empty.
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc/mex
+QUERYSTRING: 
+TARGETSITE: System.String GetConnectionString(System.Collections.Specialized.NameValueCollection)
+STACKTRACE:    at System.Web.Util.SecUtility.GetConnectionString(NameValueCollection config)
+   at System.Web.Security.SqlRoleProvider.Initialize(String name, NameValueCollection config)
+   at System.Web.Configuration.ProvidersHelper.InstantiateProvider(ProviderSettings providerSettings, Type providerType)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 07/05/2019 12:53:53 
+ERROR MESSAGE: The connection name 'ConStringCareGiver' was not found in the applications configuration or the connection string is empty.
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc
+QUERYSTRING: 
+TARGETSITE: System.String GetConnectionString(System.Collections.Specialized.NameValueCollection)
+STACKTRACE:    at System.Web.Util.SecUtility.GetConnectionString(NameValueCollection config)
+   at System.Web.Security.SqlRoleProvider.Initialize(String name, NameValueCollection config)
+   at System.Web.Configuration.ProvidersHelper.InstantiateProvider(ProviderSettings providerSettings, Type providerType)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 05/07/2020 11:45:58 
+ERROR MESSAGE: Failed to map the path '/CaregiverLiteService.svc/GetAttendanceDetailsList/d59ff81a-5f78-4d23-be3b-c8630313e2ba/1/10/PatientName/asc/0/c.'.
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc/GetAttendanceDetailsList/d59ff81a-5f78-4d23-be3b-c8630313e2ba/1/10/PatientName/asc/0/c.
+QUERYSTRING: 
+TARGETSITE: System.String MapPathCaching(System.String, System.Web.VirtualPath)
+STACKTRACE:    at System.Web.Configuration.ProcessHostMapPath.MapPathCaching(String siteID, VirtualPath path)
+   at System.Web.Configuration.ProcessHostMapPath.System.Web.Configuration.IConfigMapPath2.MapPath(String siteID, VirtualPath path)
+   at System.Web.Hosting.HostingEnvironment.MapPathActual(VirtualPath virtualPath, Boolean permitNull)
+   at System.Web.Hosting.HostingEnvironment.MapPathInternal(VirtualPath virtualPath)
+   at System.Web.Hosting.MapPathBasedVirtualPathProvider.CacheLookupOrInsert(String virtualPath, Boolean isFile)
+   at System.Web.Hosting.MapPathBasedVirtualPathProvider.FileExists(String virtualPath)
+   at System.Web.WebPages.FileExistenceCache.<.ctor>b__4(String path)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at System.Web.WebPages.FileExistenceCache.FileExists(String virtualPath)
+   at System.Web.WebPages.BuildManagerWrapper.Exists(String virtualPath)
+   at System.Web.WebPages.VirtualPathFactoryManager.Exists(String virtualPath)
+   at System.Web.WebPages.WebPageRoute.FileExists(String virtualPath, Func`2 virtualPathExists)
+   at System.Web.WebPages.WebPageRoute.MatchRequest(String pathValue, String[] supportedExtensions, Func`2 virtualPathExists, HttpContextBase context, DisplayModeProvider displayModes)
+   at System.Web.WebPages.WebPageRoute.DoPostResolveRequestCache(HttpContextBase context)
+   at System.Web.WebPages.WebPageHttpModule.OnApplicationPostResolveRequestCache(Object sender, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 05/07/2020 11:46:08 
+ERROR MESSAGE: Failed to map the path '/CaregiverLiteService.svc/GetAttendanceDetailsList/d59ff81a-5f78-4d23-be3b-c8630313e2ba/1/10/PatientName/asc/0/c.'.
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc/GetAttendanceDetailsList/d59ff81a-5f78-4d23-be3b-c8630313e2ba/1/10/PatientName/asc/0/c.
+QUERYSTRING: 
+TARGETSITE: System.String MapPathCaching(System.String, System.Web.VirtualPath)
+STACKTRACE:    at System.Web.Configuration.ProcessHostMapPath.MapPathCaching(String siteID, VirtualPath path)
+   at System.Web.Configuration.ProcessHostMapPath.System.Web.Configuration.IConfigMapPath2.MapPath(String siteID, VirtualPath path)
+   at System.Web.Hosting.HostingEnvironment.MapPathActual(VirtualPath virtualPath, Boolean permitNull)
+   at System.Web.Hosting.HostingEnvironment.MapPathInternal(VirtualPath virtualPath)
+   at System.Web.Hosting.MapPathBasedVirtualPathProvider.CacheLookupOrInsert(String virtualPath, Boolean isFile)
+   at System.Web.Hosting.MapPathBasedVirtualPathProvider.FileExists(String virtualPath)
+   at System.Web.WebPages.FileExistenceCache.<.ctor>b__4(String path)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at System.Web.WebPages.FileExistenceCache.FileExists(String virtualPath)
+   at System.Web.WebPages.BuildManagerWrapper.Exists(String virtualPath)
+   at System.Web.WebPages.VirtualPathFactoryManager.Exists(String virtualPath)
+   at System.Web.WebPages.WebPageRoute.FileExists(String virtualPath, Func`2 virtualPathExists)
+   at System.Web.WebPages.WebPageRoute.MatchRequest(String pathValue, String[] supportedExtensions, Func`2 virtualPathExists, HttpContextBase context, DisplayModeProvider displayModes)
+   at System.Web.WebPages.WebPageRoute.DoPostResolveRequestCache(HttpContextBase context)
+   at System.Web.WebPages.WebPageHttpModule.OnApplicationPostResolveRequestCache(Object sender, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 05/07/2020 11:46:10 
+ERROR MESSAGE: Failed to map the path '/CaregiverLiteService.svc/GetAttendanceDetailsList/d59ff81a-5f78-4d23-be3b-c8630313e2ba/1/10/PatientName/asc/0/c.'.
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc/GetAttendanceDetailsList/d59ff81a-5f78-4d23-be3b-c8630313e2ba/1/10/PatientName/asc/0/c.
+QUERYSTRING: 
+TARGETSITE: System.String MapPathCaching(System.String, System.Web.VirtualPath)
+STACKTRACE:    at System.Web.Configuration.ProcessHostMapPath.MapPathCaching(String siteID, VirtualPath path)
+   at System.Web.Configuration.ProcessHostMapPath.System.Web.Configuration.IConfigMapPath2.MapPath(String siteID, VirtualPath path)
+   at System.Web.Hosting.HostingEnvironment.MapPathActual(VirtualPath virtualPath, Boolean permitNull)
+   at System.Web.Hosting.HostingEnvironment.MapPathInternal(VirtualPath virtualPath)
+   at System.Web.Hosting.MapPathBasedVirtualPathProvider.CacheLookupOrInsert(String virtualPath, Boolean isFile)
+   at System.Web.Hosting.MapPathBasedVirtualPathProvider.FileExists(String virtualPath)
+   at System.Web.WebPages.FileExistenceCache.<.ctor>b__4(String path)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at System.Web.WebPages.FileExistenceCache.FileExists(String virtualPath)
+   at System.Web.WebPages.BuildManagerWrapper.Exists(String virtualPath)
+   at System.Web.WebPages.VirtualPathFactoryManager.Exists(String virtualPath)
+   at System.Web.WebPages.WebPageRoute.FileExists(String virtualPath, Func`2 virtualPathExists)
+   at System.Web.WebPages.WebPageRoute.MatchRequest(String pathValue, String[] supportedExtensions, Func`2 virtualPathExists, HttpContextBase context, DisplayModeProvider displayModes)
+   at System.Web.WebPages.WebPageRoute.DoPostResolveRequestCache(HttpContextBase context)
+   at System.Web.WebPages.WebPageHttpModule.OnApplicationPostResolveRequestCache(Object sender, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 05/07/2020 12:17:09 
+ERROR MESSAGE: Failed to map the path '/CaregiverLiteService.svc/GetAttendanceDetailsList/d59ff81a-5f78-4d23-be3b-c8630313e2ba/1/10/PatientName/asc/0/c.h.'.
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc/GetAttendanceDetailsList/d59ff81a-5f78-4d23-be3b-c8630313e2ba/1/10/PatientName/asc/0/c.h.
+QUERYSTRING: 
+TARGETSITE: System.String MapPathCaching(System.String, System.Web.VirtualPath)
+STACKTRACE:    at System.Web.Configuration.ProcessHostMapPath.MapPathCaching(String siteID, VirtualPath path)
+   at System.Web.Configuration.ProcessHostMapPath.System.Web.Configuration.IConfigMapPath2.MapPath(String siteID, VirtualPath path)
+   at System.Web.Hosting.HostingEnvironment.MapPathActual(VirtualPath virtualPath, Boolean permitNull)
+   at System.Web.Hosting.HostingEnvironment.MapPathInternal(VirtualPath virtualPath)
+   at System.Web.Hosting.MapPathBasedVirtualPathProvider.CacheLookupOrInsert(String virtualPath, Boolean isFile)
+   at System.Web.Hosting.MapPathBasedVirtualPathProvider.FileExists(String virtualPath)
+   at System.Web.WebPages.FileExistenceCache.<.ctor>b__4(String path)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at System.Web.WebPages.FileExistenceCache.FileExists(String virtualPath)
+   at System.Web.WebPages.BuildManagerWrapper.Exists(String virtualPath)
+   at System.Web.WebPages.VirtualPathFactoryManager.Exists(String virtualPath)
+   at System.Web.WebPages.WebPageRoute.FileExists(String virtualPath, Func`2 virtualPathExists)
+   at System.Web.WebPages.WebPageRoute.MatchRequest(String pathValue, String[] supportedExtensions, Func`2 virtualPathExists, HttpContextBase context, DisplayModeProvider displayModes)
+   at System.Web.WebPages.WebPageRoute.DoPostResolveRequestCache(HttpContextBase context)
+   at System.Web.WebPages.WebPageHttpModule.OnApplicationPostResolveRequestCache(Object sender, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 06/03/2021 14:18:00 
+ERROR MESSAGE: Operation 'GetAllAttendanceportsOfCaregiver' in contract 'ICaregiverLiteService' has a path variable named 'pageNo' which does not have type 'string'.  Variables for UriTemplate path segments must have type 'string'.
+SOURCE: System.ServiceModel.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc
+QUERYSTRING: 
+TARGETSITE: Void Populate(System.Collections.Generic.Dictionary`2[System.Int32,System.String] ByRef, System.Collections.Generic.Dictionary`2[System.Int32,System.Collections.Generic.KeyValuePair`2[System.String,System.Type]] ByRef, Int32 ByRef, System.UriTemplate ByRef, System.ServiceModel.Description.OperationDescription, System.ServiceModel.Dispatcher.QueryStringConverter, System.String)
+STACKTRACE:    at System.ServiceModel.Dispatcher.UriTemplateClientFormatter.Populate(Dictionary`2& pathMapping, Dictionary`2& queryMapping, Int32& totalNumUTVars, UriTemplate& uriTemplate, OperationDescription operationDescription, QueryStringConverter qsc, String contractName)
+   at System.ServiceModel.Description.WebHttpBehavior.GetRequestDispatchFormatter(OperationDescription operationDescription, ServiceEndpoint endpoint)
+   at System.ServiceModel.Description.WebHttpBehavior.ApplyDispatchBehavior(ServiceEndpoint endpoint, EndpointDispatcher endpointDispatcher)
+   at System.ServiceModel.Description.DispatcherBuilder.InitializeServiceHost(ServiceDescription description, ServiceHostBase serviceHost)
+   at System.ServiceModel.ServiceHostBase.InitializeRuntime()
+   at System.ServiceModel.ServiceHostBase.OnBeginOpen()
+   at System.ServiceModel.ServiceHostBase.OnOpen(TimeSpan timeout)
+   at System.ServiceModel.Channels.CommunicationObject.Open(TimeSpan timeout)
+   at System.ServiceModel.ServiceHostingEnvironment.HostingManager.ActivateService(ServiceActivationInfo serviceActivationInfo, EventTraceActivity eventTraceActivity)
+   at System.ServiceModel.ServiceHostingEnvironment.HostingManager.EnsureServiceAvailable(String normalizedVirtualPath, EventTraceActivity eventTraceActivity)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 06/03/2021 14:18:01 
+ERROR MESSAGE: Operation 'GetAllAttendanceportsOfCaregiver' in contract 'ICaregiverLiteService' has a path variable named 'pageNo' which does not have type 'string'.  Variables for UriTemplate path segments must have type 'string'.
+SOURCE: System.ServiceModel.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc
+QUERYSTRING: 
+TARGETSITE: Void Populate(System.Collections.Generic.Dictionary`2[System.Int32,System.String] ByRef, System.Collections.Generic.Dictionary`2[System.Int32,System.Collections.Generic.KeyValuePair`2[System.String,System.Type]] ByRef, Int32 ByRef, System.UriTemplate ByRef, System.ServiceModel.Description.OperationDescription, System.ServiceModel.Dispatcher.QueryStringConverter, System.String)
+STACKTRACE:    at System.ServiceModel.Dispatcher.UriTemplateClientFormatter.Populate(Dictionary`2& pathMapping, Dictionary`2& queryMapping, Int32& totalNumUTVars, UriTemplate& uriTemplate, OperationDescription operationDescription, QueryStringConverter qsc, String contractName)
+   at System.ServiceModel.Description.WebHttpBehavior.GetRequestDispatchFormatter(OperationDescription operationDescription, ServiceEndpoint endpoint)
+   at System.ServiceModel.Description.WebHttpBehavior.ApplyDispatchBehavior(ServiceEndpoint endpoint, EndpointDispatcher endpointDispatcher)
+   at System.ServiceModel.Description.DispatcherBuilder.InitializeServiceHost(ServiceDescription description, ServiceHostBase serviceHost)
+   at System.ServiceModel.ServiceHostBase.InitializeRuntime()
+   at System.ServiceModel.ServiceHostBase.OnBeginOpen()
+   at System.ServiceModel.ServiceHostBase.OnOpen(TimeSpan timeout)
+   at System.ServiceModel.Channels.CommunicationObject.Open(TimeSpan timeout)
+   at System.ServiceModel.ServiceHostingEnvironment.HostingManager.ActivateService(ServiceActivationInfo serviceActivationInfo, EventTraceActivity eventTraceActivity)
+   at System.ServiceModel.ServiceHostingEnvironment.HostingManager.EnsureServiceAvailable(String normalizedVirtualPath, EventTraceActivity eventTraceActivity)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 06/03/2021 14:20:36 
+ERROR MESSAGE: Operation 'GetAllAttendanceportsOfCaregiver' in contract 'ICaregiverLiteService' has a path variable named 'pageNo' which does not have type 'string'.  Variables for UriTemplate path segments must have type 'string'.
+SOURCE: System.ServiceModel.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc
+QUERYSTRING: 
+TARGETSITE: Void Populate(System.Collections.Generic.Dictionary`2[System.Int32,System.String] ByRef, System.Collections.Generic.Dictionary`2[System.Int32,System.Collections.Generic.KeyValuePair`2[System.String,System.Type]] ByRef, Int32 ByRef, System.UriTemplate ByRef, System.ServiceModel.Description.OperationDescription, System.ServiceModel.Dispatcher.QueryStringConverter, System.String)
+STACKTRACE:    at System.ServiceModel.Dispatcher.UriTemplateClientFormatter.Populate(Dictionary`2& pathMapping, Dictionary`2& queryMapping, Int32& totalNumUTVars, UriTemplate& uriTemplate, OperationDescription operationDescription, QueryStringConverter qsc, String contractName)
+   at System.ServiceModel.Description.WebHttpBehavior.GetRequestDispatchFormatter(OperationDescription operationDescription, ServiceEndpoint endpoint)
+   at System.ServiceModel.Description.WebHttpBehavior.ApplyDispatchBehavior(ServiceEndpoint endpoint, EndpointDispatcher endpointDispatcher)
+   at System.ServiceModel.Description.DispatcherBuilder.InitializeServiceHost(ServiceDescription description, ServiceHostBase serviceHost)
+   at System.ServiceModel.ServiceHostBase.InitializeRuntime()
+   at System.ServiceModel.ServiceHostBase.OnBeginOpen()
+   at System.ServiceModel.ServiceHostBase.OnOpen(TimeSpan timeout)
+   at System.ServiceModel.Channels.CommunicationObject.Open(TimeSpan timeout)
+   at System.ServiceModel.ServiceHostingEnvironment.HostingManager.ActivateService(ServiceActivationInfo serviceActivationInfo, EventTraceActivity eventTraceActivity)
+   at System.ServiceModel.ServiceHostingEnvironment.HostingManager.EnsureServiceAvailable(String normalizedVirtualPath, EventTraceActivity eventTraceActivity)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 06/03/2021 14:20:37 
+ERROR MESSAGE: Operation 'GetAllAttendanceportsOfCaregiver' in contract 'ICaregiverLiteService' has a path variable named 'pageNo' which does not have type 'string'.  Variables for UriTemplate path segments must have type 'string'.
+SOURCE: System.ServiceModel.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc
+QUERYSTRING: 
+TARGETSITE: Void Populate(System.Collections.Generic.Dictionary`2[System.Int32,System.String] ByRef, System.Collections.Generic.Dictionary`2[System.Int32,System.Collections.Generic.KeyValuePair`2[System.String,System.Type]] ByRef, Int32 ByRef, System.UriTemplate ByRef, System.ServiceModel.Description.OperationDescription, System.ServiceModel.Dispatcher.QueryStringConverter, System.String)
+STACKTRACE:    at System.ServiceModel.Dispatcher.UriTemplateClientFormatter.Populate(Dictionary`2& pathMapping, Dictionary`2& queryMapping, Int32& totalNumUTVars, UriTemplate& uriTemplate, OperationDescription operationDescription, QueryStringConverter qsc, String contractName)
+   at System.ServiceModel.Description.WebHttpBehavior.GetRequestDispatchFormatter(OperationDescription operationDescription, ServiceEndpoint endpoint)
+   at System.ServiceModel.Description.WebHttpBehavior.ApplyDispatchBehavior(ServiceEndpoint endpoint, EndpointDispatcher endpointDispatcher)
+   at System.ServiceModel.Description.DispatcherBuilder.InitializeServiceHost(ServiceDescription description, ServiceHostBase serviceHost)
+   at System.ServiceModel.ServiceHostBase.InitializeRuntime()
+   at System.ServiceModel.ServiceHostBase.OnBeginOpen()
+   at System.ServiceModel.ServiceHostBase.OnOpen(TimeSpan timeout)
+   at System.ServiceModel.Channels.CommunicationObject.Open(TimeSpan timeout)
+   at System.ServiceModel.ServiceHostingEnvironment.HostingManager.ActivateService(ServiceActivationInfo serviceActivationInfo, EventTraceActivity eventTraceActivity)
+   at System.ServiceModel.ServiceHostingEnvironment.HostingManager.EnsureServiceAvailable(String normalizedVirtualPath, EventTraceActivity eventTraceActivity)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 06/30/2022 17:43:03 
+ERROR MESSAGE: Failed to map the path '/CaregiverLiteService.svc/GetAllScheduler/d59ff81a-5f78-4d23-be3b-c8630313e2ba/1/10/FirstName/asc/YCscheduler /0'.
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc/GetAllScheduler/d59ff81a-5f78-4d23-be3b-c8630313e2ba/1/10/FirstName/asc/YCscheduler /0
+QUERYSTRING: 
+TARGETSITE: System.String MapPathCaching(System.String, System.Web.VirtualPath)
+STACKTRACE:    at System.Web.Configuration.ProcessHostMapPath.MapPathCaching(String siteID, VirtualPath path)
+   at System.Web.Configuration.ProcessHostMapPath.System.Web.Configuration.IConfigMapPath2.MapPath(String siteID, VirtualPath path)
+   at System.Web.Hosting.HostingEnvironment.MapPathActual(VirtualPath virtualPath, Boolean permitNull)
+   at System.Web.Hosting.HostingEnvironment.MapPathInternal(VirtualPath virtualPath)
+   at System.Web.Hosting.MapPathBasedVirtualPathProvider.CacheLookupOrInsert(String virtualPath, Boolean isFile)
+   at System.Web.Hosting.MapPathBasedVirtualPathProvider.FileExists(String virtualPath)
+   at System.Web.WebPages.FileExistenceCache.<.ctor>b__4(String path)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at System.Web.WebPages.FileExistenceCache.FileExists(String virtualPath)
+   at System.Web.WebPages.BuildManagerWrapper.Exists(String virtualPath)
+   at System.Web.WebPages.VirtualPathFactoryManager.Exists(String virtualPath)
+   at System.Web.WebPages.WebPageRoute.FileExists(String virtualPath, Func`2 virtualPathExists)
+   at System.Web.WebPages.WebPageRoute.MatchRequest(String pathValue, String[] supportedExtensions, Func`2 virtualPathExists, HttpContextBase context, DisplayModeProvider displayModes)
+   at System.Web.WebPages.WebPageRoute.DoPostResolveRequestCache(HttpContextBase context)
+   at System.Web.WebPages.WebPageHttpModule.OnApplicationPostResolveRequestCache(Object sender, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 01/19/2024 15:28:54 
+ERROR MESSAGE: Operation 'GetPatientDetailsList' in contract 'ICaregiverLiteService' has a path variable named 'OrganisationId' which does not have type 'string'.  Variables for UriTemplate path segments must have type 'string'.
+SOURCE: System.ServiceModel.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc
+QUERYSTRING: 
+TARGETSITE: Void Populate(System.Collections.Generic.Dictionary`2[System.Int32,System.String] ByRef, System.Collections.Generic.Dictionary`2[System.Int32,System.Collections.Generic.KeyValuePair`2[System.String,System.Type]] ByRef, Int32 ByRef, System.UriTemplate ByRef, System.ServiceModel.Description.OperationDescription, System.ServiceModel.Dispatcher.QueryStringConverter, System.String)
+STACKTRACE:    at System.ServiceModel.Dispatcher.UriTemplateClientFormatter.Populate(Dictionary`2& pathMapping, Dictionary`2& queryMapping, Int32& totalNumUTVars, UriTemplate& uriTemplate, OperationDescription operationDescription, QueryStringConverter qsc, String contractName)
+   at System.ServiceModel.Description.WebHttpBehavior.GetRequestDispatchFormatter(OperationDescription operationDescription, ServiceEndpoint endpoint)
+   at System.ServiceModel.Description.WebHttpBehavior.ApplyDispatchBehavior(ServiceEndpoint endpoint, EndpointDispatcher endpointDispatcher)
+   at System.ServiceModel.Description.DispatcherBuilder.InitializeServiceHost(ServiceDescription description, ServiceHostBase serviceHost)
+   at System.ServiceModel.ServiceHostBase.InitializeRuntime()
+   at System.ServiceModel.ServiceHostBase.OnBeginOpen()
+   at System.ServiceModel.ServiceHostBase.OnOpen(TimeSpan timeout)
+   at System.ServiceModel.Channels.CommunicationObject.Open(TimeSpan timeout)
+   at System.ServiceModel.ServiceHostingEnvironment.HostingManager.ActivateService(ServiceActivationInfo serviceActivationInfo, EventTraceActivity eventTraceActivity)
+   at System.ServiceModel.ServiceHostingEnvironment.HostingManager.EnsureServiceAvailable(String normalizedVirtualPath, EventTraceActivity eventTraceActivity)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 01/19/2024 15:28:55 
+ERROR MESSAGE: Operation 'GetPatientDetailsList' in contract 'ICaregiverLiteService' has a path variable named 'OrganisationId' which does not have type 'string'.  Variables for UriTemplate path segments must have type 'string'.
+SOURCE: System.ServiceModel.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc
+QUERYSTRING: 
+TARGETSITE: Void Populate(System.Collections.Generic.Dictionary`2[System.Int32,System.String] ByRef, System.Collections.Generic.Dictionary`2[System.Int32,System.Collections.Generic.KeyValuePair`2[System.String,System.Type]] ByRef, Int32 ByRef, System.UriTemplate ByRef, System.ServiceModel.Description.OperationDescription, System.ServiceModel.Dispatcher.QueryStringConverter, System.String)
+STACKTRACE:    at System.ServiceModel.Dispatcher.UriTemplateClientFormatter.Populate(Dictionary`2& pathMapping, Dictionary`2& queryMapping, Int32& totalNumUTVars, UriTemplate& uriTemplate, OperationDescription operationDescription, QueryStringConverter qsc, String contractName)
+   at System.ServiceModel.Description.WebHttpBehavior.GetRequestDispatchFormatter(OperationDescription operationDescription, ServiceEndpoint endpoint)
+   at System.ServiceModel.Description.WebHttpBehavior.ApplyDispatchBehavior(ServiceEndpoint endpoint, EndpointDispatcher endpointDispatcher)
+   at System.ServiceModel.Description.DispatcherBuilder.InitializeServiceHost(ServiceDescription description, ServiceHostBase serviceHost)
+   at System.ServiceModel.ServiceHostBase.InitializeRuntime()
+   at System.ServiceModel.ServiceHostBase.OnBeginOpen()
+   at System.ServiceModel.ServiceHostBase.OnOpen(TimeSpan timeout)
+   at System.ServiceModel.Channels.CommunicationObject.Open(TimeSpan timeout)
+   at System.ServiceModel.ServiceHostingEnvironment.HostingManager.ActivateService(ServiceActivationInfo serviceActivationInfo, EventTraceActivity eventTraceActivity)
+   at System.ServiceModel.ServiceHostingEnvironment.HostingManager.EnsureServiceAvailable(String normalizedVirtualPath, EventTraceActivity eventTraceActivity)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 01/19/2024 15:30:29 
+ERROR MESSAGE: Operation 'GetPatientDetailsList' in contract 'ICaregiverLiteService' has a path variable named 'OrganisationId' which does not have type 'string'.  Variables for UriTemplate path segments must have type 'string'.
+SOURCE: System.ServiceModel.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc
+QUERYSTRING: 
+TARGETSITE: Void Populate(System.Collections.Generic.Dictionary`2[System.Int32,System.String] ByRef, System.Collections.Generic.Dictionary`2[System.Int32,System.Collections.Generic.KeyValuePair`2[System.String,System.Type]] ByRef, Int32 ByRef, System.UriTemplate ByRef, System.ServiceModel.Description.OperationDescription, System.ServiceModel.Dispatcher.QueryStringConverter, System.String)
+STACKTRACE:    at System.ServiceModel.Dispatcher.UriTemplateClientFormatter.Populate(Dictionary`2& pathMapping, Dictionary`2& queryMapping, Int32& totalNumUTVars, UriTemplate& uriTemplate, OperationDescription operationDescription, QueryStringConverter qsc, String contractName)
+   at System.ServiceModel.Description.WebHttpBehavior.GetRequestDispatchFormatter(OperationDescription operationDescription, ServiceEndpoint endpoint)
+   at System.ServiceModel.Description.WebHttpBehavior.ApplyDispatchBehavior(ServiceEndpoint endpoint, EndpointDispatcher endpointDispatcher)
+   at System.ServiceModel.Description.DispatcherBuilder.InitializeServiceHost(ServiceDescription description, ServiceHostBase serviceHost)
+   at System.ServiceModel.ServiceHostBase.InitializeRuntime()
+   at System.ServiceModel.ServiceHostBase.OnBeginOpen()
+   at System.ServiceModel.ServiceHostBase.OnOpen(TimeSpan timeout)
+   at System.ServiceModel.Channels.CommunicationObject.Open(TimeSpan timeout)
+   at System.ServiceModel.ServiceHostingEnvironment.HostingManager.ActivateService(ServiceActivationInfo serviceActivationInfo, EventTraceActivity eventTraceActivity)
+   at System.ServiceModel.ServiceHostingEnvironment.HostingManager.EnsureServiceAvailable(String normalizedVirtualPath, EventTraceActivity eventTraceActivity)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 01/19/2024 15:30:30 
+ERROR MESSAGE: Operation 'GetPatientDetailsList' in contract 'ICaregiverLiteService' has a path variable named 'OrganisationId' which does not have type 'string'.  Variables for UriTemplate path segments must have type 'string'.
+SOURCE: System.ServiceModel.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc
+QUERYSTRING: 
+TARGETSITE: Void Populate(System.Collections.Generic.Dictionary`2[System.Int32,System.String] ByRef, System.Collections.Generic.Dictionary`2[System.Int32,System.Collections.Generic.KeyValuePair`2[System.String,System.Type]] ByRef, Int32 ByRef, System.UriTemplate ByRef, System.ServiceModel.Description.OperationDescription, System.ServiceModel.Dispatcher.QueryStringConverter, System.String)
+STACKTRACE:    at System.ServiceModel.Dispatcher.UriTemplateClientFormatter.Populate(Dictionary`2& pathMapping, Dictionary`2& queryMapping, Int32& totalNumUTVars, UriTemplate& uriTemplate, OperationDescription operationDescription, QueryStringConverter qsc, String contractName)
+   at System.ServiceModel.Description.WebHttpBehavior.GetRequestDispatchFormatter(OperationDescription operationDescription, ServiceEndpoint endpoint)
+   at System.ServiceModel.Description.WebHttpBehavior.ApplyDispatchBehavior(ServiceEndpoint endpoint, EndpointDispatcher endpointDispatcher)
+   at System.ServiceModel.Description.DispatcherBuilder.InitializeServiceHost(ServiceDescription description, ServiceHostBase serviceHost)
+   at System.ServiceModel.ServiceHostBase.InitializeRuntime()
+   at System.ServiceModel.ServiceHostBase.OnBeginOpen()
+   at System.ServiceModel.ServiceHostBase.OnOpen(TimeSpan timeout)
+   at System.ServiceModel.Channels.CommunicationObject.Open(TimeSpan timeout)
+   at System.ServiceModel.ServiceHostingEnvironment.HostingManager.ActivateService(ServiceActivationInfo serviceActivationInfo, EventTraceActivity eventTraceActivity)
+   at System.ServiceModel.ServiceHostingEnvironment.HostingManager.EnsureServiceAvailable(String normalizedVirtualPath, EventTraceActivity eventTraceActivity)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 03/14/2024 11:48:16 
+ERROR MESSAGE: Unrecognized attribute 'connectionstring'. Note that attribute names are case-sensitive. (D:\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\web.config line 8)
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc
+QUERYSTRING: 
+TARGETSITE: Void Initialize()
+STACKTRACE:    at System.Web.Security.Roles.Initialize()
+   at System.Web.Security.RoleManagerModule.OnEnter(Object source, EventArgs eventArgs)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 03/14/2024 11:48:16 
+ERROR MESSAGE: Unrecognized attribute 'connectionstring'. Note that attribute names are case-sensitive. (D:\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\web.config line 8)
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc/mex
+QUERYSTRING: 
+TARGETSITE: Void Initialize()
+STACKTRACE:    at System.Web.Security.Roles.Initialize()
+   at System.Web.Security.RoleManagerModule.OnEnter(Object source, EventArgs eventArgs)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 03/14/2024 11:48:16 
+ERROR MESSAGE: Unrecognized attribute 'connectionstring'. Note that attribute names are case-sensitive. (D:\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\web.config line 8)
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc
+QUERYSTRING: 
+TARGETSITE: Void Initialize()
+STACKTRACE:    at System.Web.Security.Roles.Initialize()
+   at System.Web.Security.RoleManagerModule.OnLeave(Object source, EventArgs eventArgs)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 03/14/2024 12:05:01 
+ERROR MESSAGE: Unrecognized attribute 'connectionstring'. Note that attribute names are case-sensitive. (D:\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\web.config line 8)
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc
+QUERYSTRING: 
+TARGETSITE: Void Initialize()
+STACKTRACE:    at System.Web.Security.Roles.Initialize()
+   at System.Web.Security.RoleManagerModule.OnEnter(Object source, EventArgs eventArgs)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 03/14/2024 12:05:01 
+ERROR MESSAGE: Unrecognized attribute 'connectionstring'. Note that attribute names are case-sensitive. (D:\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\web.config line 8)
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc/mex
+QUERYSTRING: 
+TARGETSITE: Void Initialize()
+STACKTRACE:    at System.Web.Security.Roles.Initialize()
+   at System.Web.Security.RoleManagerModule.OnEnter(Object source, EventArgs eventArgs)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 03/14/2024 12:05:01 
+ERROR MESSAGE: Unrecognized attribute 'connectionstring'. Note that attribute names are case-sensitive. (D:\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\web.config line 8)
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc
+QUERYSTRING: 
+TARGETSITE: Void Initialize()
+STACKTRACE:    at System.Web.Security.Roles.Initialize()
+   at System.Web.Security.RoleManagerModule.OnLeave(Object source, EventArgs eventArgs)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 03/14/2024 12:05:01 
+ERROR MESSAGE: Unrecognized attribute 'connectionstring'. Note that attribute names are case-sensitive. (D:\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\web.config line 8)
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc
+QUERYSTRING: 
+TARGETSITE: Void Initialize()
+STACKTRACE:    at System.Web.Security.Roles.Initialize()
+   at System.Web.Security.RoleManagerModule.OnEnter(Object source, EventArgs eventArgs)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 03/14/2024 12:05:01 
+ERROR MESSAGE: Unrecognized attribute 'connectionstring'. Note that attribute names are case-sensitive. (D:\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\web.config line 8)
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc/mex
+QUERYSTRING: 
+TARGETSITE: Void Initialize()
+STACKTRACE:    at System.Web.Security.Roles.Initialize()
+   at System.Web.Security.RoleManagerModule.OnEnter(Object source, EventArgs eventArgs)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 03/14/2024 12:06:53 
+ERROR MESSAGE: Unrecognized attribute 'connectionstring'. Note that attribute names are case-sensitive. (D:\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\web.config line 8)
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc
+QUERYSTRING: 
+TARGETSITE: Void Initialize()
+STACKTRACE:    at System.Web.Security.Roles.Initialize()
+   at System.Web.Security.RoleManagerModule.OnEnter(Object source, EventArgs eventArgs)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 03/14/2024 12:06:53 
+ERROR MESSAGE: Unrecognized attribute 'connectionstring'. Note that attribute names are case-sensitive. (D:\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\web.config line 8)
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc/mex
+QUERYSTRING: 
+TARGETSITE: Void Initialize()
+STACKTRACE:    at System.Web.Security.Roles.Initialize()
+   at System.Web.Security.RoleManagerModule.OnEnter(Object source, EventArgs eventArgs)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 03/14/2024 12:06:53 
+ERROR MESSAGE: Unrecognized attribute 'connectionstring'. Note that attribute names are case-sensitive. (D:\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\web.config line 8)
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc
+QUERYSTRING: 
+TARGETSITE: Void Initialize()
+STACKTRACE:    at System.Web.Security.Roles.Initialize()
+   at System.Web.Security.RoleManagerModule.OnEnter(Object source, EventArgs eventArgs)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 03/14/2024 12:06:53 
+ERROR MESSAGE: Unrecognized attribute 'connectionstring'. Note that attribute names are case-sensitive. (D:\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\web.config line 8)
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc
+QUERYSTRING: 
+TARGETSITE: Void Initialize()
+STACKTRACE:    at System.Web.Security.Roles.Initialize()
+   at System.Web.Security.RoleManagerModule.OnEnter(Object source, EventArgs eventArgs)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 03/14/2024 12:06:53 
+ERROR MESSAGE: Unrecognized attribute 'connectionstring'. Note that attribute names are case-sensitive. (D:\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\web.config line 8)
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc/mex
+QUERYSTRING: 
+TARGETSITE: Void Initialize()
+STACKTRACE:    at System.Web.Security.Roles.Initialize()
+   at System.Web.Security.RoleManagerModule.OnEnter(Object source, EventArgs eventArgs)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 03/14/2024 12:08:35 
+ERROR MESSAGE: Unrecognized attribute 'connectionstring'. Note that attribute names are case-sensitive. (D:\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\web.config line 8)
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc
+QUERYSTRING: 
+TARGETSITE: Void Initialize()
+STACKTRACE:    at System.Web.Security.Roles.Initialize()
+   at System.Web.Security.RoleManagerModule.OnEnter(Object source, EventArgs eventArgs)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 03/14/2024 12:08:35 
+ERROR MESSAGE: Unrecognized attribute 'connectionstring'. Note that attribute names are case-sensitive. (D:\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\web.config line 8)
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc/mex
+QUERYSTRING: 
+TARGETSITE: Void Initialize()
+STACKTRACE:    at System.Web.Security.Roles.Initialize()
+   at System.Web.Security.RoleManagerModule.OnEnter(Object source, EventArgs eventArgs)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 03/14/2024 12:08:35 
+ERROR MESSAGE: Unrecognized attribute 'connectionstring'. Note that attribute names are case-sensitive. (D:\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\web.config line 8)
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc
+QUERYSTRING: 
+TARGETSITE: Void Initialize()
+STACKTRACE:    at System.Web.Security.Roles.Initialize()
+   at System.Web.Security.RoleManagerModule.OnLeave(Object source, EventArgs eventArgs)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 03/14/2024 12:08:36 
+ERROR MESSAGE: Unrecognized attribute 'connectionstring'. Note that attribute names are case-sensitive. (D:\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\web.config line 8)
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc
+QUERYSTRING: 
+TARGETSITE: Void Initialize()
+STACKTRACE:    at System.Web.Security.Roles.Initialize()
+   at System.Web.Security.RoleManagerModule.OnEnter(Object source, EventArgs eventArgs)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 03/14/2024 12:08:36 
+ERROR MESSAGE: Unrecognized attribute 'connectionstring'. Note that attribute names are case-sensitive. (D:\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\web.config line 8)
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc/mex
+QUERYSTRING: 
+TARGETSITE: Void Initialize()
+STACKTRACE:    at System.Web.Security.Roles.Initialize()
+   at System.Web.Security.RoleManagerModule.OnEnter(Object source, EventArgs eventArgs)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 03/14/2024 12:10:24 
+ERROR MESSAGE: Unrecognized attribute 'connectionstring'. Note that attribute names are case-sensitive. (D:\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\web.config line 8)
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/
+QUERYSTRING: 
+TARGETSITE: Void Initialize()
+STACKTRACE:    at System.Web.Security.Roles.Initialize()
+   at System.Web.Security.RoleManagerModule.OnEnter(Object source, EventArgs eventArgs)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 03/14/2024 12:10:24 
+ERROR MESSAGE: Unrecognized attribute 'connectionstring'. Note that attribute names are case-sensitive. (D:\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\web.config line 8)
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/favicon.ico
+QUERYSTRING: 
+TARGETSITE: Void Initialize()
+STACKTRACE:    at System.Web.Security.Roles.Initialize()
+   at System.Web.Security.RoleManagerModule.OnEnter(Object source, EventArgs eventArgs)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 03/14/2024 12:11:38 
+ERROR MESSAGE: Unrecognized attribute 'connectionstring'. Note that attribute names are case-sensitive. (D:\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\web.config line 8)
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/
+QUERYSTRING: 
+TARGETSITE: Void Initialize()
+STACKTRACE:    at System.Web.Security.Roles.Initialize()
+   at System.Web.Security.RoleManagerModule.OnEnter(Object source, EventArgs eventArgs)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 03/14/2024 12:11:38 
+ERROR MESSAGE: Unrecognized attribute 'connectionstring'. Note that attribute names are case-sensitive. (D:\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\web.config line 8)
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/favicon.ico
+QUERYSTRING: 
+TARGETSITE: Void Initialize()
+STACKTRACE:    at System.Web.Security.Roles.Initialize()
+   at System.Web.Security.RoleManagerModule.OnEnter(Object source, EventArgs eventArgs)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 03/14/2024 12:13:44 
+ERROR MESSAGE: Unrecognized attribute 'connectionstring'. Note that attribute names are case-sensitive. (D:\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\web.config line 8)
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/
+QUERYSTRING: 
+TARGETSITE: Void Initialize()
+STACKTRACE:    at System.Web.Security.Roles.Initialize()
+   at System.Web.Security.RoleManagerModule.OnEnter(Object source, EventArgs eventArgs)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 03/14/2024 12:13:44 
+ERROR MESSAGE: Unrecognized attribute 'connectionstring'. Note that attribute names are case-sensitive. (D:\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\web.config line 8)
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/favicon.ico
+QUERYSTRING: 
+TARGETSITE: Void Initialize()
+STACKTRACE:    at System.Web.Security.Roles.Initialize()
+   at System.Web.Security.RoleManagerModule.OnEnter(Object source, EventArgs eventArgs)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 03/14/2024 12:16:27 
+ERROR MESSAGE: Unrecognized attribute 'providername'. Note that attribute names are case-sensitive. (D:\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\web.config line 8)
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/
+QUERYSTRING: 
+TARGETSITE: Void Initialize()
+STACKTRACE:    at System.Web.Security.Roles.Initialize()
+   at System.Web.Security.RoleManagerModule.OnEnter(Object source, EventArgs eventArgs)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 03/14/2024 12:16:27 
+ERROR MESSAGE: Unrecognized attribute 'providername'. Note that attribute names are case-sensitive. (D:\Paseva working Directory 20-10-2023 before laptop crashed\CaregiverLiteWebServices\CaregiverLiteWCF\web.config line 8)
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/favicon.ico
+QUERYSTRING: 
+TARGETSITE: Void Initialize()
+STACKTRACE:    at System.Web.Security.Roles.Initialize()
+   at System.Web.Security.RoleManagerModule.OnEnter(Object source, EventArgs eventArgs)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 08/01/2024 17:48:16 
+ERROR MESSAGE: Operation 'GetAllAvailableOrganisationsList' in contract 'ICaregiverLiteService' has a path variable named 'OrganisationId' which does not have type 'string'.  Variables for UriTemplate path segments must have type 'string'.
+SOURCE: System.ServiceModel.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc
+QUERYSTRING: 
+TARGETSITE: Void Populate(System.Collections.Generic.Dictionary`2[System.Int32,System.String] ByRef, System.Collections.Generic.Dictionary`2[System.Int32,System.Collections.Generic.KeyValuePair`2[System.String,System.Type]] ByRef, Int32 ByRef, System.UriTemplate ByRef, System.ServiceModel.Description.OperationDescription, System.ServiceModel.Dispatcher.QueryStringConverter, System.String)
+STACKTRACE:    at System.ServiceModel.Dispatcher.UriTemplateClientFormatter.Populate(Dictionary`2& pathMapping, Dictionary`2& queryMapping, Int32& totalNumUTVars, UriTemplate& uriTemplate, OperationDescription operationDescription, QueryStringConverter qsc, String contractName)
+   at System.ServiceModel.Description.WebHttpBehavior.GetRequestDispatchFormatter(OperationDescription operationDescription, ServiceEndpoint endpoint)
+   at System.ServiceModel.Description.WebHttpBehavior.ApplyDispatchBehavior(ServiceEndpoint endpoint, EndpointDispatcher endpointDispatcher)
+   at System.ServiceModel.Description.DispatcherBuilder.InitializeServiceHost(ServiceDescription description, ServiceHostBase serviceHost)
+   at System.ServiceModel.ServiceHostBase.InitializeRuntime()
+   at System.ServiceModel.ServiceHostBase.OnBeginOpen()
+   at System.ServiceModel.ServiceHostBase.OnOpen(TimeSpan timeout)
+   at System.ServiceModel.Channels.CommunicationObject.Open(TimeSpan timeout)
+   at System.ServiceModel.ServiceHostingEnvironment.HostingManager.ActivateService(ServiceActivationInfo serviceActivationInfo, EventTraceActivity eventTraceActivity)
+   at System.ServiceModel.ServiceHostingEnvironment.HostingManager.EnsureServiceAvailable(String normalizedVirtualPath, EventTraceActivity eventTraceActivity)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 08/05/2024 21:52:02 
+ERROR MESSAGE: Failed to map the path '/CaregiverLiteService.svc/GetPatientDetailsList/d59ff81a-5f78-4d23-be3b-c8630313e2ba/1/10/PatientName/asc/0/YC220103096703 /0'.
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc/GetPatientDetailsList/d59ff81a-5f78-4d23-be3b-c8630313e2ba/1/10/PatientName/asc/0/YC220103096703 /0
+QUERYSTRING: 
+TARGETSITE: System.String MapPathCaching(System.String, System.Web.VirtualPath)
+STACKTRACE:    at System.Web.Configuration.ProcessHostMapPath.MapPathCaching(String siteID, VirtualPath path)
+   at System.Web.Configuration.ProcessHostMapPath.System.Web.Configuration.IConfigMapPath2.MapPath(String siteID, VirtualPath path)
+   at System.Web.Hosting.HostingEnvironment.MapPathActual(VirtualPath virtualPath, Boolean permitNull)
+   at System.Web.Hosting.HostingEnvironment.MapPathInternal(VirtualPath virtualPath)
+   at System.Web.Hosting.MapPathBasedVirtualPathProvider.CacheLookupOrInsert(String virtualPath, Boolean isFile)
+   at System.Web.Hosting.MapPathBasedVirtualPathProvider.FileExists(String virtualPath)
+   at System.Web.WebPages.FileExistenceCache.<.ctor>b__4(String path)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at System.Web.WebPages.FileExistenceCache.FileExists(String virtualPath)
+   at System.Web.WebPages.BuildManagerWrapper.Exists(String virtualPath)
+   at System.Web.WebPages.VirtualPathFactoryManager.Exists(String virtualPath)
+   at System.Web.WebPages.WebPageRoute.FileExists(String virtualPath, Func`2 virtualPathExists)
+   at System.Web.WebPages.WebPageRoute.MatchRequest(String pathValue, String[] supportedExtensions, Func`2 virtualPathExists, HttpContextBase context, DisplayModeProvider displayModes)
+   at System.Web.WebPages.WebPageRoute.DoPostResolveRequestCache(HttpContextBase context)
+   at System.Web.WebPages.WebPageHttpModule.OnApplicationPostResolveRequestCache(Object sender, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 11/15/2024 15:52:40 
+ERROR MESSAGE: Memory gates checking failed because the free memory (394444800 bytes) is less than 5% of total memory.  As a result, the service will not be available for incoming requests.  To resolve this, either reduce the load on the machine or adjust the value of minFreeMemoryPercentageToActivateService on the serviceHostingEnvironment config element.
+SOURCE: System.ServiceModel.Activation
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc
+QUERYSTRING: 
+TARGETSITE: Boolean Check(Int32, Boolean, UInt64 ByRef)
+STACKTRACE:    at System.ServiceModel.Activation.ServiceMemoryGates.Check(Int32 minFreeMemoryPercentage, Boolean throwOnLowMemory, UInt64& availableMemoryBytes)
+   at System.ServiceModel.ServiceHostingEnvironment.HostingManager.CheckMemoryCloseIdleServices(EventTraceActivity eventTraceActivity)
+   at System.ServiceModel.ServiceHostingEnvironment.HostingManager.EnsureServiceAvailable(String normalizedVirtualPath, EventTraceActivity eventTraceActivity)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 12/03/2024 12:10:20 
+ERROR MESSAGE: Operation 'GetPatientRequestDetailByMedicalID' in contract 'ICaregiverLiteService' has a path variable named 'OrganisationId' which does not have type 'string'.  Variables for UriTemplate path segments must have type 'string'.
+SOURCE: System.ServiceModel.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc
+QUERYSTRING: 
+TARGETSITE: Void Populate(System.Collections.Generic.Dictionary`2[System.Int32,System.String] ByRef, System.Collections.Generic.Dictionary`2[System.Int32,System.Collections.Generic.KeyValuePair`2[System.String,System.Type]] ByRef, Int32 ByRef, System.UriTemplate ByRef, System.ServiceModel.Description.OperationDescription, System.ServiceModel.Dispatcher.QueryStringConverter, System.String)
+STACKTRACE:    at System.ServiceModel.Dispatcher.UriTemplateClientFormatter.Populate(Dictionary`2& pathMapping, Dictionary`2& queryMapping, Int32& totalNumUTVars, UriTemplate& uriTemplate, OperationDescription operationDescription, QueryStringConverter qsc, String contractName)
+   at System.ServiceModel.Description.WebHttpBehavior.GetRequestDispatchFormatter(OperationDescription operationDescription, ServiceEndpoint endpoint)
+   at System.ServiceModel.Description.WebHttpBehavior.ApplyDispatchBehavior(ServiceEndpoint endpoint, EndpointDispatcher endpointDispatcher)
+   at System.ServiceModel.Description.DispatcherBuilder.InitializeServiceHost(ServiceDescription description, ServiceHostBase serviceHost)
+   at System.ServiceModel.ServiceHostBase.InitializeRuntime()
+   at System.ServiceModel.ServiceHostBase.OnBeginOpen()
+   at System.ServiceModel.ServiceHostBase.OnOpen(TimeSpan timeout)
+   at System.ServiceModel.Channels.CommunicationObject.Open(TimeSpan timeout)
+   at System.ServiceModel.ServiceHostingEnvironment.HostingManager.ActivateService(ServiceActivationInfo serviceActivationInfo, EventTraceActivity eventTraceActivity)
+   at System.ServiceModel.ServiceHostingEnvironment.HostingManager.EnsureServiceAvailable(String normalizedVirtualPath, EventTraceActivity eventTraceActivity)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 12/03/2024 12:12:38 
+ERROR MESSAGE: Operation 'GetPatientRequestDetailByMedicalID' in contract 'ICaregiverLiteService' has a path variable named 'OrganisationId' which does not have type 'string'.  Variables for UriTemplate path segments must have type 'string'.
+SOURCE: System.ServiceModel.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc
+QUERYSTRING: 
+TARGETSITE: Void Populate(System.Collections.Generic.Dictionary`2[System.Int32,System.String] ByRef, System.Collections.Generic.Dictionary`2[System.Int32,System.Collections.Generic.KeyValuePair`2[System.String,System.Type]] ByRef, Int32 ByRef, System.UriTemplate ByRef, System.ServiceModel.Description.OperationDescription, System.ServiceModel.Dispatcher.QueryStringConverter, System.String)
+STACKTRACE:    at System.ServiceModel.Dispatcher.UriTemplateClientFormatter.Populate(Dictionary`2& pathMapping, Dictionary`2& queryMapping, Int32& totalNumUTVars, UriTemplate& uriTemplate, OperationDescription operationDescription, QueryStringConverter qsc, String contractName)
+   at System.ServiceModel.Description.WebHttpBehavior.GetRequestDispatchFormatter(OperationDescription operationDescription, ServiceEndpoint endpoint)
+   at System.ServiceModel.Description.WebHttpBehavior.ApplyDispatchBehavior(ServiceEndpoint endpoint, EndpointDispatcher endpointDispatcher)
+   at System.ServiceModel.Description.DispatcherBuilder.InitializeServiceHost(ServiceDescription description, ServiceHostBase serviceHost)
+   at System.ServiceModel.ServiceHostBase.InitializeRuntime()
+   at System.ServiceModel.ServiceHostBase.OnBeginOpen()
+   at System.ServiceModel.ServiceHostBase.OnOpen(TimeSpan timeout)
+   at System.ServiceModel.Channels.CommunicationObject.Open(TimeSpan timeout)
+   at System.ServiceModel.ServiceHostingEnvironment.HostingManager.ActivateService(ServiceActivationInfo serviceActivationInfo, EventTraceActivity eventTraceActivity)
+   at System.ServiceModel.ServiceHostingEnvironment.HostingManager.EnsureServiceAvailable(String normalizedVirtualPath, EventTraceActivity eventTraceActivity)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 12/09/2024 17:41:40 
+ERROR MESSAGE: Memory gates checking failed because the free memory (382050304 bytes) is less than 5% of total memory.  As a result, the service will not be available for incoming requests.  To resolve this, either reduce the load on the machine or adjust the value of minFreeMemoryPercentageToActivateService on the serviceHostingEnvironment config element.
+SOURCE: System.ServiceModel.Activation
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc
+QUERYSTRING: 
+TARGETSITE: Boolean Check(Int32, Boolean, UInt64 ByRef)
+STACKTRACE:    at System.ServiceModel.Activation.ServiceMemoryGates.Check(Int32 minFreeMemoryPercentage, Boolean throwOnLowMemory, UInt64& availableMemoryBytes)
+   at System.ServiceModel.ServiceHostingEnvironment.HostingManager.CheckMemoryCloseIdleServices(EventTraceActivity eventTraceActivity)
+   at System.ServiceModel.ServiceHostingEnvironment.HostingManager.EnsureServiceAvailable(String normalizedVirtualPath, EventTraceActivity eventTraceActivity)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 05/28/2025 15:24:26 
+ERROR MESSAGE: Failed to map the path '/CaregiverLiteService.svc/GetAllCareGivers/d59ff81a-5f78-4d23-be3b-c8630313e2ba/1/10/2/FirstName/asc/Verenice /1/0'.
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc/GetAllCareGivers/d59ff81a-5f78-4d23-be3b-c8630313e2ba/1/10/2/FirstName/asc/Verenice /1/0
+QUERYSTRING: 
+TARGETSITE: System.String MapPathCaching(System.String, System.Web.VirtualPath)
+STACKTRACE:    at System.Web.Configuration.ProcessHostMapPath.MapPathCaching(String siteID, VirtualPath path)
+   at System.Web.Configuration.ProcessHostMapPath.System.Web.Configuration.IConfigMapPath2.MapPath(String siteID, VirtualPath path)
+   at System.Web.Hosting.HostingEnvironment.MapPathActual(VirtualPath virtualPath, Boolean permitNull)
+   at System.Web.Hosting.HostingEnvironment.MapPathInternal(VirtualPath virtualPath)
+   at System.Web.Hosting.MapPathBasedVirtualPathProvider.CacheLookupOrInsert(String virtualPath, Boolean isFile)
+   at System.Web.Hosting.MapPathBasedVirtualPathProvider.FileExists(String virtualPath)
+   at System.Web.WebPages.FileExistenceCache.<.ctor>b__4(String path)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at System.Web.WebPages.FileExistenceCache.FileExists(String virtualPath)
+   at System.Web.WebPages.BuildManagerWrapper.Exists(String virtualPath)
+   at System.Web.WebPages.VirtualPathFactoryManager.Exists(String virtualPath)
+   at System.Web.WebPages.WebPageRoute.FileExists(String virtualPath, Func`2 virtualPathExists)
+   at System.Web.WebPages.WebPageRoute.MatchRequest(String pathValue, String[] supportedExtensions, Func`2 virtualPathExists, HttpContextBase context, DisplayModeProvider displayModes)
+   at System.Web.WebPages.WebPageRoute.DoPostResolveRequestCache(HttpContextBase context)
+   at System.Web.WebPages.WebPageHttpModule.OnApplicationPostResolveRequestCache(Object sender, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 05/30/2025 17:10:39 
+ERROR MESSAGE: Failed to map the path '/CaregiverLiteService.svc/GetPatientDetailsList/d59ff81a-5f78-4d23-be3b-c8630313e2ba/1/10/FirstName/asc/0/MA250121036205 /0/2'.
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc/GetPatientDetailsList/d59ff81a-5f78-4d23-be3b-c8630313e2ba/1/10/FirstName/asc/0/MA250121036205 /0/2
+QUERYSTRING: 
+TARGETSITE: System.String MapPathCaching(System.String, System.Web.VirtualPath)
+STACKTRACE:    at System.Web.Configuration.ProcessHostMapPath.MapPathCaching(String siteID, VirtualPath path)
+   at System.Web.Configuration.ProcessHostMapPath.System.Web.Configuration.IConfigMapPath2.MapPath(String siteID, VirtualPath path)
+   at System.Web.Hosting.HostingEnvironment.MapPathActual(VirtualPath virtualPath, Boolean permitNull)
+   at System.Web.Hosting.HostingEnvironment.MapPathInternal(VirtualPath virtualPath)
+   at System.Web.Hosting.MapPathBasedVirtualPathProvider.CacheLookupOrInsert(String virtualPath, Boolean isFile)
+   at System.Web.Hosting.MapPathBasedVirtualPathProvider.FileExists(String virtualPath)
+   at System.Web.WebPages.FileExistenceCache.<.ctor>b__4(String path)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at System.Web.WebPages.FileExistenceCache.FileExists(String virtualPath)
+   at System.Web.WebPages.BuildManagerWrapper.Exists(String virtualPath)
+   at System.Web.WebPages.VirtualPathFactoryManager.Exists(String virtualPath)
+   at System.Web.WebPages.WebPageRoute.FileExists(String virtualPath, Func`2 virtualPathExists)
+   at System.Web.WebPages.WebPageRoute.MatchRequest(String pathValue, String[] supportedExtensions, Func`2 virtualPathExists, HttpContextBase context, DisplayModeProvider displayModes)
+   at System.Web.WebPages.WebPageRoute.DoPostResolveRequestCache(HttpContextBase context)
+   at System.Web.WebPages.WebPageHttpModule.OnApplicationPostResolveRequestCache(Object sender, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)Error
+-------------------------------------------------------------------------------------------------------------
+ERROR DATE: 06/20/2025 15:13:20 
+ERROR MESSAGE: Failed to map the path '/CaregiverLiteService.svc/GetAllCareGivers/d59ff81a-5f78-4d23-be3b-c8630313e2ba/1/10/2/FirstName/asc/VALERIE BROWN /0/0'.
+SOURCE: System.Web
+FORM NAME: http://localhost:15268/CaregiverLiteService.svc/GetAllCareGivers/d59ff81a-5f78-4d23-be3b-c8630313e2ba/1/10/2/FirstName/asc/VALERIE BROWN /0/0
+QUERYSTRING: 
+TARGETSITE: System.String MapPathCaching(System.String, System.Web.VirtualPath)
+STACKTRACE:    at System.Web.Configuration.ProcessHostMapPath.MapPathCaching(String siteID, VirtualPath path)
+   at System.Web.Configuration.ProcessHostMapPath.System.Web.Configuration.IConfigMapPath2.MapPath(String siteID, VirtualPath path)
+   at System.Web.Hosting.HostingEnvironment.MapPathActual(VirtualPath virtualPath, Boolean permitNull)
+   at System.Web.Hosting.HostingEnvironment.MapPathInternal(VirtualPath virtualPath)
+   at System.Web.Hosting.MapPathBasedVirtualPathProvider.CacheLookupOrInsert(String virtualPath, Boolean isFile)
+   at System.Web.Hosting.MapPathBasedVirtualPathProvider.FileExists(String virtualPath)
+   at System.Web.WebPages.FileExistenceCache.<.ctor>b__4(String path)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at System.Web.WebPages.FileExistenceCache.FileExists(String virtualPath)
+   at System.Web.WebPages.BuildManagerWrapper.Exists(String virtualPath)
+   at System.Web.WebPages.VirtualPathFactoryManager.Exists(String virtualPath)
+   at System.Web.WebPages.WebPageRoute.FileExists(String virtualPath, Func`2 virtualPathExists)
+   at System.Web.WebPages.WebPageRoute.MatchRequest(String pathValue, String[] supportedExtensions, Func`2 virtualPathExists, HttpContextBase context, DisplayModeProvider displayModes)
+   at System.Web.WebPages.WebPageRoute.DoPostResolveRequestCache(HttpContextBase context)
+   at System.Web.WebPages.WebPageHttpModule.OnApplicationPostResolveRequestCache(Object sender, EventArgs e)
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)Error
+-------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,35 @@
+﻿<div id="main_div" class="Edit_div">
+    <div class="alert alert-danger alert-dismissable" style="display:none" id="dvError3">
+        <button onclick="divClose();" class="close" type="button">×</button>
+        <label id="lblError3"></label>
+    </div>
+    <form>
+        <div class="row form-calender">
+            <div class="form-group col-md-12">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
+            </div>
+            <div class="form-group col-md-12">
+                <label for="quality">Quality:</label>
+                <input type="text" class="form-control" id="quality" placeholder="Enter quality" name="quality">
+            </div>
+            <div class="form-group col-md-12">
+                <label for="description">Description:</label>
+                <input type="text" class="form-control" id="description" placeholder="Enter description" name="Description">
+            </div>
+            <button type="submit" id="btnidd" class="btn btn-primary pull-right-20 btnCenterclass"  onclick="SELFSupply();">Submit</button>
+        </div>
+    </form>
+</div>
+
+
+<div class="col-md-12">
+    <div class="clearfix"></div>
+</div>
+<style>
+    .btnCenterclass{
+        margin-left: auto;
+    margin-right: auto;
+    display: block;
+    }
+</style>

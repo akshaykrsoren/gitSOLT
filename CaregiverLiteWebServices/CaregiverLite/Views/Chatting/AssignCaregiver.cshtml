@@ -1,0 +1,329 @@
+﻿<div id="main_div">
+    <div class="alert alert-danger alert-dismissable" style="display:none" id="dvError3">
+        <button onclick="divClose();" class="close" type="button">×</button>
+        <label id="lblError3"></label>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label>Group : @ViewBag.GroupName </label>
+        </div>
+        <div class="form-group">
+                <label>Caregiver</label>
+                <div class="form-group">
+                    <Select id="ddlCaregiver" class="chosen-select" name="ddlCaregiver" multiple="multiple">
+                        @*<Select id="ddlCaregiver" class="chosen-select" name="ddlCaregiver">*@
+                            @if (ViewBag.CaregiverList != null)
+                            {
+                                foreach (var item in ViewBag.CaregiverList)
+                                {
+                                    <option value="@item.UserId" nurseid="@item.NurseId" qbid="@item.QuickBloxId" email="@item.Email"> @item.Name </option>
+                                }
+                            }
+                        </Select>
+                </div>
+            </div>
+        @*<div class="form-group">
+            <label>Caregiver</label>
+            <div class="form-group">
+                @Html.DropDownList("ddlCaregiver", new MultiSelectList(@ViewBag.CaregiverList, "UserId", "Name"), new { @multiple = "multiple", @class = "chosen-select" })
+            </div>
+        </div>*@
+    </div>
+    <div class="col-md-12">
+        <button type="button" onclick="AssignNewCaregiver(@ViewBag.ChattingGroupId)" class="btn btn-sm btn-primary pull-right">Assign</button>
+        <div class="clearfix"></div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label>Caregiver List</label>
+            <div class="col-md-06" style="overflow-y:auto;scroll:auto;max-height:300px">
+                <table class="table table-striped table-bordered table-hover dataTables-example">
+                    <thead>
+                        <tr>
+                            <td>
+                                <b>Caregiver</b>
+                            </td>
+                            <td><b>Office</b></td>
+                            <td style="width:10%;">
+                                <b>Action</b>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (ViewBag.AssignedCaregiverDetail != null)
+                            {
+                                foreach (var item in ViewBag.AssignedCaregiverDetail)
+                                {
+                                    <tr id="@item.UserId">
+                                        <td>@item.MemberName</td>
+                                        <td>@item.OfficeName</td>
+                                        <td>
+                                            <center>
+                                                <button class="btn btn-xs btn-danger" style="margin:5px; width:auto;" onclick="RemoveCaregiver('@ViewBag.ChattingGroupId','@item.UserId','@item.QuickBloxId')"><span class="fa fa-remove"></span></button>
+                                            </center>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script type="text/javascript">
+    var unassignedCaregivers = '';
+    $(document).ready(function () {
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': { allow_single_deselect: true },
+            '.chosen-select-no-single': { disable_search_threshold: 10 },
+            '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+            '.chosen-select-width': { width: "95%" }
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+
+        }
+        //unassignedCaregivers = @Html.Raw(Json.Encode(ViewBag.CaregiverList));
+        //console.log(unassignedCaregivers);
+    });
+
+    $('#ddlCaregiver').change(function () {
+        $('#ddlCaregiver option:selected').each(function () {
+            var $value = $(this).attr('qbid');
+            if (!$value)
+                RegisterNewCaregiverOnQuickBlox($(this).attr('email'), $(this).val());
+
+            //var result = $.grep(unassignedCaregivers, function(e){ return e.UserId == $(this).val(); });
+            //if (!result.QuickBloxId)
+            //    RegisterNewCaregiverOnQuickBlox(result.Email, result.UserId);
+        });
+    });
+
+    function RegisterNewCaregiverOnQuickBlox(Login, UserId1) {
+        $("#loading").show();
+        var RegisterUser = { 'login': Login, 'password': "Welcome007!", 'tag': "differenzsystem", 'email': Login };
+        QB.users.create(RegisterUser, function (err, user1) {
+            if (user1) {                
+                var url = INITURL + '/Chatting/SaveQBId';
+                var QBId = user1.id;
+                $.ajax({
+                    url: url,
+                    data: { UserId: UserId1, QuickBloxId: QBId },
+                    type: 'POST',
+                    async: false,
+                    success: function (data) {
+                        $("#ddlCaregiver option[value='" + UserId1 + "']").attr('qbid', QBId);
+                        //objIndex = unassignedCaregivers.findIndex((obj => obj.UserId == UserId1));
+                        //unassignedCaregivers[objIndex].QuickBloxId = QBId;
+                        $("#loading").hide();
+                    },
+                    error: function (reponse) {
+                        alert("error : " + reponse);
+                        $("#loading").hide();
+                        return;
+                    }
+                });
+            } else {
+                alert("error : " + err);
+                $("#loading").hide();
+                return '';
+            }
+        });
+    }
+
+    //function SetCaregiver(ChattingGroupId) {
+    //    $("#loading").show();
+    //    var selectedNurseIds = '';
+    //    var selectedQBIds = '';
+    //    $('#ddlCaregiver :selected').each(function () {
+    //        selectedNurseIds += $(this).attr("nurseid") + ',';
+    //        if ($(this).attr("qbid"))
+    //            selectedQBIds += parseInt($(this).attr("qbid")) + ',';
+    //        //var result = $.grep(unassignedCaregivers, function(e){ return e.UserId == $(this).val(); });
+    //        //selectedNurseIds += result.NurseId + ',';
+    //        //if (result.QuickBloxId)
+    //        //    selectedQBIds += result.QuickBloxId + ',';
+    //    });
+    //    selectedNurseIds = selectedNurseIds.replace(/,\s*$/, "");
+    //    selectedQBIds = selectedQBIds.replace(/,\s*$/, "");
+    //    console.log(selectedNurseIds);
+    //    console.log(selectedQBIds);
+    //    if (selectedNurseIds == "") {
+    //        toastr.info("Please select atleast one caregiver");
+    //        $('#ddlCaregiver').focus();
+    //        return;
+    //    }
+    //    var url = INITURL + '/Chatting/AddCaregiverIntoGroup';
+    //    $.ajax({
+    //        url: url,
+    //        cache: false,
+    //        type: 'POST',
+    //        data: {
+    //            ChattingGroupId: ChattingGroupId,
+    //            NurseId: selectedNurseIds,
+    //            QuickBloxId: selectedQBIds
+    //        },
+    //        async: false,
+    //        success: function (data) {
+    //            if (data == "Success") {
+    //                $('#modalCaregiverAssignment').modal('hide');
+    //                toastr.success('Caregivers have been assigned successfully.');
+    //            }
+    //            $('#loading').hide();
+    //        },
+    //        error: function (reponse) {
+    //            $('#loading').hide();
+    //        }
+    //    });
+    //}
+
+    function RemoveCaregiver(ChattingGroupId, UserId, QuickBloxId) {
+        if (!confirm('Are you sure you want remove this caregiver ?'))
+            return false;
+        if (ChattingGroupId && UserId) {
+            $('#loading').show();
+            var url = INITURL + '/Chatting/RemoveMemberFromGroupChat';
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                data: {
+                    ChattingGroupId: ChattingGroupId,
+                    UserId: UserId,
+                    QuickBloxId: QuickBloxId
+                },
+                async: true,
+                success: function (data) {                    
+                    if (data.result == "Success") {
+                        $('#' + UserId).remove();                        
+                        loadCaregiverSelectList(data.lstCaregiver);
+                        $('#loading').hide();
+                        toastr.success('Caregiver has been removed successfully.');
+                    }
+                    else {
+                        toastr.error('Something went wrong!');
+                        $('#loading').hide();
+                    }
+                },
+                error: function (reponse) {
+                    $('#loading').hide();
+                }
+            });
+        }
+    }
+
+    function loadCaregiverSelectList(lstCaregiver) {
+        //unassignedCaregivers = data.lstCaregiver;
+        $('#ddlCaregiver').empty();
+        if (lstCaregiver.length > 0) {
+            $.each(lstCaregiver, function (key, value) {
+                $('#ddlCaregiver').append("<option value=" + value.UserId + " nurseid=" + value.NurseId + " qbid=" + value.QuickBloxId + "email=" + value.Email + ">" + value.Name + "</option>");
+                //$('#ddlCaregiver').append("<option value=" + value.UserId + ">" + value.Name + "</option>");
+            });
+        }
+        $('#ddlCaregiver').trigger("chosen:updated");
+        $('#loading').hide();
+    }
+
+    //function AssignNewCaregiver(ChattingGroupId)
+    //{   
+    //    var selectedNurseIds = '';
+    //    var selectedQBIds = '';
+    //    $('#ddlCaregiver :selected').each(function () {
+    //        selectedNurseIds += $(this).attr("nurseid") + ',';
+    //        if ($(this).attr("qbid"))
+    //            selectedQBIds += parseInt($(this).attr("qbid")) + ',';
+    //    });
+
+    //    selectedNurseIds = selectedNurseIds.replace(/,\s*$/, "");
+    //    selectedQBIds = selectedQBIds.replace(/,\s*$/, "");
+
+    //    if (selectedNurseIds == "") {
+    //        toastr.info("Please select atleast one caregiver");
+    //        $('#ddlCaregiver').focus();
+    //        return;
+    //    }
+    //    $('#loading').show();
+    //    var url = INITURL + '/Chatting/AddMemberIntoGroup_V1';
+    //    $.ajax({
+    //        url: url,
+    //        cache: false,
+    //        type: 'POST',
+    //        data: {
+    //            ChattingGroupId: ChattingGroupId,
+    //            NurseId: selectedNurseIds,
+    //            QuickBloxId: selectedQBIds
+    //        },
+    //        async: true,
+    //        success: function (data) {
+    //            $('#loading').hide();
+    //            if (data == "Success") {
+    //                $('#modalCaregiverAssignment').modal('hide');                    
+    //                toastr.success('Caregivers have been assigned successfully.');
+    //            }               
+    //        },
+    //        error: function (reponse) {
+    //            $('#loading').hide();
+    //        }
+    //    });
+    //}
+    debugger;
+    function AssignNewCaregiver(ChattingGroupId) {
+        var selectedUserIds = '';
+        var selectedQBIds = '';
+        debugger;
+        $('#ddlCaregiver :selected').each(function () {
+            selectedUserIds += $(this).attr("value") + ',';
+            debugger;
+            //alert(selectedUserIds);
+            if ($(this).attr("qbid"))
+                debugger;
+            selectedQBIds += parseInt($(this).attr("qbid")) + ',';
+            debugger;
+        });
+        debugger;
+        selectedUserIds = selectedUserIds.replace(/,\s*$/, "");
+        //alert(selectedUserIds);
+        debugger;
+        selectedQBIds = selectedQBIds.replace(/,\s*$/, "");
+
+        if (!selectedUserIds) {
+            toastr.info("Please select atleast one caregiver");
+            $('#ddlCaregiver').focus();
+            return;
+        }
+        $('#loading').show();
+        debugger;
+       //var url = INITURL + '/Chatting/AddMemberIntoGroup_V1';
+        debugger;
+       var url = INITURL + '/Chatting/AddMemberCaregiverInPatientChatRoom';
+        debugger;
+        $.ajax({
+            url: url,
+            cache: false,
+            type: 'POST',
+            data: {
+                ChattingGroupId: ChattingGroupId,
+                UserIds: selectedUserIds,
+                QuickBloxId: selectedQBIds
+            },
+            async: true,
+            success: function (data) {
+                debugger;
+                $('#loading').hide();
+                if (data == "Success") {
+                    debugger;
+                    $('#modalCaregiverAssignment').modal('hide');
+                    toastr.success('Caregivers have been assigned successfully.');
+                }
+            },
+            error: function (reponse) {
+                $('#loading').hide();
+            }
+        });
+    }
+</script>

@@ -1,0 +1,527 @@
+﻿
+@{
+    ViewBag.Title = "Group Chat";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Assign Permission POPUP START -->
+<div class="modal fade" id="modalAssignPermission" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Assign Permission(s)</h4>
+            </div>
+            <div class="modal-body row" id="AssignPermission">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ADD New Group POPUP START -->
+<div class="modal fade" id="addGroupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md" id="modalAddPopup">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Add New Group</h4>
+            </div>
+            <div class="modal-body row" id="AddNewGroup">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalMemberAssignment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Assign Member(s)</h4>
+            </div>
+            <div class="modal-body row" id="AssignMember">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalGroupDetailEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Edit Group Detail(s)</h4>
+            </div>
+            <div class="modal-body row" id="GroupDetailEdit">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Group Chat List</h5>
+                    <div class="ibox-tools">
+                     
+                        @if (ViewContext.Controller.HasRoles("Nurse"))
+                        {
+                            if (Session["IsApproved"].ToString() == "True" && Session["IsAllowToCreateGroupChat"].ToString() == "True")
+                            {
+                                <a class="btn btn-xs btn-primary" style="margin-top:-9px;" href="javascript:;" onclick="OpenAddNew()">Add New Group</a>
+                            }
+                        }
+                        else
+                        {
+                            if (Session["IsAllowToCreateGroupChat"].ToString() == "True")
+                            {
+                            <a class="btn btn-xs btn-primary" style="margin-top:-9px;" href="javascript:;" onclick="OpenAddNew()">Add New Group</a>
+
+                            }
+                        }
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="form-group col-md-2 pull-right">
+                        <label>Search:</label>
+                        <input type="text" class="form-control" id="table-filter" placeholder="Search Here..">
+                    </div>
+                    <div class="form-group col-md-2 pull-right">
+
+                        <label>@CaregiverLite.Views.Resources.PatientRequest.FilterLabelOffice</label>
+                        </br>
+                        <div class="form-group" style="margin-right: 10px;">
+                            @Html.DropDownList("ddlOfficeDropDownList", (System.Web.Mvc.SelectList)ViewBag.OfficeDropDownList, new { @class = "form-control", style = "width:170px", @onchange = "FilterOffice(this.value)" })
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <table id="myDataTable" class="table table-striped table-bordered table-hover dataTables-example">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Office</th>
+                                <th>Chat</th>
+                                <th>Member</th>
+                                <th>Action</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*<script src="~/Scripts/js/jquery-2.1.1.js"></script>
+    <script src="~/Scripts/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="~/Scripts/js/oms.min.js"></script>*@
+
+<script src="~/Scripts/js/jquery-2.1.1.js"></script>
+<script src="~/Scripts/js/jquery.dataTables.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="~/Scripts/js/oms.min.js"></script>
+
+<script type="text/javascript">
+
+
+    $('#ddlOfficeDropDownList').val(0);
+    //$(document).ready(function () {
+    //    var config = {
+    //        '.chosen-select': {},
+    //        '.chosen-select-deselect': { allow_single_deselect: true },
+    //        '.chosen-select-no-single': { disable_search_threshold: 10 },
+    //        '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+    //        '.chosen-select-width': { width: "95%" }
+    //    }
+    //    for (var selector in config) {
+    //        $(selector).chosen(config[selector]);
+    //    }
+
+    //    $("#loading").hide();
+    //});
+
+    function FilterOffice(OfficeId) {
+
+        //debugger;
+
+        var OfficeSelect = document.getElementById("ddlOfficeDropDownList");
+        var OfficeNameText = OfficeSelect.options[OfficeSelect.selectedIndex].text;
+
+
+        var a = JSON.parse(localStorage.getItem('group_chatting_data_2'));
+        // debugger
+
+        //var b = a.filter(function (el) {
+        //    return el.OfficeId == OfficeId;
+        //});
+
+        var b = a.filter(function (el) {
+
+            var x = OfficeNameText;
+            var y = el.OfficeName;
+            //   debugger;
+            // str.includes("world");
+            return el.OfficeName.includes(OfficeNameText);
+            // return el.OfficeName == OfficeName;
+        });
+
+        if ($('#ddlOfficeDropDownList').val() != 0) {
+            var datatable = groupDataTable;
+
+            datatable.clear().draw();
+            datatable.rows.add(b);
+            // Add new data
+            datatable.columns.adjust().draw();
+        }
+        else {
+            var datatable = groupDataTable;
+
+            datatable.clear().draw();
+            datatable.rows.add(a);
+            // Add new data
+            datatable.columns.adjust().draw();
+        }
+        //********************************************************* old logic for unread count
+        //for (var i1 = 0; i1 < GroupDialogIds.length ; i1++) {
+        //    var res1 = JSON.parse(localStorage.getItem('res1'));
+        //    //   debugger;
+        //    if (res1[GroupDialogIds[i1].GroupDialogId]) {
+        //        //   debugger;
+        //        if (($("#myDataTable").find('tbody tr td span[id="notifyGroup' + GroupDialogIds[i1].GroupDialogId + '"]')).length > 0) {
+        //            $("#notifyGroup" + GroupDialogIds[i1].GroupDialogId).text(res1[GroupDialogIds[i1].GroupDialogId]);
+        //            $("#notifyGroup" + GroupDialogIds[i1].GroupDialogId).show();
+        //        }
+        //        else {
+
+        //            if (GroupDialogIds[i1].GroupDialogId != "") {
+        //                //console.log(DialogIds[i1].NurseId + " _ notify" + DialogIds[i1].QuickBloxDialogId);
+        //                var tmpdid = "notifyGroup" + GroupDialogIds[i1].GroupDialogId
+        //                $("#" + GroupDialogIds[i1].NurseId).show();
+        //                $("#" + GroupDialogIds[i1].NurseId).attr('id', tmpdid);
+        //                $("#notifyGroup" + GroupDialogIds[i1].GroupDialogId).text(res1[GroupDialogIds[i1].GroupDialogId]);
+
+        //            }
+        //        }
+        //    }
+
+        //}
+        //*********************************************************
+
+    }
+
+
+    $(document).ready(function () {
+
+        localStorage.removeItem("local_group_chat_data_2");
+        localStorage.removeItem("group_chat_data_2");
+
+        var columns = [
+                            {
+                                'targets': 0,
+                                "sName": "GroupName",
+                                "mRender": function (data, type, row, meta) {
+
+                                    var v1 = '<span class="label label-danger" style="float: right;height: 25px;width: auto;padding-top: 7px;font-size: 12px;border-radius: 15px;">' + row.unreadMsgCount + '</span>'
+                                    if (row.unreadMsgCount) {
+                                        return '<span style="margin-left: 0px;">' + row.GroupName + '</span>' + v1;
+                                    }
+                                    else {
+
+                                        return '<span style="margin-left: 0px;">' + row.GroupName + '</span>';
+                                        //return '<span style="margin-left: 0px;">' + row.GroupName + '</span>';
+                                    }
+                                }
+                            },
+                           {
+                               "sName": "OfficeName",
+                               "bSortable": true,
+                               "mRender": function (data, type, row, meta) {
+                                   return row.OfficeName;
+                               }
+                           },
+                            {
+                                "sName": "ChattingGroupId",
+                                "bSortable": false,
+                                "mRender": function (data, type, row, meta) {
+                                    var actionhtml = '';
+                                    actionhtml += '<a href="/Chatting/OpenGroupChatWindow?Id=' + row.ChattingGroupId + '&GroupType=3" class="btn btn-xs btn-primary" style="width:100%;" >Chat</a>'
+
+                                    return actionhtml;
+                                }
+                            },
+                               {
+
+                                   "sName": "Member",
+                                   "bSortable": false,
+                                   "mRender": function (data, type, row, meta) {
+                                       var actionhtml = '';
+                                       if (row.IsGroupAdmin == true && row.IsOfficeGroup == false)
+                                           actionhtml += '<input type="button" class="btn btn-xs btn-primary" style="margin-left:10px; width:auto;" onclick="OpenAssignNewMemberModal(' + row.ChattingGroupId + ',\'' + escape(row.GroupName) + '\',\'' + row.GroupTypeId + '\')" value="Assign Member">'
+                                       else
+                                           actionhtml += '-'
+                                       return actionhtml
+                                   }
+                               },
+                               {
+
+                                   "sName": "Action",
+                                   "bSortable": false,
+                                   "mRender": function (data, type, row, meta) {
+                                       var actionhtml = '';
+
+                                       if (row.IsGroupAdmin == true && row.IsOfficeGroup == false)
+                                       {
+                                           actionhtml += '<input type="button" class="btn btn-xs btn-primary" style=";margin-left:10px; width:auto;" onclick="EditGroupDetaiModal(' + row.ChattingGroupId + ',\'' + row.DialogId + '\',\'' + row.GroupName + '\',\'' + row.GroupSubject + '\')" value="Edit">'
+                                           actionhtml += '<input type="button" class="btn btn-xs btn-primary" style="background-color: #e00e0e;margin-left:10px; width:auto;" onclick="DeleteGroupChat(' + row.ChattingGroupId + ',\'' + row.DialogId + '\')" value="Delete Group">'
+                                       }
+                                       //  else
+                                       //debugger;
+                                       if (row.IsOfficeGroup == false) {
+                                           if("@Session["Role"]" != "SuperAdmin")
+                                           {
+                                               actionhtml += '<input type="button" class="btn btn-xs btn-primary" style="background-color: #e00e0e;margin-left:10px; width:auto;"  onclick="ExitGroupChat(' + row.ChattingGroupId + ',\'' + row.DialogId + '\',\'' + row.GroupName + '\')" value="Exit Group">'
+                                           }
+                                       }
+                                       if (row.IsOfficeGroup == true) {
+                                           if("@Session["Role"]" == "SuperAdmin" || "@Session["Role"]" == "Admin")
+                                           {
+                                               actionhtml += '<input type="button" class="btn btn-xs btn-primary" style="margin-left:10px; width:auto;"  onclick="AssignPermission(' + row.ChattingGroupId + ',\'' + row.GroupName + '\',\'' + row.GroupTypeId + '\')" value="ASSIGN PERMISSION">'
+                                           }
+                                       }
+                                       return actionhtml
+
+
+                                   }
+                               },
+                            {
+                                "sName": "Time",
+                                "bVisible": false,
+                                "mRender": function (data, type, row, meta) {
+                                    return row.Time;
+                                }
+                            },
+        ]
+        if (localStorage.getItem('local_group_chat_data_2') == null) {
+            localdata();
+        }
+        else {
+            dataTable();
+        }
+
+        function localdata() {
+            //  debugger;
+            try {
+                // $('#loading').show();
+                $.ajax({
+                    url: "@Url.Action("GetGroupChatList", "Chatting")",
+                    type: 'POST',
+                    data: jQuery.param({ sEcho: "1", iDisplayStart: "0", iDisplayLength: "200", iSortCol_0: "2", sSortDir_0: "asc", sSearch: "", iColumns: "3" }),
+                    success: function (response) {
+                        //  debugger;
+                        localStorage.setItem('local_group_chat_data_2', JSON.stringify(response));
+                        dataTable();
+                    },
+                    error: function (error) {
+                        //   debugger;
+                        //throw error;
+                    }
+                });
+
+            } catch (e) {
+                //  $('#loading').hide();
+
+            }
+        }
+
+        function dataTable() {
+
+
+
+            if (localStorage.getItem('group_chatting_data_2') != null) {
+
+                var data = JSON.parse(localStorage.getItem('group_chatting_data_2'));
+
+            }
+            else {
+                var testdata = JSON.parse(localStorage.getItem('local_group_chat_data_2'));
+                var data = testdata.aaData;
+
+            }
+
+            $("#loading").show();
+            var jquey = jQuery.noConflict();
+
+            groupDataTable = $('#myDataTable')
+                      .DataTable({
+                          "aaData": data,
+                          "draw": 1,
+                          "bDeferRender": true,
+                          "sDom": '<"top"l>rt<"bottom"ip><"clear">',
+                          "pageLength": 100,
+                          "autoWidth": false,
+                          "bPaginate": true,
+                          "bSearchable": true,
+                          columns: columns,
+                          "order": [[5, 'desc']],
+                          "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                              //debugger;
+                              if (aData["IsOfficeGroup"]) {
+                                  $('td', nRow).css('background-color', '#cdf0be');
+                              }
+                              //else if (aData[2] == "4") {
+                              //    $('td', nRow).css('background-color', 'Orange');
+                              //}
+                          }
+                      });
+
+            $("#loading").hide();
+
+            //setTimeout(groupSortByTime, 2000);
+
+        }
+
+        $('#myDataTable_filter input').unbind(); //Unbind direct search on each keypress
+        $('#myDataTable_filter input').bind('keyup', function (e) { //Bind Keyup event that filter data only on "Enter" key.
+            if (e.keyCode == 13) {
+                groupDataTable.fnFilter(this.value);
+            }
+        });
+
+        $("#loading").hide();
+
+        //$('#table-filter')
+        //    .bind('keyup',
+        //        function (e) {
+        //            //Bind Keyup event that filter data only on "Enter" key.
+        //            if (e.keyCode == 13) {
+        //                ChatDatatable.search(this.value).draw();
+        //                //oTable.fnFilter(this.value, null, false);
+        //            }
+        //        });
+
+        $('#table-filter').bind('keyup', function (e) {
+            //Bind Keyup event that filter data only on "Enter" key.
+            if (e.keyCode == 13) {
+                groupDataTable.search(this.value).draw();
+                //oTable.fnFilter(this.value, null, false);
+            }
+        });
+
+    });
+
+
+    function OpenAddNew() {
+        $("#loading").show();
+
+        $('#AddNewGroup').load(INITURL + 'Chatting/AddNewGroup', function () {
+            sessionStorage.setItem("PartialView", "1");
+            $('#addGroupModal').modal('show');
+
+            $("#loading").hide();
+        });
+    }
+
+
+    function OpenAssignNewMemberModal(ChattingGroupId, GroupName, GroupTypeId) {
+
+        $("#loading").show();
+        var url = INITURL + 'Chatting/AssignMember?ChattingGroupId=' + ChattingGroupId + '&GroupName=' + unescape(GroupName) + '&GroupTypeId=' + GroupTypeId;
+        $('#AssignMember').load(encodeURI(url), function () {
+            sessionStorage.setItem("PartialView", "1");
+            $('#modalMemberAssignment').modal('show');
+            $("#loading").hide();
+        });
+    }
+
+    function EditGroupDetaiModal(ChattingGroupId, DialogId, GroupName, GroupSubject) {
+
+        $("#loading").show();
+        var url = INITURL + 'Chatting/EditGroupDetail?ChattingGroupId=' + ChattingGroupId + '&DialogId=' + DialogId + '&GroupName=' + unescape(GroupName) + '&GroupSubject=' + GroupSubject;
+        $('#GroupDetailEdit').load(encodeURI(url), function () {
+            sessionStorage.setItem("PartialView", "1");
+            $('#modalGroupDetailEdit').modal('show');
+            $("#loading").hide();
+        });
+
+
+    }//Edit Group
+
+    function DeleteGroupChat(ChattingGroupId, DialogId) {
+
+
+        if (confirm("Are you sure you want to delete this group permanently?")) {
+            $("#loading").show();
+            var url = INITURL + '/Chatting/DeleteGroupChat';
+            $.ajax({
+                url: url,
+                cache: false,
+                type: 'POST',
+                async: false,
+                data: { ChattingGroupId: ChattingGroupId, DialogId: DialogId },
+                success: function (data) {
+                    if (data) {
+                        toastr.success("Group deleted successfully.");
+                        location.reload();
+                    }
+                },
+                error: function (reponse) {
+                    //alert("error : " + reponse);
+                    toastr.error("Group not deleted. Try again....");
+                    $("#loading").hide();
+                }
+            });
+        }
+        $("#loading").hide();
+
+    }
+
+
+    function ExitGroupChat(ChattingGroupId, DialogId, GroupName) {
+        $("#loading").show();
+
+        if (confirm("Are you sure you want to exit this group permanently?")) {
+
+            var url = INITURL + '/Chatting/ExitGroupChat';
+            $.ajax({
+                url: url,
+                cache: false,
+                type: 'POST',
+                async: false,
+                data: { ChattingGroupId: ChattingGroupId, GroupDialogId: DialogId, GroupName: GroupName },
+                success: function (data) {
+                    //debugger;
+                    if (data == "Success") {
+                        window.location = INITURL + '/Chatting/GroupChat';
+                        toastr.success("Group exit successfully.");
+                        location.reload();
+                    }
+                    $("#loading").hide();
+                },
+                error: function (reponse) {
+                    //alert("error : " + reponse);
+                    toastr.error("Group not exit. Try again....");
+                    $("#loading").hide();
+                }
+            });
+        }
+      //  $("#loading").hide();
+
+    }
+
+    function AssignPermission(ChattingGroupId, GroupName,GroupTypeId ) {
+        //debugger;
+        $("#loading").show();
+        var url = INITURL + 'Chatting/_AssignPermission?ChattingGroupId=' + ChattingGroupId + '&GroupName=' + unescape(GroupName) + '&GroupTypeId=' + GroupTypeId;
+        $('#AssignPermission').load(encodeURI(url), function () {
+            sessionStorage.setItem("PartialView", "1");
+            $('#modalAssignPermission').modal('show');
+            $("#loading").hide();
+        });
+    }
+
+</script>
