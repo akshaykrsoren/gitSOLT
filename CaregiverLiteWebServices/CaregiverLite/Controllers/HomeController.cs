@@ -17,17 +17,17 @@ namespace CaregiverLite.Controllers
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
-            string sss = "askhay";
+            string name = "ashaish";
+            string age = "323223";
             return View();
         }
 
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
-            string address = "USA amrketing";
-            string city = "new yourk";
-
-           
+            string name = "ashish";
+            string houseno = "1234";
+            string area = "1234";
             return View();
         }
     }
