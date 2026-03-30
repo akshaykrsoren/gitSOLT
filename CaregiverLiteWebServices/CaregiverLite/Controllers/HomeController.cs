@@ -10,20 +10,23 @@ namespace CaregiverLite.Controllers
     {
         public ActionResult Index()
         {
+            string city = "ghatshila";
             return View();
         }
 
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
-
+            string sss = "askhay";
             return View();
         }
 
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
+            string address = "USA";
 
+            string city = "ghatshila";
             return View();
         }
     }
