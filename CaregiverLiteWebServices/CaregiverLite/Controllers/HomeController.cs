@@ -24,9 +24,10 @@ namespace CaregiverLite.Controllers
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
-            string address = "USA";
+            string address = "USA amrketing";
+            string city = "new yourk";
 
-            string city = "ghatshila";
+           
             return View();
         }
     }
