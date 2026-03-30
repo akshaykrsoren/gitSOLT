@@ -34,9 +34,11 @@ namespace CaregiverLite.Controllers
 
             string city = "ghatshila";
             string address = "delhi";
+            string address555 = "delhi";
+            String City555 = "New York";
 
 
-            string age = "323223";
+            string age555 = "323223";
             return View();
         }
     }
