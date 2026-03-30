@@ -62,6 +62,7 @@ namespace CaregiverLite.Controllers
                         objVisits.VisitTypeId = Convert.ToInt32(ds.Tables[0].Rows[i]["VisitTypeId"]);
                         objVisits.VisitTypeName = ds.Tables[0].Rows[i]["VisitTypeName"].ToString();
                         objVisits.VisitTypeName = ds.Tables[0].Rows[i]["VisitTypeName"].ToString();
+                        objVisits.VisitTypeId = Convert.ToInt32(ds.Tables[0].Rows[i]["VisitTypeId"]);
                         objVisits.Description = ds.Tables[0].Rows[i]["Description"].ToString();
 
                         VisitTypeList.Add(objVisits);
