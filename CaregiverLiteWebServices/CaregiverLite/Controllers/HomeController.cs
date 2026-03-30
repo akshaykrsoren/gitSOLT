@@ -28,6 +28,7 @@ namespace CaregiverLite.Controllers
             ViewBag.Message = "Your contact page.";
             string name = "ashish";
             string houseno = "1234";
+            string area = "1234";
             return View();
         }
     }
