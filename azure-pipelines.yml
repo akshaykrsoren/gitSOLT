@@ -6,7 +6,7 @@
 trigger:
 - master
 
-pool: akshayAgentPool
+pool: gitagentpool
 
 variables:
   solution: '**/*.sln'
